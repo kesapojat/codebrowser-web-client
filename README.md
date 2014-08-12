@@ -63,6 +63,7 @@ view logics clean as possible.
 ├── test
 │   ├── casperjs                # CasperJS BDD browser tests
 │   ├── config                  # Test configurations
+│   ├── helpers                 # Helper files for browser tests
 │   └── spec                    # Jasmine BDD Unit tests
 └── web.js                      # Node.js server
 ```
