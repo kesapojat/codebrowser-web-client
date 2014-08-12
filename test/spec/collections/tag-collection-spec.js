@@ -17,21 +17,21 @@ describe('TagCollection', function () {
 
         tags = new codebrowser.collection.TagCollection(null, { courseId: 2, exerciseId: 3 });
 
-        expect(function () { tags.url() }).toThrow(missingOptionsError);
+        expect(function () { tags.url() }).toThrowError(missingOptionsError);
     });
 
     it('url should throw error if no courseId is passed', function () {
 
         tags = new codebrowser.collection.TagCollection(null, { studentId: 1, exerciseId: 3 });
 
-        expect(function () { tags.url() }).toThrow(missingOptionsError);
+        expect(function () { tags.url() }).toThrowError(missingOptionsError);
     });
 
     it('url should throw error if no exerciseId is passed', function () {
 
         tags = new codebrowser.collection.TagCollection(null, { studentId: 1, courseId: 2 });
 
-        expect(function () { tags.url() }).toThrow(missingOptionsError);
+        expect(function () { tags.url() }).toThrowError(missingOptionsError);
     });
 
     it('should have correct URL', function () {

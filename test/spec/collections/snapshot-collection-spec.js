@@ -17,21 +17,21 @@ describe('SnapshotCollection', function () {
 
         snapshots = new codebrowser.collection.SnapshotCollection(null, { courseId: 2, exerciseId: 3 });
 
-        expect(function () { snapshots.url() }).toThrow(missingOptionsError);
+        expect(function () { snapshots.url() }).toThrowError(missingOptionsError);
     });
 
     it('url should throw error if no courseId is passed', function () {
 
         snapshots = new codebrowser.collection.SnapshotCollection(null, { studentId: 1, exerciseId: 3 });
 
-        expect(function () { snapshots.url() }).toThrow(missingOptionsError);
+        expect(function () { snapshots.url() }).toThrowError(missingOptionsError);
     });
 
     it('url should throw error if no exerciseId is passed', function () {
 
         snapshots = new codebrowser.collection.SnapshotCollection(null, { studentId: 1, courseId: 2 });
 
-        expect(function () { snapshots.url() }).toThrow(missingOptionsError);
+        expect(function () { snapshots.url() }).toThrowError(missingOptionsError);
     });
 
     it('should have correct URL', function () {
@@ -79,9 +79,7 @@ describe('SnapshotCollection', function () {
         expect(snapshots.getDifference(0, 'Test.java')).not.toBeNull();
     });
 
-    it('should return correct differences for snapshots', function () {
-
-        var _differences = null;
+    it('should return correct differences for snapshots', function (done) {
 
         var a = codebrowser.model.Snapshot.findOrCreate({ id: 1 });
         var b = codebrowser.model.Snapshot.findOrCreate({ id: 2 });
@@ -114,61 +112,41 @@ describe('SnapshotCollection', function () {
 
         snapshots.getDifferences(function (differences) {
 
-            _differences = differences;
-        });
-
-        waitsFor(function () {
-
-            return _differences !== null;
-
-        }, 'Getting differences never succeeded.', config.test.async.timeout);
-
-        runs(function () {
-
             // Differences
-            expect(_differences).not.toBeNull();
-            expect(_differences.length).toBe(2);
+            expect(differences).not.toBeNull();
+            expect(differences.length).toBe(2);
 
             // Differences for snapshots a
-            expect(_differences[0].total).toBe(2);
-            expect(_differences[0].lines).toBe(2);
+            expect(differences[0].total).toBe(2);
+            expect(differences[0].lines).toBe(2);
 
             expect(snapshots.getDifference(0, 'FileA.java')).not.toBeNull();
             expect(snapshots.getDifference(0, 'FileC.java')).toBeNull();
 
             // Differences for snapshot b
-            expect(_differences[1].total).toBe(2);
-            expect(_differences[1].lines).toBe(3);
+            expect(differences[1].total).toBe(2);
+            expect(differences[1].lines).toBe(3);
 
             expect(snapshots.getDifference(1, 'FileA.java')).not.toBeNull();
             expect(snapshots.getDifference(1, 'FileC.java')).not.toBeNull();
 
             expect(snapshots.differencesDone).toBeTruthy();
+
+            done();
         });
     });
 
-    it('should return previously calculated differences', function () {
-
-        var _differences = null;
+    it('should return previously calculated differences', function (done) {
 
         snapshots.differences = [];
         snapshots.differencesDone = true;
 
         snapshots.getDifferences(function (differences) {
 
-            _differences = differences;
-        });
+            expect(differences).not.toBeNull();
+            expect(differences).toEqual([]);
 
-        waitsFor(function () {
-
-            return _differences !== null;
-
-        }, 'Getting differences never succeeded.', config.test.async.timeout);
-
-        runs(function () {
-
-            expect(_differences).not.toBeNull();
-            expect(_differences).toEqual([]);
+            done();
         });
     });
 });

@@ -115,9 +115,8 @@ describe('File', function () {
         expect(file.getName()).toBe('File.java');
     });
 
-    it('should fetch content for an existing file', function () {
+    it('should fetch content for an existing file', function (done) {
 
-        var _content = null;
         var snapshot = codebrowser.model.Snapshot.findOrCreate({ studentId: student.id,
                                                                  courseId: course.id,
                                                                  exerciseId: exercise.id,
@@ -126,24 +125,13 @@ describe('File', function () {
 
         snapshot.get('files').at(0).fetchContent(function (content) {
 
-            _content = content;
-        });
-
-        waitsFor(function () {
-
-            return _content !== null;
-
-        }, 'File fetch never succeeded.', config.test.async.timeout);
-
-        runs(function () {
-
-            expect(_content).not.toBeNull();
+            expect(content).not.toBeNull();
+            done();
         });
     });
 
-    it('fetch content for a non-existent file should return an error', function () {
+    it('fetch content for a non-existent file should return an error', function (done) {
 
-        var _error = null;
         var snapshot = codebrowser.model.Snapshot.findOrCreate({ studentId: student.id,
                                                                  courseId: course.id,
                                                                  exerciseId: exercise.id,
@@ -154,18 +142,8 @@ describe('File', function () {
         snapshot.get('files').at(0).id = 0;
         snapshot.get('files').at(0).fetchContent(function (content, error) {
 
-            _error = error;
-        });
-
-        waitsFor(function () {
-
-            return _error !== null;
-
-        }, 'File fetch never succeeded.', config.test.async.timeout);
-
-        runs(function () {
-
-            expect(_error).not.toBeNull();
+            expect(error).not.toBeNull();
+            done();
         });
     });
 });

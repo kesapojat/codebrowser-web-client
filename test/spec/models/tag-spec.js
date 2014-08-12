@@ -17,21 +17,21 @@ describe('Tag', function () {
 
         tag = codebrowser.model.Tag.findOrCreate({ id: 5 }, { courseId: 2, exerciseId: 3 });
 
-        expect(function () { tag.fetch() }).toThrow(missingAttributesError);
+        expect(function () { tag.fetch() }).toThrowError(missingAttributesError);
     });
 
     it('fetch should throw error if no courseId is passed', function () {
 
         tag = codebrowser.model.Tag.findOrCreate({ id: 6 }, { studentId: 1, exerciseId: 3 });
 
-        expect(function () { tag.fetch() }).toThrow(missingAttributesError);
+        expect(function () { tag.fetch() }).toThrowError(missingAttributesError);
     });
 
     it('fetch should throw error if no exerciseId is passed', function () {
 
         tag = codebrowser.model.Tag.findOrCreate({ id: 7 }, { studentId: 1, courseId: 2 });
 
-        expect(function () { tag.fetch() }).toThrow(missingAttributesError);
+        expect(function () { tag.fetch() }).toThrowError(missingAttributesError);
     });
 
     it('should have correct IDs through collection', function () {

@@ -29,7 +29,7 @@ describe('Course router', function () {
         expect(codebrowser.router.CourseRouter.prototype.navigation).toHaveBeenCalled();
     });
 
-    it('catches an non-existent student id', function () {
+    it('catches an non-existent student id', function (done) {
 
         spyOn(codebrowser.router.CourseRouter.prototype, 'notFound');
 
@@ -38,10 +38,9 @@ describe('Course router', function () {
         Backbone.history.start();
         router.navigate('#/students/-9999/courses');
 
-        waits(2000);
-
-        runs(function () {
+        setTimeout(function () {
             expect(codebrowser.router.CourseRouter.prototype.notFound).toHaveBeenCalled();
-        });
+            done();
+        }, 2000);
     });
 });

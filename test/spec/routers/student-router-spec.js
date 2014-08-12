@@ -41,7 +41,7 @@ describe('Student router', function () {
         expect(codebrowser.router.StudentRouter.prototype.navigation).toHaveBeenCalled();
     });
 
-    it('catches an URL with incorrect course id', function () {
+    it('catches an URL with incorrect course id', function (done) {
 
         spyOn(codebrowser.router.StudentRouter.prototype, 'notFound');
 
@@ -50,14 +50,13 @@ describe('Student router', function () {
         Backbone.history.start();
         router.navigate('#/courses/3/exercises/-6666/students');
 
-        waits(2000);
-
-        runs(function () {
+        setTimeout(function () {
             expect(codebrowser.router.StudentRouter.prototype.notFound).toHaveBeenCalled();
-        });
+            done();
+        }, 2000);
     });
 
-    it('pushes error view to ViewController', function () {
+    it('pushes error view to ViewController', function (done) {
 
         spyOn(codebrowser.controller.ViewController, 'push');
 
@@ -66,14 +65,13 @@ describe('Student router', function () {
         Backbone.history.start();
         router.navigate('#/courses/3/exercises/-6666/students', true);
 
-        waits(2000);
-
-        runs(function () {
+        setTimeout(function () {
             expect(codebrowser.controller.ViewController.push).toHaveBeenCalled();
-        });
+            done();
+        }, 2000);
     });
 
-    it('pushes student view to ViewController', function () {
+    it('pushes student view to ViewController', function (done) {
 
         spyOn(codebrowser.controller.ViewController, 'push');
 
@@ -82,10 +80,9 @@ describe('Student router', function () {
         Backbone.history.start();
         router.navigate('#/courses/662/exercises/815/students', true);
 
-        waits(2000);
-
-        runs(function () {
+        setTimeout(function () {
             expect(codebrowser.controller.ViewController.push).toHaveBeenCalled();
-        });
+            done();
+        }, 2000);
     });
 });

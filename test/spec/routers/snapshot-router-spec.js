@@ -29,7 +29,7 @@ describe('Snapshot router', function () {
         expect(codebrowser.router.SnapshotRouter.prototype.navigation).toHaveBeenCalled();
     });
 
-    it('catches an non-existent URL', function () {
+    it('catches an non-existent URL', function (done) {
 
         spyOn(codebrowser.router.SnapshotRouter.prototype, 'notFound');
 
@@ -38,14 +38,13 @@ describe('Snapshot router', function () {
         Backbone.history.start();
         router.navigate('#/students/-9999/courses/3/exercises/1/snapshots');
 
-        waits(2000);
-
-        runs(function () {
+        setTimeout(function () {
             expect(codebrowser.router.SnapshotRouter.prototype.notFound).toHaveBeenCalled();
-        });
+            done();
+        }, 2000);
     });
 
-    it('catches an non-existent snapshot id', function () {
+    it('catches an non-existent snapshot id', function (done) {
 
         spyOn(codebrowser.router.SnapshotRouter.prototype, 'notFound');
 
@@ -54,14 +53,13 @@ describe('Snapshot router', function () {
         Backbone.history.start();
         router.navigate('#/students/2/courses/1/exercises/3/snapshots/-9999', true);
 
-        waits(2000);
-
-        runs(function () {
+        setTimeout(function () {
             expect(codebrowser.router.SnapshotRouter.prototype.notFound).toHaveBeenCalled();
-        });
+            done();
+        }, 2000);
     });
 
-    it('catches an non-existent file id', function () {
+    it('catches an non-existent file id', function (done) {
 
         spyOn(codebrowser.router.SnapshotRouter.prototype, 'notFound');
 
@@ -70,10 +68,9 @@ describe('Snapshot router', function () {
         Backbone.history.start();
         router.navigate('#/students/2/courses/1/exercises/3/snapshots/5/files/-9999', true);
 
-        waits(2000);
-
-        runs(function () {
+        setTimeout(function () {
             expect(codebrowser.router.SnapshotRouter.prototype.notFound).toHaveBeenCalled();
-        });
+            done();
+        }, 2000);
     });
 });

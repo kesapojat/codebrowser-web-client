@@ -53,7 +53,7 @@ describe('Exercise router', function () {
         expect(codebrowser.router.ExerciseRouter.prototype.navigateToCourseExercises).toHaveBeenCalled();
     });
 
-    it('catches an non-existent URL', function () {
+    it('catches an non-existent URL', function (done) {
 
         spyOn(codebrowser.router.ExerciseRouter.prototype, 'notFound');
 
@@ -62,14 +62,13 @@ describe('Exercise router', function () {
         Backbone.history.start();
         router.navigate('#/students/-9999/courses/-6666/exercises');
 
-        waits(2000);
-
-        runs(function () {
+        setTimeout(function () {
             expect(codebrowser.router.ExerciseRouter.prototype.notFound).toHaveBeenCalled();
-        });
+            done();
+        }, 2000);
     });
 
-    it('pushes exercise view to ViewController', function () {
+    it('pushes exercise view to ViewController', function (done) {
 
         spyOn(codebrowser.controller.ViewController, 'push');
 
@@ -78,10 +77,9 @@ describe('Exercise router', function () {
         Backbone.history.start();
         router.navigate('#/courses/662/exercises', true);
 
-        waits(2000);
-
-        runs(function () {
+        setTimeout(function () {
             expect(codebrowser.controller.ViewController.push).toHaveBeenCalled();
-        });
+            done();
+        }, 2000);
     });
 });

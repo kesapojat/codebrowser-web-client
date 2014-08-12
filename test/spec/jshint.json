@@ -16,19 +16,26 @@
 
     "globals": {
 
+        "$": true,
         "ace": true,
+        "afterEach": true,
         "Backbone": true,
         "beforeEach": true,
+        "casper": true,
         "codebrowser": true,
         "config": true,
+        "console": true,
         "describe": true,
         "document": true,
+        "done": true,
         "expect": true,
         "Handlebars": true,
         "it": true,
         "jasmine": true,
         "localStorage": true,
         "runs": true,
+        "setTimeout": true,
+        "sinon": true,
         "spyOn": true,
         "waits": true,
         "waitsFor": true

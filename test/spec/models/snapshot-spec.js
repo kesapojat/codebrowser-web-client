@@ -52,21 +52,21 @@ describe('Snapshot', function () {
 
         snapshot = codebrowser.model.Snapshot.findOrCreate({ courseId: 2, exerciseId: 3, id: 5 });
 
-        expect(function () { snapshot.fetch() }).toThrow(missingAttributesError);
+        expect(function () { snapshot.fetch() }).toThrowError(missingAttributesError);
     });
 
     it('fetch should throw error if no courseId is passed', function () {
 
         snapshot = codebrowser.model.Snapshot.findOrCreate({ studentId: 1, exerciseId: 3, id: 6 });
 
-        expect(function () { snapshot.fetch() }).toThrow(missingAttributesError);
+        expect(function () { snapshot.fetch() }).toThrowError(missingAttributesError);
     });
 
     it('fetch should throw error if no exerciseId is passed', function () {
 
         snapshot = codebrowser.model.Snapshot.findOrCreate({ studentId: 1, courseId: 2, id: 7 });
 
-        expect(function () { snapshot.fetch() }).toThrow(missingAttributesError);
+        expect(function () { snapshot.fetch() }).toThrowError(missingAttributesError);
     });
 
     it('should have files', function () {
