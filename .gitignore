@@ -1,0 +1,15 @@
+# OS X
+
+.DS_Store
+
+# Temporary files
+
+*~
+
+# Project
+
+.grunt/
+_SpecRunner.html
+test/coverage/
+nbproject/
+node_modules/

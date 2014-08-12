@@ -1,0 +1,37 @@
+{
+    "asi": true,
+    "boss": true,
+    "camelcase": true,
+    "curly": true,
+    "eqeqeq": true,
+    "eqnull": true,
+    "expr": true,
+    "immed": true,
+    "indent": 4,
+    "newcap": true,
+    "quotmark": "single",
+    "trailing": true,
+    "undef": true,
+    "unused": true,
+
+    "globals": {
+
+        "ace": true,
+        "Backbone": true,
+        "beforeEach": true,
+        "codebrowser": true,
+        "config": true,
+        "describe": true,
+        "document": true,
+        "expect": true,
+        "Handlebars": true,
+        "it": true,
+        "jasmine": true,
+        "localStorage": true,
+        "runs": true,
+        "spyOn": true,
+        "waits": true,
+        "waitsFor": true
+
+    }
+}

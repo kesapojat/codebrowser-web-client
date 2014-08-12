@@ -1,0 +1,55 @@
+<header>
+
+    <section>
+
+        <h1>{{filename name}}</h1>
+
+        <span class='pull-right'>
+
+            + {{duration snapshot.snapshotTime previous.snapshot.snapshotTime}}
+
+            <a id='editor-inspector' href='#' data-toggle='popover' data-placement='bottom'
+
+               data-original-title='
+
+                    <time>{{date previous.snapshot.snapshotTime}} –</time>
+                    <time>{{date snapshot.snapshotTime}}</time>
+
+               '
+
+               data-content='
+
+                <dl class="dl-horizontal pull-left">
+
+                  <dt>Change</dt>
+                  <dd>{{percentageOfChange}} %</dd>
+
+                  <dt>Insert</dt>
+                  <dd>{{difference.insert}} {{pluralize difference.insert 'line'}}</dd>
+
+                  <dt>Replace</dt>
+                  <dd>{{difference.replace}} {{pluralize difference.replace 'line'}}</dd>
+
+                  <dt>Delete</dt>
+                  <dd>{{difference.delete}} {{pluralize difference.delete 'line'}}</dd>
+
+                </dl>
+
+            '><i class='icon-info-sign icon-gray'></i></a>
+
+        </span>
+
+    </section>
+
+    {{#if split}}
+
+        <section class='split'>
+
+            <div class='previous'><span>Previous</span></div>
+            <div class='current'><span>Current</span></div>
+
+        </section>
+
+    {{/if}}
+
+</header>

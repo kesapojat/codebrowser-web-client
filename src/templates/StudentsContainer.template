@@ -1,0 +1,63 @@
+<section>
+
+    <ul class='breadcrumb'>
+        <li><a href='./'>Home</a> <span class='divider'>/</span></li>
+
+        {{#if course}}
+            <li><a href='./#/courses'>Courses</a> <span class='divider'>/</span></li>
+            <li><a href='./#/courses/{{course.id}}'>{{course.name}}</a> <span class='divider'>/</span></li>
+            <li><a href='./#/courses/{{course.id}}/exercises'>Exercises</a> <span class='divider'>/</span></li>
+            <li><a href='./#/courses/{{course.id}}/exercises/{{exercise.id}}'>{{exercise.name}}</a> <span class='divider'>/</span></li>
+        {{/if}}
+
+        <li class='active'>Students</li>
+    </ul>
+
+    <h2>{{#if course}} {{course.name}} — {{exercise.name}} — {{/if}} Students ({{students.length}})</h2>
+
+    <table class='table table-hover'>
+
+        <thead>
+            <tr>
+
+                <th>#</th>
+                <th>Name</th>
+
+                {{#unless course}}
+                    <th>Courses</th>
+                {{/unless}}
+
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {{#students}}
+
+                <tr>
+
+                    <td class='index'>{{index @index}}</td>
+
+                    {{#if ../course}}
+
+                        <td class='link'><a href='./#/courses/{{../../course.id}}/exercises/{{../../exercise.id}}/students/{{id}}/snapshots'>{{name}}</a></td>
+
+                    {{else}}
+
+                        <td class='link'><a href='./#/students/{{id}}/courses'>{{name}}</a></td>
+
+                    {{/if}}
+
+                    {{#unless ../course}}
+                        <td>{{courses.length}}</td>
+                    {{/unless}}
+
+                </tr>
+
+            {{/students}}
+
+        </tbody>
+
+    </table>
+
+</section>

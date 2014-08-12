@@ -1,0 +1,33 @@
+<header>
+
+    <h1><i class='icon-folder-close icon-gray'></i> {{exercise.name}}</h1>
+
+</header>
+
+<ul>
+
+        {{#each files}}
+
+            {{#if @key}}
+
+                <li class='folder'><i class='icon-folder-open icon-gray'></i>{{@key}}</li>
+
+            {{/if}}
+
+            {{#each this}}
+
+                {{#if ../../courseRoute}}
+
+                    <li data-id='{{id}}'><a href='./#/courses/{{../../../courseId}}/exercises/{{../../../exerciseId}}/students/{{../../../studentId}}/snapshots/{{../../../id}}/files/{{id}}'><i class='icon-file icon-gray'></i> {{filename name}}</a></li>
+
+                {{else}}
+
+                    <li data-id='{{id}}'><a href='./#/students/{{../../../studentId}}/courses/{{../../../courseId}}/exercises/{{../../../exerciseId}}/snapshots/{{../../../id}}/files/{{id}}'><i class='icon-file icon-gray'></i> {{filename name}}</a></li>
+
+                {{/if}}
+
+            {{/each}}
+
+        {{/each}}
+
+</ul>
