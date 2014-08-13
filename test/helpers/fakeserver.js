@@ -8,6 +8,11 @@ var createFakeServer = function (mockData) {
     var server = sinon.fakeServer.create();
     server.autoRespond = true;
 
+    // Prints a warning if request doesn't match any registered paths.
+    server.respondWith(function (req) {
+        throw new Error('No mock data for request: '  + JSON.stringify(req.url));
+    });
+
     for (var path in mockData) {
 
         // Match URLs that have same root and path and optional query string in the end.
@@ -17,12 +22,6 @@ var createFakeServer = function (mockData) {
         var code = typeof mockData[path] === 'number' ? mockData[path] : 200;
         server.respondWith(urlRegEx, [code, { 'Content-Type': contentType }, JSON.stringify(mockData[path])]);
     }
-
-    // Prints a warning if request doesn't match any registered paths.
-    server.respondWith(function (req) {
-
-        throw new Error('No mock data for request: '  + JSON.stringify(req.url));
-    });
 };
 
 /* Setup for casper tests. */
@@ -58,7 +57,7 @@ if (typeof casper !== 'undefined') {
         }
 
         // Injects sinon's code into casperjs's browser.
-        casper.page.injectJs('./node_modules/sinon/pkg/sinon-1.7.3.js');
+        casper.page.injectJs('./node_modules/sinon/pkg/sinon.js');
 
         // To catch all requests made by codebrowser, fakeserver must be created before
         // $(document).ready() is triggered. However, creating sinon server in page.initialized
