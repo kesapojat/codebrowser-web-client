@@ -14,7 +14,7 @@ describe('ExerciseCollection', function () {
 
         exercises = new codebrowser.collection.ExerciseCollection(null, { studentId: 1 });
 
-        expect(function () { exercises.url() }).toThrow(missingOptionsError);
+        expect(function () { exercises.url() }).toThrowError(missingOptionsError);
     });
 
     it('should have correct URL when fetching all exercises related to a course', function () {
