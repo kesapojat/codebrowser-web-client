@@ -1,8 +1,8 @@
-# codebrowser/web-client [![Build Status](https://travis-ci.org/kesapojat/codebrowser-web-client.png?branch=master)](https://travis-ci.org/kesapojat/codebrowser-web-client)
+# codebrowser/web-client [![Build Status](https://travis-ci.org/kesapojat/codebrowser-web-client.png?branch=master)](https://travis-ci.org/kesapojat/codebrowser-web-client/)
 
 Web client for Code Browser (HTML5 + CSS3 + JavaScript + Node.js + Grunt).
 
-CI: https://travis-ci.org/codebrowser/web-client  
+CI: https://travis-ci.org/codebrowser/web-client
 Deployed on: http://codebrowser.herokuapp.com
 
 To develop this project, you will need to have node.js and npm installed on your development environment.
@@ -32,7 +32,7 @@ Start server with `node web.js`. The app will deploy to http://localhost:8080/.
 
 ## Structure
 
-The app is built upon the Backbone MVC app structure. To add functionality, start by creating necessary models — if any. 
+The app is built upon the Backbone MVC app structure. To add functionality, start by creating necessary models — if any.
 Then proceed by creating required routes and views for the functionality. The views consist of Handlebars templates
 that create the rendered HTML structure for a given view. The app uses subviews within views extensively to keep the
 view logics clean as possible.
