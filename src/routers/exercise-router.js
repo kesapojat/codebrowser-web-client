@@ -1,4 +1,4 @@
-codebrowser.router.ExerciseRouter = Backbone.Router.extend({
+codebrowser.router.ExerciseRouter = codebrowser.router.BaseRouter.extend({
 
     routes: {
 
@@ -61,23 +61,10 @@ codebrowser.router.ExerciseRouter = Backbone.Router.extend({
             var student = codebrowser.model.Student.findOrCreate({ id: studentId });
 
             // Fetch student
-            student.fetch({
+            this.fetchModel(student, true, function () {
 
-                cache: true,
-                expires: config.cache.expires,
-
-                success: function () {
-
-                    self.exerciseView.student = student;
-                    fetchSynced();
-                },
-
-                // Student fetch failed
-                error: function () {
-
-                    self.notFound();
-                }
-
+                self.exerciseView.student = student;
+                fetchSynced();
             });
 
         } else {
@@ -89,46 +76,16 @@ codebrowser.router.ExerciseRouter = Backbone.Router.extend({
 
         var exerciseCollection = new codebrowser.collection.ExerciseCollection(null, { studentId: studentId,
                                                                                        courseId: courseId });
-        exerciseCollection.course = course;
-
         // Fetch course
-        course.fetch({
+        this.fetchModel(course, true, function () {
 
-            cache: true,
-            expires: config.cache.expires,
-
-            success: function () {
-
-                self.exerciseView.course = course;
-                fetchSynced();
-            },
-
-            // Course fetch failed
-            error: function () {
-
-                self.notFound();
-            }
-
+            self.exerciseView.course = course;
+            fetchSynced();
         });
 
         this.exerciseView.collection = exerciseCollection;
 
         // Fetch exercise collection
-        exerciseCollection.fetch({
-
-            cache: true,
-            expires: config.cache.expires,
-
-            success: function () {
-
-                fetchSynced();
-            },
-
-            // Exercises fetch failed
-            error: function () {
-
-                self.notFound();
-            }
-        });
+        this.fetchModel(exerciseCollection, true, fetchSynced);
     }
 });

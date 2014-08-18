@@ -26,5 +26,26 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
     notFound: function () {
 
         codebrowser.controller.ViewController.push(this.errorView, true);
+    },
+
+    fetchModel: function (model, useCache, onSuccess) {
+
+        var self = this;
+
+        model.fetch({
+
+            cache: useCache,
+            expires: useCache ? config.cache.expires : 0,
+
+            success: function (model, response, options) {
+
+                onSuccess(model, response, options);
+            },
+
+            error: function () {
+
+                self.notFound();
+            }
+        });
     }
 });

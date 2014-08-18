@@ -11,9 +11,12 @@ codebrowser.view.CoursesView = Backbone.View.extend({
         var attributes = {
 
             studentId: this.collection.studentId,
-            student: this.student.toJSON(),
             courses: this.collection.toJSON()
 
+        }
+
+        if (this.collection.studentId) {
+            attributes = _.extend(attributes, { student: this.student.toJSON() });
         }
 
         // Template

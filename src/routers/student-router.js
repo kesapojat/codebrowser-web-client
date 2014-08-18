@@ -1,4 +1,4 @@
-codebrowser.router.StudentRouter = Backbone.Router.extend({
+codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
 
     routes: {
 
@@ -45,6 +45,7 @@ codebrowser.router.StudentRouter = Backbone.Router.extend({
 
         // Wait for fetches to be in sync
         var fetchSynced = _.after(3, function () {
+
             self.studentView.render();
             codebrowser.controller.ViewController.push(self.studentView);
         });
@@ -56,50 +57,28 @@ codebrowser.router.StudentRouter = Backbone.Router.extend({
                 var exercise = codebrowser.model.Exercise.findOrCreate({ id: options.exerciseId });
 
                 // Fetch exercise
-                exercise.fetch({
+                self.fetchModel(exercise, true, function () {
 
-                    cache: true,
-                    expires: config.cache.expires,
-
-                    success: function() {
-
-                        self.studentView.exercise = exercise;
-                        fetchSynced();
-                    },
-                    // Exercise fetch failed
-                    error: function() {
-
-                        self.notFound();
-                    }
-
+                    self.studentView.exercise = exercise;
+                    fetchSynced();
                 });
             });
 
             var course = codebrowser.model.Course.findOrCreate({ id: options.courseId });
 
             // Fetch course
-            course.fetch({
+            this.fetchModel(course, true, function () {
 
-                cache: true,
-                expires: config.cache.expires,
-
-                success: function() {
-
-                    self.studentView.course = course;
-                    courseFetched();
-                    fetchSynced();
-                },
-
-                // Course fetch failed
-                error: function() {
-
-                    self.notFound();
-                }
-
+                self.studentView.course = course;
+                self.studentView.exercise = null;
+                courseFetched();
+                fetchSynced();
             });
 
         } else {
 
+            self.studentView.course = null;
+            self.studentView.exercise = null;
             fetchSynced();
             fetchSynced();
         }
@@ -109,21 +88,6 @@ codebrowser.router.StudentRouter = Backbone.Router.extend({
         this.studentView.collection = studentCollection;
 
         // Fetch student collection
-        studentCollection.fetch({
-
-            cache: true,
-            expires: config.cache.expires,
-
-            success: function () {
-
-                fetchSynced();
-            },
-
-            // Students fetch failed
-            error: function () {
-
-                self.notFound();
-            }
-        });
+        this.fetchModel(studentCollection, true, fetchSynced);
     }
 });
