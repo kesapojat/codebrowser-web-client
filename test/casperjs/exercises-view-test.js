@@ -119,6 +119,11 @@ casper.test.begin('Exercises view (student-course exercises)', 6, function suite
         'students/21/courses': [
             {id: 11, name: 'course 1', exercises: [{}, {}]},
             {id: 12, name: 'course 2', exercises: [{}, {}, {}]}
+        ],
+
+        'students/21/courses/11/exercises': [
+            {id: 31, name: 'exc 1'},
+            {id: 32, name: 'exc 2'}
         ]
     };
 
