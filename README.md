@@ -62,3 +62,14 @@ view logics clean as possible.
 │   └── spec                    # Jasmine BDD Unit tests
 └── web.js                      # Node.js server
 ```
+
+## Credits
+
+This project has been developed at the University of Helsinki’s [Department of Computer Science](http://cs.helsinki.fi/en/) by:
+
+* Kenny Heinonen ([kennyhei](https://github.com/kennyhei/))
+* Kasper Hirvikoski ([kasperhirvikoski](https://github.com/kasperhirvikoski/))
+
+## License
+
+This project is licensed under [MIT](LICENSE.md).
