@@ -6,6 +6,16 @@ module.exports = function (grunt) {
 
         pkg: grunt.file.readJSON('package.json'),
 
+        clean: {
+
+            build: [ 'coverage/',
+                     'static/assets/js/codebrowser-min.js',
+                     'static/assets/js/codebrowser-templates-min.js',
+                     'static/assets/js/codebrowser-templates.js',
+                     'static/assets/js/codebrowser.js',
+                     'tmp/' ]
+        },
+
         watch: {
 
             src: {
@@ -227,5 +237,5 @@ module.exports = function (grunt) {
     grunt.registerTask('test', [ 'jshint', 'jasmine' ]);
     grunt.registerTask('integration-test', [ 'concat:tests', 'connect', 'casperjs' ]);
     grunt.registerTask('build', [ 'jshint','handlebars', 'concat', 'uglify' ]);
-    grunt.registerTask('default', [ 'test', 'integration-test', 'build' ]);
+    grunt.registerTask('default', [ 'clean', 'test', 'integration-test', 'build' ]);
 }
