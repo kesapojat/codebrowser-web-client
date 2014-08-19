@@ -4,7 +4,7 @@ Web client for Code Browser (HTML5 + CSS3 + JavaScript + Node.js + Grunt). To de
 
 ## Install Dependencies
 
-Install Grunt's command line interface globally if necessary with `npm install -g grunt-cli`. You will also need
+Install Grunt’s command line interface globally if necessary with `npm install -g grunt-cli`. You will also need
 PhantomJS and CasperJS to run browser tests. Install PhantomJS with `npm install -g phantomjs`. Download
 [CasperJS](http://casperjs.org/) (1.1-beta3) and look for the installation instructions from [here](http://docs.casperjs.org/en/latest/installation.html).
 Download development dependencies by running `npm install -d`.
