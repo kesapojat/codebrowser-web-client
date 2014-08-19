@@ -28,13 +28,13 @@ casper.test.begin('Exercises view (course exercises)', 13, function suite(test) 
 
     casper.start('http://localhost:8000');
 
-    casper.then(function() {
+    casper.then(function () {
 
         this.clickLabel('Courses', 'a');
         this.waitForSelector('#courses-container');
     });
 
-    casper.then(function() {
+    casper.then(function () {
 
         this.clickLabel('course 1', 'a');
         this.waitForSelector('#exercises-container');
@@ -56,7 +56,7 @@ casper.test.begin('Exercises view (course exercises)', 13, function suite(test) 
                                                  'has exc 2 with a correct link to student list');
     });
 
-    casper.then(function() {
+    casper.then(function () {
 
         this.echo('Navigating back to courses list');
         casper.back();
@@ -86,7 +86,7 @@ casper.test.begin('Exercises view (course exercises)', 13, function suite(test) 
                                                  'has "exc 4" with a correct link to student list');
     });
 
-    casper.run(function() {
+    casper.run(function () {
 
         this.echo('');
         test.done();
@@ -125,19 +125,19 @@ casper.test.begin('Exercises view (student-course exercises)', 6, function suite
 
     casper.start('http://localhost:8000');
 
-    casper.then(function() {
+    casper.then(function () {
 
         this.clickLabel('Students', 'a');
         this.waitForSelector('#students-container');
     });
 
-    casper.then(function() {
+    casper.then(function () {
 
         this.clickLabel('student 1', 'a');
         this.waitForSelector('#courses-container');
     });
 
-    casper.then(function() {
+    casper.then(function () {
 
         this.clickLabel('course 1', 'a');
         this.waitForSelector('#exercises-container');
@@ -159,7 +159,7 @@ casper.test.begin('Exercises view (student-course exercises)', 6, function suite
                                                  'has "exc 2" with a correct link to snapshots');
     });
 
-    casper.run(function() {
+    casper.run(function () {
 
         this.echo('');
         test.done();
@@ -192,13 +192,13 @@ casper.test.begin('Exercises view (course-student exercises)', 6, function suite
 
     casper.start('http://localhost:8000');
 
-    casper.then(function() {
+    casper.then(function () {
 
         this.clickLabel('Courses', 'a');
         this.waitForSelector('#courses-container');
     });
 
-    casper.then(function() {
+    casper.then(function () {
 
         this.clickLabel('course 1', 'a');
         this.waitForSelector('#exercises-container');
@@ -220,7 +220,7 @@ casper.test.begin('Exercises view (course-student exercises)', 6, function suite
                                                  'has "exc 2" with a correct link to students');
     });
 
-    casper.run(function() {
+    casper.run(function () {
 
         this.echo('');
         test.done();

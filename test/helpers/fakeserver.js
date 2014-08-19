@@ -62,7 +62,7 @@ if (typeof casper !== 'undefined') {
         // To catch all requests made by codebrowser, fakeserver must be created before
         // $(document).ready() is triggered. However, creating sinon server in page.initialized
         // does not work, so the only way is to register our own handler before anyone else's.
-        casper.evaluate(function(createFakeServer, mockData) {
+        casper.evaluate(function (createFakeServer, mockData) {
 
             document.addEventListener('DOMContentLoaded', function () {
                 createFakeServer(mockData);

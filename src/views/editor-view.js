@@ -280,7 +280,7 @@ codebrowser.view.EditorView = Backbone.View.extend({
         this.previousModel = previousFile;
 
         // Wait files to be in sync
-        var fileSynced = _.after(2, function() {
+        var fileSynced = _.after(2, function () {
 
             var previousContent = self.sideEditor.getValue();
             var content = self.mainEditor.getValue();
