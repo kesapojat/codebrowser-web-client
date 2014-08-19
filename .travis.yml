@@ -13,6 +13,9 @@ before_install:
 before_script:
     - npm install -g grunt-cli
 
+after_success:
+    - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+
 notifications:
 
     email: false
