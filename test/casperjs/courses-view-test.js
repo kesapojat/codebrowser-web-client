@@ -34,8 +34,7 @@ casper.test.begin('Courses view (all courses)', 10, function suite(test) {
         test.assertTruthy(this.getHTML().indexOf('<a href="./#/courses/12/exercises">Course 2') !== -1,
                                                  'has "Course 2" with a correct link to course view');
 
-        function cntEx() { return $('tr:contains(Course 2)').find(':nth-child(3)').html(); }
-        test.assertTruthy(cntEx, '3', 'has exercise count 3 for "Course 2"');
+        test.assertEquals($('tr:contains(Course 2)').find(':nth-child(3)').html(), '3', 'has exercise count 3 for "Course 2"');
     });
 
     casper.then(function () {
@@ -108,14 +107,9 @@ casper.test.begin('Courses view (student courses)', 10, function suite(test) {
         test.assertTruthy(this.getHTML().indexOf('<a href="./#/students/22/courses/14/exercises">Course 4') !== -1,
                                                  'has "Course 4" with a correct link to exercise list');
 
-        function cntEx1() { return $('tr:contains(Course 1)').find(':nth-child(3)').html(); }
-        test.assertEvalEquals(cntEx1, '2', 'has exercise count 2 for "Course 1"');
-
-        function cntEx3() { return $('tr:contains(Course 3)').find(':nth-child(3)').html(); }
-        test.assertEvalEquals(cntEx3, '4', 'has exercise count 4 for "Course 3"');
-
-        function cntEx4() { return $('tr:contains(Course 4)').find(':nth-child(3)').html(); }
-        test.assertEvalEquals(cntEx4, '4', 'has exercise count 4 for "Course 4"');
+        test.assertEquals($('tr:contains(Course 1)').find(':nth-child(3)').html(), '2', 'has exercise count 2 for "Course 1"');
+        test.assertEquals($('tr:contains(Course 3)').find(':nth-child(3)').html(), '4', 'has exercise count 4 for "Course 3"');
+        test.assertEquals($('tr:contains(Course 3)').find(':nth-child(3)').html(), '4', 'has exercise count 4 for "Course 4"');
     });
 
     casper.run(function () {
