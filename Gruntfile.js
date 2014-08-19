@@ -222,7 +222,7 @@ module.exports = function (grunt) {
             files: 'tmp/casperjs-concat.js',
             options: {
 
-                includes: [ 'test/config/config.js', 'test/helpers/fakeserver.js' ]
+                includes: [ 'test/config/config.js', 'test/helpers/fake-server.js' ]
 
             }
         }
