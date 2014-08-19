@@ -19,21 +19,21 @@ MIT License
 
 ## Ace
 
-> Copyright (c) 2010, Ajax.org B.V.
+> Copyright (c) 2010, Ajax.org B.V.  
 > All rights reserved.
->
+> 
 > Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
 > following conditions are met:
->
-> * Redistributions of source code must retain the above copyright
->   notice, this list of conditions and the following disclaimer.
-> * Redistributions in binary form must reproduce the above copyright
->   notice, this list of conditions and the following disclaimer in the
->   documentation and/or other materials provided with the distribution.
-> * Neither the name of Ajax.org B.V. nor the
->   names of its contributors may be used to endorse or promote products
+>  
+> * Redistributions of source code must retain the above copyright  
+>   notice, this list of conditions and the following disclaimer.  
+> * Redistributions in binary form must reproduce the above copyright  
+>   notice, this list of conditions and the following disclaimer in the  
+>   documentation and/or other materials provided with the distribution.  
+> * Neither the name of Ajax.org B.V. nor the  
+>   names of its contributors may be used to endorse or promote products  
 >   derived from this software without specific prior written permission.
->
+> 
 > THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
 > INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
 > DISCLAIMED. IN NO EVENT SHALL AJAX.ORG B.V. BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
@@ -99,8 +99,8 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 
 ## Bootstrap
 
->   Apache License
->   Version 2.0, January 2004
+>   Apache License  
+>   Version 2.0, January 2004  
 >   http://www.apache.org/licenses/
 >
 >   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
@@ -317,7 +317,7 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 
 ## jQuery
 
-> Copyright 2013 jQuery Foundation and other contributors
+> Copyright 2013 jQuery Foundation and other contributors  
 > http://jquery.com/
 >
 > Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
@@ -339,7 +339,7 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 >
 > This is part of jsdifflib v1.0. <http://snowtide.com/jsdifflib>
 >
-> Copyright (c) 2007, Snowtide Informatics Systems, Inc.
+> Copyright (c) 2007, Snowtide Informatics Systems, Inc.  
 > All rights reserved.
 >
 > Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -362,7 +362,7 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 
 ## Liberation Mono
 
-> LICENSE AGREEMENT AND LIMITED PRODUCT WARRANTY LIBERATION FONT SOFTWARE
+> LICENSE AGREEMENT AND LIMITED PRODUCT WARRANTY LIBERATION FONT SOFTWARE  
 > This agreement governs the use of the Software and any updates to the
 > Software, regardless of the delivery mechanism. Subject to the following
 > terms, Red Hat, Inc. ("Red Hat") grants to the user ("Client") a license to
@@ -468,19 +468,19 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 
 > Copyright © 2008 Dmitry Baranovskiy
 >
-> Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
-> documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use,
-> copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+> Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
+> documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, 
+> copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the 
 > Software is furnished to do so, subject to the following conditions:
 >
-> The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+> The above copyright notice and this permission notice shall be included in all copies or substantial portions of the 
 > Software.
 >
-> THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
-> BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-> NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-> CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+> THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+> BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+> NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+> CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+> ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
 > SOFTWARE.
 
 ## spin.js
