@@ -3,9 +3,9 @@ casper.test.begin('Students view (all students)', 12, function suite(test) {
     mockData = {
 
         'students': [
-            { id: 21, name: 'student 1', courses: [{}, {}]},
-            { id: 22, name: 'student 2', courses: [{}, {}, {}]},
-            { id: 23, name: 'student 3', courses: [{}, {}, {}, {}]}
+            { id: 21, name: 'student 1', courses: [ {}, {} ] },
+            { id: 22, name: 'student 2', courses: [ {}, {}, {} ] },
+            { id: 23, name: 'student 3', courses: [ {}, {}, {}, {} ] }
         ]
 
     };
@@ -63,30 +63,28 @@ casper.test.begin('Students view (course-exercise students)', 6, function suite(
     mockData = {
 
         'courses': [
-            {id: 11, name: 'course 1', exercises: [{id: 31, name: 'exc 1'}, {id: 32, name: 'exc 2'}]},
-            {id: 12, name: 'course 2', exercises: [{id: 31, name: 'exc 1'}, {id: 32, name: 'exc 2'}, {id: 33, name: 'exc 3'}]}
+            { id: 11, name: 'course 1', exercises: [ { id: 31, name: 'exc 1' }, { id: 32, name: 'exc 2' } ] },
+            { id: 12, name: 'course 2', exercises: [ { id: 31, name: 'exc 1' }, { id: 32, name: 'exc 2' }, { id: 33, name: 'exc 3' } ] }
         ],
 
-        'courses/11':
-            {id: 11, name: 'course 1', exercises: [{id: 31, name: 'exc 1'}, {id: 32, name: 'exc 2'}]},
+        'courses/11': { id: 11, name: 'course 1', exercises: [ { id: 31, name: 'exc 1' }, { id: 32, name: 'exc 2' } ] },
 
         'courses/11/exercises': [
-            {id: 31, name: 'exc 1'},
-            {id: 32, name: 'exc 2'}
+            { id: 31, name: 'exc 1' },
+            { id: 32, name: 'exc 2' }
         ],
 
-        'courses/11/exercises/32':
-            {id: 32, name: 'exc 2'},
+        'courses/11/exercises/32': { id: 32, name: 'exc 2' },
 
         'courses/11/exercises/32/students': [
-            { id: 21, name: 'student 1', courses: [{}, {}]},
-            { id: 22, name: 'student 2', courses: [{}, {}, {}]},
+            { id: 21, name: 'student 1', courses: [ {}, {} ] },
+            { id: 22, name: 'student 2', courses: [ {}, {}, {} ] },
         ],
 
         'students': [
-            { id: 21, name: 'student 1', courses: [{}, {}]},
-            { id: 22, name: 'student 2', courses: [{}, {}, {}]},
-            { id: 23, name: 'student 3', courses: [{}, {}, {}, {}]}
+            { id: 21, name: 'student 1', courses: [ {}, {} ] },
+            { id: 22, name: 'student 2', courses: [ {}, {}, {} ] },
+            { id: 23, name: 'student 3', courses: [ {}, {}, {}, {} ] }
         ]
     };
 

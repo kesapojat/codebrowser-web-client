@@ -5,7 +5,7 @@ describe('Editor settings view', function () {
 
     beforeEach(function () {
 
-        editorView = jasmine.createSpyObj('editorView', ['configure', 'update']);
+        editorView = jasmine.createSpyObj('editorView', [ 'configure', 'update' ]);
         settingsView = new codebrowser.view.EditorSettingsView({ parentView: editorView });
     });
 

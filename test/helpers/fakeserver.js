@@ -20,7 +20,7 @@ var createFakeServer = function (mockData) {
         var urlRegEx = new RegExp(prefix + path + '(\\?.*)?$');
         var contentType = typeof mockData[path] === 'string' ? 'text/plain' : 'application/json';
         var code = typeof mockData[path] === 'number' ? mockData[path] : 200;
-        server.respondWith(urlRegEx, [code, { 'Content-Type': contentType }, JSON.stringify(mockData[path])]);
+        server.respondWith(urlRegEx, [ code, { 'Content-Type': contentType }, JSON.stringify(mockData[path]) ]);
     }
 };
 

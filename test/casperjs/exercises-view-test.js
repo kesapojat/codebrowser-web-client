@@ -3,28 +3,26 @@ casper.test.begin('Exercises view (course exercises)', 13, function suite(test) 
     mockData =  {
 
         'courses': [
-            {id: 11, name: 'course 1', exercises: [{}, {}]},
-            {id: 12, name: 'course 2', exercises: [{}, {}, {}]}
+            { id: 11, name: 'course 1', exercises: [ {}, {} ] },
+            { id: 12, name: 'course 2', exercises: [ {}, {}, {} ] }
         ],
 
-        'courses/11':
-            {id: 11, name: 'course 1', exercises: [{}, {}]},
+        'courses/11': { id: 11, name: 'course 1', exercises: [ {}, {} ] },
 
         'courses/11/exercises': [
-            { id: 31, name: 'exc 1'},
-            { id: 32, name: 'exc 2'}
+            { id: 31, name: 'exc 1' },
+            { id: 32, name: 'exc 2' }
         ],
 
-        'courses/12':
-            {id: 12, name: 'course 2', exercises: [{}, {}, {}]},
+        'courses/12': { id: 12, name: 'course 2', exercises: [ {}, {}, {} ] },
 
         'courses/12/exercises': [
-            { id: 32, name: 'exc 2'},
-            { id: 33, name: 'exc 3'},
-            { id: 34, name: 'exc 4'}
+            { id: 32, name: 'exc 2' },
+            { id: 33, name: 'exc 3' },
+            { id: 34, name: 'exc 4' }
         ],
 
-        'students': [{id: 0}]
+        'students': { id: 0 }
 
     };
 
@@ -99,31 +97,29 @@ casper.test.begin('Exercises view (student-course exercises)', 6, function suite
 
     mockData =  {
 
-        'courses/11':
-            {id: 11, name: 'course 1', exercises: [{}, {}]},
+        'courses/11': { id: 11, name: 'course 1', exercises: [ {}, {} ] },
 
         'courses/11/exercises': [
-            {id: 31, name: 'exc 1'},
-            {id: 32, name: 'exc 2'}
+            { id: 31, name: 'exc 1' },
+            { id: 32, name: 'exc 2' }
         ],
 
         'students': [
-            { id: 21, name: 'student 1', courses: [{}, {}]},
-            { id: 22, name: 'student 2', courses: [{}, {}, {}]},
-            { id: 23, name: 'student 3', courses: [{}, {}, {}, {}]}
+            { id: 21, name: 'student 1', courses: [ {}, {} ] },
+            { id: 22, name: 'student 2', courses: [ {}, {}, {} ] },
+            { id: 23, name: 'student 3', courses: [ {}, {}, {}, {} ] }
         ],
 
-        'students/21':
-            { id: 21, name: 'student 1', courses: [{}, {}]},
+        'students/21': { id: 21, name: 'student 1', courses: [ {}, {} ] },
 
         'students/21/courses': [
-            {id: 11, name: 'course 1', exercises: [{}, {}]},
-            {id: 12, name: 'course 2', exercises: [{}, {}, {}]}
+            { id: 11, name: 'course 1', exercises: [ {}, {} ] },
+            { id: 12, name: 'course 2', exercises: [ {}, {}, {} ] }
         ],
 
         'students/21/courses/11/exercises': [
-            {id: 31, name: 'exc 1'},
-            {id: 32, name: 'exc 2'}
+            { id: 31, name: 'exc 1' },
+            { id: 32, name: 'exc 2' }
         ]
     };
 
@@ -175,22 +171,21 @@ casper.test.begin('Exercises view (course-student exercises)', 6, function suite
     mockData = {
 
         'courses': [
-            {id: 11, name: 'course 1', exercises: [{}, {}]},
-            {id: 12, name: 'course 2', exercises: [{}, {}, {}]}
+            { id: 11, name: 'course 1', exercises: [ {}, {} ] },
+            { id: 12, name: 'course 2', exercises: [ {}, {}, {} ] }
         ],
 
-        'courses/11':
-            {id: 11, name: 'course 1', exercises: [{}, {}]},
+        'courses/11': { id: 11, name: 'course 1', exercises: [ {}, {} ] },
 
         'courses/11/exercises': [
-            {id: 31, name: 'exc 1'},
-            {id: 32, name: 'exc 2'}
+            { id: 31, name: 'exc 1' },
+            { id: 32, name: 'exc 2' }
         ],
 
         'students': [
-            { id: 21, name: 'student 1', courses: [{}, {}]},
-            { id: 22, name: 'student 2', courses: [{}, {}, {}]},
-            { id: 23, name: 'student 3', courses: [{}, {}, {}, {}]}
+            { id: 21, name: 'student 1', courses: [ {}, {} ] },
+            { id: 22, name: 'student 2', courses: [ {}, {}, {} ] },
+            { id: 23, name: 'student 3', courses: [ {}, {}, {}, {} ] }
         ]
 
     };

@@ -3,11 +3,11 @@ casper.test.begin('Courses view (all courses)', 10, function suite(test) {
     mockData = {
 
         'courses': [
-            {id: 11, name: 'course 1', exercises: [{}, {}]},
-            {id: 12, name: 'course 2', exercises: [{}, {}, {}]}
+            { id: 11, name: 'course 1', exercises: [ {}, {} ] },
+            { id: 12, name: 'course 2', exercises: [ {}, {}, {} ] }
         ],
 
-        'students': [{id: 0}]
+        'students': { id: 0 }
 
     };
 
@@ -58,25 +58,24 @@ casper.test.begin('Courses view (student courses)', 10, function suite(test) {
     mockData = {
 
         'courses': [
-            {id: 11, name: 'course 1', exercises: [{}, {}], amountOfStudents: 4},
-            {id: 12, name: 'course 2', exercises: [{}, {}, {}], amountOfStudents: 5},
-            {id: 13, name: 'course 3', exercises: [{}, {}, {}, {}], amountOfStudents: 6},
-            {id: 14, name: 'course ¤', exercises: [{}, {}, {}, {}], amountOfStudents: 7}
+            { id: 11, name: 'course 1', exercises: [ {}, {} ], amountOfStudents: 4 },
+            { id: 12, name: 'course 2', exercises: [ {}, {}, {} ], amountOfStudents: 5 },
+            { id: 13, name: 'course 3', exercises: [ {}, {}, {}, {} ], amountOfStudents: 6 },
+            { id: 14, name: 'course 4', exercises: [ {}, {}, {}, {} ], amountOfStudents: 7 }
         ],
 
         'students': [
-            { id: 21, name: 'student 1', courses: [{}, {}]},
-            { id: 22, name: 'student 2', courses: [{}, {}, {}]},
-            { id: 23, name: 'student 3', courses: [{}, {}, {}, {}]}
+            { id: 21, name: 'student 1', courses: [ {}, {} ] },
+            { id: 22, name: 'student 2', courses: [ {}, {}, {} ] },
+            { id: 23, name: 'student 3', courses: [ {}, {}, {}, {} ] }
         ],
 
-        'students/22':
-            { id: 22, name: 'student 2', courses: [{}, {}, {}]},
+        'students/22': { id: 22, name: 'student 2', courses: [ {}, {}, {} ] },
 
         'students/22/courses': [
-            {id: 11, name: 'course 1', exercises: [{}, {}], amountOfStudents: 4},
-            {id: 13, name: 'course 3', exercises: [{}, {}, {}, {}], amountOfStudents: 6},
-            {id: 14, name: 'course 4', exercises: [{}, {}, {}, {}], amountOfStudents: 7}
+            { id: 11, name: 'course 1', exercises: [ {}, {} ], amountOfStudents: 4 },
+            { id: 13, name: 'course 3', exercises: [ {}, {}, {}, {} ], amountOfStudents: 6 },
+            { id: 14, name: 'course 4', exercises: [ {}, {}, {}, {} ], amountOfStudents: 7 }
         ]
 
     };
