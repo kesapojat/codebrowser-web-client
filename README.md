@@ -1,4 +1,4 @@
-# codebrowser/web-client [![Build Status](https://travis-ci.org/kesapojat/codebrowser-web-client.png?branch=master)](https://travis-ci.org/kesapojat/codebrowser-web-client/)
+# codebrowser/web-client [![Build Status](https://travis-ci.org/kesapojat/codebrowser-web-client.svg?branch=master)](https://travis-ci.org/kesapojat/codebrowser-web-client/)
 
 Web client for Code Browser (HTML5 + CSS3 + JavaScript + Node.js + Grunt). To develop this project, you will need to have node.js and npm installed on your development environment.
 
