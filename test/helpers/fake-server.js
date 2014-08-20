@@ -1,134 +1,137 @@
 var mockData = {};
 
-/* Helper function that creates a Sinon fake server and registers mock responses for given paths.
- * If mockData value is a number then it is used as the HTTP status code. If it is a string then
- * the response type is text/plain, otherwise application/json. */
+var FakeServer = (function () {
 
-var createFakeServer = function (mockData) {
+    /* Helper function that creates a Sinon fake server and registers mock responses for given paths.
+     * If mockData value is a number then it is used as the HTTP status code. If it is a string then
+     * the response type is text/plain, otherwise application/json. */
 
-    var server = sinon.fakeServer.create();
-    server.autoRespond = true;
+    var createFakeServer = function (mockData) {
 
-    // Prints a warning if the request does not match any registered paths
-    server.respondWith(function (request) {
+        var server = sinon.fakeServer.create();
+        server.autoRespond = true;
 
-        throw new Error('No mock data for request: '  + JSON.stringify(request.url));
-    });
+        // Prints a warning if the request does not match any registered paths
+        server.respondWith(function (request) {
 
-    for (var path in mockData) {
+            throw new Error('No mock data for request: '  + JSON.stringify(request.url));
+        });
 
-        // Match URLs that have same root and path and optional query string in the end
-        var prefix = path.indexOf('http://') !== -1 ? '' : config.api.main.root,
-            urlPattern = new RegExp(prefix + path + '(\\?.*)?$'),
-            contentType = typeof mockData[path] === 'string' ? 'text/plain' : 'application/json',
-            code = typeof mockData[path] === 'number' ? mockData[path] : 200;
+        for (var path in mockData) {
 
-        server.respondWith(urlPattern, [ code, { 'Content-Type': contentType }, JSON.stringify(mockData[path]) ]);
+            // Match URLs that have same root and path and optional query string in the end
+            var prefix = path.indexOf('http://') !== -1 ? '' : config.api.main.root,
+                urlPattern = new RegExp(prefix + path + '(\\?.*)?$'),
+                contentType = typeof mockData[path] === 'string' ? 'text/plain' : 'application/json',
+                code = typeof mockData[path] === 'number' ? mockData[path] : 200;
+
+            server.respondWith(urlPattern, [ code, { 'Content-Type': contentType }, JSON.stringify(mockData[path]) ]);
+        }
     }
-}
 
-/* Setup for Casper tests */
+    /* Setup for Casper tests */
 
-if (typeof casper !== 'undefined') {
+    if (typeof casper !== 'undefined') {
 
-    // Redirects CasperJS’s browser console to main console
-    casper.on('remote.message', console.log.bind(console));
+        // Redirects CasperJS’s browser console to main console
+        casper.on('remote.message', console.log.bind(console));
 
-    casper.options.waitTimeout = config.test.async.timeout;
-    casper.options.verbose = true;
+        casper.options.waitTimeout = config.test.async.timeout;
+        casper.options.verbose = true;
 
-    // Skip suite after one test fails
-    casper.on('step.error', function () {
+        // Skip suite after one test fails
+        casper.on('step.error', function () {
 
-        casper.test.skip(0, 'Skipping rest of the test suite.');
-        casper.test.done();
-    });
+            casper.test.skip(0, 'Skipping rest of the test suite.');
+            casper.test.done();
+        });
 
-    var hasErrors;
+        var hasErrors;
 
-    // Notify about script errors on current page
-    casper.on('page.error', function (message) {
+        // Notify about script errors on current page
+        casper.on('page.error', function (message) {
 
-        hasErrors = true;
-        casper.warn('Script error on page: ' + message);
-    });
+            hasErrors = true;
+            casper.warn('Script error on page: ' + message);
+        });
 
-    // Executed after page load, but before any scripts
-    casper.on('page.initialized', function () {
+        // Executed after page load, but before any scripts
+        casper.on('page.initialized', function () {
 
-        // CasperJS loads about:blank after failed suites. Creating the fake server would fail
-        if (this.getCurrentUrl() === 'about:blank') {
-            return;
-        }
+            // CasperJS loads about:blank after failed suites. Creating the fake server would fail
+            if (this.getCurrentUrl() === 'about:blank') {
+                return;
+            }
 
-        // Injects Sinon’s code into CasperJS’s browser.
-        casper.page.injectJs('./node_modules/sinon/pkg/sinon.js');
+            // Injects Sinon’s code into CasperJS’s browser.
+            casper.page.injectJs('./node_modules/sinon/pkg/sinon.js');
 
-        // To catch all requests made by Code Browser, the fake server must be created before
-        // $(document).ready() is triggered. However, creating Sinon server in page.initialized
-        // does not work, so the only way is to register our own handler before anyone else’s.
-        casper.evaluate(function (createFakeServer, mockData) {
+            // To catch all requests made by Code Browser, the fake server must be created before
+            // $(document).ready() is triggered. However, creating Sinon server in page.initialized
+            // does not work, so the only way is to register our own handler before anyone else’s.
+            casper.evaluate(function (createFakeServer, mockData) {
 
-            document.addEventListener('DOMContentLoaded', function () {
+                document.addEventListener('DOMContentLoaded', function () {
 
-                createFakeServer(mockData);
-            });
+                    createFakeServer(mockData);
+                });
 
-        }, createFakeServer, mockData);
+            }, createFakeServer, mockData);
 
-        // Make sure each test run starts from clean state (no cache etc.)
-        if (config.test.casperjs.clearLocalStorage) {
+            // Make sure each test run starts from clean state (no cache etc.)
+            if (config.test.casperjs.clearLocalStorage) {
 
-            casper.evaluate(function () {
+                casper.evaluate(function () {
 
-                localStorage.clear();
-            });
-        }
-    });
+                    localStorage.clear();
+                });
+            }
+        });
 
-    // Executed before each test suite
-    casper.test.setUp(function () {
+        // Executed before each test suite
+        casper.test.setUp(function () {
 
-        hasErrors = false;
-    });
+            hasErrors = false;
+        });
 
-    // Executed only after successful test suites
-    casper.on('run.complete', function () {
+        // Executed only after successful test suites
+        casper.on('run.complete', function () {
 
-        if (hasErrors) {
-            casper.test.fail('Page has no script errors.');
-        }
-    });
+            if (hasErrors) {
+                casper.test.fail('Page has no script errors.');
+            }
+        });
 
-    // Executed after each test suite.
-    casper.test.tearDown(function () {
+        // Executed after each test suite.
+        casper.test.tearDown(function () {
 
-        mockData = {};
-        casper.echo('');
-    });
-}
+            mockData = {};
+            casper.echo('');
+        });
+    }
 
-/* Setup for Jasmine tests */
+    /* Setup for Jasmine tests */
 
-if (typeof jasmine !== 'undefined') {
+    if (typeof jasmine !== 'undefined') {
 
-    localStorage.clear();
+        localStorage.clear();
 
-    // Just ignore all requests during page load
-    $(document).ready(function () {
+        // Just ignore all requests during page load
+        $(document).ready(function () {
 
-        createFakeServer({ '.*': 404 });
-    });
+            createFakeServer({ '.*': 404 });
+        });
 
-    beforeEach(function () {
+        beforeEach(function () {
 
-        // Without changing route Backbone.history.start() may fetch models used in previous specs
-        Backbone.history.navigate('_'); // use a non-existant route
-        createFakeServer({});
-    });
+            // Without changing route Backbone.history.start() may fetch models used in previous specs
+            Backbone.history.navigate('_'); // use a non-existant route
+            createFakeServer({});
+        });
 
-    afterEach(function () {
+        afterEach(function () {
 
-        createFakeServer({});
-    });
-}
+            createFakeServer({});
+        });
+    }
+})();
