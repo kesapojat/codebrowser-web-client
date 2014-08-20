@@ -1,4 +1,4 @@
-casper.test.begin('Students view (all students)', 12, function suite(test) {
+casper.test.begin('Students view (all students)', 9, function suite(test) {
 
     mockData = {
 
@@ -32,9 +32,6 @@ casper.test.begin('Students view (all students)', 12, function suite(test) {
         test.assertTruthy(this.getHTML().indexOf('<a href="./#/students/23/courses">Student 3') !== -1,
                                                  'has "Student 3" with a correct link to course list');
 
-        test.assertEquals(this.evaluate(function () { return $('tr:contains(Student 1)').find(':nth-child(3)').html(); }), '2', 'has course count 2 for "Student 1"');
-        test.assertEquals(this.evaluate(function () { return $('tr:contains(Student 2)').find(':nth-child(3)').html(); }), '3', 'has course count 3 for "Student 2"');
-        test.assertEquals(this.evaluate(function () { return $('tr:contains(Student 3)').find(':nth-child(3)').html(); }), '4', 'has course count 4 for "Student 3"');
     });
 
     casper.then(function () {

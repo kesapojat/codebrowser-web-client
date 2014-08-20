@@ -3,6 +3,9 @@ describe('File', function () {
     var students = new codebrowser.collection.StudentCollection();
     students.fetch({ async: false });
 
+    var courses = new codebrowser.collection.CourseCollection({ 'studentId' : 2 });
+    courses.fetch({ async: false });
+
     var student, course, exercise, snapshots, file;
 
     beforeEach(function () {
@@ -12,7 +15,7 @@ describe('File', function () {
 
         // Get existing IDs
         student = students.at(0);
-        course = student.get('courses').at(0);
+        course = courses.at(0);
         exercise = course.get('exercises').at(0);
 
         // Snapshots

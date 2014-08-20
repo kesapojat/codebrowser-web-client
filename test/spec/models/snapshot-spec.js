@@ -3,6 +3,9 @@ describe('Snapshot', function () {
     var students = new codebrowser.collection.StudentCollection();
     students.fetch({ async: false });
 
+    var courses = new codebrowser.collection.CourseCollection({ 'studentId' : 2 });
+    courses.fetch({ async: false });
+
     var missingAttributesError = 'Attributes studentId, courseId and exerciseId are required to fetch a snapshot.';
     var snapshot;
 
@@ -23,7 +26,7 @@ describe('Snapshot', function () {
 
         // Get existing IDs
         var student = students.at(0);
-        var course = student.get('courses').at(0);
+        var course = courses.at(0);
         var exercise = course.get('exercises').at(0);
 
         // Snapshots

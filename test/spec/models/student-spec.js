@@ -21,19 +21,4 @@ describe('Student', function () {
 
         expect(student.getRelation('courses')).not.toBeNull();
     });
-
-    it('should have HasMany relation with courses', function () {
-
-        expect(student.getRelation('courses').options.type).toBe(Backbone.HasMany);
-    });
-
-    it('should have correct related model for courses relation', function () {
-
-        expect(student.getRelation('courses').options.relatedModel).toBe('codebrowser.model.Course');
-    });
-
-    it('should have correct collection type for courses relation', function () {
-
-        expect(student.getRelation('courses').options.collectionType).toBe('codebrowser.collection.CourseCollection');
-    });
 });
