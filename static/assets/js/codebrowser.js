@@ -705,7 +705,7 @@ var config = {
 
         main: {
 
-            root: 'http://localhost:8090/'
+            root: 'http://t-avihavai.users.cs.helsinki.fi/cb-back/app/'
 
         }
     },
@@ -753,7 +753,7 @@ var config = {
 
 /* DOM ready */
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     codebrowser.initialize();
 });
@@ -2190,7 +2190,7 @@ codebrowser.view.EditorView = Backbone.View.extend({
         this.previousModel = previousFile;
 
         // Wait files to be in sync
-        var fileSynced = _.after(2, function() {
+        var fileSynced = _.after(2, function () {
 
             var previousContent = self.sideEditor.getValue();
             var content = self.mainEditor.getValue();
