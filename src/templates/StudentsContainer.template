@@ -23,10 +23,6 @@
                 <th>#</th>
                 <th>Name</th>
 
-                {{#unless course}}
-                    <th>Courses</th>
-                {{/unless}}
-
             </tr>
         </thead>
 
@@ -47,10 +43,6 @@
                         <td class='link'><a href='./#/students/{{id}}/courses'>{{name}}</a></td>
 
                     {{/if}}
-
-                    {{#unless ../course}}
-                        <td>{{courses.length}}</td>
-                    {{/unless}}
 
                 </tr>
 
