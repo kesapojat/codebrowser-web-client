@@ -1,5 +1,7 @@
 var mockData = {};
 
+/* exported FakeServer */
+
 var FakeServer = (function () {
 
     /* Helper function that creates a Sinon fake server and registers mock responses for given paths.
