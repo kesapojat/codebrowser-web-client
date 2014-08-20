@@ -3,12 +3,11 @@ casper.test.begin('Courses view (all courses)', 10, function suite(test) {
     mockData = {
 
         'courses': [
-            {id: 11, name: 'course 1', exercises: [{}, {}]},
-            {id: 12, name: 'course 2', exercises: [{}, {}, {}]}
+            { id: 11, name: 'Course 1', exercises: [ {}, {} ] },
+            { id: 12, name: 'Course 2', exercises: [ {}, {}, {} ] }
         ],
 
-        'students': [{id: 0}]
-
+        'students': { id: 0 }
     };
 
     casper.start('http://localhost:8000');
@@ -27,16 +26,15 @@ casper.test.begin('Courses view (all courses)', 10, function suite(test) {
         test.assertTextExists('Courses (2)', 'has title "Courses (2)"');
         test.assertElementCount('tbody tr', 2, 'has exactly two courses listed');
 
-        test.assertTextExists('course 1', 'has a course named "course 1"');
-        test.assertTextExists('course 2', 'has a course named "course 2"');
+        test.assertTextExists('Course 1', 'has a course named "Course 1"');
+        test.assertTextExists('Course 2', 'has a course named "Course 2"');
 
-        test.assertTruthy(this.getHTML().indexOf('<a href="./#/courses/11/exercises">course 1') !== -1,
-                                                 'has "course 1" with a correct link to course view');
-        test.assertTruthy(this.getHTML().indexOf('<a href="./#/courses/12/exercises">course 2') !== -1,
-                                                 'has "course 2" with a correct link to course view');
+        test.assertTruthy(this.getHTML().indexOf('<a href="./#/courses/11/exercises">Course 1') !== -1,
+                                                 'has "Course 1" with a correct link to course view');
+        test.assertTruthy(this.getHTML().indexOf('<a href="./#/courses/12/exercises">Course 2') !== -1,
+                                                 'has "Course 2" with a correct link to course view');
 
-        function cntEx() { return $('tr:contains(course 2)').find(':nth-child(3)').html(); }
-        test.assertEvalEquals(cntEx, '3', 'has exercise count 3 for "course 2"');
+        test.assertEquals(this.evaluate(function () { return $('tr:contains(Course 2)').find(':nth-child(3)').html(); }), '3', 'has exercise count 3 for "Course 2"');
     });
 
     casper.then(function () {
@@ -58,27 +56,25 @@ casper.test.begin('Courses view (student courses)', 10, function suite(test) {
     mockData = {
 
         'courses': [
-            {id: 11, name: 'course 1', exercises: [{}, {}], amountOfStudents: 4},
-            {id: 12, name: 'course 2', exercises: [{}, {}, {}], amountOfStudents: 5},
-            {id: 13, name: 'course 3', exercises: [{}, {}, {}, {}], amountOfStudents: 6},
-            {id: 14, name: 'course ¤', exercises: [{}, {}, {}, {}], amountOfStudents: 7}
+            { id: 11, name: 'Course 1', exercises: [ {}, {} ], amountOfStudents: 4 },
+            { id: 12, name: 'Course 2', exercises: [ {}, {}, {} ], amountOfStudents: 5 },
+            { id: 13, name: 'Course 3', exercises: [ {}, {}, {}, {} ], amountOfStudents: 6 },
+            { id: 14, name: 'Course 4', exercises: [ {}, {}, {}, {} ], amountOfStudents: 7 }
         ],
 
         'students': [
-            { id: 21, name: 'student 1', courses: [{}, {}]},
-            { id: 22, name: 'student 2', courses: [{}, {}, {}]},
-            { id: 23, name: 'student 3', courses: [{}, {}, {}, {}]}
+            { id: 21, name: 'Student 1', courses: [ {}, {} ] },
+            { id: 22, name: 'Student 2', courses: [ {}, {}, {} ] },
+            { id: 23, name: 'Student 3', courses: [ {}, {}, {}, {} ] }
         ],
 
-        'students/22':
-            { id: 22, name: 'student 2', courses: [{}, {}, {}]},
+        'students/22': { id: 22, name: 'Student 2', courses: [ {}, {}, {} ] },
 
         'students/22/courses': [
-            {id: 11, name: 'course 1', exercises: [{}, {}], amountOfStudents: 4},
-            {id: 13, name: 'course 3', exercises: [{}, {}, {}, {}], amountOfStudents: 6},
-            {id: 14, name: 'course 4', exercises: [{}, {}, {}, {}], amountOfStudents: 7}
+            { id: 11, name: 'Course 1', exercises: [ {}, {} ], amountOfStudents: 4 },
+            { id: 13, name: 'Course 3', exercises: [ {}, {}, {}, {} ], amountOfStudents: 6 },
+            { id: 14, name: 'Course 4', exercises: [ {}, {}, {}, {} ], amountOfStudents: 7 }
         ]
-
     };
 
     casper.start('http://localhost:8000');
@@ -91,8 +87,8 @@ casper.test.begin('Courses view (student courses)', 10, function suite(test) {
 
     casper.then(function () {
 
-        this.echo('Navigating to course list for "student 2"');
-        this.clickLabel('student 2', 'a');
+        this.echo('Navigating to course list for "Student 2"');
+        this.clickLabel('Student 2', 'a');
         this.waitForSelector('#courses-container');
     });
 
@@ -100,25 +96,20 @@ casper.test.begin('Courses view (student courses)', 10, function suite(test) {
 
         test.assertUrlMatch(new RegExp('/#/students/22/courses$'), 'has correct URL');
         test.assertSelectorHasText('li.active', 'Courses', 'has "Courses" label active in the navbar');
-        test.assertTextExists('student 2 —  Courses (3)', 'has title "student 2 —  Courses (3)"');
+        test.assertTextExists('Student 2 —  Courses (3)', 'has title "Student 2 —  Courses (3)"');
 
         test.assertElementCount('tbody tr', 3, 'has exactly 3 courses listed');
 
-        test.assertTruthy(this.getHTML().indexOf('<a href="./#/students/22/courses/11/exercises">course 1') !== -1,
-                                                 'has "course 1" with a correct link to exercise list');
-        test.assertTruthy(this.getHTML().indexOf('<a href="./#/students/22/courses/13/exercises">course 3') !== -1,
-                                                 'has "course 3" with a correct link to exercise list');
-        test.assertTruthy(this.getHTML().indexOf('<a href="./#/students/22/courses/14/exercises">course 4') !== -1,
-                                                 'has "course 4" with a correct link to exercise list');
+        test.assertTruthy(this.getHTML().indexOf('<a href="./#/students/22/courses/11/exercises">Course 1') !== -1,
+                                                 'has "Course 1" with a correct link to exercise list');
+        test.assertTruthy(this.getHTML().indexOf('<a href="./#/students/22/courses/13/exercises">Course 3') !== -1,
+                                                 'has "Course 3" with a correct link to exercise list');
+        test.assertTruthy(this.getHTML().indexOf('<a href="./#/students/22/courses/14/exercises">Course 4') !== -1,
+                                                 'has "Course 4" with a correct link to exercise list');
 
-        function cntEx1() { return $('tr:contains(course 1)').find(':nth-child(3)').html(); }
-        test.assertEvalEquals(cntEx1, '2', 'has exercise count 2 for "course 1"');
-
-        function cntEx3() { return $('tr:contains(course 3)').find(':nth-child(3)').html(); }
-        test.assertEvalEquals(cntEx3, '4', 'has exercise count 4 for "course 3"');
-
-        function cntEx4() { return $('tr:contains(course 4)').find(':nth-child(3)').html(); }
-        test.assertEvalEquals(cntEx4, '4', 'has exercise count 4 for "course 4"');
+        test.assertEquals(this.evaluate(function () { return $('tr:contains(Course 1)').find(':nth-child(3)').html(); }), '2', 'has exercise count 2 for "Course 1"');
+        test.assertEquals(this.evaluate(function () { return $('tr:contains(Course 3)').find(':nth-child(3)').html(); }), '4', 'has exercise count 4 for "Course 3"');
+        test.assertEquals(this.evaluate(function () { return $('tr:contains(Course 3)').find(':nth-child(3)').html(); }), '4', 'has exercise count 4 for "Course 4"');
     });
 
     casper.run(function () {

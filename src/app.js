@@ -2,7 +2,7 @@
 
 /* DOM ready */
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     codebrowser.initialize();
 });
