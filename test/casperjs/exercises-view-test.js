@@ -1,6 +1,6 @@
 casper.test.begin('Exercises view (course exercises)', 13, function suite(test) {
 
-    mockData =  {
+    FakeServer.return({
 
         'courses': [
             { id: 11, name: 'Course 1', exercises: [ {}, {} ] },
@@ -23,7 +23,7 @@ casper.test.begin('Exercises view (course exercises)', 13, function suite(test) 
         ],
 
         'students': { id: 0 }
-    };
+    });
 
     casper.start('http://localhost:8000');
 
@@ -94,7 +94,7 @@ casper.test.begin('Exercises view (course exercises)', 13, function suite(test) 
 
 casper.test.begin('Exercises view (student-course exercises)', 6, function suite(test) {
 
-    mockData =  {
+    FakeServer.return({
 
         'courses/11': { id: 11, name: 'Course 1', exercises: [ {}, {} ] },
 
@@ -120,7 +120,7 @@ casper.test.begin('Exercises view (student-course exercises)', 6, function suite
             { id: 31, name: 'Exercise 1' },
             { id: 32, name: 'Exercise 2' }
         ]
-    };
+    });
 
     casper.start('http://localhost:8000');
 
@@ -167,7 +167,7 @@ casper.test.begin('Exercises view (student-course exercises)', 6, function suite
 
 casper.test.begin('Exercises view (course-student exercises)', 6, function suite(test) {
 
-    mockData = {
+    FakeServer.return({
 
         'courses': [
             { id: 11, name: 'Course 1', exercises: [ {}, {} ] },
@@ -186,7 +186,7 @@ casper.test.begin('Exercises view (course-student exercises)', 6, function suite
             { id: 22, name: 'Student 2', courses: [ {}, {}, {} ] },
             { id: 23, name: 'Student 3', courses: [ {}, {}, {}, {} ] }
         ]
-    };
+    });
 
     casper.start('http://localhost:8000');
 

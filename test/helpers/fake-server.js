@@ -1,8 +1,9 @@
-var mockData = {};
-
 /* exported FakeServer */
 
 var FakeServer = (function () {
+
+    var _module = {},
+        _mockData = {};
 
     /* Helper function that creates a Sinon fake server and registers mock responses for given paths.
      * If mockData value is a number then it is used as the HTTP status code. If it is a string then
@@ -78,7 +79,7 @@ var FakeServer = (function () {
                     createFakeServer(mockData);
                 });
 
-            }, createFakeServer, mockData);
+            }, createFakeServer, _mockData);
 
             // Make sure each test run starts from clean state (no cache etc.)
             if (config.test.casperjs.clearLocalStorage) {
@@ -107,7 +108,7 @@ var FakeServer = (function () {
         // Executed after each test suite.
         casper.test.tearDown(function () {
 
-            mockData = {};
+            _mockData = {};
             casper.echo('');
         });
     }
@@ -136,4 +137,13 @@ var FakeServer = (function () {
             createFakeServer({});
         });
     }
+
+    /* Module */
+
+    _module.return = function (mockData) {
+
+        _mockData = mockData;
+    }
+
+    return _module;
 })();
