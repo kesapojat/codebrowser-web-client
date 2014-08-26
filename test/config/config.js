@@ -1,7 +1,7 @@
 /* Global test configuration */
 
 if (typeof config === 'undefined') {
-    config = { };
+    config = {};
 }
 
 config.test = {
