@@ -705,7 +705,7 @@ var config = {
 
         main: {
 
-            root: 'http://localhost:8090/'
+            root: 'http://t-avihavai.users.cs.helsinki.fi/cb-back/app/'
 
         }
     },

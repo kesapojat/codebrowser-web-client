@@ -11,6 +11,6 @@ tmp/
 
 .grunt/
 _SpecRunner.html
-test/coverage/
+coverage/
 nbproject/
 node_modules/

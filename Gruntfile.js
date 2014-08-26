@@ -230,6 +230,7 @@ module.exports = function (grunt) {
 
     /* Load tasks */
 
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-handlebars');
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -244,5 +245,5 @@ module.exports = function (grunt) {
     grunt.registerTask('test', [ 'jshint', 'jasmine' ]);
     grunt.registerTask('integration-test', [ 'concat:tests', 'connect', 'casperjs' ]);
     grunt.registerTask('build', [ 'jshint','handlebars', 'concat', 'uglify' ]);
-    grunt.registerTask('default', [ 'clean', 'test', 'integration-test', 'build' ]);
+    grunt.registerTask('default', [ 'clean', 'build', 'test', 'integration-test' ]);
 }
