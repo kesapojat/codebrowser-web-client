@@ -705,7 +705,7 @@ var config = {
 
         main: {
 
-            root: 'http://t-avihavai.users.cs.helsinki.fi/cb-back/app/'
+            root: 'http://localhost:8090/'
 
         }
     },
@@ -1179,7 +1179,21 @@ codebrowser.model.Exercise = Backbone.RelationalModel.extend({
 
     urlRoot: function () {
 
+        if (!this.get('course')) {
+
+            return codebrowser.model.Course.findOrCreate({ id: this.courseId }).url() +  '/exercises';
+        }
+
         return this.get('course').url() + '/exercises';
+    },
+
+    initialize: function (options) {
+
+        if (options) {
+
+            this.id = options.id;
+            this.courseId = options.courseId;
+        }
     }
 });
 ;
@@ -2885,8 +2899,8 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         this.$el.hide();
 
         // Navigation bar
-//        this.navigationbarContainer = $('<div>', { id: 'navigation-bar-container' });
-//        this.$el.append(this.navigationbarContainer);
+        this.navigationbarContainer = $('<div>', { id: 'navigation-bar-container' });
+        this.$el.append(this.navigationbarContainer);
 
         // Timeline
         this.snapshotsTimelineView = new codebrowser.view.SnapshotsTimelineView({ parentView: this });
@@ -2954,10 +2968,10 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         }
 
         // Template for navigation bar container
-//        var navigationbarContainerOutput = $(this.template.navigationbarContainer(_.extend(this.model.toJSON(),
-//                                            { exercise: this.collection.at(index).get('exercise').toJSON(),
-//                                              student:  this.student.toJSON(),
-//                                              courseRoute: this.courseRoute })));
+        var navigationbarContainerOutput = $(this.template.navigationbarContainer(_.extend(this.model.toJSON(),
+                                            { exercise: this.exercise.toJSON(),
+                                              student:  this.student.toJSON(),
+                                              courseRoute: this.courseRoute })));
 
         // Template for navigation container
         var navigationContainerOutput = $(this.template.navigationContainer(attributes));
@@ -2995,7 +3009,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         }
 
         // Update navigation bar container
-//        this.navigationbarContainer.html(navigationbarContainerOutput);
+        this.navigationbarContainer.html(navigationbarContainerOutput);
 
         // Update navigation container
         this.navigationContainer.html(navigationContainerOutput);
@@ -4209,49 +4223,12 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         }
 
         // Wait for fetches to be in sync
-        var fetchSynced = _.after(2, function () {
+        var fetchSynced = _.after(3, function () {
 
-            var snapshot;
-
-            // No snapshot ID specified, navigate to first snapshot
-            if (!snapshotId) {
-
-                snapshot = snapshotCollection.at(0);
-
-                self.snapshotView.navigate(snapshot, null, { replace: true });
-
-                return;
-            }
-
-            // Snapshot
-            snapshot = snapshotCollection.get(snapshotId);
-
-            // Invalid snapshot ID
-            if (!snapshot) {
-
-                self.notFound();
-
-                return;
-            }
-
-            // No file ID specified, navigate to first file
-            if (!fileId) {
-
-                self.snapshotView.navigate(snapshot, null);
-
-                return;
-            }
-
-            // Invalid file ID
-            if (!snapshot.get('files').get(fileId)) {
-
-                self.notFound();
-
-                return;
-            }
-
-            self.snapshotView.update(snapshot, fileId);
+            self.synced(snapshotId, fileId, snapshotCollection);
         });
+
+        // Fetch
 
         var student = codebrowser.model.Student.findOrCreate({ id: studentId });
 
@@ -4262,8 +4239,63 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
             fetchSynced();
         });
 
+        var exercise = codebrowser.model.Exercise.findOrCreate({ id: exerciseId, courseId: courseId });
+
+        // Fetch course
+        this.fetchModel(exercise, true, function () {
+
+            self.snapshotView.exercise = exercise;
+            fetchSynced();
+        });
+
         // Fetch snapshot collection
         this.fetchModel(snapshotCollection, true, fetchSynced);
+    },
+
+    synced: function (snapshotId, fileId, snapshotCollection) {
+
+        var self = this;
+
+        var snapshot;
+
+        // No snapshot ID specified, navigate to first snapshot
+        if (!snapshotId) {
+
+            snapshot = snapshotCollection.at(0);
+
+            self.snapshotView.navigate(snapshot, null, {replace: true});
+
+            return;
+        }
+
+        // Snapshot
+        snapshot = snapshotCollection.get(snapshotId);
+
+        // Invalid snapshot ID
+        if (!snapshot) {
+
+            self.notFound();
+
+            return;
+        }
+
+        // No file ID specified, navigate to first file
+        if (!fileId) {
+
+            self.snapshotView.navigate(snapshot, null);
+
+            return;
+        }
+
+        // Invalid file ID
+        if (!snapshot.get('files').get(fileId)) {
+
+            self.notFound();
+
+            return;
+        }
+
+        self.snapshotView.update(snapshot, fileId);
     }
 });
 ;

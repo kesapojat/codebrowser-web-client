@@ -76,49 +76,12 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         }
 
         // Wait for fetches to be in sync
-        var fetchSynced = _.after(2, function () {
+        var fetchSynced = _.after(3, function () {
 
-            var snapshot;
-
-            // No snapshot ID specified, navigate to first snapshot
-            if (!snapshotId) {
-
-                snapshot = snapshotCollection.at(0);
-
-                self.snapshotView.navigate(snapshot, null, { replace: true });
-
-                return;
-            }
-
-            // Snapshot
-            snapshot = snapshotCollection.get(snapshotId);
-
-            // Invalid snapshot ID
-            if (!snapshot) {
-
-                self.notFound();
-
-                return;
-            }
-
-            // No file ID specified, navigate to first file
-            if (!fileId) {
-
-                self.snapshotView.navigate(snapshot, null);
-
-                return;
-            }
-
-            // Invalid file ID
-            if (!snapshot.get('files').get(fileId)) {
-
-                self.notFound();
-
-                return;
-            }
-
-            self.snapshotView.update(snapshot, fileId);
+            self.synced(snapshotId, fileId, snapshotCollection);
         });
+
+        // Fetch
 
         var student = codebrowser.model.Student.findOrCreate({ id: studentId });
 
@@ -129,7 +92,62 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
             fetchSynced();
         });
 
+        var exercise = codebrowser.model.Exercise.findOrCreate({ id: exerciseId, courseId: courseId });
+
+        // Fetch course
+        this.fetchModel(exercise, true, function () {
+
+            self.snapshotView.exercise = exercise;
+            fetchSynced();
+        });
+
         // Fetch snapshot collection
         this.fetchModel(snapshotCollection, true, fetchSynced);
+    },
+
+    synced: function (snapshotId, fileId, snapshotCollection) {
+
+        var self = this;
+
+        var snapshot;
+
+        // No snapshot ID specified, navigate to first snapshot
+        if (!snapshotId) {
+
+            snapshot = snapshotCollection.at(0);
+
+            self.snapshotView.navigate(snapshot, null, {replace: true});
+
+            return;
+        }
+
+        // Snapshot
+        snapshot = snapshotCollection.get(snapshotId);
+
+        // Invalid snapshot ID
+        if (!snapshot) {
+
+            self.notFound();
+
+            return;
+        }
+
+        // No file ID specified, navigate to first file
+        if (!fileId) {
+
+            self.snapshotView.navigate(snapshot, null);
+
+            return;
+        }
+
+        // Invalid file ID
+        if (!snapshot.get('files').get(fileId)) {
+
+            self.notFound();
+
+            return;
+        }
+
+        self.snapshotView.update(snapshot, fileId);
     }
 });
