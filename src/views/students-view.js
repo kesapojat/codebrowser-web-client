@@ -1,4 +1,4 @@
-codebrowser.view.StudentsView = Backbone.View.extend({
+codebrowser.view.StudentsView = codebrowser.view.BaseView.extend({
 
     id: 'students-container',
     template: Handlebars.templates.StudentsContainer,
@@ -22,5 +22,8 @@ codebrowser.view.StudentsView = Backbone.View.extend({
         var output = this.template(attributes);
 
         this.$el.html(output);
+
+        // Bind events also on re-render
+        this.delegateEvents();
     }
 });
