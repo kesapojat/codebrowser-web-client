@@ -107,9 +107,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         // Template for navigation bar container
         var navigationbarContainerOutput = $(this.template.navigationbarContainer(_.extend(this.model.toJSON(),
-                                            { course: this.model.get('course').toJSON(),
+                                            { student:  this.student.toJSON(),
+                                              course: this.model.get('course').toJSON(),
                                               exercise: this.model.get('exercise').toJSON(),
-                                              student:  this.student.toJSON(),
                                               courseRoute: this.courseRoute })));
 
         // Template for navigation container
