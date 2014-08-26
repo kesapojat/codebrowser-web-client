@@ -206,8 +206,8 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         }
 
         // Duration label
-        var duration = codebrowser.helper.Duration.calculate(snapshot.get('snapshotTime'),
-                                                             previousSnapshot.get('snapshotTime'), true);
+        var duration = codebrowser.helper.Duration.calculate(snapshot.get('timestamp'),
+                                                             previousSnapshot.get('timestamp'), true);
 
         // Duration element
         var durationElement = this.paper.text(x - radius - distance / 2, y + 30, duration);
@@ -288,7 +288,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         $(snapshotClickArea.node).attr({
 
             'data-toggle': 'tooltip',
-            'title': moment(new Date(snapshot.get('snapshotTime'))).format('D.M.YYYY HH.mm'),
+            'title': moment(new Date(snapshot.get('timestamp'))).format('D.M.YYYY HH.mm'),
             'data-container': 'body'
 
         });

@@ -34,18 +34,6 @@ codebrowser.model.Snapshot = Backbone.RelationalModel.extend({
                 key: 'snapshot'
 
             }
-        },
-
-        {
-            type: Backbone.HasOne,
-            key: 'course',
-            relatedModel: 'codebrowser.model.Course'
-        },
-
-        {
-            type: Backbone.HasOne,
-            key: 'exercise',
-            relatedModel: 'codebrowser.model.Exercise'
         }
     ],
 

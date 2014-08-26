@@ -41,18 +41,18 @@ describe('SnapshotCollection', function () {
 
     it('should return correct duration between two existing snapshots', function () {
 
-        snapshots.push(codebrowser.model.Snapshot.findOrCreate({ id: 1, snapshotTime: 500 }));
-        snapshots.push(codebrowser.model.Snapshot.findOrCreate({ id: 2, snapshotTime: 1000 }));
-        snapshots.push(codebrowser.model.Snapshot.findOrCreate({ id: 3, snapshotTime: 1400 }));
+        snapshots.push(codebrowser.model.Snapshot.findOrCreate({ id: 1, timestamp: 500 }));
+        snapshots.push(codebrowser.model.Snapshot.findOrCreate({ id: 2, timestamp: 1000 }));
+        snapshots.push(codebrowser.model.Snapshot.findOrCreate({ id: 3, timestamp: 1400 }));
 
         expect(snapshots.getDuration(1, 0)).toBe(500);
     });
 
     it('should return correct min duration between snapshots', function () {
 
-        snapshots.push(codebrowser.model.Snapshot.findOrCreate({ id: 1, snapshotTime: 500 }));
-        snapshots.push(codebrowser.model.Snapshot.findOrCreate({ id: 2, snapshotTime: 1000 }));
-        snapshots.push(codebrowser.model.Snapshot.findOrCreate({ id: 3, snapshotTime: 1400 }));
+        snapshots.push(codebrowser.model.Snapshot.findOrCreate({ id: 1, timestamp: 500 }));
+        snapshots.push(codebrowser.model.Snapshot.findOrCreate({ id: 2, timestamp: 1000 }));
+        snapshots.push(codebrowser.model.Snapshot.findOrCreate({ id: 3, timestamp: 1400 }));
 
         expect(snapshots.getMinDuration()).toBe(400);
     });

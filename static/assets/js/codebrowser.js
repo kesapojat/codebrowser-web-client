@@ -114,11 +114,11 @@ function program1(depth0,data) {
   buffer += "<header>\n\n    <section>\n\n        <h1>"
     + escapeExpression((helper = helpers.filename || (depth0 && depth0.filename),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.name), options) : helperMissing.call(depth0, "filename", (depth0 && depth0.name), options)))
     + "</h1>\n\n        <span class='pull-right'>\n\n            + "
-    + escapeExpression((helper = helpers.duration || (depth0 && depth0.duration),options={hash:{},data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.snapshot)),stack1 == null || stack1 === false ? stack1 : stack1.snapshotTime), ((stack1 = ((stack1 = (depth0 && depth0.previous)),stack1 == null || stack1 === false ? stack1 : stack1.snapshot)),stack1 == null || stack1 === false ? stack1 : stack1.snapshotTime), options) : helperMissing.call(depth0, "duration", ((stack1 = (depth0 && depth0.snapshot)),stack1 == null || stack1 === false ? stack1 : stack1.snapshotTime), ((stack1 = ((stack1 = (depth0 && depth0.previous)),stack1 == null || stack1 === false ? stack1 : stack1.snapshot)),stack1 == null || stack1 === false ? stack1 : stack1.snapshotTime), options)))
+    + escapeExpression((helper = helpers.duration || (depth0 && depth0.duration),options={hash:{},data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.snapshot)),stack1 == null || stack1 === false ? stack1 : stack1.timestamp), ((stack1 = ((stack1 = (depth0 && depth0.previous)),stack1 == null || stack1 === false ? stack1 : stack1.snapshot)),stack1 == null || stack1 === false ? stack1 : stack1.timestamp), options) : helperMissing.call(depth0, "duration", ((stack1 = (depth0 && depth0.snapshot)),stack1 == null || stack1 === false ? stack1 : stack1.timestamp), ((stack1 = ((stack1 = (depth0 && depth0.previous)),stack1 == null || stack1 === false ? stack1 : stack1.snapshot)),stack1 == null || stack1 === false ? stack1 : stack1.timestamp), options)))
     + "\n\n            <a id='editor-inspector' href='#' data-toggle='popover' data-placement='bottom'\n\n               data-original-title='\n\n                    <time>"
-    + escapeExpression((helper = helpers.date || (depth0 && depth0.date),options={hash:{},data:data},helper ? helper.call(depth0, ((stack1 = ((stack1 = (depth0 && depth0.previous)),stack1 == null || stack1 === false ? stack1 : stack1.snapshot)),stack1 == null || stack1 === false ? stack1 : stack1.snapshotTime), options) : helperMissing.call(depth0, "date", ((stack1 = ((stack1 = (depth0 && depth0.previous)),stack1 == null || stack1 === false ? stack1 : stack1.snapshot)),stack1 == null || stack1 === false ? stack1 : stack1.snapshotTime), options)))
+    + escapeExpression((helper = helpers.date || (depth0 && depth0.date),options={hash:{},data:data},helper ? helper.call(depth0, ((stack1 = ((stack1 = (depth0 && depth0.previous)),stack1 == null || stack1 === false ? stack1 : stack1.snapshot)),stack1 == null || stack1 === false ? stack1 : stack1.timestamp), options) : helperMissing.call(depth0, "date", ((stack1 = ((stack1 = (depth0 && depth0.previous)),stack1 == null || stack1 === false ? stack1 : stack1.snapshot)),stack1 == null || stack1 === false ? stack1 : stack1.timestamp), options)))
     + " –</time>\n                    <time>"
-    + escapeExpression((helper = helpers.date || (depth0 && depth0.date),options={hash:{},data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.snapshot)),stack1 == null || stack1 === false ? stack1 : stack1.snapshotTime), options) : helperMissing.call(depth0, "date", ((stack1 = (depth0 && depth0.snapshot)),stack1 == null || stack1 === false ? stack1 : stack1.snapshotTime), options)))
+    + escapeExpression((helper = helpers.date || (depth0 && depth0.date),options={hash:{},data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.snapshot)),stack1 == null || stack1 === false ? stack1 : stack1.timestamp), options) : helperMissing.call(depth0, "date", ((stack1 = (depth0 && depth0.snapshot)),stack1 == null || stack1 === false ? stack1 : stack1.timestamp), options)))
     + "</time>\n\n               '\n\n               data-content='\n\n                <dl class=\"dl-horizontal pull-left\">\n\n                  <dt>Change</dt>\n                  <dd>";
   if (helper = helpers.percentageOfChange) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.percentageOfChange); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
@@ -554,11 +554,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 
   buffer += "<div class='row'>\n\n    <div class='span2'>\n\n        <time>"
-    + escapeExpression((helper = helpers.date || (depth0 && depth0.date),options={hash:{},data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.first)),stack1 == null || stack1 === false ? stack1 : stack1.snapshotTime), false, options) : helperMissing.call(depth0, "date", ((stack1 = (depth0 && depth0.first)),stack1 == null || stack1 === false ? stack1 : stack1.snapshotTime), false, options)))
+    + escapeExpression((helper = helpers.date || (depth0 && depth0.date),options={hash:{},data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.first)),stack1 == null || stack1 === false ? stack1 : stack1.timestamp), false, options) : helperMissing.call(depth0, "date", ((stack1 = (depth0 && depth0.first)),stack1 == null || stack1 === false ? stack1 : stack1.timestamp), false, options)))
     + "</time>\n\n    </div>\n\n    <div class='center text-center'>. . .</div>\n\n    <div class='span3 pull-right'>\n\n        <time class='pull-right'>"
-    + escapeExpression((helper = helpers.date || (depth0 && depth0.date),options={hash:{},data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.last)),stack1 == null || stack1 === false ? stack1 : stack1.snapshotTime), false, options) : helperMissing.call(depth0, "date", ((stack1 = (depth0 && depth0.last)),stack1 == null || stack1 === false ? stack1 : stack1.snapshotTime), false, options)))
+    + escapeExpression((helper = helpers.date || (depth0 && depth0.date),options={hash:{},data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.last)),stack1 == null || stack1 === false ? stack1 : stack1.timestamp), false, options) : helperMissing.call(depth0, "date", ((stack1 = (depth0 && depth0.last)),stack1 == null || stack1 === false ? stack1 : stack1.timestamp), false, options)))
     + " (+ "
-    + escapeExpression((helper = helpers.duration || (depth0 && depth0.duration),options={hash:{},data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.last)),stack1 == null || stack1 === false ? stack1 : stack1.snapshotTime), ((stack1 = (depth0 && depth0.first)),stack1 == null || stack1 === false ? stack1 : stack1.snapshotTime), options) : helperMissing.call(depth0, "duration", ((stack1 = (depth0 && depth0.last)),stack1 == null || stack1 === false ? stack1 : stack1.snapshotTime), ((stack1 = (depth0 && depth0.first)),stack1 == null || stack1 === false ? stack1 : stack1.snapshotTime), options)))
+    + escapeExpression((helper = helpers.duration || (depth0 && depth0.duration),options={hash:{},data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.last)),stack1 == null || stack1 === false ? stack1 : stack1.timestamp), ((stack1 = (depth0 && depth0.first)),stack1 == null || stack1 === false ? stack1 : stack1.timestamp), options) : helperMissing.call(depth0, "duration", ((stack1 = (depth0 && depth0.last)),stack1 == null || stack1 === false ? stack1 : stack1.timestamp), ((stack1 = (depth0 && depth0.first)),stack1 == null || stack1 === false ? stack1 : stack1.timestamp), options)))
     + ")</time>\n\n    </div>\n\n</div>\n";
   return buffer;
   });
@@ -753,7 +753,7 @@ var config = {
 
 /* DOM ready */
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     codebrowser.initialize();
 });
@@ -1305,18 +1305,6 @@ codebrowser.model.Snapshot = Backbone.RelationalModel.extend({
                 key: 'snapshot'
 
             }
-        },
-
-        {
-            type: Backbone.HasOne,
-            key: 'course',
-            relatedModel: 'codebrowser.model.Course'
-        },
-
-        {
-            type: Backbone.HasOne,
-            key: 'exercise',
-            relatedModel: 'codebrowser.model.Exercise'
         }
     ],
 
@@ -1498,6 +1486,51 @@ codebrowser.collection.FileCollection = Backbone.Collection.extend({
                '/snapshots/' +
                this.snapshot.id +
                '/files';
+    },
+
+    initialize: function (models, options) {
+
+        if (options) {
+            this.studentId = options.studentId;
+            this.courseId = options.courseId;
+            this.exerciseId = options.exerciseId;
+        }
+    },
+
+    zipUrl: function () {
+
+        return config.api.main.root +
+               'students/' +
+               this.snapshot.get('studentId') +
+               '/courses/' +
+               this.snapshot.get('courseId') +
+               '/exercises/' +
+               this.snapshot.get('exerciseId') +
+               '/snapshots/files.zip';
+    },
+
+    getFiles: function () {
+
+        var self = this;
+
+        console.log(config.api.main.root + Backbone.history.fragment + '.zip');
+
+        JSZipUtils.getBinaryContent(this.zipUrl(), function(error, data) {
+
+            if (error) {
+                self.notFound();
+            }
+
+            self.zip = new JSZip(data);
+
+            console.log(self.zip);
+            console.log(self.zip.files);
+
+            _.each(self.zip.files, function (file) {
+
+                console.log(file.asText());
+            });
+        });
     }
 });
 ;
@@ -1544,7 +1577,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     getDuration: function (fromIndex, toIndex) {
 
-        return this.at(fromIndex).get('snapshotTime') - this.at(toIndex).get('snapshotTime');
+        return this.at(fromIndex).get('timestamp') - this.at(toIndex).get('timestamp');
     },
 
     getMinDuration: function () {
@@ -2190,7 +2223,7 @@ codebrowser.view.EditorView = Backbone.View.extend({
         this.previousModel = previousFile;
 
         // Wait files to be in sync
-        var fileSynced = _.after(2, function() {
+        var fileSynced = _.after(2, function () {
 
             var previousContent = self.sideEditor.getValue();
             var content = self.mainEditor.getValue();
@@ -2573,8 +2606,8 @@ codebrowser.view.SnapshotBrowserView = Backbone.View.extend({
         this.$el.append(this.snapshotFilesView.el);
 
         // Tags
-        this.snapshotTagsView = new codebrowser.view.SnapshotTagsView();
-        this.$el.append(this.snapshotTagsView.el);
+//        this.snapshotTagsView = new codebrowser.view.SnapshotTagsView();
+//        this.$el.append(this.snapshotTagsView.el);
     },
 
     /* Remove */
@@ -2585,7 +2618,7 @@ codebrowser.view.SnapshotBrowserView = Backbone.View.extend({
         this.snapshotFilesView.remove();
 
         // Remove tags view
-        this.snapshotTagsView.remove();
+//        this.snapshotTagsView.remove();
 
         Backbone.View.prototype.remove.call(this);
     },
@@ -2598,7 +2631,7 @@ codebrowser.view.SnapshotBrowserView = Backbone.View.extend({
         this.snapshotFilesView.update(snapshot, file, courseRoute);
 
         // Update tags view
-        this.snapshotTagsView.update(snapshot);
+//        this.snapshotTagsView.update(snapshot);
     }
 });
 ;
@@ -2852,8 +2885,8 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         this.$el.hide();
 
         // Navigation bar
-        this.navigationbarContainer = $('<div>', { id: 'navigation-bar-container' });
-        this.$el.append(this.navigationbarContainer);
+//        this.navigationbarContainer = $('<div>', { id: 'navigation-bar-container' });
+//        this.$el.append(this.navigationbarContainer);
 
         // Timeline
         this.snapshotsTimelineView = new codebrowser.view.SnapshotsTimelineView({ parentView: this });
@@ -2921,10 +2954,10 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         }
 
         // Template for navigation bar container
-        var navigationbarContainerOutput = $(this.template.navigationbarContainer(_.extend(this.model.toJSON(),
-                                            { exercise: this.collection.at(index).get('exercise').toJSON(),
-                                              student:  this.student.toJSON(),
-                                              courseRoute: this.courseRoute })));
+//        var navigationbarContainerOutput = $(this.template.navigationbarContainer(_.extend(this.model.toJSON(),
+//                                            { exercise: this.collection.at(index).get('exercise').toJSON(),
+//                                              student:  this.student.toJSON(),
+//                                              courseRoute: this.courseRoute })));
 
         // Template for navigation container
         var navigationContainerOutput = $(this.template.navigationContainer(attributes));
@@ -2962,7 +2995,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         }
 
         // Update navigation bar container
-        this.navigationbarContainer.html(navigationbarContainerOutput);
+//        this.navigationbarContainer.html(navigationbarContainerOutput);
 
         // Update navigation container
         this.navigationContainer.html(navigationContainerOutput);
@@ -3375,8 +3408,8 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         }
 
         // Duration label
-        var duration = codebrowser.helper.Duration.calculate(snapshot.get('snapshotTime'),
-                                                             previousSnapshot.get('snapshotTime'), true);
+        var duration = codebrowser.helper.Duration.calculate(snapshot.get('timestamp'),
+                                                             previousSnapshot.get('timestamp'), true);
 
         // Duration element
         var durationElement = this.paper.text(x - radius - distance / 2, y + 30, duration);
@@ -3457,7 +3490,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         $(snapshotClickArea.node).attr({
 
             'data-toggle': 'tooltip',
-            'title': moment(new Date(snapshot.get('snapshotTime'))).format('D.M.YYYY HH.mm'),
+            'title': moment(new Date(snapshot.get('timestamp'))).format('D.M.YYYY HH.mm'),
             'data-container': 'body'
 
         });
@@ -4177,6 +4210,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
         // Wait for fetches to be in sync
         var fetchSynced = _.after(2, function () {
+
             var snapshot;
 
             // No snapshot ID specified, navigate to first snapshot

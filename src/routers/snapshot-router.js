@@ -77,6 +77,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
         // Wait for fetches to be in sync
         var fetchSynced = _.after(2, function () {
+
             var snapshot;
 
             // No snapshot ID specified, navigate to first snapshot

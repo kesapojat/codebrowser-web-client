@@ -6,14 +6,14 @@
 
         <span class='pull-right'>
 
-            + {{duration snapshot.snapshotTime previous.snapshot.snapshotTime}}
+            + {{duration snapshot.timestamp previous.snapshot.timestamp}}
 
             <a id='editor-inspector' href='#' data-toggle='popover' data-placement='bottom'
 
                data-original-title='
 
-                    <time>{{date previous.snapshot.snapshotTime}} –</time>
-                    <time>{{date snapshot.snapshotTime}}</time>
+                    <time>{{date previous.snapshot.timestamp}} –</time>
+                    <time>{{date snapshot.timestamp}}</time>
 
                '
 

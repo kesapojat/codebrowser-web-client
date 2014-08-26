@@ -40,7 +40,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     getDuration: function (fromIndex, toIndex) {
 
-        return this.at(fromIndex).get('snapshotTime') - this.at(toIndex).get('snapshotTime');
+        return this.at(fromIndex).get('timestamp') - this.at(toIndex).get('timestamp');
     },
 
     getMinDuration: function () {
