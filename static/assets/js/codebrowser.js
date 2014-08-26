@@ -1500,51 +1500,6 @@ codebrowser.collection.FileCollection = Backbone.Collection.extend({
                '/snapshots/' +
                this.snapshot.id +
                '/files';
-    },
-
-    initialize: function (models, options) {
-
-        if (options) {
-            this.studentId = options.studentId;
-            this.courseId = options.courseId;
-            this.exerciseId = options.exerciseId;
-        }
-    },
-
-    zipUrl: function () {
-
-        return config.api.main.root +
-               'students/' +
-               this.snapshot.get('studentId') +
-               '/courses/' +
-               this.snapshot.get('courseId') +
-               '/exercises/' +
-               this.snapshot.get('exerciseId') +
-               '/snapshots/files.zip';
-    },
-
-    getFiles: function () {
-
-        var self = this;
-
-        console.log(config.api.main.root + Backbone.history.fragment + '.zip');
-
-        JSZipUtils.getBinaryContent(this.zipUrl(), function(error, data) {
-
-            if (error) {
-                self.notFound();
-            }
-
-            self.zip = new JSZip(data);
-
-            console.log(self.zip);
-            console.log(self.zip.files);
-
-            _.each(self.zip.files, function (file) {
-
-                console.log(file.asText());
-            });
-        });
     }
 });
 ;
