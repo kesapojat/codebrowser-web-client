@@ -705,7 +705,7 @@ var config = {
 
         main: {
 
-            root: 'http://localhost:8090/'
+            root: 'http://t-avihavai.users.cs.helsinki.fi/cb-back/app/'
 
         }
     },
@@ -1180,7 +1180,6 @@ codebrowser.model.Exercise = Backbone.RelationalModel.extend({
     urlRoot: function () {
 
         if (!this.get('course')) {
-
             return codebrowser.model.Course.findOrCreate({ id: this.courseId }).url() +  '/exercises';
         }
 
@@ -1190,7 +1189,6 @@ codebrowser.model.Exercise = Backbone.RelationalModel.extend({
     initialize: function (options) {
 
         if (options) {
-
             this.id = options.id;
             this.courseId = options.courseId;
         }
@@ -4183,7 +4181,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
             self.synced(snapshotId, fileId, snapshotCollection);
         });
 
-        // Fetch
+        /* Fetch */
 
         var student = codebrowser.model.Student.findOrCreate({ id: studentId });
 

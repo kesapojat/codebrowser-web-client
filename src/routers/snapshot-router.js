@@ -81,7 +81,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
             self.synced(snapshotId, fileId, snapshotCollection);
         });
 
-        // Fetch
+        /* Fetch */
 
         var student = codebrowser.model.Student.findOrCreate({ id: studentId });
 

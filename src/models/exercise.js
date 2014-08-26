@@ -7,7 +7,6 @@ codebrowser.model.Exercise = Backbone.RelationalModel.extend({
     urlRoot: function () {
 
         if (!this.get('course')) {
-
             return codebrowser.model.Course.findOrCreate({ id: this.courseId }).url() +  '/exercises';
         }
 
@@ -17,7 +16,6 @@ codebrowser.model.Exercise = Backbone.RelationalModel.extend({
     initialize: function (options) {
 
         if (options) {
-
             this.id = options.id;
             this.courseId = options.courseId;
         }
