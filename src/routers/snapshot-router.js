@@ -16,6 +16,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
     studentId: null,
     exerciseId: null,
+    exercise: null,
 
     /* Initialise */
 
@@ -94,10 +95,10 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
         var exercise = codebrowser.model.Exercise.findOrCreate({ id: exerciseId, courseId: courseId });
 
-        // Fetch course
+        // Fetch exercise
         this.fetchModel(exercise, true, function () {
 
-            self.snapshotView.exercise = exercise;
+            self.exercise = exercise;
             fetchSynced();
         });
 
@@ -107,16 +108,15 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
     synced: function (snapshotId, fileId, snapshotCollection) {
 
-        var self = this;
-
         var snapshot;
 
         // No snapshot ID specified, navigate to first snapshot
         if (!snapshotId) {
 
             snapshot = snapshotCollection.at(0);
+            snapshot.set('exercise', this.exercise);
 
-            self.snapshotView.navigate(snapshot, null, {replace: true});
+            this.snapshotView.navigate(snapshot, null, {replace: true});
 
             return;
         }
@@ -127,7 +127,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         // Invalid snapshot ID
         if (!snapshot) {
 
-            self.notFound();
+            this.notFound();
 
             return;
         }
@@ -135,7 +135,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         // No file ID specified, navigate to first file
         if (!fileId) {
 
-            self.snapshotView.navigate(snapshot, null);
+            this.snapshotView.navigate(snapshot, null);
 
             return;
         }
@@ -143,11 +143,12 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         // Invalid file ID
         if (!snapshot.get('files').get(fileId)) {
 
-            self.notFound();
+            this.notFound();
 
             return;
         }
 
-        self.snapshotView.update(snapshot, fileId);
+        snapshot.set('exercise', this.exercise);
+        this.snapshotView.update(snapshot, fileId);
     }
 });
