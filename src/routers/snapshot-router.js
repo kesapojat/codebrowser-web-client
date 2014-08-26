@@ -16,6 +16,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
     studentId: null,
     exerciseId: null,
+    course: null,
     exercise: null,
 
     /* Initialise */
@@ -77,7 +78,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         }
 
         // Wait for fetches to be in sync
-        var fetchSynced = _.after(3, function () {
+        var fetchSynced = _.after(4, function () {
 
             self.synced(snapshotId, fileId, snapshotCollection);
         });
@@ -90,6 +91,15 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         this.fetchModel(student, true, function () {
 
             self.snapshotView.student = student;
+            fetchSynced();
+        });
+
+        // Fetch course
+        var course = codebrowser.model.Course.findOrCreate({ id: courseId });
+
+        this.fetchModel(course, true, function () {
+
+            self.course = course;
             fetchSynced();
         });
 
@@ -115,6 +125,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
             snapshot = snapshotCollection.at(0);
             snapshot.set('exercise', this.exercise);
+            snapshot.set('course', this.course);
 
             this.snapshotView.navigate(snapshot, null, {replace: true});
 
@@ -149,6 +160,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         }
 
         snapshot.set('exercise', this.exercise);
+        snapshot.set('course', this.course);
         this.snapshotView.update(snapshot, fileId);
     }
 });
