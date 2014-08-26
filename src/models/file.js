@@ -68,11 +68,23 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
 
         var self = this;
 
-        var request = $.get(this.urlRoot() + '/' + this.id + '/content', function (content) {
+        var request = $.ajax({
 
-            self.content = content;
+            url: this.urlRoot() + '/' + this.id + '/content',
 
-            callback(self.getContent(), null);
+            headers: {
+
+                Accept: 'text/plain; charset=utf-8',
+                'Content-Type': 'text/plain; charset=utf-8'
+            },
+
+            success: function (content) {
+
+                self.content = content;
+
+                callback(self.getContent(), null);
+            }
+
         });
 
         request.fail(function () {
