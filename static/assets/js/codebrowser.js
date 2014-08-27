@@ -952,7 +952,7 @@ Handlebars.registerHelper('index', function (index) {
 
 codebrowser.helper.ListViewFilter = function (options, collection) {
 
-    this.filteredCollection = new Backbone.Collection();
+    this.filteredCollection = _.extend(new Backbone.Collection(), collection);
 
     // Default where to find search input string
     this.searchInputSelector = 'input[data-id="query-string"]';
@@ -983,8 +983,9 @@ codebrowser.helper.ListViewFilter = function (options, collection) {
 
         return {
 
-            filteredCollection : this.filteredCollection,
-            query : query
+            filteredCollection: this.filteredCollection,
+            query: query
+
         }
     },
 
