@@ -1,15 +1,15 @@
 codebrowser.helper.ListViewFilter = function (options) {
 
-    // default selector for elements to filter
+    // Default selector for elements to filter
     this.rowSelector = 'tbody tr';
 
-    // default selector inside single element
+    // Default selector inside single element
     this.targetCellSelector = 'td:eq(1) a';
 
-    // default where to find search input string
+    // Default where to find search input string
     this.searchInputSelector = 'input[data-id="query-string"]';
 
-    // default container element selector
+    // Default container element selector
     this.containerSelector = 'body';
 
     if (options) {

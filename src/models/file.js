@@ -76,12 +76,12 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
 
                 Accept: 'text/plain; charset=utf-8',
                 'Content-Type': 'text/plain; charset=utf-8'
+
             },
 
             success: function (content) {
 
                 self.content = content;
-
                 callback(self.getContent(), null);
             }
 

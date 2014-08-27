@@ -76,12 +76,12 @@ function program8(depth0,data) {
   buffer += "<section>\n\n    <ul class='breadcrumb'>\n\n        <li><a href='./'>Home</a> <span class='divider'>/</span></li>\n\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.studentId), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n        <li class='active'>Courses</li>\n\n    </ul>\n\n    <h2>";
+  buffer += "\n\n        <li class='active'>Courses</li>\n\n    </ul>\n\n    <h2>\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.studentId), {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += " Courses ("
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.courses)),stack1 == null || stack1 === false ? stack1 : stack1.length)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + ")</h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n                <th>#</th>\n                <th>Name</th>\n                <th>Exercises</th>\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
+    + ")\n\n        <span class=\"pull-right\">\n            <div class=\"input-append\">\n\n                <input type=\"text\" class=\"span2\" placeholder=\"Search\" data-id=\"query-string\" />\n                <button class=\"btn\" data-action=\"search\" title=\"Search for courses\">\n                    <i class=\"icon-search\"></i>\n                </button>\n\n            </div>\n        </span>\n    </h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n                <th>#</th>\n                <th>Name</th>\n                <th>Exercises</th>\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
   options={hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth0),data:data}
   if (helper = helpers.courses) { stack1 = helper.call(depth0, options); }
   else { helper = (depth0 && depth0.courses); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
@@ -260,14 +260,14 @@ function program10(depth0,data,depth2) {
   buffer += escapeExpression(stack1)
     + "'>"
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.course)),stack1 == null || stack1 === false ? stack1 : stack1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</a> <span class='divider'>/</span></li>\n        <li class='active'>Exercises</li>\n\n    </ul>\n\n    <h2>";
+    + "</a> <span class='divider'>/</span></li>\n        <li class='active'>Exercises</li>\n\n    </ul>\n\n    <h2>\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.studentId), {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += " "
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.course)),stack1 == null || stack1 === false ? stack1 : stack1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + " — Exercises ("
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.exercises)),stack1 == null || stack1 === false ? stack1 : stack1.length)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + ")</h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n                <th>#</th>\n                <th>Name</th>\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
+    + ")\n\n        <span class=\"pull-right\">\n            <div class=\"input-append\">\n\n                <input type=\"text\" class=\"span2\" placeholder=\"Search\" data-id=\"query-string\" />\n                <button class=\"btn\" data-action=\"search\" title=\"Search for exercises\">\n                    <i class=\"icon-search\"></i>\n                </button>\n\n            </div>\n        </span>\n    </h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n                <th>#</th>\n                <th>Name</th>\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
   options={hash:{},inverse:self.noop,fn:self.programWithDepth(7, program7, data, depth0),data:data}
   if (helper = helpers.exercises) { stack1 = helper.call(depth0, options); }
   else { helper = (depth0 && depth0.exercises); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
@@ -646,12 +646,12 @@ function program8(depth0,data) {
   buffer += "<section>\n\n    <ul class='breadcrumb'>\n        <li><a href='./'>Home</a> <span class='divider'>/</span></li>\n\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.course), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n        <li class='active'>Students</li>\n    </ul>\n\n    <h2>";
+  buffer += "\n\n        <li class='active'>Students</li>\n    </ul>\n\n    <h2>\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.course), {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += " Students ("
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.students)),stack1 == null || stack1 === false ? stack1 : stack1.length)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + ")</h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n\n                <th>#</th>\n                <th>Name</th>\n\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
+    + ")\n\n        <span class=\"pull-right\">\n            <div class=\"input-append\">\n\n                <input type=\"text\" class=\"span2\" placeholder=\"Search\" data-id=\"query-string\" />\n                <button class=\"btn\" data-action=\"search\" title=\"Search for students\">\n                    <i class=\"icon-search\"></i>\n                </button>\n\n            </div>\n        </span>\n    </h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n\n                <th>#</th>\n                <th>Name</th>\n\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
   options={hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth0),data:data}
   if (helper = helpers.students) { stack1 = helper.call(depth0, options); }
   else { helper = (depth0 && depth0.students); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
@@ -912,6 +912,90 @@ Handlebars.registerHelper('index', function (index) {
 
     return index + 1;
 });
+;
+
+codebrowser.helper.ListViewFilter = function (options) {
+
+    // default selector for elements to filter
+    this.rowSelector = 'tbody tr';
+
+    // default selector inside single element
+    this.targetCellSelector = 'td:eq(1) a';
+
+    // default where to find search input string
+    this.searchInputSelector = 'input[data-id="query-string"]';
+
+    // default container element selector
+    this.containerSelector = 'body';
+
+    if (options) {
+
+        this.rowSelector = options.rowSelector || this.rowSelector;
+        this.targetCellSelector = options.targetCellSelector || this.targetCellSelector;
+        this.searchInputSelector = options.searchInputSelector || this.searchInputSelector;
+        this.containerSelector = options.containerSelector || this.containerSelector;
+    }
+
+    this.filterList = function () {
+
+        var query = this._getQueryString().toLowerCase();
+
+        var $tableRows = $(this.containerSelector).find(this.rowSelector);
+
+        var that = this;
+
+        // First show all and clean highlights
+        $tableRows.each(function() {
+
+            $(this).show();
+
+            var cell =  $(this).find(that.targetCellSelector);
+            var cellText = cell.text();
+
+            cell.html(_.escape(cellText));
+        });
+
+        if (query !== '') {
+
+            $tableRows.each(function() {
+
+                var $nameCell = $(this).find(that.targetCellSelector);
+
+                if ( that._nodeTextContains($nameCell, query) ) {
+
+                    that._highlightMatch($nameCell, query);
+                } else {
+
+                    $nameCell.text( $nameCell.text() );
+                    $(this).hide();
+                }
+            });
+        }
+    };
+
+    this._getQueryString = function () {
+
+        return $(this.containerSelector).find(this.searchInputSelector).val().trim();
+    };
+
+    this._nodeTextContains = function ($node, query) {
+
+        return $node.text().toLowerCase().indexOf(query) !== -1;
+    };
+
+    this._highlightMatch = function ($node, query) {
+
+        // Wrap matched part of nodes text in span
+        var text = $node.text();
+        var index = text.toLowerCase().indexOf(query);
+        var length = query.length;
+
+        var highlighted = _.escape(text.substring(0, index)) + '<span class="search-highlight">' +
+                          _.escape(text.substring(index, index + length)) + '</span>' + _.escape(text.substring(index + length));
+
+        $node.html(highlighted);
+    };
+};
 ;
 
 Handlebars.registerHelper('pluralize', function (value, string) {
@@ -1266,11 +1350,23 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
 
         var self = this;
 
-        var request = $.get(this.urlRoot() + '/' + this.id + '/content', function (content) {
+        var request = $.ajax({
 
-            self.content = content;
+            url: this.urlRoot() + '/' + this.id + '/content',
 
-            callback(self.getContent(), null);
+            headers: {
+
+                Accept: 'text/plain; charset=utf-8',
+                'Content-Type': 'text/plain; charset=utf-8'
+            },
+
+            success: function (content) {
+
+                self.content = content;
+
+                callback(self.getContent(), null);
+            }
+
         });
 
         request.fail(function () {
@@ -1808,7 +1904,34 @@ codebrowser.collection.TagCollection = Backbone.Collection.extend({
 });
 ;
 
-codebrowser.view.CoursesView = Backbone.View.extend({
+codebrowser.view.BaseView = Backbone.View.extend({
+
+    events: {
+
+        'click [data-action="search"]': 'filterListByName',
+        'keyup [data-id="query-string"]': 'filterListByName',
+        'keypress [data-id="query-string"]': 'filterListByName'
+
+    },
+
+    filterListByName: function () {
+
+        if (!this.filterHelper) {
+
+            var filterOptions = {
+
+                'containerSelector' : '#' + this.id
+            }
+
+            this.filterHelper = new codebrowser.helper.ListViewFilter(filterOptions);
+        }
+
+        this.filterHelper.filterList();
+    }
+});
+;
+
+codebrowser.view.CoursesView = codebrowser.view.BaseView.extend({
 
     id: 'courses-container',
     template: Handlebars.templates.CoursesContainer,
@@ -1833,6 +1956,9 @@ codebrowser.view.CoursesView = Backbone.View.extend({
         var output = this.template(attributes);
 
         this.$el.html(output);
+
+        // Bind events also on re-render
+        this.delegateEvents();
     }
 });
 ;
@@ -2499,7 +2625,7 @@ codebrowser.view.ErrorView = Backbone.View.extend({
 });
 ;
 
-codebrowser.view.ExercisesView = Backbone.View.extend({
+codebrowser.view.ExercisesView = codebrowser.view.BaseView.extend({
 
     id: 'exercises-container',
     template: Handlebars.templates.ExercisesContainer,
@@ -2526,6 +2652,9 @@ codebrowser.view.ExercisesView = Backbone.View.extend({
         var output = this.template(attributes);
 
         this.$el.html(output);
+
+        // Bind events also on re-render
+        this.delegateEvents();
     }
 });
 ;
@@ -2654,6 +2783,7 @@ codebrowser.view.SnapshotFilesView = Backbone.View.extend({
         // View attributes
         var attributes = {
 
+            exercise: this.model.get('exercise').toJSON(),
             courseRoute: this.courseRoute,
             files: this.model.getFiles()
 
@@ -2922,8 +3052,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         // Template for navigation bar container
         var navigationbarContainerOutput = $(this.template.navigationbarContainer(_.extend(this.model.toJSON(),
-                                            { exercise: this.exercise.toJSON(),
-                                              student:  this.student.toJSON(),
+                                            { student:  this.student.toJSON(),
+                                              course: this.model.get('course').toJSON(),
+                                              exercise: this.model.get('exercise').toJSON(),
                                               courseRoute: this.courseRoute })));
 
         // Template for navigation container
@@ -3830,7 +3961,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 });
 ;
 
-codebrowser.view.StudentsView = Backbone.View.extend({
+codebrowser.view.StudentsView = codebrowser.view.BaseView.extend({
 
     id: 'students-container',
     template: Handlebars.templates.StudentsContainer,
@@ -3854,6 +3985,9 @@ codebrowser.view.StudentsView = Backbone.View.extend({
         var output = this.template(attributes);
 
         this.$el.html(output);
+
+        // Bind events also on re-render
+        this.delegateEvents();
     }
 });
 ;
@@ -4116,6 +4250,8 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
     studentId: null,
     exerciseId: null,
+    course: null,
+    exercise: null,
 
     /* Initialise */
 
@@ -4176,7 +4312,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         }
 
         // Wait for fetches to be in sync
-        var fetchSynced = _.after(3, function () {
+        var fetchSynced = _.after(4, function () {
 
             self.synced(snapshotId, fileId, snapshotCollection);
         });
@@ -4192,12 +4328,21 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
             fetchSynced();
         });
 
+        // Fetch course
+        var course = codebrowser.model.Course.findOrCreate({ id: courseId });
+
+        this.fetchModel(course, true, function () {
+
+            self.course = course;
+            fetchSynced();
+        });
+
         var exercise = codebrowser.model.Exercise.findOrCreate({ id: exerciseId, courseId: courseId });
 
-        // Fetch course
+        // Fetch exercise
         this.fetchModel(exercise, true, function () {
 
-            self.snapshotView.exercise = exercise;
+            self.exercise = exercise;
             fetchSynced();
         });
 
@@ -4207,16 +4352,16 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
     synced: function (snapshotId, fileId, snapshotCollection) {
 
-        var self = this;
-
         var snapshot;
 
         // No snapshot ID specified, navigate to first snapshot
         if (!snapshotId) {
 
             snapshot = snapshotCollection.at(0);
+            snapshot.set('exercise', this.exercise);
+            snapshot.set('course', this.course);
 
-            self.snapshotView.navigate(snapshot, null, {replace: true});
+            this.snapshotView.navigate(snapshot, null, {replace: true});
 
             return;
         }
@@ -4227,7 +4372,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         // Invalid snapshot ID
         if (!snapshot) {
 
-            self.notFound();
+            this.notFound();
 
             return;
         }
@@ -4235,7 +4380,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         // No file ID specified, navigate to first file
         if (!fileId) {
 
-            self.snapshotView.navigate(snapshot, null);
+            this.snapshotView.navigate(snapshot, null);
 
             return;
         }
@@ -4243,12 +4388,14 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         // Invalid file ID
         if (!snapshot.get('files').get(fileId)) {
 
-            self.notFound();
+            this.notFound();
 
             return;
         }
 
-        self.snapshotView.update(snapshot, fileId);
+        snapshot.set('exercise', this.exercise);
+        snapshot.set('course', this.course);
+        this.snapshotView.update(snapshot, fileId);
     }
 });
 ;

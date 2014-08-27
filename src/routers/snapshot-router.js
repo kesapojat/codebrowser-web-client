@@ -127,7 +127,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
             snapshot.set('exercise', this.exercise);
             snapshot.set('course', this.course);
 
-            this.snapshotView.navigate(snapshot, null, {replace: true});
+            this.snapshotView.navigate(snapshot, null, { replace: true });
 
             return;
         }
