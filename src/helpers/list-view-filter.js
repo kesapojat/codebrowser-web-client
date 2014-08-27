@@ -1,4 +1,4 @@
-codebrowser.helper.ListViewFilter = function (options) {
+codebrowser.helper.ListViewFilter = function (options, collection) {
 
     // Default selector for elements to filter
     this.rowSelector = 'tbody tr';
@@ -14,8 +14,6 @@ codebrowser.helper.ListViewFilter = function (options) {
 
     if (options) {
 
-        this.rowSelector = options.rowSelector || this.rowSelector;
-        this.targetCellSelector = options.targetCellSelector || this.targetCellSelector;
         this.searchInputSelector = options.searchInputSelector || this.searchInputSelector;
         this.containerSelector = options.containerSelector || this.containerSelector;
     }
@@ -24,59 +22,26 @@ codebrowser.helper.ListViewFilter = function (options) {
 
         var query = this._getQueryString().toLowerCase();
 
-        var $tableRows = $(this.containerSelector).find(this.rowSelector);
+        // Filter collection
+        var results = collection.filter(function (item) {
 
-        var that = this;
+            var name = item.get('name').toLowerCase();
 
-        // First show all and clean highlights
-        $tableRows.each(function() {
-
-            $(this).show();
-
-            var cell =  $(this).find(that.targetCellSelector);
-            var cellText = cell.text();
-
-            cell.html(_.escape(cellText));
+            return name.indexOf(query) !== -1;
         });
 
-        if (query !== '') {
+        // Set filtered results to filtered collection
+        this.filteredCollection.reset(results);
 
-            $tableRows.each(function() {
+        return {
 
-                var $nameCell = $(this).find(that.targetCellSelector);
-
-                if ( that._nodeTextContains($nameCell, query) ) {
-
-                    that._highlightMatch($nameCell, query);
-                } else {
-
-                    $nameCell.text( $nameCell.text() );
-                    $(this).hide();
-                }
-            });
+            filteredCollection : this.filteredCollection,
+            query : query
         }
-    };
+    },
 
     this._getQueryString = function () {
 
         return $(this.containerSelector).find(this.searchInputSelector).val().trim();
-    };
-
-    this._nodeTextContains = function ($node, query) {
-
-        return $node.text().toLowerCase().indexOf(query) !== -1;
-    };
-
-    this._highlightMatch = function ($node, query) {
-
-        // Wrap matched part of nodes text in span
-        var text = $node.text();
-        var index = text.toLowerCase().indexOf(query);
-        var length = query.length;
-
-        var highlighted = _.escape(text.substring(0, index)) + '<span class="search-highlight">' +
-                          _.escape(text.substring(index, index + length)) + '</span>' + _.escape(text.substring(index + length));
-
-        $node.html(highlighted);
-    };
+    }
 };

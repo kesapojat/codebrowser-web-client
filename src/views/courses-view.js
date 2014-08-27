@@ -5,11 +5,12 @@ codebrowser.view.CoursesView = codebrowser.view.BaseView.extend({
 
     /* Render */
 
-    render: function () {
+    renderTemplate: function () {
 
         // View attributes
         var attributes = {
 
+            query: this.query,
             studentId: this.collection.studentId,
             courses: this.collection.toJSON()
 
@@ -20,11 +21,6 @@ codebrowser.view.CoursesView = codebrowser.view.BaseView.extend({
         }
 
         // Template
-        var output = this.template(attributes);
-
-        this.$el.html(output);
-
-        // Bind events also on re-render
-        this.delegateEvents();
+        return this.template(attributes);
     }
 });

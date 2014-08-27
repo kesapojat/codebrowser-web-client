@@ -35,6 +35,9 @@ var codebrowser = {
         codebrowser.app.exercise = new codebrowser.router.ExerciseRouter();
         codebrowser.app.snapshot = new codebrowser.router.SnapshotRouter();
 
+        // Register Handlebars partials
+        Handlebars.registerPartial('search', Handlebars.templates.SearchContainer);
+
         // History
         Backbone.history.start();
     }
