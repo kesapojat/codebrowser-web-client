@@ -952,7 +952,11 @@ Handlebars.registerHelper('index', function (index) {
 
 codebrowser.helper.ListViewFilter = function (options, collection) {
 
-    this.filteredCollection = new Backbone.Collection();
+    // Default selector for elements to filter
+    this.rowSelector = 'tbody tr';
+
+    // Default selector inside single element
+    this.targetCellSelector = 'td:eq(1) a';
 
     // Default where to find search input string
     this.searchInputSelector = 'input[data-id="query-string"]';
@@ -4389,7 +4393,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
             snapshot.set('exercise', this.exercise);
             snapshot.set('course', this.course);
 
-            this.snapshotView.navigate(snapshot, null, {replace: true});
+            this.snapshotView.navigate(snapshot, null, { replace: true });
 
             return;
         }
