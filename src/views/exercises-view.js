@@ -1,4 +1,4 @@
-codebrowser.view.ExercisesView = Backbone.View.extend({
+codebrowser.view.ExercisesView = codebrowser.view.BaseView.extend({
 
     id: 'exercises-container',
     template: Handlebars.templates.ExercisesContainer,
@@ -25,5 +25,8 @@ codebrowser.view.ExercisesView = Backbone.View.extend({
         var output = this.template(attributes);
 
         this.$el.html(output);
+
+        // Bind events also on re-render
+        this.delegateEvents();
     }
 });

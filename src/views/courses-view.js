@@ -1,4 +1,4 @@
-codebrowser.view.CoursesView = Backbone.View.extend({
+codebrowser.view.CoursesView = codebrowser.view.BaseView.extend({
 
     id: 'courses-container',
     template: Handlebars.templates.CoursesContainer,
@@ -23,5 +23,8 @@ codebrowser.view.CoursesView = Backbone.View.extend({
         var output = this.template(attributes);
 
         this.$el.html(output);
+
+        // Bind events also on re-render
+        this.delegateEvents();
     }
 });
