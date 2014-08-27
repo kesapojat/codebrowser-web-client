@@ -3,8 +3,7 @@ codebrowser.view.BaseView = Backbone.View.extend({
     events: {
 
         'click [data-action="search"]': 'filterListByName',
-        'keyup [data-id="query-string"]': 'filterListByName',
-        'keypress [data-id="query-string"]': 'filterListByName'
+        'keyup [data-id="query-string"]': 'filterListByName'
 
     },
 
@@ -17,9 +16,14 @@ codebrowser.view.BaseView = Backbone.View.extend({
                 'containerSelector' : '#' + this.id
             }
 
-            this.filterHelper = new codebrowser.helper.ListViewFilter(filterOptions);
+            this.filterHelper = new codebrowser.helper.ListViewFilter(filterOptions, this.collection);
         }
 
-        this.filterHelper.filterList();
+        var result = this.filterHelper.filterList();
+
+        this.collection = result.filteredCollection;
+        this.query = result.query;
+
+        this.update();
     }
 });

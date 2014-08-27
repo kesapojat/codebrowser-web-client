@@ -5,7 +5,7 @@ codebrowser.view.ExercisesView = codebrowser.view.BaseView.extend({
 
     /* Render */
 
-    render: function () {
+    renderTemplate: function () {
 
         // View attributes
         var attributes = {
@@ -22,11 +22,27 @@ codebrowser.view.ExercisesView = codebrowser.view.BaseView.extend({
         }
 
         // Template
-        var output = this.template(attributes);
+        return this.template(attributes);
+    },
+
+    render: function () {
+
+        // Template
+        var output = this.renderTemplate();
 
         this.$el.html(output);
 
         // Bind events also on re-render
         this.delegateEvents();
+    },
+
+    update: function () {
+
+        // Template
+        var output = this.renderTemplate();
+
+        var filteredList = $(output).find('table');
+
+        this.$el.find('table').replaceWith(filteredList);
     }
 });
