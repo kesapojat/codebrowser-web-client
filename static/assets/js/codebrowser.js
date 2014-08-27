@@ -952,11 +952,7 @@ Handlebars.registerHelper('index', function (index) {
 
 codebrowser.helper.ListViewFilter = function (options, collection) {
 
-    // Default selector for elements to filter
-    this.rowSelector = 'tbody tr';
-
-    // Default selector inside single element
-    this.targetCellSelector = 'td:eq(1) a';
+    this.filteredCollection = new Backbone.Collection();
 
     // Default where to find search input string
     this.searchInputSelector = 'input[data-id="query-string"]';
