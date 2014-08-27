@@ -22,26 +22,5 @@ codebrowser.view.CoursesView = codebrowser.view.BaseView.extend({
 
         // Template
         return this.template(attributes);
-    },
-
-    render: function () {
-
-        // Template
-        var output = this.renderTemplate();
-
-        this.$el.html(output);
-
-        // Bind events also on re-render
-        this.delegateEvents();
-    },
-
-    update: function () {
-
-        // Template
-        var output = this.renderTemplate();
-
-        var filteredList = $(output).find('table');
-
-        this.$el.find('table').replaceWith(filteredList);
     }
 });
