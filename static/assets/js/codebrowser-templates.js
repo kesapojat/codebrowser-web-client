@@ -3,7 +3,7 @@ this["Handlebars"]["templates"] = this["Handlebars"]["templates"] || {};
 
 this["Handlebars"]["templates"]["CoursesContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this, blockHelperMissing=helpers.blockHelperMissing;
 
 function program1(depth0,data) {
@@ -76,12 +76,15 @@ function program8(depth0,data) {
   buffer += "<section>\n\n    <ul class='breadcrumb'>\n\n        <li><a href='./'>Home</a> <span class='divider'>/</span></li>\n\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.studentId), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n        <li class='active'>Courses</li>\n\n    </ul>\n\n    <h2>";
+  buffer += "\n\n        <li class='active'>Courses</li>\n\n    </ul>\n\n    <h2>\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.studentId), {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += " Courses ("
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.courses)),stack1 == null || stack1 === false ? stack1 : stack1.length)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + ")</h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n                <th>#</th>\n                <th>Name</th>\n                <th>Exercises</th>\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
+    + ")\n\n        ";
+  stack1 = self.invokePartial(partials.search, 'search', depth0, helpers, partials, data);
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n    </h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n                <th>#</th>\n                <th>Name</th>\n                <th>Exercises</th>\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
   options={hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth0),data:data}
   if (helper = helpers.courses) { stack1 = helper.call(depth0, options); }
   else { helper = (depth0 && depth0.courses); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
@@ -162,7 +165,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 this["Handlebars"]["templates"]["ExercisesContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this, blockHelperMissing=helpers.blockHelperMissing;
 
 function program1(depth0,data) {
@@ -260,14 +263,17 @@ function program10(depth0,data,depth2) {
   buffer += escapeExpression(stack1)
     + "'>"
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.course)),stack1 == null || stack1 === false ? stack1 : stack1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</a> <span class='divider'>/</span></li>\n        <li class='active'>Exercises</li>\n\n    </ul>\n\n    <h2>";
+    + "</a> <span class='divider'>/</span></li>\n        <li class='active'>Exercises</li>\n\n    </ul>\n\n    <h2>\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.studentId), {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += " "
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.course)),stack1 == null || stack1 === false ? stack1 : stack1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + " — Exercises ("
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.exercises)),stack1 == null || stack1 === false ? stack1 : stack1.length)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + ")</h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n                <th>#</th>\n                <th>Name</th>\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
+    + ")\n\n        ";
+  stack1 = self.invokePartial(partials.search, 'search', depth0, helpers, partials, data);
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n    </h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n                <th>#</th>\n                <th>Name</th>\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
   options={hash:{},inverse:self.noop,fn:self.programWithDepth(7, program7, data, depth0),data:data}
   if (helper = helpers.exercises) { stack1 = helper.call(depth0, options); }
   else { helper = (depth0 && depth0.exercises); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
@@ -394,6 +400,20 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 
   return "<section>\n\n    <ul class='breadcrumb'>\n        <li class='active'>Home</li>\n    </ul>\n\n    <ul class='nav nav-tabs nav-stacked selection'>\n        <li><a href='./#/students'>Students</a></li>\n        <li><a href='./#/courses'>Courses</a></li>\n    </ul>\n\n</section>\n";
+  });
+
+this["Handlebars"]["templates"]["SearchContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<span class=\"pull-right\">\n    <div class=\"input-append\">\n\n        <input type=\"text\" class=\"span2\" placeholder=\"Search\" data-id=\"query-string\" value=\"";
+  if (helper = helpers.query) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.query); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\" />\n\n        <button class=\"btn\" data-action=\"search\" title=\"Search\">\n            <i class=\"icon-search\"></i>\n        </button>\n\n    </div>\n</span>\n";
+  return buffer;
   });
 
 this["Handlebars"]["templates"]["SnapshotFilesContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -565,7 +585,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 this["Handlebars"]["templates"]["StudentsContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this, blockHelperMissing=helpers.blockHelperMissing;
 
 function program1(depth0,data) {
@@ -646,12 +666,15 @@ function program8(depth0,data) {
   buffer += "<section>\n\n    <ul class='breadcrumb'>\n        <li><a href='./'>Home</a> <span class='divider'>/</span></li>\n\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.course), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n        <li class='active'>Students</li>\n    </ul>\n\n    <h2>";
+  buffer += "\n\n        <li class='active'>Students</li>\n    </ul>\n\n    <h2>\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.course), {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += " Students ("
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.students)),stack1 == null || stack1 === false ? stack1 : stack1.length)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + ")</h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n\n                <th>#</th>\n                <th>Name</th>\n\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
+    + ")\n\n        ";
+  stack1 = self.invokePartial(partials.search, 'search', depth0, helpers, partials, data);
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n    </h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n\n                <th>#</th>\n                <th>Name</th>\n\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
   options={hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth0),data:data}
   if (helper = helpers.students) { stack1 = helper.call(depth0, options); }
   else { helper = (depth0 && depth0.students); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }

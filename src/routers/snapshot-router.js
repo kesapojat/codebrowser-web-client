@@ -78,7 +78,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         }
 
         // Wait for fetches to be in sync
-        var fetchSynced = _.after(4, function () {
+        var fetchSynced = _.after(5, function () {
 
             self.synced(snapshotId, fileId, snapshotCollection);
         });
@@ -114,6 +114,9 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
         // Fetch snapshot collection
         this.fetchModel(snapshotCollection, true, fetchSynced);
+
+        // Fetch all related files
+        snapshotCollection.fetchFiles(fetchSynced);
     },
 
     synced: function (snapshotId, fileId, snapshotCollection) {

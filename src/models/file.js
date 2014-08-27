@@ -6,7 +6,7 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
 
     content: '',
 
-    urlRoot: function () {
+    baseUrl: function () {
 
         return config.api.main.root +
                'students/' +
@@ -15,8 +15,13 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
                this.get('snapshot').get('courseId') +
                '/exercises/' +
                this.get('snapshot').get('exerciseId') +
-               '/snapshots/' +
-               this.get('snapshot').id +
+               '/snapshots/';
+    },
+
+    urlRoot: function () {
+
+        return this.baseUrl() +
+               this.get('snapshot') +
                '/files';
     },
 
@@ -58,38 +63,18 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
 
     fetchContent: function (callback) {
 
-        // Return content
-        if (this.content.length !== 0) {
+        if (this.content.length !== 0) {
 
             callback(this.getContent(), null);
 
             return;
         }
 
-        var self = this;
+        var zip = codebrowser.cache.files,
+            file = zip.folder(this.get('snapshot').id).file(this.id);
 
-        var request = $.ajax({
+        this.content = file.asText();
 
-            url: this.urlRoot() + '/' + this.id + '/content',
-
-            headers: {
-
-                Accept: 'text/plain; charset=utf-8',
-                'Content-Type': 'text/plain; charset=utf-8'
-            },
-
-            success: function (content) {
-
-                self.content = content;
-
-                callback(self.getContent(), null);
-            }
-
-        });
-
-        request.fail(function () {
-
-            callback(null, request);
-        });
+        callback(this.getContent, null);
     }
 });

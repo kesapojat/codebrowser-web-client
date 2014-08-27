@@ -8,6 +8,15 @@ var config = {
 
     storage: {
 
+        cache: {
+
+            files: {
+
+                url: 'codebrowser.cache.files.url'
+
+            }
+        },
+
         setting: {
 
             editor: {
@@ -42,7 +51,7 @@ var config = {
 
         main: {
 
-            root: 'http://t-avihavai.users.cs.helsinki.fi/cb-back/app/'
+            root: 'http://localhost:8090/'
 
         }
     },

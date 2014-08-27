@@ -3,7 +3,7 @@ this["Handlebars"]["templates"] = this["Handlebars"]["templates"] || {};
 
 this["Handlebars"]["templates"]["CoursesContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this, blockHelperMissing=helpers.blockHelperMissing;
 
 function program1(depth0,data) {
@@ -76,12 +76,15 @@ function program8(depth0,data) {
   buffer += "<section>\n\n    <ul class='breadcrumb'>\n\n        <li><a href='./'>Home</a> <span class='divider'>/</span></li>\n\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.studentId), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n        <li class='active'>Courses</li>\n\n    </ul>\n\n    <h2>";
+  buffer += "\n\n        <li class='active'>Courses</li>\n\n    </ul>\n\n    <h2>\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.studentId), {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += " Courses ("
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.courses)),stack1 == null || stack1 === false ? stack1 : stack1.length)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + ")</h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n                <th>#</th>\n                <th>Name</th>\n                <th>Exercises</th>\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
+    + ")\n\n        ";
+  stack1 = self.invokePartial(partials.search, 'search', depth0, helpers, partials, data);
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n    </h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n                <th>#</th>\n                <th>Name</th>\n                <th>Exercises</th>\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
   options={hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth0),data:data}
   if (helper = helpers.courses) { stack1 = helper.call(depth0, options); }
   else { helper = (depth0 && depth0.courses); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
@@ -162,7 +165,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 this["Handlebars"]["templates"]["ExercisesContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this, blockHelperMissing=helpers.blockHelperMissing;
 
 function program1(depth0,data) {
@@ -260,14 +263,17 @@ function program10(depth0,data,depth2) {
   buffer += escapeExpression(stack1)
     + "'>"
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.course)),stack1 == null || stack1 === false ? stack1 : stack1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</a> <span class='divider'>/</span></li>\n        <li class='active'>Exercises</li>\n\n    </ul>\n\n    <h2>";
+    + "</a> <span class='divider'>/</span></li>\n        <li class='active'>Exercises</li>\n\n    </ul>\n\n    <h2>\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.studentId), {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += " "
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.course)),stack1 == null || stack1 === false ? stack1 : stack1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + " — Exercises ("
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.exercises)),stack1 == null || stack1 === false ? stack1 : stack1.length)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + ")</h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n                <th>#</th>\n                <th>Name</th>\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
+    + ")\n\n        ";
+  stack1 = self.invokePartial(partials.search, 'search', depth0, helpers, partials, data);
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n    </h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n                <th>#</th>\n                <th>Name</th>\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
   options={hash:{},inverse:self.noop,fn:self.programWithDepth(7, program7, data, depth0),data:data}
   if (helper = helpers.exercises) { stack1 = helper.call(depth0, options); }
   else { helper = (depth0 && depth0.exercises); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
@@ -394,6 +400,20 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 
   return "<section>\n\n    <ul class='breadcrumb'>\n        <li class='active'>Home</li>\n    </ul>\n\n    <ul class='nav nav-tabs nav-stacked selection'>\n        <li><a href='./#/students'>Students</a></li>\n        <li><a href='./#/courses'>Courses</a></li>\n    </ul>\n\n</section>\n";
+  });
+
+this["Handlebars"]["templates"]["SearchContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<span class=\"pull-right\">\n    <div class=\"input-append\">\n\n        <input type=\"text\" class=\"span2\" placeholder=\"Search\" data-id=\"query-string\" value=\"";
+  if (helper = helpers.query) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.query); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\" />\n\n        <button class=\"btn\" data-action=\"search\" title=\"Search\">\n            <i class=\"icon-search\"></i>\n        </button>\n\n    </div>\n</span>\n";
+  return buffer;
   });
 
 this["Handlebars"]["templates"]["SnapshotFilesContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -565,7 +585,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 this["Handlebars"]["templates"]["StudentsContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this, blockHelperMissing=helpers.blockHelperMissing;
 
 function program1(depth0,data) {
@@ -646,12 +666,15 @@ function program8(depth0,data) {
   buffer += "<section>\n\n    <ul class='breadcrumb'>\n        <li><a href='./'>Home</a> <span class='divider'>/</span></li>\n\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.course), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n        <li class='active'>Students</li>\n    </ul>\n\n    <h2>";
+  buffer += "\n\n        <li class='active'>Students</li>\n    </ul>\n\n    <h2>\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.course), {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += " Students ("
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.students)),stack1 == null || stack1 === false ? stack1 : stack1.length)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + ")</h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n\n                <th>#</th>\n                <th>Name</th>\n\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
+    + ")\n\n        ";
+  stack1 = self.invokePartial(partials.search, 'search', depth0, helpers, partials, data);
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n    </h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n\n                <th>#</th>\n                <th>Name</th>\n\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
   options={hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth0),data:data}
   if (helper = helpers.students) { stack1 = helper.call(depth0, options); }
   else { helper = (depth0 && depth0.students); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
@@ -670,6 +693,15 @@ var config = {
     /* Storage keys */
 
     storage: {
+
+        cache: {
+
+            files: {
+
+                url: 'codebrowser.cache.files.url'
+
+            }
+        },
 
         setting: {
 
@@ -705,7 +737,7 @@ var config = {
 
         main: {
 
-            root: 'http://t-avihavai.users.cs.helsinki.fi/cb-back/app/'
+            root: 'http://localhost:8090/'
 
         }
     },
@@ -763,6 +795,7 @@ $(document).ready(function () {
 var codebrowser = {
 
     app: {},
+    cache: {},
     helper: {},
     model: {},
     collection: {},
@@ -785,6 +818,9 @@ var codebrowser = {
         codebrowser.app.course = new codebrowser.router.CourseRouter();
         codebrowser.app.exercise = new codebrowser.router.ExerciseRouter();
         codebrowser.app.snapshot = new codebrowser.router.SnapshotRouter();
+
+        // Register Handlebars partials
+        Handlebars.registerPartial('search', Handlebars.templates.SearchContainer);
 
         // History
         Backbone.history.start();
@@ -912,6 +948,51 @@ Handlebars.registerHelper('index', function (index) {
 
     return index + 1;
 });
+;
+
+codebrowser.helper.ListViewFilter = function (options, collection) {
+
+    this.filteredCollection = new Backbone.Collection();
+
+    // Default where to find search input string
+    this.searchInputSelector = 'input[data-id="query-string"]';
+
+    // Default container element selector
+    this.containerSelector = 'body';
+
+    if (options) {
+
+        this.searchInputSelector = options.searchInputSelector || this.searchInputSelector;
+        this.containerSelector = options.containerSelector || this.containerSelector;
+    }
+
+    this.filterList = function () {
+
+        var query = this._getQueryString().toLowerCase();
+
+        // Filter collection
+        var results = collection.filter(function (item) {
+
+            var name = item.get('name').toLowerCase();
+
+            return name.indexOf(query) !== -1;
+        });
+
+        // Set filtered results to filtered collection
+        this.filteredCollection.reset(results);
+
+        return {
+
+            filteredCollection : this.filteredCollection,
+            query : query
+        }
+    },
+
+    this._getQueryString = function () {
+
+        return $(this.containerSelector).find(this.searchInputSelector).val().trim();
+    }
+};
 ;
 
 Handlebars.registerHelper('pluralize', function (value, string) {
@@ -1204,7 +1285,7 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
 
     content: '',
 
-    urlRoot: function () {
+    baseUrl: function () {
 
         return config.api.main.root +
                'students/' +
@@ -1213,8 +1294,13 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
                this.get('snapshot').get('courseId') +
                '/exercises/' +
                this.get('snapshot').get('exerciseId') +
-               '/snapshots/' +
-               this.get('snapshot').id +
+               '/snapshots/';
+    },
+
+    urlRoot: function () {
+
+        return this.baseUrl() +
+               this.get('snapshot') +
                '/files';
     },
 
@@ -1256,27 +1342,19 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
 
     fetchContent: function (callback) {
 
-        // Return content
-        if (this.content.length !== 0) {
+        if (this.content.length !== 0) {
 
             callback(this.getContent(), null);
 
             return;
         }
 
-        var self = this;
+        var zip = codebrowser.cache.files,
+            file = zip.folder(this.get('snapshot').id).file(this.id);
 
-        var request = $.get(this.urlRoot() + '/' + this.id + '/content', function (content) {
+        this.content = file.asText();
 
-            self.content = content;
-
-            callback(self.getContent(), null);
-        });
-
-        request.fail(function () {
-
-            callback(null, request);
-        });
+        callback(this.getContent, null);
     }
 });
 ;
@@ -1540,6 +1618,33 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
             this.courseId = options.courseId;
             this.exerciseId = options.exerciseId;
         }
+    },
+
+    fetchFiles: function (callback) {
+
+        if (codebrowser.cache.files && localStorage.getItem(config.storage.cache.files.url) === this.url()) {
+            callback();
+            return;
+        }
+
+        var self = this;
+
+        JSZipUtils.getBinaryContent(this.url() + '/files.zip', function (error, data) {
+
+            if (error) {
+                console.log(error);
+                return;
+            }
+
+            var zip = new JSZip(data);
+
+            // Save zip
+            codebrowser.cache.files = zip;
+
+            localStorage.setItem(config.storage.cache.files.url, self.url());
+
+            callback();
+        });
     },
 
     getDuration: function (fromIndex, toIndex) {
@@ -1808,18 +1913,75 @@ codebrowser.collection.TagCollection = Backbone.Collection.extend({
 });
 ;
 
-codebrowser.view.CoursesView = Backbone.View.extend({
+codebrowser.view.BaseView = Backbone.View.extend({
+
+    events: {
+
+        'click [data-action="search"]': 'filterListByName',
+        'keyup [data-id="query-string"]': 'filterListByName'
+
+    },
+
+    /* Render */
+
+    render: function () {
+
+        // Template
+        var output = this.renderTemplate();
+
+        this.$el.html(output);
+
+        // Bind events also on re-render
+        this.delegateEvents();
+    },
+
+    update: function () {
+
+        // Template
+        var output = this.renderTemplate();
+
+        var filteredList = $(output).find('table');
+
+        this.$el.find('table').replaceWith(filteredList);
+    },
+
+    /* Filter */
+
+    filterListByName: function () {
+
+        if (!this.filterHelper) {
+
+            var filterOptions = {
+
+                'containerSelector' : '#' + this.id
+            }
+
+            this.filterHelper = new codebrowser.helper.ListViewFilter(filterOptions, this.collection);
+        }
+
+        var result = this.filterHelper.filterList();
+
+        this.collection = result.filteredCollection;
+        this.query = result.query;
+
+        this.update();
+    }
+});
+;
+
+codebrowser.view.CoursesView = codebrowser.view.BaseView.extend({
 
     id: 'courses-container',
     template: Handlebars.templates.CoursesContainer,
 
     /* Render */
 
-    render: function () {
+    renderTemplate: function () {
 
         // View attributes
         var attributes = {
 
+            query: this.query,
             studentId: this.collection.studentId,
             courses: this.collection.toJSON()
 
@@ -1830,9 +1992,7 @@ codebrowser.view.CoursesView = Backbone.View.extend({
         }
 
         // Template
-        var output = this.template(attributes);
-
-        this.$el.html(output);
+        return this.template(attributes);
     }
 });
 ;
@@ -2499,14 +2659,14 @@ codebrowser.view.ErrorView = Backbone.View.extend({
 });
 ;
 
-codebrowser.view.ExercisesView = Backbone.View.extend({
+codebrowser.view.ExercisesView = codebrowser.view.BaseView.extend({
 
     id: 'exercises-container',
     template: Handlebars.templates.ExercisesContainer,
 
     /* Render */
 
-    render: function () {
+    renderTemplate: function () {
 
         // View attributes
         var attributes = {
@@ -2523,9 +2683,7 @@ codebrowser.view.ExercisesView = Backbone.View.extend({
         }
 
         // Template
-        var output = this.template(attributes);
-
-        this.$el.html(output);
+        return this.template(attributes);
     }
 });
 ;
@@ -2654,6 +2812,7 @@ codebrowser.view.SnapshotFilesView = Backbone.View.extend({
         // View attributes
         var attributes = {
 
+            exercise: this.model.get('exercise').toJSON(),
             courseRoute: this.courseRoute,
             files: this.model.getFiles()
 
@@ -2922,8 +3081,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         // Template for navigation bar container
         var navigationbarContainerOutput = $(this.template.navigationbarContainer(_.extend(this.model.toJSON(),
-                                            { exercise: this.exercise.toJSON(),
-                                              student:  this.student.toJSON(),
+                                            { student:  this.student.toJSON(),
+                                              course: this.model.get('course').toJSON(),
+                                              exercise: this.model.get('exercise').toJSON(),
                                               courseRoute: this.courseRoute })));
 
         // Template for navigation container
@@ -3830,18 +3990,19 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 });
 ;
 
-codebrowser.view.StudentsView = Backbone.View.extend({
+codebrowser.view.StudentsView = codebrowser.view.BaseView.extend({
 
     id: 'students-container',
     template: Handlebars.templates.StudentsContainer,
 
     /* Render */
 
-    render: function () {
+    renderTemplate: function () {
 
         // View attributes
         var attributes = {
 
+            query: this.query,
             students: this.collection.toJSON()
 
         }
@@ -3851,9 +4012,7 @@ codebrowser.view.StudentsView = Backbone.View.extend({
         }
 
         // Template
-        var output = this.template(attributes);
-
-        this.$el.html(output);
+        return this.template(attributes);
     }
 });
 ;
@@ -4116,6 +4275,8 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
     studentId: null,
     exerciseId: null,
+    course: null,
+    exercise: null,
 
     /* Initialise */
 
@@ -4176,7 +4337,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         }
 
         // Wait for fetches to be in sync
-        var fetchSynced = _.after(3, function () {
+        var fetchSynced = _.after(5, function () {
 
             self.synced(snapshotId, fileId, snapshotCollection);
         });
@@ -4192,22 +4353,32 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
             fetchSynced();
         });
 
+        // Fetch course
+        var course = codebrowser.model.Course.findOrCreate({ id: courseId });
+
+        this.fetchModel(course, true, function () {
+
+            self.course = course;
+            fetchSynced();
+        });
+
         var exercise = codebrowser.model.Exercise.findOrCreate({ id: exerciseId, courseId: courseId });
 
-        // Fetch course
+        // Fetch exercise
         this.fetchModel(exercise, true, function () {
 
-            self.snapshotView.exercise = exercise;
+            self.exercise = exercise;
             fetchSynced();
         });
 
         // Fetch snapshot collection
         this.fetchModel(snapshotCollection, true, fetchSynced);
+
+        // Fetch all related files
+        snapshotCollection.fetchFiles(fetchSynced);
     },
 
     synced: function (snapshotId, fileId, snapshotCollection) {
-
-        var self = this;
 
         var snapshot;
 
@@ -4215,8 +4386,10 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         if (!snapshotId) {
 
             snapshot = snapshotCollection.at(0);
+            snapshot.set('exercise', this.exercise);
+            snapshot.set('course', this.course);
 
-            self.snapshotView.navigate(snapshot, null, {replace: true});
+            this.snapshotView.navigate(snapshot, null, {replace: true});
 
             return;
         }
@@ -4227,7 +4400,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         // Invalid snapshot ID
         if (!snapshot) {
 
-            self.notFound();
+            this.notFound();
 
             return;
         }
@@ -4235,7 +4408,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         // No file ID specified, navigate to first file
         if (!fileId) {
 
-            self.snapshotView.navigate(snapshot, null);
+            this.snapshotView.navigate(snapshot, null);
 
             return;
         }
@@ -4243,12 +4416,14 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         // Invalid file ID
         if (!snapshot.get('files').get(fileId)) {
 
-            self.notFound();
+            this.notFound();
 
             return;
         }
 
-        self.snapshotView.update(snapshot, fileId);
+        snapshot.set('exercise', this.exercise);
+        snapshot.set('course', this.course);
+        this.snapshotView.update(snapshot, fileId);
     }
 });
 ;

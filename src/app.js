@@ -12,6 +12,7 @@ $(document).ready(function () {
 var codebrowser = {
 
     app: {},
+    cache: {},
     helper: {},
     model: {},
     collection: {},

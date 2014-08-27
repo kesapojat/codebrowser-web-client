@@ -38,6 +38,33 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         }
     },
 
+    fetchFiles: function (callback) {
+
+        if (codebrowser.cache.files && localStorage.getItem(config.storage.cache.files.url) === this.url()) {
+            callback();
+            return;
+        }
+
+        var self = this;
+
+        JSZipUtils.getBinaryContent(this.url() + '/files.zip', function (error, data) {
+
+            if (error) {
+                console.log(error);
+                return;
+            }
+
+            var zip = new JSZip(data);
+
+            // Save zip
+            codebrowser.cache.files = zip;
+
+            localStorage.setItem(config.storage.cache.files.url, self.url());
+
+            callback();
+        });
+    },
+
     getDuration: function (fromIndex, toIndex) {
 
         return this.at(fromIndex).get('timestamp') - this.at(toIndex).get('timestamp');
