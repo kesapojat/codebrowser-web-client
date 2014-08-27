@@ -40,6 +40,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     fetchFiles: function (callback) {
 
+        // Files in cache
         if (codebrowser.cache.files && localStorage.getItem(config.storage.cache.files.url) === this.url()) {
             callback();
             return;
@@ -49,6 +50,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
         JSZipUtils.getBinaryContent(this.url() + '/files.zip', function (error, data) {
 
+            /* TODO: Call callback with error */
             if (error) {
                 console.log(error);
                 return;
@@ -56,10 +58,11 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
             var zip = new JSZip(data);
 
-            // Save zip
-            codebrowser.cache.files = zip;
-
+            // Cache URL
             localStorage.setItem(config.storage.cache.files.url, self.url());
+
+            // Save ZIP
+            codebrowser.cache.files = zip;
 
             callback();
         });

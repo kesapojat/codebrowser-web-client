@@ -63,10 +63,9 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
 
     fetchContent: function (callback) {
 
+        // Content in cache
         if (this.content.length !== 0) {
-
             callback(this.getContent(), null);
-
             return;
         }
 

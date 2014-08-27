@@ -1,4 +1,4 @@
-codebrowser.view.StudentsView = codebrowser.view.BaseView.extend({
+codebrowser.view.StudentsView = codebrowser.view.ListBaseView.extend({
 
     id: 'students-container',
     template: Handlebars.templates.StudentsContainer,
