@@ -1,4 +1,4 @@
-codebrowser.view.BaseView = Backbone.View.extend({
+codebrowser.view.ListBaseView = Backbone.View.extend({
 
     events: {
 
@@ -22,10 +22,8 @@ codebrowser.view.BaseView = Backbone.View.extend({
 
     update: function () {
 
-        // Template
-        var output = this.renderTemplate();
-
-        var filteredList = $(output).find('table');
+        var output = this.renderTemplate(),
+            filteredList = $(output).find('table');
 
         this.$el.find('table').replaceWith(filteredList);
     },
@@ -35,16 +33,10 @@ codebrowser.view.BaseView = Backbone.View.extend({
     filterListByName: function () {
 
         if (!this.filterHelper) {
-
-            var filterOptions = {
-
-                'containerSelector' : '#' + this.id
-            }
-
-            this.filterHelper = new codebrowser.helper.ListViewFilter(filterOptions, this.collection);
+            this.filterHelper = new codebrowser.helper.ListViewFilter({ 'containerSelector': '#' + this.id }, this.collection);
         }
 
-        var result = this.filterHelper.filterList();
+        var result = this.filterHelper.filter();
 
         this.collection = result.filteredCollection;
         this.query = result.query;

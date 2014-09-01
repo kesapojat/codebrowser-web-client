@@ -408,11 +408,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<span class=\"pull-right\">\n    <div class=\"input-append\">\n\n        <input type=\"text\" class=\"span2\" placeholder=\"Search\" data-id=\"query-string\" value=\"";
+  buffer += "<div class='pull-right'>\n\n    <div class='input-append'>\n\n        <input type='text' class='span2' placeholder='Search' data-id='query-string' value='";
   if (helper = helpers.query) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.query); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\" />\n\n        <button class=\"btn\" data-action=\"search\" title=\"Search\">\n            <i class=\"icon-search\"></i>\n        </button>\n\n    </div>\n</span>\n";
+    + "' />\n\n        <button class='btn' data-action='search' title='Search'>\n            <i class='icon-search'></i>\n        </button>\n\n    </div>\n\n</div>\n";
   return buffer;
   });
 
@@ -952,48 +952,50 @@ Handlebars.registerHelper('index', function (index) {
 
 codebrowser.helper.ListViewFilter = function (options, collection) {
 
-    this.filteredCollection = _.extend(new Backbone.Collection(), collection);
+    var _module = {},
+        _containerSelector = 'body',
+        _searchInputSelector = 'input[data-id="query-string"]',
+        _filteredCollection = _.extend(new Backbone.Collection(), collection);
 
-    // Default where to find search input string
-    this.searchInputSelector = 'input[data-id="query-string"]';
+    var initialise = function (options) {
 
-    // Default container element selector
-    this.containerSelector = 'body';
+        if (options) {
 
-    if (options) {
-
-        this.searchInputSelector = options.searchInputSelector || this.searchInputSelector;
-        this.containerSelector = options.containerSelector || this.containerSelector;
+            _searchInputSelector = options.searchInputSelector || _searchInputSelector;
+            _containerSelector = options.containerSelector || _containerSelector;
+        }
     }
 
-    this.filterList = function () {
+    /* Module */
 
-        var query = this._getQueryString().toLowerCase();
+    _module.filter = function () {
+
+        var query = $(_containerSelector).find(_searchInputSelector)
+                                         .val()
+                                         .trim()
+                                         .toLowerCase();
 
         // Filter collection
         var results = collection.filter(function (item) {
 
             var name = item.get('name').toLowerCase();
-
             return name.indexOf(query) !== -1;
         });
 
         // Set filtered results to filtered collection
-        this.filteredCollection.reset(results);
+        _filteredCollection.reset(results);
 
         return {
 
-            filteredCollection: this.filteredCollection,
+            filteredCollection: _filteredCollection,
             query: query
 
         }
-    },
-
-    this._getQueryString = function () {
-
-        return $(this.containerSelector).find(this.searchInputSelector).val().trim();
     }
-};
+
+    initialise(options);
+    return _module;
+}
 ;
 
 Handlebars.registerHelper('pluralize', function (value, string) {
@@ -1338,10 +1340,9 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
 
     fetchContent: function (callback) {
 
+        // Content in cache
         if (this.content.length !== 0) {
-
             callback(this.getContent(), null);
-
             return;
         }
 
@@ -1618,6 +1619,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     fetchFiles: function (callback) {
 
+        // Files in cache
         if (codebrowser.cache.files && localStorage.getItem(config.storage.cache.files.url) === this.url()) {
             callback();
             return;
@@ -1627,6 +1629,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
         JSZipUtils.getBinaryContent(this.url() + '/files.zip', function (error, data) {
 
+            /* TODO: Call callback with error */
             if (error) {
                 console.log(error);
                 return;
@@ -1634,10 +1637,11 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
             var zip = new JSZip(data);
 
-            // Save zip
-            codebrowser.cache.files = zip;
-
+            // Cache URL
             localStorage.setItem(config.storage.cache.files.url, self.url());
+
+            // Save ZIP
+            codebrowser.cache.files = zip;
 
             callback();
         });
@@ -1909,7 +1913,7 @@ codebrowser.collection.TagCollection = Backbone.Collection.extend({
 });
 ;
 
-codebrowser.view.BaseView = Backbone.View.extend({
+codebrowser.view.ListBaseView = Backbone.View.extend({
 
     events: {
 
@@ -1933,10 +1937,8 @@ codebrowser.view.BaseView = Backbone.View.extend({
 
     update: function () {
 
-        // Template
-        var output = this.renderTemplate();
-
-        var filteredList = $(output).find('table');
+        var output = this.renderTemplate(),
+            filteredList = $(output).find('table');
 
         this.$el.find('table').replaceWith(filteredList);
     },
@@ -1946,16 +1948,10 @@ codebrowser.view.BaseView = Backbone.View.extend({
     filterListByName: function () {
 
         if (!this.filterHelper) {
-
-            var filterOptions = {
-
-                'containerSelector' : '#' + this.id
-            }
-
-            this.filterHelper = new codebrowser.helper.ListViewFilter(filterOptions, this.collection);
+            this.filterHelper = new codebrowser.helper.ListViewFilter({ 'containerSelector': '#' + this.id }, this.collection);
         }
 
-        var result = this.filterHelper.filterList();
+        var result = this.filterHelper.filter();
 
         this.collection = result.filteredCollection;
         this.query = result.query;
@@ -1965,7 +1961,7 @@ codebrowser.view.BaseView = Backbone.View.extend({
 });
 ;
 
-codebrowser.view.CoursesView = codebrowser.view.BaseView.extend({
+codebrowser.view.CoursesView = codebrowser.view.ListBaseView.extend({
 
     id: 'courses-container',
     template: Handlebars.templates.CoursesContainer,
@@ -2655,7 +2651,7 @@ codebrowser.view.ErrorView = Backbone.View.extend({
 });
 ;
 
-codebrowser.view.ExercisesView = codebrowser.view.BaseView.extend({
+codebrowser.view.ExercisesView = codebrowser.view.ListBaseView.extend({
 
     id: 'exercises-container',
     template: Handlebars.templates.ExercisesContainer,
@@ -3986,7 +3982,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 });
 ;
 
-codebrowser.view.StudentsView = codebrowser.view.BaseView.extend({
+codebrowser.view.StudentsView = codebrowser.view.ListBaseView.extend({
 
     id: 'students-container',
     template: Handlebars.templates.StudentsContainer,

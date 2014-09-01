@@ -408,11 +408,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<span class=\"pull-right\">\n    <div class=\"input-append\">\n\n        <input type=\"text\" class=\"span2\" placeholder=\"Search\" data-id=\"query-string\" value=\"";
+  buffer += "<div class='pull-right'>\n\n    <div class='input-append'>\n\n        <input type='text' class='span2' placeholder='Search' data-id='query-string' value='";
   if (helper = helpers.query) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.query); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\" />\n\n        <button class=\"btn\" data-action=\"search\" title=\"Search\">\n            <i class=\"icon-search\"></i>\n        </button>\n\n    </div>\n</span>\n";
+    + "' />\n\n        <button class='btn' data-action='search' title='Search'>\n            <i class='icon-search'></i>\n        </button>\n\n    </div>\n\n</div>\n";
   return buffer;
   });
 
