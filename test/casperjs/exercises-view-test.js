@@ -2,6 +2,8 @@ casper.test.begin('Exercises view (course exercises)', 13, function suite(test) 
 
     FakeServer.return({
 
+        'students': { id: 0 },
+
         'courses': [
             { id: 11, name: 'Course 1', exercises: [ {}, {} ] },
             { id: 12, name: 'Course 2', exercises: [ {}, {}, {} ] }
@@ -20,9 +22,7 @@ casper.test.begin('Exercises view (course exercises)', 13, function suite(test) 
             { id: 32, name: 'Exercise 2' },
             { id: 33, name: 'Exercise 3' },
             { id: 34, name: 'Exercise 4' }
-        ],
-
-        'students': { id: 0 }
+        ]
     });
 
     casper.start('http://localhost:8000');
@@ -96,13 +96,6 @@ casper.test.begin('Exercises view (student-course exercises)', 6, function suite
 
     FakeServer.return({
 
-        'courses/11': { id: 11, name: 'Course 1', exercises: [ {}, {} ] },
-
-        'courses/11/exercises': [
-            { id: 31, name: 'Exercise 1' },
-            { id: 32, name: 'Exercise 2' }
-        ],
-
         'students': [
             { id: 21, name: 'Student 1', courses: [ {}, {} ] },
             { id: 22, name: 'Student 2', courses: [ {}, {}, {} ] },
@@ -117,6 +110,13 @@ casper.test.begin('Exercises view (student-course exercises)', 6, function suite
         ],
 
         'students/21/courses/11/exercises': [
+            { id: 31, name: 'Exercise 1' },
+            { id: 32, name: 'Exercise 2' }
+        ],
+
+        'courses/11': { id: 11, name: 'Course 1', exercises: [ {}, {} ] },
+
+        'courses/11/exercises': [
             { id: 31, name: 'Exercise 1' },
             { id: 32, name: 'Exercise 2' }
         ]
@@ -169,6 +169,12 @@ casper.test.begin('Exercises view (course-student exercises)', 6, function suite
 
     FakeServer.return({
 
+        'students': [
+            { id: 21, name: 'Student 1', courses: [ {}, {} ] },
+            { id: 22, name: 'Student 2', courses: [ {}, {}, {} ] },
+            { id: 23, name: 'Student 3', courses: [ {}, {}, {}, {} ] }
+        ],
+
         'courses': [
             { id: 11, name: 'Course 1', exercises: [ {}, {} ] },
             { id: 12, name: 'Course 2', exercises: [ {}, {}, {} ] }
@@ -179,12 +185,6 @@ casper.test.begin('Exercises view (course-student exercises)', 6, function suite
         'courses/11/exercises': [
             { id: 31, name: 'Exercise 1' },
             { id: 32, name: 'Exercise 2' }
-        ],
-
-        'students': [
-            { id: 21, name: 'Student 1', courses: [ {}, {} ] },
-            { id: 22, name: 'Student 2', courses: [ {}, {}, {} ] },
-            { id: 23, name: 'Student 3', courses: [ {}, {}, {}, {} ] }
         ]
     });
 

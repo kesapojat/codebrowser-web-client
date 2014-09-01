@@ -2,12 +2,12 @@ casper.test.begin('Courses view (all courses)', 10, function suite(test) {
 
     FakeServer.return({
 
+        'students': { id: 0 },
+
         'courses': [
             { id: 11, name: 'Course 1', exercises: [ {}, {} ] },
             { id: 12, name: 'Course 2', exercises: [ {}, {}, {} ] }
-        ],
-
-        'students': { id: 0 }
+        ]
     });
 
     casper.start('http://localhost:8000');
@@ -55,13 +55,6 @@ casper.test.begin('Courses view (student courses)', 10, function suite(test) {
 
     FakeServer.return({
 
-        'courses': [
-            { id: 11, name: 'Course 1', exercises: [ {}, {} ], amountOfStudents: 4 },
-            { id: 12, name: 'Course 2', exercises: [ {}, {}, {} ], amountOfStudents: 5 },
-            { id: 13, name: 'Course 3', exercises: [ {}, {}, {}, {} ], amountOfStudents: 6 },
-            { id: 14, name: 'Course 4', exercises: [ {}, {}, {}, {} ], amountOfStudents: 7 }
-        ],
-
         'students': [
             { id: 21, name: 'Student 1', courses: [ {}, {} ] },
             { id: 22, name: 'Student 2', courses: [ {}, {}, {} ] },
@@ -70,10 +63,17 @@ casper.test.begin('Courses view (student courses)', 10, function suite(test) {
 
         'students/22': { id: 22, name: 'Student 2', courses: [ {}, {}, {} ] },
 
+        'courses': [
+            { id: 11, name: 'Course 1', exercises: [ {}, {} ] },
+            { id: 12, name: 'Course 2', exercises: [ {}, {}, {} ] },
+            { id: 13, name: 'Course 3', exercises: [ {}, {}, {}, {} ] },
+            { id: 14, name: 'Course 4', exercises: [ {}, {}, {}, {} ] }
+        ],
+
         'students/22/courses': [
-            { id: 11, name: 'Course 1', exercises: [ {}, {} ], amountOfStudents: 4 },
-            { id: 13, name: 'Course 3', exercises: [ {}, {}, {}, {} ], amountOfStudents: 6 },
-            { id: 14, name: 'Course 4', exercises: [ {}, {}, {}, {} ], amountOfStudents: 7 }
+            { id: 11, name: 'Course 1', exercises: [ {}, {} ] },
+            { id: 13, name: 'Course 3', exercises: [ {}, {}, {}, {} ] },
+            { id: 14, name: 'Course 4', exercises: [ {}, {}, {}, {} ] }
         ]
     });
 
