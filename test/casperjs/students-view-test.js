@@ -3,9 +3,9 @@ casper.test.begin('Students view (all students)', 9, function suite(test) {
     FakeServer.return({
 
         'students': [
-            { id: 21, name: 'Student 1', courses: [ {}, {} ] },
-            { id: 22, name: 'Student 2', courses: [ {}, {}, {} ] },
-            { id: 23, name: 'Student 3', courses: [ {}, {}, {}, {} ] }
+            { id: 21, name: 'Student 1' },
+            { id: 22, name: 'Student 2' },
+            { id: 23, name: 'Student 3' }
         ]
     });
 
@@ -54,9 +54,9 @@ casper.test.begin('Students view (course-exercise students)', 6, function suite(
     FakeServer.return({
 
         'students': [
-            { id: 21, name: 'Student 1', courses: [ {}, {} ] },
-            { id: 22, name: 'Student 2', courses: [ {}, {}, {} ] },
-            { id: 23, name: 'Student 3', courses: [ {}, {}, {}, {} ] }
+            { id: 21, name: 'Student 1' },
+            { id: 22, name: 'Student 2' },
+            { id: 23, name: 'Student 3' }
         ],
 
         'courses': [
@@ -74,8 +74,8 @@ casper.test.begin('Students view (course-exercise students)', 6, function suite(
         'courses/11/exercises/32': { id: 32, name: 'Exercise 2' },
 
         'courses/11/exercises/32/students': [
-            { id: 21, name: 'Student 1', courses: [ {}, {} ] },
-            { id: 22, name: 'Student 2', courses: [ {}, {}, {} ] },
+            { id: 21, name: 'Student 1' },
+            { id: 22, name: 'Student 2' },
         ]
     });
 

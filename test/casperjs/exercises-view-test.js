@@ -97,12 +97,12 @@ casper.test.begin('Exercises view (student-course exercises)', 6, function suite
     FakeServer.return({
 
         'students': [
-            { id: 21, name: 'Student 1', courses: [ {}, {} ] },
-            { id: 22, name: 'Student 2', courses: [ {}, {}, {} ] },
-            { id: 23, name: 'Student 3', courses: [ {}, {}, {}, {} ] }
+            { id: 21, name: 'Student 1' },
+            { id: 22, name: 'Student 2' },
+            { id: 23, name: 'Student 3' }
         ],
 
-        'students/21': { id: 21, name: 'Student 1', courses: [ {}, {} ] },
+        'students/21': { id: 21, name: 'Student 1' },
 
         'students/21/courses': [
             { id: 11, name: 'Course 1', exercises: [ {}, {} ] },
@@ -170,9 +170,9 @@ casper.test.begin('Exercises view (course-student exercises)', 6, function suite
     FakeServer.return({
 
         'students': [
-            { id: 21, name: 'Student 1', courses: [ {}, {} ] },
-            { id: 22, name: 'Student 2', courses: [ {}, {}, {} ] },
-            { id: 23, name: 'Student 3', courses: [ {}, {}, {}, {} ] }
+            { id: 21, name: 'Student 1' },
+            { id: 22, name: 'Student 2' },
+            { id: 23, name: 'Student 3' }
         ],
 
         'courses': [
