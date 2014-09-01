@@ -63,6 +63,8 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
                                                                                        courseId: courseId,
                                                                                        exerciseId: exerciseId });
 
+            // TODO: Provide level setting for user
+            snapshotCollection.level = 'KEY';
             this.snapshotView.collection = snapshotCollection;
 
             this.studentId = studentId;

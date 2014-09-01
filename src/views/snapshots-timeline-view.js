@@ -70,9 +70,13 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
     snapshotWeight: function (index) {
 
-        var difference = this.differences[index];
-
         var weight = 0.8;
+
+        if (this.collection.level === 'KEY') {
+            return weight;
+        }
+
+        var difference = this.differences[index];
         var percentage = Math.round((difference.total / difference.lines) * 100);
 
         if (percentage === 0) {
@@ -209,6 +213,10 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         var duration = codebrowser.helper.Duration.calculate(snapshot.get('timestamp'),
                                                              previousSnapshot.get('timestamp'), true);
 
+        if (duration === '0 s') {
+            return;
+        }
+
         // Duration element
         var durationElement = this.paper.text(x - radius - distance / 2, y + 30, duration);
         $(durationElement.node).attr('class', 'duration');
@@ -233,6 +241,10 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
     },
 
     renderSnapshotWeight: function (index, x, y) {
+
+        if (this.collection.level === 'KEY') {
+            return;
+        }
 
         var difference = this.differences[index];
         var percentage = (difference.total / difference.lines).toFixed(2);

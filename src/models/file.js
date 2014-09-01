@@ -63,6 +63,6 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
 
         this.content = file.asText();
 
-        callback(this.getContent, null);
+        callback(this.getContent(), null);
     }
 });
