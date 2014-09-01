@@ -6,7 +6,7 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
 
     content: '',
 
-    baseUrl: function () {
+    urlRoot: function () {
 
         return config.api.main.root +
                'students/' +
@@ -15,12 +15,7 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
                this.get('snapshot').get('courseId') +
                '/exercises/' +
                this.get('snapshot').get('exerciseId') +
-               '/snapshots/';
-    },
-
-    urlRoot: function () {
-
-        return this.baseUrl() +
+               '/snapshots/' +
                this.get('snapshot') +
                '/files';
     },
