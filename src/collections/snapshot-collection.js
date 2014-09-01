@@ -50,9 +50,8 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
         JSZipUtils.getBinaryContent(this.url() + '/files.zip', function (error, data) {
 
-            /* TODO: Call callback with error */
             if (error) {
-                console.log(error);
+                callback(error);
                 return;
             }
 

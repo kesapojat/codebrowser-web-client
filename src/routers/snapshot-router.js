@@ -116,7 +116,14 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         this.fetchModel(snapshotCollection, true, fetchSynced);
 
         // Fetch all related files
-        snapshotCollection.fetchFiles(fetchSynced);
+        snapshotCollection.fetchFiles(function (error) {
+
+            if (error) {
+                self.notFound();
+            }
+
+            fetchSynced();
+        });
     },
 
     synced: function (snapshotId, fileId, snapshotCollection) {
