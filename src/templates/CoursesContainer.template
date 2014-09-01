@@ -25,7 +25,6 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Exercises</th>
             </tr>
         </thead>
 
@@ -46,8 +45,6 @@
                         <td class='link'><a href='./#/courses/{{id}}/exercises'>{{name}}</a></td>
 
                     {{/if}}
-
-                    <td>{{exercises.length}}</td>
 
                 </tr>
 

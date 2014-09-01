@@ -36,9 +36,7 @@ function program5(depth0,data,depth1) {
     + "</td>\n\n                    ";
   stack1 = helpers['if'].call(depth0, (depth1 && depth1.studentId), {hash:{},inverse:self.program(8, program8, data),fn:self.programWithDepth(6, program6, data, depth1),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n                    <td>"
-    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.exercises)),stack1 == null || stack1 === false ? stack1 : stack1.length)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</td>\n\n                </tr>\n\n            ";
+  buffer += "\n\n                </tr>\n\n            ";
   return buffer;
   }
 function program6(depth0,data,depth2) {
@@ -84,7 +82,7 @@ function program8(depth0,data) {
     + ")\n\n        ";
   stack1 = self.invokePartial(partials.search, 'search', depth0, helpers, partials, data);
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n    </h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n                <th>#</th>\n                <th>Name</th>\n                <th>Exercises</th>\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
+  buffer += "\n    </h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n                <th>#</th>\n                <th>Name</th>\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
   options={hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth0),data:data}
   if (helper = helpers.courses) { stack1 = helper.call(depth0, options); }
   else { helper = (depth0 && depth0.courses); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
