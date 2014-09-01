@@ -1341,7 +1341,9 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
         var zip = codebrowser.cache.files,
             file = zip.folder(this.get('snapshot').id).file(this.id);
 
-        this.content = file.asText();
+        if (file) {
+            this.content = file.asText();
+        }
 
         callback(this.getContent(), null);
     }
@@ -4369,13 +4371,23 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         });
 
         // Fetch snapshot collection
-        this.fetchModel(snapshotCollection, true, fetchSynced);
+        this.fetchModel(snapshotCollection, true, function () {
+
+            // Exercise has no snapshots
+            if (snapshotCollection.length === 0) {
+                self.notFound();
+                return;
+            }
+
+            fetchSynced();
+        });
 
         // Fetch all related files
         snapshotCollection.fetchFiles(function (error) {
 
             if (error) {
                 self.notFound();
+                return;
             }
 
             fetchSynced();

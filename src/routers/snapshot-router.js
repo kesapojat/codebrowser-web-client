@@ -115,13 +115,23 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         });
 
         // Fetch snapshot collection
-        this.fetchModel(snapshotCollection, true, fetchSynced);
+        this.fetchModel(snapshotCollection, true, function () {
+
+            // Exercise has no snapshots
+            if (snapshotCollection.length === 0) {
+                self.notFound();
+                return;
+            }
+
+            fetchSynced();
+        });
 
         // Fetch all related files
         snapshotCollection.fetchFiles(function (error) {
 
             if (error) {
                 self.notFound();
+                return;
             }
 
             fetchSynced();
