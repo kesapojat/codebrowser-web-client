@@ -34,7 +34,7 @@ describe('Config', function () {
 
     it('should have correct url root for main API', function () {
 
-        expect(config.api.main.root).toBe('http://t-avihavai.users.cs.helsinki.fi/cb-back/app/');
+        expect(config.api.main.root).toBe('http://localhost:8090/');
     });
 
     it('should have correct expiration for cache', function () {

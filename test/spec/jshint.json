@@ -29,6 +29,7 @@
         "document": true,
         "done": true,
         "expect": true,
+        "FakeServer": true,
         "Handlebars": true,
         "it": true,
         "jasmine": true,

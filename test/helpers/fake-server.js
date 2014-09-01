@@ -129,7 +129,7 @@ var FakeServer = (function () {
 
             // Without changing route Backbone.history.start() may fetch models used in previous specs
             Backbone.history.navigate('_'); // use a non-existant route
-            createFakeServer({});
+            createFakeServer(_mockData);
         });
 
         afterEach(function () {
