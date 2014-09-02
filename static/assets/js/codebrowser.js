@@ -1625,11 +1625,11 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
             return;
         }
 
-        var self = this;
+        var self = this,
+            parameter = this.level ? '?level=' + this.level : '';
 
-        // Fetch new zip, need to calculate differences again
+        // Fetch new ZIP, need to calculate differences again
         this.differencesDone = false;
-        var parameter = this.level ? '?level=' + this.level : '';
 
         JSZipUtils.getBinaryContent(this.url() + '/files.zip' + parameter, function (error, data) {
 
@@ -3245,9 +3245,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
     level: function () {
 
-        var level = this.collection.level;
-        this.collection.level = level === 'code' ? 'key' : 'code';
-
+        this.collection.level = this.collection.level === 'code' ? 'key' : 'code';
         this.navigate();
     },
 
@@ -3258,6 +3256,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         if (!snapshot) {
 
             if (this.courseRoute) {
+
                 codebrowser.app.snapshot.navigate('#/courses/' +
                                                   this.collection.courseId +
                                                   '/exercises/' +
@@ -3286,6 +3285,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         }
 
         if (this.courseRoute) {
+
             codebrowser.app.snapshot.navigate('#/courses/' +
                                               this.collection.courseId +
                                               '/exercises/' +
@@ -4435,8 +4435,6 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
         // Fetch all related files
         snapshotCollection.fetchFiles(function (error) {
-
-            console.log(error);
 
             if (error) {
                 self.notFound();
