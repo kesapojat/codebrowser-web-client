@@ -62,8 +62,8 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
     isVisible: function (x) {
 
-        var viewX = this.getViewX();
-        var viewWidth = $(this.paper.canvas).width();
+        var viewX = this.getViewX(),
+            viewWidth = $(this.paper.canvas).width();
 
         return (x >= viewX && x <= viewX + viewWidth);
     },
@@ -76,8 +76,8 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
             return weight;
         }
 
-        var difference = this.differences[index];
-        var percentage = Math.round((difference.total / difference.lines) * 100);
+        var difference = this.differences[index],
+            percentage = Math.round((difference.total / difference.lines) * 100);
 
         if (percentage === 0) {
             return weight;
@@ -123,8 +123,8 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
     centerOn: function (x) {
 
-        var viewWidth = $(this.paper.canvas).width();
-        var center = x - (viewWidth / 2);
+        var viewWidth = $(this.paper.canvas).width(),
+            center = x - (viewWidth / 2);
 
         // Don't go under 0
         if (center < 0) {
@@ -170,11 +170,11 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
     moveTimeline: function (dx) {
 
-        var viewX = this.getViewX();
-        var viewWidth = $(this.paper.canvas).width();
+        var viewX = this.getViewX(),
+            viewWidth = $(this.paper.canvas).width();
 
         // Can't move dx to left
-        if ((viewX + dx) < 0 && dx < 0) {
+        if ((viewX + dx) < 0 && dx < 0) {
 
             // Move by remainder, but don't go under 0
             this.setViewBox(Math.max(0, 0 - viewX));
@@ -246,8 +246,8 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
             return;
         }
 
-        var difference = this.differences[index];
-        var percentage = (difference.total / difference.lines).toFixed(2);
+        var difference = this.differences[index],
+            percentage = (difference.total / difference.lines).toFixed(2);
 
         // Snapshot has no changes
         if (percentage === '0.00') {
@@ -264,8 +264,8 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         var snapshotWeightElement = this.paper.text(x, y, percentage);
 
         // Adjust font size by weight
-        var snapshotWeight = this.snapshotWeight(index);
-        var fontSize = 11;
+        var snapshotWeight = this.snapshotWeight(index),
+            fontSize = 11;
 
         if (snapshotWeight > 1) {
             fontSize *= snapshotWeight;
@@ -318,8 +318,8 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
         snapshotClickArea.click(function () {
 
-            var snapshot = this.data('snapshot');
-            var file = this.data('file');
+            var snapshot = this.data('snapshot'),
+                file = this.data('file');
 
             // Destroy tooltip
             $(snapshotClickArea.node).tooltip('destroy');
@@ -362,13 +362,11 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         // Pointer set
         this.pointerSet = this.paper.set();
 
-        var width = 7;
-
-        var pointerX = x - width / 2;
-        var pointerY = this.paper.height;
-
-        var pointerLineX = x;
-        var pointerLineY = pointerY - width / 2;
+        var width = 7,
+            pointerX = x - width / 2,
+            pointerY = this.paper.height,
+            pointerLineX = x,
+            pointerLineY = pointerY - width / 2;
 
         // Pointer line element
         var pointerLine = this.paper.path('M' + pointerLineX + ' ' + pointerLineY + ', L' + pointerLineX + ' ' + 0);
@@ -410,27 +408,26 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
     render: function () {
 
-        var min = this.collection.getMinDuration();
+        this.snapshotElements = [];
 
-        // 10 minute max
-        var max = Math.min(300000, this.collection.getMaxDuration());
+        // Limit minimum to 1 minute and maximum to 5 minutes
+        var min = Math.min(60000, this.collection.getMinDuration()),
+            max = Math.min(300000, this.collection.getMaxDuration());
 
         // Clear paper
         this.paper.clear();
 
         // Center point
-        var y = this.paper.height / 2 + 3;
-
-        var leftOffset = 0;
-        var rightOffset = 0;
-        var x = 0;
-
-        var self = this;
+        var y = this.paper.height / 2 + 3,
+            leftOffset = 0,
+            rightOffset = 0,
+            x = 0,
+            self = this;
 
         this.collection.each(function (snapshot, index) {
 
-            var distanceWeight = self.distanceWeight(index, min, max);
-            var snapshotWeight = self.snapshotWeight(index);
+            var distanceWeight = self.distanceWeight(index, min, max),
+                snapshotWeight = self.snapshotWeight(index);
 
             // Weight by duration between snapshots
             var distance = 45 * distanceWeight;
@@ -576,11 +573,10 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         // Move pointer set
         this.pointerSet.transform('T ' + (this.pointerSetOffsetX + dx) + ', 0');
 
-        var viewWidth = $(this.paper.canvas).width();
-        var canvasOffset = $(this.paper.canvas).offset();
-
-        var leftOffset = canvasOffset.left;
-        var rightOffset = canvasOffset.left + viewWidth;
+        var viewWidth = $(this.paper.canvas).width(),
+            canvasOffset = $(this.paper.canvas).offset(),
+            leftOffset = canvasOffset.left,
+            rightOffset = canvasOffset.left + viewWidth;
 
         // Move timeline to left
         if (x < leftOffset + 50) {
@@ -601,7 +597,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         this.stopScroll();
     },
 
-    dragOver: function (element) {
+    dragOver: function (element) {
 
         // Snapshot element
         if (element.data('snapshot')) {
