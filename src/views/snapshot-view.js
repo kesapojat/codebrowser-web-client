@@ -275,9 +275,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
     level: function () {
 
-        var level = this.collection.level;
-        this.collection.level = level === 'code' ? 'key' : 'code';
-
+        this.collection.level = this.collection.level === 'code' ? 'key' : 'code';
         this.navigate();
     },
 
@@ -288,6 +286,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         if (!snapshot) {
 
             if (this.courseRoute) {
+
                 codebrowser.app.snapshot.navigate('#/courses/' +
                                                   this.collection.courseId +
                                                   '/exercises/' +
@@ -316,6 +315,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         }
 
         if (this.courseRoute) {
+
             codebrowser.app.snapshot.navigate('#/courses/' +
                                               this.collection.courseId +
                                               '/exercises/' +

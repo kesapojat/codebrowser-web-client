@@ -46,11 +46,11 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
             return;
         }
 
-        var self = this;
+        var self = this,
+            parameter = this.level ? '?level=' + this.level : '';
 
-        // Fetch new zip, need to calculate differences again
+        // Fetch new ZIP, need to calculate differences again
         this.differencesDone = false;
-        var parameter = this.level ? '?level=' + this.level : '';
 
         JSZipUtils.getBinaryContent(this.url() + '/files.zip' + parameter, function (error, data) {
 
