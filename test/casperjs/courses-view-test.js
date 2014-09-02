@@ -1,4 +1,4 @@
-casper.test.begin('Courses view (all courses)', 10, function suite(test) {
+casper.test.begin('Courses view (all courses)', 9, function suite(test) {
 
     FakeServer.return({
 
@@ -33,8 +33,6 @@ casper.test.begin('Courses view (all courses)', 10, function suite(test) {
                                                  'has "Course 1" with a correct link to course view');
         test.assertTruthy(this.getHTML().indexOf('<a href="./#/courses/12/exercises">Course 2') !== -1,
                                                  'has "Course 2" with a correct link to course view');
-
-        test.assertEquals(this.evaluate(function () { return $('tr:contains(Course 2)').find(':nth-child(3)').html(); }), '3', 'has exercise count 3 for "Course 2"');
     });
 
     casper.then(function () {
@@ -51,7 +49,7 @@ casper.test.begin('Courses view (all courses)', 10, function suite(test) {
     });
 });
 
-casper.test.begin('Courses view (student courses)', 10, function suite(test) {
+casper.test.begin('Courses view (student courses)', 7, function suite(test) {
 
     FakeServer.return({
 
@@ -106,10 +104,6 @@ casper.test.begin('Courses view (student courses)', 10, function suite(test) {
                                                  'has "Course 3" with a correct link to exercise list');
         test.assertTruthy(this.getHTML().indexOf('<a href="./#/students/22/courses/14/exercises">Course 4') !== -1,
                                                  'has "Course 4" with a correct link to exercise list');
-
-        test.assertEquals(this.evaluate(function () { return $('tr:contains(Course 1)').find(':nth-child(3)').html(); }), '2', 'has exercise count 2 for "Course 1"');
-        test.assertEquals(this.evaluate(function () { return $('tr:contains(Course 3)').find(':nth-child(3)').html(); }), '4', 'has exercise count 4 for "Course 3"');
-        test.assertEquals(this.evaluate(function () { return $('tr:contains(Course 3)').find(':nth-child(3)').html(); }), '4', 'has exercise count 4 for "Course 4"');
     });
 
     casper.run(function () {

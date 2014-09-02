@@ -1344,11 +1344,15 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
 
     fetchContent: function (callback) {
 
-        var zip = codebrowser.cache.files,
-            file = zip.folder(this.get('snapshot').id).file(this.id);
+        var zip = codebrowser.cache.files;
 
-        if (file) {
-            this.content = file.asText();
+        if (zip) {
+
+            var file = zip.folder(this.get('snapshot').id).file(this.id);
+
+            if (file) {
+                this.content = file.asText();
+            }
         }
 
         callback(this.getContent(), null);
