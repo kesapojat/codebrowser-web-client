@@ -700,7 +700,7 @@ var config = {
 
             },
 
-            snapshots: {
+            snapshot: {
 
                 level: 'codebrowser.cache.snapshots.level'
 
@@ -1642,7 +1642,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
             // Cache URL
             localStorage.setItem(config.storage.cache.files.url, self.url() + parameter);
-            localStorage.setItem(config.storage.cache.snapshots.level, self.level);
+            localStorage.setItem(config.storage.cache.snapshot.level, self.level);
 
             // Save ZIP
             codebrowser.cache.files = zip;
@@ -4366,16 +4366,12 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
                                                                                        courseId: courseId,
                                                                                        exerciseId: exerciseId });
 
-            if (localStorage.getItem(config.storage.cache.snapshots.level)) {
-                snapshotCollection.level = localStorage.getItem(config.storage.cache.snapshots.level);
-            } else {
-                snapshotCollection.level = 'code';
-            }
-
-            this.snapshotView.collection = snapshotCollection;
+            // Set snapshot level
+            snapshotCollection.level = localStorage.getItem(config.storage.cache.snapshot.level) || 'code';
 
             this.studentId = studentId;
             this.exerciseId = exerciseId;
+            this.snapshotView.collection = snapshotCollection;
 
         } else {
 

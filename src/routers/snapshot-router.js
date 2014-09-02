@@ -63,16 +63,12 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
                                                                                        courseId: courseId,
                                                                                        exerciseId: exerciseId });
 
-            if (localStorage.getItem(config.storage.cache.snapshots.level)) {
-                snapshotCollection.level = localStorage.getItem(config.storage.cache.snapshots.level);
-            } else {
-                snapshotCollection.level = 'code';
-            }
-
-            this.snapshotView.collection = snapshotCollection;
+            // Set snapshot level
+            snapshotCollection.level = localStorage.getItem(config.storage.cache.snapshot.level) || 'code';
 
             this.studentId = studentId;
             this.exerciseId = exerciseId;
+            this.snapshotView.collection = snapshotCollection;
 
         } else {
 

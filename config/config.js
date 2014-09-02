@@ -16,7 +16,7 @@ var config = {
 
             },
 
-            snapshots: {
+            snapshot: {
 
                 level: 'codebrowser.cache.snapshots.level'
 
