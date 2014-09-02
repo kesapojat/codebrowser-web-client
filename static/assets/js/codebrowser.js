@@ -514,7 +514,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div class='row'>\n\n    <div class='span2'>\n\n        <button id='toggleBrowser' type='button' class='btn' data-toggle='button'><i class='icon-folder icon-gray'></i></button>\n        <button id='split' type='button' class='btn' data-toggle='button'><i class='icon-split-editor icon-gray'></i></button>\n        <button id='diff' type='button' class='btn' data-toggle='button'><i class='icon-diff icon-gray'></i></button>\n\n    </div>\n\n    <div class='span4 pull-right'>\n\n        <div class='row'>\n\n            <div class='span1 text-center'>";
+  buffer += "<div class='row'>\n\n    <div class='span3'>\n\n        <button id='toggleBrowser' type='button' class='btn' data-toggle='button'><i class='icon-folder icon-gray'></i></button>\n        <button id='split' type='button' class='btn' data-toggle='button'><i class='icon-split-editor icon-gray'></i></button>\n        <button id='diff' type='button' class='btn' data-toggle='button'><i class='icon-diff icon-gray'></i></button>\n        <button id='snapshotLevel' type='button' class='btn' data-toggle='button'><i class='icon-bell'></i></button>\n\n    </div>\n\n    <div class='span4 pull-right'>\n\n        <div class='row'>\n\n            <div class='span1 text-center'>";
   if (helper = helpers.current) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.current); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -1621,7 +1621,11 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
         var self = this;
 
-        JSZipUtils.getBinaryContent(this.url() + '/files.zip', function (error, data) {
+        // Fetch new zip, need to calculate differences again
+        this.differencesDone = false;
+        var parameter = this.level ? '?level=' + this.level : '';
+
+        JSZipUtils.getBinaryContent(this.url() + '/files.zip' + parameter, function (error, data) {
 
             if (error) {
                 callback(error);
@@ -1631,7 +1635,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
             var zip = new JSZip(data);
 
             // Cache URL
-            localStorage.setItem(config.storage.cache.files.url, self.url());
+            localStorage.setItem(config.storage.cache.files.url, self.url() + parameter);
 
             // Save ZIP
             codebrowser.cache.files = zip;
@@ -2973,6 +2977,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         'click #toggleBrowser': 'toggleBrowser',
         'click #split':         'split',
         'click #diff':          'diff',
+        'click #snapshotLevel': 'level',
         'click #first':         'first',
         'click #previous':      'previous',
         'click #next':          'next',
@@ -3231,9 +3236,42 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         this.snapshotBrowserView.update(this.model, this.file, this.courseRoute);
     },
 
+    level: function () {
+
+        var level = this.collection.level;
+        this.collection.level = level === 'code' ? 'key' : 'code';
+
+        this.navigate();
+    },
+
     /* Actions - Navigation */
 
     navigate: function (snapshot, file, options) {
+
+        if (!snapshot) {
+
+            if (this.courseRoute) {
+                codebrowser.app.snapshot.navigate('#/courses/' +
+                                                  this.collection.courseId +
+                                                  '/exercises/' +
+                                                  this.collection.exerciseId +
+                                                  '/students/' +
+                                                  this.collection.studentId +
+                                                  '/snapshots/', { replace: !options ? options : options.replace });
+
+            } else {
+
+                codebrowser.app.snapshot.navigate('#/students/' +
+                                                  this.collection.studentId +
+                                                  '/courses/' +
+                                                  this.collection.courseId +
+                                                  '/exercises/' +
+                                                  this.collection.exerciseId +
+                                                  '/snapshots/', { replace: !options ? options : options.replace });
+            }
+
+            return;
+        }
 
         // Use first file if non specified
         if (!file) {
@@ -4321,8 +4359,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
                                                                                        courseId: courseId,
                                                                                        exerciseId: exerciseId });
 
-            // TODO: Provide level setting for user
-            snapshotCollection.level = 'KEY';
+            snapshotCollection.level = 'code';
             this.snapshotView.collection = snapshotCollection;
 
             this.studentId = studentId;

@@ -48,7 +48,11 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
         var self = this;
 
-        JSZipUtils.getBinaryContent(this.url() + '/files.zip', function (error, data) {
+        // Fetch new zip, need to calculate differences again
+        this.differencesDone = false;
+        var parameter = this.level ? '?level=' + this.level : '';
+
+        JSZipUtils.getBinaryContent(this.url() + '/files.zip' + parameter, function (error, data) {
 
             if (error) {
                 callback(error);
@@ -58,7 +62,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
             var zip = new JSZip(data);
 
             // Cache URL
-            localStorage.setItem(config.storage.cache.files.url, self.url());
+            localStorage.setItem(config.storage.cache.files.url, self.url() + parameter);
 
             // Save ZIP
             codebrowser.cache.files = zip;

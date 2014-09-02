@@ -1,10 +1,11 @@
 <div class='row'>
 
-    <div class='span2'>
+    <div class='span3'>
 
         <button id='toggleBrowser' type='button' class='btn' data-toggle='button'><i class='icon-folder icon-gray'></i></button>
         <button id='split' type='button' class='btn' data-toggle='button'><i class='icon-split-editor icon-gray'></i></button>
         <button id='diff' type='button' class='btn' data-toggle='button'><i class='icon-diff icon-gray'></i></button>
+        <button id='snapshotLevel' type='button' class='btn' data-toggle='button'><i class='icon-bell'></i></button>
 
     </div>
 

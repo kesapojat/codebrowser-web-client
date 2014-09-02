@@ -14,6 +14,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         'click #toggleBrowser': 'toggleBrowser',
         'click #split':         'split',
         'click #diff':          'diff',
+        'click #snapshotLevel': 'level',
         'click #first':         'first',
         'click #previous':      'previous',
         'click #next':          'next',
@@ -272,9 +273,42 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         this.snapshotBrowserView.update(this.model, this.file, this.courseRoute);
     },
 
+    level: function () {
+
+        var level = this.collection.level;
+        this.collection.level = level === 'code' ? 'key' : 'code';
+
+        this.navigate();
+    },
+
     /* Actions - Navigation */
 
     navigate: function (snapshot, file, options) {
+
+        if (!snapshot) {
+
+            if (this.courseRoute) {
+                codebrowser.app.snapshot.navigate('#/courses/' +
+                                                  this.collection.courseId +
+                                                  '/exercises/' +
+                                                  this.collection.exerciseId +
+                                                  '/students/' +
+                                                  this.collection.studentId +
+                                                  '/snapshots/', { replace: !options ? options : options.replace });
+
+            } else {
+
+                codebrowser.app.snapshot.navigate('#/students/' +
+                                                  this.collection.studentId +
+                                                  '/courses/' +
+                                                  this.collection.courseId +
+                                                  '/exercises/' +
+                                                  this.collection.exerciseId +
+                                                  '/snapshots/', { replace: !options ? options : options.replace });
+            }
+
+            return;
+        }
 
         // Use first file if non specified
         if (!file) {
