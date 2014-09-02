@@ -2,15 +2,15 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
     routes: {
 
-        'students/:studentId/courses/:courseId/exercises/:exerciseId(/)':                                     'snapshot',
-        'students/:studentId/courses/:courseId/exercises/:exerciseId/snapshots(/)':                           'snapshot',
-        'students/:studentId/courses/:courseId/exercises/:exerciseId/snapshots/:snapshotId(/)':               'snapshot',
-        'students/:studentId/courses/:courseId/exercises/:exerciseId/snapshots/:snapshotId/files/:fileId(/)': 'snapshot',
+        'students/:studentId/courses/:courseId/exercises/:exerciseId(/)':                                                  'snapshot',
+        'students/:studentId/courses/:courseId/exercises/:exerciseId/snapshots(/)':                                        'snapshot',
+        'students/:studentId/courses/:courseId/exercises/:exerciseId/snapshots/:snapshotId(/)':                            'snapshot',
+        'students/:studentId/courses/:courseId/exercises/:exerciseId/snapshots/:snapshotId/files/:fileId?level=:level(/)': 'snapshot',
 
-        'courses/:courseId/exercises/:exerciseId/students/:studentId(/)':                                     'navigation',
-        'courses/:courseId/exercises/:exerciseId/students/:studentId/snapshots(/)':                           'navigation',
-        'courses/:courseId/exercises/:exerciseId/students/:studentId/snapshots/:snapshotId(/)':               'navigation',
-        'courses/:courseId/exercises/:exerciseId/students/:studentId/snapshots/:snapshotId/files/:fileId(/)': 'navigation'
+        'courses/:courseId/exercises/:exerciseId/students/:studentId(/)':                                                  'navigation',
+        'courses/:courseId/exercises/:exerciseId/students/:studentId/snapshots(/)':                                        'navigation',
+        'courses/:courseId/exercises/:exerciseId/students/:studentId/snapshots/:snapshotId(/)':                            'navigation',
+        'courses/:courseId/exercises/:exerciseId/students/:studentId/snapshots/:snapshotId/files/:fileId?level=:level(/)': 'navigation'
 
     },
 
@@ -44,12 +44,12 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         codebrowser.controller.ViewController.push(errorView, true);
     },
 
-    navigation: function (courseId, exerciseId, studentId, snapshotId, fileId) {
+    navigation: function (courseId, exerciseId, studentId, snapshotId, fileId, level) {
 
-        this.snapshot(studentId, courseId, exerciseId, snapshotId, fileId, { courseRoute: true });
+        this.snapshot(studentId, courseId, exerciseId, snapshotId, fileId, level, { courseRoute: true });
     },
 
-    snapshot: function (studentId, courseId, exerciseId, snapshotId, fileId, options) {
+    snapshot: function (studentId, courseId, exerciseId, snapshotId, fileId, level, options) {
 
         var self = this;
 
@@ -64,7 +64,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
                                                                                        exerciseId: exerciseId });
 
             // Set snapshot level
-            snapshotCollection.level = localStorage.getItem(config.storage.cache.snapshot.level) || 'code';
+            snapshotCollection.level = level || localStorage.getItem(config.storage.cache.snapshot.level) || 'code';
 
             this.studentId = studentId;
             this.exerciseId = exerciseId;

@@ -325,7 +325,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
                                               '/snapshots/' +
                                               snapshot.id +
                                               '/files/' +
-                                              file.id, { replace: !options ? options : options.replace });
+                                              file.id +
+                                              '?level=' +
+                                              this.collection.level, { replace: !options ? options : options.replace });
         } else {
 
             codebrowser.app.snapshot.navigate('#/students/' +
@@ -337,7 +339,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
                                               '/snapshots/' +
                                               snapshot.id +
                                               '/files/' +
-                                              file.id, { replace: !options ? options : options.replace });
+                                              file.id +
+                                              '?level=' +
+                                              this.collection.level, { replace: !options ? options : options.replace });
         }
     },
 
