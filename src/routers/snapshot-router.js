@@ -146,16 +146,13 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         if (!snapshotId) {
 
             snapshot = snapshotCollection.at(0);
-            snapshot.set('exercise', this.exercise);
-            snapshot.set('course', this.course);
-
             this.snapshotView.navigate(snapshot, null, { replace: true });
 
             return;
         }
 
         // Snapshot
-        snapshot = snapshotCollection.get(snapshotId);
+        snapshot = snapshotCollection.get(snapshotId) || snapshotCollection.at(0);
 
         // Invalid snapshot ID
         if (!snapshot) {
@@ -176,13 +173,18 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         // Invalid file ID
         if (!snapshot.get('files').get(fileId)) {
 
-            this.notFound();
+            if (!snapshot.get('files').at(0)) {
+                this.notFound();
+            } else {
+                this.snapshotView.navigate(snapshot, null);
+            }
 
             return;
         }
 
         snapshot.set('exercise', this.exercise);
         snapshot.set('course', this.course);
+
         this.snapshotView.update(snapshot, fileId);
     }
 });
