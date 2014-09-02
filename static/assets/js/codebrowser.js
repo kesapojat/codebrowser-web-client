@@ -514,7 +514,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div class='row'>\n\n    <div class='span3'>\n\n        <button id='toggleBrowser' type='button' class='btn' data-toggle='button'><i class='icon-folder icon-gray'></i></button>\n        <button id='split' type='button' class='btn' data-toggle='button'><i class='icon-split-editor icon-gray'></i></button>\n        <button id='diff' type='button' class='btn' data-toggle='button'><i class='icon-diff icon-gray'></i></button>\n        <button id='snapshotLevel' type='button' class='btn' data-toggle='button'><i class='icon-bell'></i></button>\n\n    </div>\n\n    <div class='span4 pull-right'>\n\n        <div class='row'>\n\n            <div class='span1 text-center'>";
+  buffer += "<div class='row'>\n\n    <div class='span3'>\n\n        <button id='toggleBrowser' type='button' class='btn' data-toggle='button'><i class='icon-folder icon-gray'></i></button>\n        <button id='split' type='button' class='btn' data-toggle='button'><i class='icon-split-editor icon-gray'></i></button>\n        <button id='diff' type='button' class='btn' data-toggle='button'><i class='icon-diff icon-gray'></i></button>\n        <button id='level' type='button' class='btn' data-toggle='button'><i class='icon-key-level icon-gray'></i></button>\n\n    </div>\n\n    <div class='span4 pull-right'>\n\n        <div class='row'>\n\n            <div class='span1 text-center'>";
   if (helper = helpers.current) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.current); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -1619,11 +1619,11 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
             return;
         }
 
-        var self = this;
+        var self = this,
+            parameter = this.level ? '?level=' + this.level : '';
 
-        // Fetch new zip, need to calculate differences again
+        // Fetch new ZIP, need to calculate differences again
         this.differencesDone = false;
-        var parameter = this.level ? '?level=' + this.level : '';
 
         JSZipUtils.getBinaryContent(this.url() + '/files.zip' + parameter, function (error, data) {
 
@@ -2977,7 +2977,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         'click #toggleBrowser': 'toggleBrowser',
         'click #split':         'split',
         'click #diff':          'diff',
-        'click #snapshotLevel': 'level',
+        'click #level':         'level',
         'click #first':         'first',
         'click #previous':      'previous',
         'click #next':          'next',
@@ -3238,9 +3238,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
     level: function () {
 
-        var level = this.collection.level;
-        this.collection.level = level === 'code' ? 'key' : 'code';
-
+        this.collection.level = this.collection.level === 'code' ? 'key' : 'code';
         this.navigate();
     },
 
@@ -3251,6 +3249,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         if (!snapshot) {
 
             if (this.courseRoute) {
+
                 codebrowser.app.snapshot.navigate('#/courses/' +
                                                   this.collection.courseId +
                                                   '/exercises/' +
@@ -3279,6 +3278,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         }
 
         if (this.courseRoute) {
+
             codebrowser.app.snapshot.navigate('#/courses/' +
                                               this.collection.courseId +
                                               '/exercises/' +

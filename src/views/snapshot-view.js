@@ -14,7 +14,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         'click #toggleBrowser': 'toggleBrowser',
         'click #split':         'split',
         'click #diff':          'diff',
-        'click #snapshotLevel': 'level',
+        'click #level':         'level',
         'click #first':         'first',
         'click #previous':      'previous',
         'click #next':          'next',

@@ -71,6 +71,20 @@ a .icon-gray:hover {
 
 }
 
+.icon-key-level {
+
+    margin-top: 0px;
+    font-size: 18px;
+    font-style: normal;
+
+}
+
+.icon-key-level::after {
+
+    content: 'a';
+
+}
+
 /* Responsiveness - Width */
 
 @media screen and (min-width: 1200px) {
