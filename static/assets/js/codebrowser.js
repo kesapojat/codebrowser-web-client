@@ -4384,7 +4384,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
                                                                                        exerciseId: exerciseId });
 
             // Set snapshot level
-            snapshotCollection.level = level || localStorage.getItem(config.storage.cache.snapshot.level) || 'code';
+            snapshotCollection.level = level || localStorage.getItem(config.storage.cache.snapshot.level);
 
             this.studentId = studentId;
             this.exerciseId = exerciseId;
