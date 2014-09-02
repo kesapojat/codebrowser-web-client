@@ -72,7 +72,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
         var weight = 0.8;
 
-        if (this.collection.level === 'KEY') {
+        if (this.collection.level === 'key') {
             return weight;
         }
 
@@ -242,7 +242,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
     renderSnapshotWeight: function (index, x, y) {
 
-        if (this.collection.level === 'KEY') {
+        if (this.collection.level === 'key') {
             return;
         }
 
