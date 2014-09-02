@@ -274,25 +274,8 @@ codebrowser.view.EditorView = Backbone.View.extend({
 
     update: function (previousFile, file) {
 
-        var self = this;
-
         this.model = file;
         this.previousModel = previousFile;
-
-        // Wait files to be in sync
-        var fileSynced = _.after(2, function () {
-
-            var previousContent = self.sideEditor.getValue();
-            var content = self.mainEditor.getValue();
-
-            // Create difference
-            self.differences = new codebrowser.model.Diff(previousContent, content);
-
-            // Re-render diff
-            self.toggleDiff(self.diff);
-
-            self.render();
-        });
 
         // Syntax mode
         var mode = codebrowser.helper.AceMode.getModeForFilename(this.model.get('name'));
@@ -318,40 +301,15 @@ codebrowser.view.EditorView = Backbone.View.extend({
             this.clearDiff();
         }
 
-        // Fetch previous file only if the models are not the same
-        if (this.previousModel !== this.model) {
+        // Set content
+        this.setContent(this.sideEditor, this.previousModel !== this.model ? previousFile.getContent() : null, mode);
+        this.setContent(this.mainEditor, this.model.getContent(), mode);
 
-            previousFile.fetchContent(function (content, error) {
+        // Create difference
+        this.differences = new codebrowser.model.Diff(this.sideEditor.getValue(), this.mainEditor.getValue());
 
-                if (error) {
-                    throw new Error('Failed file fetch.');
-                }
-
-                self.setContent(self.sideEditor, content, mode);
-
-                fileSynced();
-            });
-        }
-
-        // Fetch current file
-        this.model.fetchContent(function (content, error) {
-
-            if (error) {
-                throw new Error('Failed file fetch.');
-            }
-
-            // If both models are the same, current model is a new file, set empty content to the side editor
-            if (self.previousModel === self.model) {
-
-                self.setContent(self.sideEditor, null, mode);
-
-                fileSynced();
-            }
-
-            self.setContent(self.mainEditor, content, mode);
-
-            fileSynced();
-        });
+        // Re-render diff
+        this.toggleDiff(this.diff);
 
         // Show view if necessary
         this.$el.show();

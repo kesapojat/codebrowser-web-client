@@ -22,8 +22,20 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
 
     getContent: function () {
 
-        var ignoreEmptyLines = localStorage.getItem(config.storage.setting.editor.ignoreEmptyLines);
-        var content = this.content;
+        var zip = codebrowser.cache.files,
+            content = this.content,
+            ignoreEmptyLines = localStorage.getItem(config.storage.setting.editor.ignoreEmptyLines);
+
+        // Files.zip
+        if (zip) {
+
+            var file = zip.folder(this.get('snapshot').id).file(this.id);
+
+            // File is present
+            if (file) {
+                content = file.asText();
+            }
+        }
 
         // Standardise line endings
         content = content.replace(/\r\n|\r/g, '\n');
@@ -52,23 +64,5 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
     getName: function () {
 
         return _.last(this.get('name').split('/'));
-    },
-
-    /* Callback parameters (content, [error]) are the received data and possible error, respectively. */
-
-    fetchContent: function (callback) {
-
-        var zip = codebrowser.cache.files;
-
-        if (zip) {
-
-            var file = zip.folder(this.get('snapshot').id).file(this.id);
-
-            if (file) {
-                this.content = file.asText();
-            }
-        }
-
-        callback(this.getContent(), null);
     }
 });

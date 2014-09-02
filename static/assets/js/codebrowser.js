@@ -1308,8 +1308,20 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
 
     getContent: function () {
 
-        var ignoreEmptyLines = localStorage.getItem(config.storage.setting.editor.ignoreEmptyLines);
-        var content = this.content;
+        var zip = codebrowser.cache.files,
+            content = this.content,
+            ignoreEmptyLines = localStorage.getItem(config.storage.setting.editor.ignoreEmptyLines);
+
+        // Files.zip
+        if (zip) {
+
+            var file = zip.folder(this.get('snapshot').id).file(this.id);
+
+            // File is present
+            if (file) {
+                content = file.asText();
+            }
+        }
 
         // Standardise line endings
         content = content.replace(/\r\n|\r/g, '\n');
@@ -1338,24 +1350,6 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
     getName: function () {
 
         return _.last(this.get('name').split('/'));
-    },
-
-    /* Callback parameters (content, [error]) are the received data and possible error, respectively. */
-
-    fetchContent: function (callback) {
-
-        var zip = codebrowser.cache.files;
-
-        if (zip) {
-
-            var file = zip.folder(this.get('snapshot').id).file(this.id);
-
-            if (file) {
-                this.content = file.asText();
-            }
-        }
-
-        callback(this.getContent(), null);
     }
 });
 ;
@@ -1739,7 +1733,6 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         if (this.differencesDone) {
 
             callback(this.differences);
-
             return;
         }
 
@@ -1794,78 +1787,28 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
                     previousFile = currentFile;
                 }
 
-                // Bind necessary context for fetching
-                var context = {
+                var previousContent = previousFile.getContent();
 
-                    currentFile: currentFile,
-                    previousFile: previousFile,
-                    snapshotIndex: index,
-                    fileIndex: i,
-
-                    // Wait files to be in sync
-                    fileSynced: _.after(2, function () {
-
-                        var snapshotIndex = context.snapshotIndex;
-                        var fileIndex = context.fileIndex;
-
-                        var filename = context.currentFile.get('name');
-                        var previousContent = context.previousFile.getContent();
-
-                        // New file
-                        if (context.previousFile === context.currentFile) {
-                            previousContent = '';
-                        }
-
-                        // Create difference
-                        var difference = new codebrowser.model.Diff(previousContent, context.currentFile.getContent());
-
-                        // Count how many lines were in snapshot's files overall and how many lines of them changed
-                        self.differences[snapshotIndex].total += difference.getCount().total();
-                        self.differences[snapshotIndex].lines += context.currentFile.lines();
-
-                        self.differences[snapshotIndex][filename] = difference;
-
-                        // Diffed last file of last snapshot, return diffs
-                        if (snapshotIndex === self.length - 1 && fileIndex === self.at(snapshotIndex).get('files').length - 1) {
-
-                            self.differencesDone = true;
-
-                            callback(self.differences);
-                        }
-                    })
+                // New file
+                if (previousFile === currentFile) {
+                    previousContent = '';
                 }
 
-                // Fetch previous file only if the models are not the same
-                if (previousFile !== currentFile) {
+                // Create difference
+                var difference = new codebrowser.model.Diff(previousContent, currentFile.getContent());
 
-                    previousFile.fetchContent(function (content, error) {
+                // Count how many lines were in snapshot's files overall and how many lines of them changed
+                self.differences[index].total += difference.getCount().total();
+                self.differences[index].lines += currentFile.lines();
 
-                        if (error) {
-                            throw new Error('Failed file fetch.');
-                        }
+                self.differences[index][currentFile.get('name')] = difference;
 
-                        this.fileSynced();
+                // Diffed last file of last snapshot, return diffs
+                if (index === self.length - 1 && i === self.at(index).get('files').length - 1) {
 
-                    }.bind(context));
+                    self.differencesDone = true;
+                    callback(self.differences);
                 }
-
-                // Fetch current file
-                currentFile.fetchContent(function (content, error) {
-
-                    if (error) {
-                        throw new Error('Failed file fetch.');
-                    }
-
-                    // If both models are the same, current model is a new file, set empty content to previous
-                    if (this.currentFile === this.previousFile) {
-
-                        this.fileSynced();
-                    }
-
-                    this.fileSynced();
-
-                }.bind(context));
-
             });
         });
     }
@@ -2355,25 +2298,8 @@ codebrowser.view.EditorView = Backbone.View.extend({
 
     update: function (previousFile, file) {
 
-        var self = this;
-
         this.model = file;
         this.previousModel = previousFile;
-
-        // Wait files to be in sync
-        var fileSynced = _.after(2, function () {
-
-            var previousContent = self.sideEditor.getValue();
-            var content = self.mainEditor.getValue();
-
-            // Create difference
-            self.differences = new codebrowser.model.Diff(previousContent, content);
-
-            // Re-render diff
-            self.toggleDiff(self.diff);
-
-            self.render();
-        });
 
         // Syntax mode
         var mode = codebrowser.helper.AceMode.getModeForFilename(this.model.get('name'));
@@ -2399,40 +2325,15 @@ codebrowser.view.EditorView = Backbone.View.extend({
             this.clearDiff();
         }
 
-        // Fetch previous file only if the models are not the same
-        if (this.previousModel !== this.model) {
+        // Set content
+        this.setContent(this.sideEditor, this.previousModel !== this.model ? previousFile.getContent() : null, mode);
+        this.setContent(this.mainEditor, this.model.getContent(), mode);
 
-            previousFile.fetchContent(function (content, error) {
+        // Create difference
+        this.differences = new codebrowser.model.Diff(this.sideEditor.getValue(), this.mainEditor.getValue());
 
-                if (error) {
-                    throw new Error('Failed file fetch.');
-                }
-
-                self.setContent(self.sideEditor, content, mode);
-
-                fileSynced();
-            });
-        }
-
-        // Fetch current file
-        this.model.fetchContent(function (content, error) {
-
-            if (error) {
-                throw new Error('Failed file fetch.');
-            }
-
-            // If both models are the same, current model is a new file, set empty content to the side editor
-            if (self.previousModel === self.model) {
-
-                self.setContent(self.sideEditor, null, mode);
-
-                fileSynced();
-            }
-
-            self.setContent(self.mainEditor, content, mode);
-
-            fileSynced();
-        });
+        // Re-render diff
+        this.toggleDiff(this.diff);
 
         // Show view if necessary
         this.$el.show();

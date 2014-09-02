@@ -156,7 +156,6 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         if (this.differencesDone) {
 
             callback(this.differences);
-
             return;
         }
 
@@ -211,78 +210,28 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
                     previousFile = currentFile;
                 }
 
-                // Bind necessary context for fetching
-                var context = {
+                var previousContent = previousFile.getContent();
 
-                    currentFile: currentFile,
-                    previousFile: previousFile,
-                    snapshotIndex: index,
-                    fileIndex: i,
-
-                    // Wait files to be in sync
-                    fileSynced: _.after(2, function () {
-
-                        var snapshotIndex = context.snapshotIndex;
-                        var fileIndex = context.fileIndex;
-
-                        var filename = context.currentFile.get('name');
-                        var previousContent = context.previousFile.getContent();
-
-                        // New file
-                        if (context.previousFile === context.currentFile) {
-                            previousContent = '';
-                        }
-
-                        // Create difference
-                        var difference = new codebrowser.model.Diff(previousContent, context.currentFile.getContent());
-
-                        // Count how many lines were in snapshot's files overall and how many lines of them changed
-                        self.differences[snapshotIndex].total += difference.getCount().total();
-                        self.differences[snapshotIndex].lines += context.currentFile.lines();
-
-                        self.differences[snapshotIndex][filename] = difference;
-
-                        // Diffed last file of last snapshot, return diffs
-                        if (snapshotIndex === self.length - 1 && fileIndex === self.at(snapshotIndex).get('files').length - 1) {
-
-                            self.differencesDone = true;
-
-                            callback(self.differences);
-                        }
-                    })
+                // New file
+                if (previousFile === currentFile) {
+                    previousContent = '';
                 }
 
-                // Fetch previous file only if the models are not the same
-                if (previousFile !== currentFile) {
+                // Create difference
+                var difference = new codebrowser.model.Diff(previousContent, currentFile.getContent());
 
-                    previousFile.fetchContent(function (content, error) {
+                // Count how many lines were in snapshot's files overall and how many lines of them changed
+                self.differences[index].total += difference.getCount().total();
+                self.differences[index].lines += currentFile.lines();
 
-                        if (error) {
-                            throw new Error('Failed file fetch.');
-                        }
+                self.differences[index][currentFile.get('name')] = difference;
 
-                        this.fileSynced();
+                // Diffed last file of last snapshot, return diffs
+                if (index === self.length - 1 && i === self.at(index).get('files').length - 1) {
 
-                    }.bind(context));
+                    self.differencesDone = true;
+                    callback(self.differences);
                 }
-
-                // Fetch current file
-                currentFile.fetchContent(function (content, error) {
-
-                    if (error) {
-                        throw new Error('Failed file fetch.');
-                    }
-
-                    // If both models are the same, current model is a new file, set empty content to previous
-                    if (this.currentFile === this.previousFile) {
-
-                        this.fileSynced();
-                    }
-
-                    this.fileSynced();
-
-                }.bind(context));
-
             });
         });
     }
