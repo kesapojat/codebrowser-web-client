@@ -7,6 +7,7 @@
 codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     model: codebrowser.model.Snapshot,
+    level: 'code',
 
     /* Differences */
 
@@ -36,6 +37,16 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
             this.courseId = options.courseId;
             this.exerciseId = options.exerciseId;
         }
+    },
+
+    isCodeLevel: function () {
+
+        return this.level === 'code';
+    },
+
+    isKeyLevel: function () {
+
+        return this.level === 'key';
     },
 
     fetchFiles: function (callback) {

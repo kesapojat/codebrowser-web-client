@@ -1590,6 +1590,7 @@ codebrowser.collection.FileCollection = Backbone.Collection.extend({
 codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     model: codebrowser.model.Snapshot,
+    level: 'code',
 
     /* Differences */
 
@@ -1619,6 +1620,16 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
             this.courseId = options.courseId;
             this.exerciseId = options.exerciseId;
         }
+    },
+
+    isCodeLevel: function () {
+
+        return this.level === 'code';
+    },
+
+    isKeyLevel: function () {
+
+        return this.level === 'key';
     },
 
     fetchFiles: function (callback) {
@@ -3249,7 +3260,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
     level: function () {
 
-        this.collection.level = this.collection.level === 'code' ? 'key' : 'code';
+        this.collection.level = this.collection.isCodeLevel() ? 'key' : 'code';
         this.navigate();
     },
 
@@ -3439,7 +3450,8 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
         var weight = 0.8;
 
-        if (this.collection.level === 'key') {
+        // Key-level snapshots have a static weight
+        if (this.collection.isKeyLevel()) {
             return weight;
         }
 
@@ -3609,7 +3621,8 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
     renderSnapshotWeight: function (index, x, y) {
 
-        if (this.collection.level === 'key') {
+        // Key-level snapshots do not have a weight
+        if (this.collection.isKeyLevel()) {
             return;
         }
 

@@ -275,7 +275,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
     level: function () {
 
-        this.collection.level = this.collection.level === 'code' ? 'key' : 'code';
+        this.collection.level = this.collection.isCodeLevel() ? 'key' : 'code';
         this.navigate();
     },
 
