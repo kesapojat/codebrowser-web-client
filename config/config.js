@@ -14,6 +14,12 @@ var config = {
 
                 url: 'codebrowser.cache.files.url'
 
+            },
+
+            snapshots: {
+
+                level: 'codebrowser.cache.snapshots.level'
+
             }
         },
 
