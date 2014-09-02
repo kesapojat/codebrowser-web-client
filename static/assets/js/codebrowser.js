@@ -4073,12 +4073,14 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
         codebrowser.controller.ViewController.push(this.errorView, true);
     },
 
-    fetchModel: function (model, useCache, onSuccess) {
+    fetchModel: function (model, useCache, onSuccess, options) {
 
         var self = this;
 
         model.fetch({
 
+            traditional: true,
+            data: options ? options : '',
             cache: useCache,
             expires: useCache ? config.cache.expires : 0,
 
@@ -4380,7 +4382,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
             }
 
             fetchSynced();
-        });
+        }, { level: snapshotCollection.level });
 
         // Fetch all related files
         snapshotCollection.fetchFiles(function (error) {

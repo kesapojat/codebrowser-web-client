@@ -124,7 +124,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
             }
 
             fetchSynced();
-        });
+        }, { level: snapshotCollection.level });
 
         // Fetch all related files
         snapshotCollection.fetchFiles(function (error) {
