@@ -79,7 +79,7 @@ describe('SnapshotCollection', function () {
         expect(snapshots.getDifference(0, 'Test.java')).not.toBeNull();
     });
 
-    it('should return correct differences for snapshots', function (done) {
+    it('should return correct differences for snapshots', function () {
 
         var a = codebrowser.model.Snapshot.findOrCreate({ id: 1 });
         var b = codebrowser.model.Snapshot.findOrCreate({ id: 2 });
@@ -110,43 +110,34 @@ describe('SnapshotCollection', function () {
         snapshots.push(a);
         snapshots.push(b);
 
-        snapshots.getDifferences(function (differences) {
+        var differences = snapshots.getDifferences();
 
-            // Differences
-            expect(differences).not.toBeNull();
-            expect(differences.length).toBe(2);
+        // Differences
+        expect(differences).not.toBeNull();
+        expect(differences.length).toBe(2);
 
-            // Differences for snapshots a
-            expect(differences[0].total).toBe(2);
-            expect(differences[0].lines).toBe(2);
+        // Differences for snapshots a
+        expect(differences[0].total).toBe(2);
+        expect(differences[0].lines).toBe(2);
 
-            expect(snapshots.getDifference(0, 'FileA.java')).not.toBeNull();
-            expect(snapshots.getDifference(0, 'FileC.java')).toBeNull();
+        expect(snapshots.getDifference(0, 'FileA.java')).not.toBeNull();
+        expect(snapshots.getDifference(0, 'FileC.java')).toBeNull();
 
-            // Differences for snapshot b
-            expect(differences[1].total).toBe(2);
-            expect(differences[1].lines).toBe(3);
+        // Differences for snapshot b
+        expect(differences[1].total).toBe(2);
+        expect(differences[1].lines).toBe(3);
 
-            expect(snapshots.getDifference(1, 'FileA.java')).not.toBeNull();
-            expect(snapshots.getDifference(1, 'FileC.java')).not.toBeNull();
-
-            expect(snapshots.differencesDone).toBeTruthy();
-
-            done();
-        });
+        expect(snapshots.getDifference(1, 'FileA.java')).not.toBeNull();
+        expect(snapshots.getDifference(1, 'FileC.java')).not.toBeNull();
     });
 
-    it('should return previously calculated differences', function (done) {
+    it('should return previously calculated differences', function () {
 
-        snapshots.differences = [];
-        snapshots.differencesDone = true;
+        snapshots.differences = ['differences'];
 
-        snapshots.getDifferences(function (differences) {
+        var differences = snapshots.getDifferences();
 
-            expect(differences).not.toBeNull();
-            expect(differences).toEqual([]);
-
-            done();
-        });
+        expect(differences).not.toBeNull();
+        expect(differences).toEqual(['differences']);
     });
 });
