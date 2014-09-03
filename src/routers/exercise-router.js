@@ -28,7 +28,7 @@ codebrowser.router.ExerciseRouter = codebrowser.router.BaseRouter.extend({
 
         codebrowser.app.exercise.navigate('#/' +
                                           instanceId +
-                                          'courses/' +
+                                          '/courses/' +
                                           courseId +
                                           '/exercises', { replace: true });
 
