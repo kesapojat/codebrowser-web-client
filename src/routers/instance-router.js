@@ -2,7 +2,8 @@ codebrowser.router.InstanceRouter = codebrowser.router.BaseRouter.extend({
 
     routes: {
 
-        'instances(/)': 'instances'
+        'instances(/)':   'instances',
+        ':instanceId(/)': 'instance'
 
     },
 
@@ -10,7 +11,9 @@ codebrowser.router.InstanceRouter = codebrowser.router.BaseRouter.extend({
 
     initialize: function () {
 
-        this.instanceView = new codebrowser.view.InstancesView();
+        this.instancesView = new codebrowser.view.InstancesView();
+        this.instanceView = new codebrowser.view.InstanceView();
+
     },
 
     /* Actions */
@@ -19,12 +22,20 @@ codebrowser.router.InstanceRouter = codebrowser.router.BaseRouter.extend({
 
         var self = this;
 
-        this.instanceView.collection = new codebrowser.collection.InstanceCollection();
+        this.instancesView.collection = new codebrowser.collection.InstanceCollection();
 
-        this.fetchModel(this.instanceView.collection, true, function () {
+        this.fetchModel(this.instancesView.collection, true, function () {
 
-            self.instanceView.render();
-            codebrowser.controller.ViewController.push(self.instanceView);
+            self.instancesView.render();
+            codebrowser.controller.ViewController.push(self.instancesView);
         });
+    },
+
+    instance: function (instanceId) {
+
+        this.instanceView.instanceId = instanceId;
+
+        this.instanceView.render();
+        codebrowser.controller.ViewController.push(this.instanceView);
     }
 });

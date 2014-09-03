@@ -1,0 +1,18 @@
+<section>
+    <ul class='breadcrumb'>
+
+        <li><a href='./'>Home</a> <span class='divider'>/</span></li>
+        <li class='active'>{{instanceId}}</li>
+
+    </ul>
+
+    <h2>
+        Instance — {{instanceId}}
+    </h2>
+
+    <ul class='nav nav-tabs nav-stacked selection'>
+        <li><a href='./#/{{instanceId}}/students'>Students</a></li>
+        <li><a href='./#/{{instanceId}}/courses'>Courses</a></li>
+    </ul>
+
+</section>

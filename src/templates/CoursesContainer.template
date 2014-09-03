@@ -3,6 +3,7 @@
     <ul class='breadcrumb'>
 
         <li><a href='./'>Home</a> <span class='divider'>/</span></li>
+        <li><a href='./#/{{instanceId}}'>{{instanceId}}</a> <span class='divider'>/</span></li>
 
         {{#if studentId}}
             <li><a href='./#/{{instanceId}}/students'>Students</a> <span class='divider'>/</span></li>

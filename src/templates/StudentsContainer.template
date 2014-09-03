@@ -2,6 +2,7 @@
 
     <ul class='breadcrumb'>
         <li><a href='./'>Home</a> <span class='divider'>/</span></li>
+        <li><a href='./#/{{instanceId}}'>{{instanceId}}</a> <span class='divider'>/</span></li>
 
         {{#if course}}
             <li><a href='./#/{{instanceId}}/courses'>Courses</a> <span class='divider'>/</span></li>

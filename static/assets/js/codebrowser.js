@@ -83,7 +83,15 @@ function program8(depth0,data,depth2) {
   return buffer;
   }
 
-  buffer += "<section>\n\n    <ul class='breadcrumb'>\n\n        <li><a href='./'>Home</a> <span class='divider'>/</span></li>\n\n        ";
+  buffer += "<section>\n\n    <ul class='breadcrumb'>\n\n        <li><a href='./'>Home</a> <span class='divider'>/</span></li>\n        <li><a href='./#/";
+  if (helper = helpers.instanceId) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.instanceId); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "'>";
+  if (helper = helpers.instanceId) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.instanceId); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</a> <span class='divider'>/</span></li>\n\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.studentId), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n\n        <li class='active'>Courses</li>\n\n    </ul>\n\n    <h2>\n        ";
@@ -270,7 +278,15 @@ function program10(depth0,data,depth2) {
   return buffer;
   }
 
-  buffer += "<section>\n\n    <ul class='breadcrumb'>\n\n        <li><a href='./'>Home</a> <span class='divider'>/</span></li>\n\n        ";
+  buffer += "<section>\n\n    <ul class='breadcrumb'>\n\n        <li><a href='./'>Home</a> <span class='divider'>/</span></li>\n        <li><a href='./#/";
+  if (helper = helpers.instanceId) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.instanceId); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "'>";
+  if (helper = helpers.instanceId) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.instanceId); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</a> <span class='divider'>/</span></li>\n\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.studentId), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n\n        <li><a href='./#/";
@@ -313,6 +329,32 @@ function program10(depth0,data,depth2) {
   return buffer;
   });
 
+this["Handlebars"]["templates"]["InstanceContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<section>\n    <ul class='breadcrumb'>\n\n        <li><a href='./'>Home</a> <span class='divider'>/</span></li>\n        <li class='active'>";
+  if (helper = helpers.instanceId) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.instanceId); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</li>\n\n    </ul>\n\n    <h2>\n        Instance — ";
+  if (helper = helpers.instanceId) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.instanceId); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\n    </h2>\n\n    <ul class='nav nav-tabs nav-stacked selection'>\n        <li><a href='./#/";
+  if (helper = helpers.instanceId) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.instanceId); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "/students'>Students</a></li>\n        <li><a href='./#/";
+  if (helper = helpers.instanceId) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.instanceId); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "/courses'>Courses</a></li>\n    </ul>\n\n</section>\n";
+  return buffer;
+  });
+
 this["Handlebars"]["templates"]["InstancesContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
@@ -327,7 +369,7 @@ function program1(depth0,data) {
   if (helper = helpers.name) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.name); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "/courses'>";
+    + "'>";
   if (helper = helpers.name) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.name); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -353,7 +395,7 @@ function program1(depth0,data) {
 this["Handlebars"]["templates"]["NavigationBarContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
+  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
   
@@ -501,7 +543,15 @@ function program3(depth0,data) {
   return buffer;
   }
 
-  buffer += "<section>\n\n    <ul class='breadcrumb'>\n\n        <li><a href='./'>Home</a> <span class='divider'>/</span></li>\n\n        ";
+  buffer += "<section>\n\n    <ul class='breadcrumb'>\n\n        <li><a href='./'>Home</a> <span class='divider'>/</span></li>\n        <li><a href='./#/";
+  if (helper = helpers.instanceId) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.instanceId); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "'>";
+  if (helper = helpers.instanceId) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.instanceId); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</a> <span class='divider'>/</span></li>\n\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.courseRoute), {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n\n        <li class='active'>Snapshots</li>\n\n    </ul>\n\n</section>\n";
@@ -514,7 +564,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<section>\n\n    <ul class='breadcrumb'>\n        <li class='active'>Home</li>\n    </ul>\n\n    <ul class='nav nav-tabs nav-stacked selection'>\n        <li><a href='./#/students'>Students</a></li>\n        <li><a href='./#/courses'>Courses</a></li>\n        <li><a href='./#/instances'>Instances</a></li>\n    </ul>\n\n</section>\n";
+  return "<section>\n\n    <ul class='breadcrumb'>\n        <li class='active'>Home</li>\n    </ul>\n\n    <ul class='nav nav-tabs nav-stacked selection'>\n        <li><a href='./#/instances'>Instances</a></li>\n    </ul>\n\n</section>\n";
   });
 
 this["Handlebars"]["templates"]["SearchContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -806,7 +856,15 @@ function program8(depth0,data,depth2) {
   return buffer;
   }
 
-  buffer += "<section>\n\n    <ul class='breadcrumb'>\n        <li><a href='./'>Home</a> <span class='divider'>/</span></li>\n\n        ";
+  buffer += "<section>\n\n    <ul class='breadcrumb'>\n        <li><a href='./'>Home</a> <span class='divider'>/</span></li>\n        <li><a href='./#/";
+  if (helper = helpers.instanceId) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.instanceId); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "'>";
+  if (helper = helpers.instanceId) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.instanceId); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</a> <span class='divider'>/</span></li>\n\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.course), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n\n        <li class='active'>Students</li>\n    </ul>\n\n    <h2>\n        ";
@@ -2785,6 +2843,28 @@ codebrowser.view.ExercisesView = codebrowser.view.ListBaseView.extend({
 });
 ;
 
+codebrowser.view.InstanceView = codebrowser.view.ListBaseView.extend({
+
+    id: 'instance-container',
+    template: Handlebars.templates.InstanceContainer,
+
+    /* Render */
+
+    renderTemplate: function () {
+
+        // View attributes
+        var attributes = {
+
+            instanceId: this.instanceId
+
+        }
+
+        // Template
+        return this.template(attributes);
+    }
+});
+;
+
 codebrowser.view.InstancesView = codebrowser.view.ListBaseView.extend({
 
     id: 'instances-container',
@@ -4411,7 +4491,8 @@ codebrowser.router.InstanceRouter = codebrowser.router.BaseRouter.extend({
 
     routes: {
 
-        'instances(/)': 'instances'
+        'instances(/)':   'instances',
+        ':instanceId(/)': 'instance'
 
     },
 
@@ -4419,7 +4500,9 @@ codebrowser.router.InstanceRouter = codebrowser.router.BaseRouter.extend({
 
     initialize: function () {
 
-        this.instanceView = new codebrowser.view.InstancesView();
+        this.instancesView = new codebrowser.view.InstancesView();
+        this.instanceView = new codebrowser.view.InstanceView();
+
     },
 
     /* Actions */
@@ -4428,13 +4511,21 @@ codebrowser.router.InstanceRouter = codebrowser.router.BaseRouter.extend({
 
         var self = this;
 
-        this.instanceView.collection = new codebrowser.collection.InstanceCollection();
+        this.instancesView.collection = new codebrowser.collection.InstanceCollection();
 
-        this.fetchModel(this.instanceView.collection, true, function () {
+        this.fetchModel(this.instancesView.collection, true, function () {
 
-            self.instanceView.render();
-            codebrowser.controller.ViewController.push(self.instanceView);
+            self.instancesView.render();
+            codebrowser.controller.ViewController.push(self.instancesView);
         });
+    },
+
+    instance: function (instanceId) {
+
+        this.instanceView.instanceId = instanceId;
+
+        this.instanceView.render();
+        codebrowser.controller.ViewController.push(this.instanceView);
     }
 });
 ;
