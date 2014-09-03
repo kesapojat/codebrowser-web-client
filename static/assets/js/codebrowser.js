@@ -34,7 +34,7 @@ function program5(depth0,data,depth1) {
   buffer += "\n\n                <tr>\n\n                    <td class='index'>"
     + escapeExpression((helper = helpers.index || (depth0 && depth0.index),options={hash:{},data:data},helper ? helper.call(depth0, (data == null || data === false ? data : data.index), options) : helperMissing.call(depth0, "index", (data == null || data === false ? data : data.index), options)))
     + "</td>\n\n                    ";
-  stack1 = helpers['if'].call(depth0, (depth1 && depth1.studentId), {hash:{},inverse:self.program(8, program8, data),fn:self.programWithDepth(6, program6, data, depth1),data:data});
+  stack1 = helpers['if'].call(depth0, (depth1 && depth1.studentId), {hash:{},inverse:self.programWithDepth(8, program8, data, depth1),fn:self.programWithDepth(6, program6, data, depth1),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n\n                </tr>\n\n            ";
   return buffer;
@@ -42,7 +42,9 @@ function program5(depth0,data,depth1) {
 function program6(depth0,data,depth2) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n\n                        <td class='link'><a href='./#/students/"
+  buffer += "\n\n                        <td class='link'><a href='./#/"
+    + escapeExpression(((stack1 = (depth2 && depth2.instanceId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "/students/"
     + escapeExpression(((stack1 = (depth2 && depth2.studentId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "/courses/";
   if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
@@ -56,10 +58,12 @@ function program6(depth0,data,depth2) {
   return buffer;
   }
 
-function program8(depth0,data) {
+function program8(depth0,data,depth2) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n\n                        <td class='link'><a href='./#/courses/";
+  buffer += "\n\n                        <td class='link'><a href='./#/"
+    + escapeExpression(((stack1 = (depth2 && depth2.instanceId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "/courses/";
   if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -213,7 +217,9 @@ function program7(depth0,data,depth1) {
 function program8(depth0,data,depth2) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n\n                        <td class='link'><a href='./#/students/"
+  buffer += "\n\n                        <td class='link'><a href='./#/"
+    + escapeExpression(((stack1 = (depth2 && depth2.instanceId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "/students/"
     + escapeExpression(((stack1 = (depth2 && depth2.studentId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "/courses/"
     + escapeExpression(((stack1 = (depth2 && depth2.courseId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
@@ -232,7 +238,9 @@ function program8(depth0,data,depth2) {
 function program10(depth0,data,depth2) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n\n                        <td class='link'><a href='./#/courses/"
+  buffer += "\n\n                        <td class='link'><a href='./#/"
+    + escapeExpression(((stack1 = (depth2 && depth2.instanceId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "/courses/"
     + escapeExpression(((stack1 = (depth2 && depth2.courseId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "/exercises/";
   if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
@@ -291,11 +299,11 @@ function program1(depth0,data) {
   var buffer = "", stack1, helper, options;
   buffer += "\n\n                <tr>\n\n                    <td class='index'>"
     + escapeExpression((helper = helpers.index || (depth0 && depth0.index),options={hash:{},data:data},helper ? helper.call(depth0, (data == null || data === false ? data : data.index), options) : helperMissing.call(depth0, "index", (data == null || data === false ? data : data.index), options)))
-    + "</td>\n\n                    <td class='link'><a href='./#/instances/";
+    + "</td>\n\n                    <td class='link'><a href='./#/";
   if (helper = helpers.name) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.name); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "'>";
+    + "/courses'>";
   if (helper = helpers.name) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.name); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -659,7 +667,7 @@ function program5(depth0,data,depth1) {
   buffer += "\n\n                <tr>\n\n                    <td class='index'>"
     + escapeExpression((helper = helpers.index || (depth0 && depth0.index),options={hash:{},data:data},helper ? helper.call(depth0, (data == null || data === false ? data : data.index), options) : helperMissing.call(depth0, "index", (data == null || data === false ? data : data.index), options)))
     + "</td>\n\n                    ";
-  stack1 = helpers['if'].call(depth0, (depth1 && depth1.course), {hash:{},inverse:self.program(8, program8, data),fn:self.programWithDepth(6, program6, data, depth1),data:data});
+  stack1 = helpers['if'].call(depth0, (depth1 && depth1.course), {hash:{},inverse:self.programWithDepth(8, program8, data, depth1),fn:self.programWithDepth(6, program6, data, depth1),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n\n                </tr>\n\n            ";
   return buffer;
@@ -667,7 +675,9 @@ function program5(depth0,data,depth1) {
 function program6(depth0,data,depth2) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n\n                        <td class='link'><a href='./#/courses/"
+  buffer += "\n\n                        <td class='link'><a href='./#/"
+    + escapeExpression(((stack1 = (depth2 && depth2.instanceId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "/courses/"
     + escapeExpression(((stack1 = ((stack1 = (depth2 && depth2.course)),stack1 == null || stack1 === false ? stack1 : stack1.id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "/exercises/"
     + escapeExpression(((stack1 = ((stack1 = (depth2 && depth2.exercise)),stack1 == null || stack1 === false ? stack1 : stack1.id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
@@ -683,10 +693,12 @@ function program6(depth0,data,depth2) {
   return buffer;
   }
 
-function program8(depth0,data) {
+function program8(depth0,data,depth2) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n\n                        <td class='link'><a href='./#/students/";
+  buffer += "\n\n                        <td class='link'><a href='./#/"
+    + escapeExpression(((stack1 = (depth2 && depth2.instanceId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "/students/";
   if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -1052,7 +1064,10 @@ Handlebars.registerHelper('pluralize', function (value, string) {
 
 codebrowser.model.Course = Backbone.RelationalModel.extend({
 
-    urlRoot: config.api.main.root + 'courses',
+    urlRoot: function () {
+
+        return config.api.main.root + this.get('instanceId') + '/courses';
+    },
 
     relations: [
 
@@ -1067,7 +1082,14 @@ codebrowser.model.Course = Backbone.RelationalModel.extend({
 
             }
         }
-    ]
+    ],
+
+    initialize: function (options) {
+
+        if (options) {
+            this.instanceId = options.instanceId;
+        }
+    }
 });
 ;
 
@@ -1414,7 +1436,8 @@ codebrowser.model.Snapshot = Backbone.RelationalModel.extend({
         }
 
         return config.api.main.root +
-               'students/' +
+               this.get('instanceId') +
+               '/students/' +
                this.get('studentId') +
                '/courses/' +
                this.get('courseId') +
@@ -1442,6 +1465,7 @@ codebrowser.model.Snapshot = Backbone.RelationalModel.extend({
 
         // If fetched through a collection, get IDs from the collection
         if (this.collection) {
+            this.set('instanceId', this.collection.instanceId);
             this.set('studentId', this.collection.studentId);
             this.set('courseId', this.collection.courseId);
             this.set('exerciseId', this.collection.exerciseId);
@@ -1470,8 +1494,17 @@ codebrowser.model.Snapshot = Backbone.RelationalModel.extend({
 
 codebrowser.model.Student = Backbone.RelationalModel.extend({
 
-    urlRoot: config.api.main.root + 'students'
+    urlRoot: function () {
 
+        return config.api.main.root + this.get('instanceId') + '/students'
+    },
+
+    initialize: function (options) {
+
+        if (options) {
+            this.instanceId = options.instanceId;
+        }
+    }
 });
 ;
 
@@ -1539,16 +1572,17 @@ codebrowser.collection.CourseCollection = Backbone.Collection.extend({
 
         /* Fetch courses related to a student */
         if (this.studentId) {
-            return config.api.main.root + 'students/' + this.studentId + '/courses';
+            return config.api.main.root + this.instanceId + '/students/' + this.studentId + '/courses';
         }
 
         /* Fetch all courses */
-        return config.api.main.root + 'courses';
+        return config.api.main.root + this.instanceId + '/courses';
     },
 
     initialize: function (models, options) {
 
         if (options) {
+            this.instanceId = options.instanceId;
             this.studentId = options.studentId;
         }
     }
@@ -1579,16 +1613,17 @@ codebrowser.collection.ExerciseCollection = Backbone.Collection.extend({
 
         /* Fetch exercises related to a course */
         if (!this.studentId) {
-            return config.api.main.root + 'courses/' + this.courseId + '/exercises';
+            return config.api.main.root + this.instanceId + '/courses/' + this.courseId + '/exercises';
         }
 
         /* Fetch exercises related to a student and course */
-        return config.api.main.root + 'students/' + this.studentId + '/courses/' + this.courseId + '/exercises';
+        return config.api.main.root + this.instanceId + '/students/' + this.studentId + '/courses/' + this.courseId + '/exercises';
     },
 
     initialize: function (models, options) {
 
         if (options) {
+            this.instanceId = options.instanceId;
             this.studentId = options.studentId;
             this.courseId = options.courseId;
         }
@@ -1649,12 +1684,13 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     url: function () {
 
-        if (!this.studentId || !this.courseId || !this.exerciseId) {
-            throw new Error('Options studentId, courseId and exerciseId are required to fetch snapshots.');
+        if (!this.instanceId || !this.studentId || !this.courseId || !this.exerciseId) {
+            throw new Error('Options instanceId, studentId, courseId and exerciseId are required to fetch snapshots.');
         }
 
         return config.api.main.root +
-               'students/' +
+               this.instanceId +
+               '/students/' +
                this.studentId +
                '/courses/' +
                this.courseId +
@@ -1666,6 +1702,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
     initialize: function (models, options) {
 
         if (options) {
+            this.instanceId = options.instanceId;
             this.studentId = options.studentId;
             this.courseId = options.courseId;
             this.exerciseId = options.exerciseId;
@@ -1874,12 +1911,13 @@ codebrowser.collection.StudentCollection = Backbone.Collection.extend({
             return config.api.main.root + 'courses/' + this.courseId + '/exercises/' + this.exerciseId + '/students';
         }
 
-        return config.api.main.root + 'students';
+        return config.api.main.root + this.instanceId + '/students';
     },
 
     initialize: function (models, options) {
 
         if (options) {
+            this.instanceId = options.instanceId;
             this.courseId = options.courseId;
             this.exerciseId = options.exerciseId;
         }
@@ -1985,6 +2023,7 @@ codebrowser.view.CoursesView = codebrowser.view.ListBaseView.extend({
         var attributes = {
 
             query: this.query,
+            instanceId: this.collection.instanceId,
             studentId: this.collection.studentId,
             courses: this.collection.toJSON()
 
@@ -2632,6 +2671,7 @@ codebrowser.view.ExercisesView = codebrowser.view.ListBaseView.extend({
         // View attributes
         var attributes = {
 
+            instanceId: this.collection.instanceId,
             studentId: this.collection.studentId,
             courseId: this.collection.courseId,
             course: this.course.toJSON(),
@@ -3245,7 +3285,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
             if (this.courseRoute) {
 
-                codebrowser.app.snapshot.navigate('#/courses/' +
+                codebrowser.app.snapshot.navigate('#/' +
+                                                  this.collection.instanceId +
+                                                  '/courses/' +
                                                   this.collection.courseId +
                                                   '/exercises/' +
                                                   this.collection.exerciseId +
@@ -3255,7 +3297,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
             } else {
 
-                codebrowser.app.snapshot.navigate('#/students/' +
+                codebrowser.app.snapshot.navigate('#/' +
+                                                  this.collection.instanceId +
+                                                  '/students/' +
                                                   this.collection.studentId +
                                                   '/courses/' +
                                                   this.collection.courseId +
@@ -3274,7 +3318,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         if (this.courseRoute) {
 
-            codebrowser.app.snapshot.navigate('#/courses/' +
+            codebrowser.app.snapshot.navigate('#/' +
+                                              this.collection.instanceId +
+                                              '/courses/' +
                                               this.collection.courseId +
                                               '/exercises/' +
                                               this.collection.exerciseId +
@@ -3288,7 +3334,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
                                               this.collection.level, { replace: !options ? options : options.replace });
         } else {
 
-            codebrowser.app.snapshot.navigate('#/students/' +
+            codebrowser.app.snapshot.navigate('#/' +
+                                              this.collection.instanceId +
+                                              '/students/' +
                                               this.collection.studentId +
                                               '/courses/' +
                                               this.collection.courseId +
@@ -4030,7 +4078,8 @@ codebrowser.view.StudentsView = codebrowser.view.ListBaseView.extend({
         var attributes = {
 
             query: this.query,
-            students: this.collection.toJSON()
+            students: this.collection.toJSON(),
+            instanceId: this.collection.instanceId
 
         }
 
@@ -4132,9 +4181,9 @@ codebrowser.router.CourseRouter = codebrowser.router.BaseRouter.extend({
 
     routes: {
 
-        'courses(/)':                     'courses',
-        'students/:studentId(/)':         'navigation',
-        'students/:studentId/courses(/)': 'courses'
+        ':instanceId/courses(/)':                     'courses',
+        ':instanceId/students/:studentId(/)':         'navigation',
+        ':instanceId/students/:studentId/courses(/)': 'courses'
 
     },
 
@@ -4153,14 +4202,16 @@ codebrowser.router.CourseRouter = codebrowser.router.BaseRouter.extend({
         codebrowser.controller.ViewController.push(errorView, true);
     },
 
-    navigation: function (studentId) {
+    navigation: function (instanceId, studentId) {
 
-        codebrowser.app.course.navigate('#/students/' +
+        codebrowser.app.course.navigate('#/' +
+                                        instanceId +
+                                        'students/' +
                                         studentId +
                                         '/courses', { replace: true });
     },
 
-    courses: function (studentId) {
+    courses: function (instanceId, studentId) {
 
         var self = this;
 
@@ -4173,7 +4224,7 @@ codebrowser.router.CourseRouter = codebrowser.router.BaseRouter.extend({
 
         if (studentId) {
 
-            var student = codebrowser.model.Student.findOrCreate({ id: studentId });
+            var student = codebrowser.model.Student.findOrCreate({ id: studentId, instanceId: instanceId });
 
             // Fetch student
             this.fetchModel(student, true, function () {
@@ -4183,7 +4234,7 @@ codebrowser.router.CourseRouter = codebrowser.router.BaseRouter.extend({
             });
         }
 
-        var courseCollection = new codebrowser.collection.CourseCollection(null, { studentId: studentId });
+        var courseCollection = new codebrowser.collection.CourseCollection(null, { instanceId: instanceId, studentId: studentId });
 
         this.courseView.collection = courseCollection;
 
@@ -4197,10 +4248,10 @@ codebrowser.router.ExerciseRouter = codebrowser.router.BaseRouter.extend({
 
     routes: {
 
-        'courses/:courseId(/)':                               'navigateToCourseExercises',
-        'courses/:courseId/exercises(/)':                     'courseExercises',
-        'students/:studentId/courses/:courseId(/)':           'navigation',
-        'students/:studentId/courses/:courseId/exercises(/)': 'exercises'
+        ':instanceId/courses/:courseId(/)':                               'navigateToCourseExercises',
+        ':instanceId/courses/:courseId/exercises(/)':                     'courseExercises',
+        ':instanceId/students/:studentId/courses/:courseId(/)':           'navigation',
+        ':instanceId/students/:studentId/courses/:courseId/exercises(/)': 'exercises'
 
     },
 
@@ -4219,41 +4270,46 @@ codebrowser.router.ExerciseRouter = codebrowser.router.BaseRouter.extend({
         codebrowser.controller.ViewController.push(errorView, true);
     },
 
-    navigateToCourseExercises: function (courseId) {
+    navigateToCourseExercises: function (instanceId, courseId) {
 
-        codebrowser.app.exercise.navigate('#/courses/' +
+        codebrowser.app.exercise.navigate('#/' +
+                                          instanceId +
+                                          'courses/' +
                                           courseId +
                                           '/exercises', { replace: true });
 
     },
 
-    navigation: function (studentId, courseId) {
+    navigation: function (instanceId, studentId, courseId) {
 
-        codebrowser.app.exercise.navigate('#/students/' +
+        codebrowser.app.exercise.navigate('#/' +
+                                          instanceId +
+                                          'students/' +
                                           studentId +
                                           '/courses/' +
                                           courseId +
                                           '/exercises', { replace: true });
     },
 
-    courseExercises: function (courseId) {
+    courseExercises: function (instanceId, courseId) {
 
-        this.exercises(null, courseId);
+        this.exercises(instanceId, null, courseId);
     },
 
-    exercises: function (studentId, courseId) {
+    exercises: function (instanceId, studentId, courseId) {
 
         var self = this;
 
         // Wait for fetches to be in sync
         var fetchSynced = _.after(3, function () {
+
             self.exerciseView.render();
             codebrowser.controller.ViewController.push(self.exerciseView);
         });
 
         if (studentId) {
 
-            var student = codebrowser.model.Student.findOrCreate({ id: studentId });
+            var student = codebrowser.model.Student.findOrCreate({ id: studentId, instanceId: instanceId });
 
             // Fetch student
             this.fetchModel(student, true, function () {
@@ -4267,9 +4323,10 @@ codebrowser.router.ExerciseRouter = codebrowser.router.BaseRouter.extend({
             fetchSynced();
         }
 
-        var course = codebrowser.model.Course.findOrCreate({ id: courseId });
+        var course = codebrowser.model.Course.findOrCreate({ id: courseId, instanceId: instanceId });
 
-        var exerciseCollection = new codebrowser.collection.ExerciseCollection(null, { studentId: studentId,
+        var exerciseCollection = new codebrowser.collection.ExerciseCollection(null, { instanceId: instanceId,
+                                                                                       studentId: studentId,
                                                                                        courseId: courseId });
         // Fetch course
         this.fetchModel(course, true, function () {
@@ -4331,15 +4388,15 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
     routes: {
 
-        'students/:studentId/courses/:courseId/exercises/:exerciseId(/)':                                                  'snapshot',
-        'students/:studentId/courses/:courseId/exercises/:exerciseId/snapshots(/)':                                        'snapshot',
-        'students/:studentId/courses/:courseId/exercises/:exerciseId/snapshots/:snapshotId(/)':                            'snapshot',
-        'students/:studentId/courses/:courseId/exercises/:exerciseId/snapshots/:snapshotId/files/:fileId?level=:level(/)': 'snapshot',
+        ':instanceId/students/:studentId/courses/:courseId/exercises/:exerciseId(/)':                                                  'snapshot',
+        ':instanceId/students/:studentId/courses/:courseId/exercises/:exerciseId/snapshots(/)':                                        'snapshot',
+        ':instanceId/students/:studentId/courses/:courseId/exercises/:exerciseId/snapshots/:snapshotId(/)':                            'snapshot',
+        ':instanceId/students/:studentId/courses/:courseId/exercises/:exerciseId/snapshots/:snapshotId/files/:fileId?level=:level(/)': 'snapshot',
 
-        'courses/:courseId/exercises/:exerciseId/students/:studentId(/)':                                                  'navigation',
-        'courses/:courseId/exercises/:exerciseId/students/:studentId/snapshots(/)':                                        'navigation',
-        'courses/:courseId/exercises/:exerciseId/students/:studentId/snapshots/:snapshotId(/)':                            'navigation',
-        'courses/:courseId/exercises/:exerciseId/students/:studentId/snapshots/:snapshotId/files/:fileId?level=:level(/)': 'navigation'
+        ':instanceId/courses/:courseId/exercises/:exerciseId/students/:studentId(/)':                                                  'navigation',
+        ':instanceId/courses/:courseId/exercises/:exerciseId/students/:studentId/snapshots(/)':                                        'navigation',
+        ':instanceId/courses/:courseId/exercises/:exerciseId/students/:studentId/snapshots/:snapshotId(/)':                            'navigation',
+        ':instanceId/courses/:courseId/exercises/:exerciseId/students/:studentId/snapshots/:snapshotId/files/:fileId?level=:level(/)': 'navigation'
 
     },
 
@@ -4373,12 +4430,12 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         codebrowser.controller.ViewController.push(errorView, true);
     },
 
-    navigation: function (courseId, exerciseId, studentId, snapshotId, fileId, level) {
+    navigation: function (instanceId, courseId, exerciseId, studentId, snapshotId, fileId, level) {
 
-        this.snapshot(studentId, courseId, exerciseId, snapshotId, fileId, level, { courseRoute: true });
+        this.snapshot(instanceId, studentId, courseId, exerciseId, snapshotId, fileId, level, { courseRoute: true });
     },
 
-    snapshot: function (studentId, courseId, exerciseId, snapshotId, fileId, level, options) {
+    snapshot: function (instanceId, studentId, courseId, exerciseId, snapshotId, fileId, level, options) {
 
         var self = this;
 
@@ -4388,7 +4445,8 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
         if (!this.snapshotView.collection || (this.studentId !== studentId || this.exerciseId !== exerciseId)) {
 
-            snapshotCollection = new codebrowser.collection.SnapshotCollection(null, { studentId: studentId,
+            snapshotCollection = new codebrowser.collection.SnapshotCollection(null, { instanceId: instanceId,
+                                                                                       studentId: studentId,
                                                                                        courseId: courseId,
                                                                                        exerciseId: exerciseId });
 
@@ -4416,7 +4474,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
         /* Fetch */
 
-        var student = codebrowser.model.Student.findOrCreate({ id: studentId });
+        var student = codebrowser.model.Student.findOrCreate({ id: studentId, instanceId: instanceId });
 
         // Fetch student
         this.fetchModel(student, true, function () {
@@ -4426,7 +4484,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         });
 
         // Fetch course
-        var course = codebrowser.model.Course.findOrCreate({ id: courseId });
+        var course = codebrowser.model.Course.findOrCreate({ id: courseId, instanceId: instanceId });
 
         this.fetchModel(course, true, function () {
 
@@ -4523,9 +4581,9 @@ codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
 
     routes: {
 
-        'students(/)':                                                    'students',
-        'courses/:courseId/exercises/:exerciseId(/)':                     'navigation',
-        'courses/:courseId/exercises/:exerciseId/students(/)':            'exerciseStudents'
+        ':instanceId/students(/)':                                                    'students',
+        ':instanceId/courses/:courseId/exercises/:exerciseId(/)':                     'navigation',
+        ':instanceId/courses/:courseId/exercises/:exerciseId/students(/)':            'exerciseStudents'
 
     },
 
@@ -4544,9 +4602,11 @@ codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
         codebrowser.controller.ViewController.push(errorView, true);
     },
 
-    navigation: function (courseId, exerciseId) {
+    navigation: function (instanceId, courseId, exerciseId) {
 
-        codebrowser.app.student.navigate('#/courses/' +
+        codebrowser.app.student.navigate('#/' +
+                                         instanceId +
+                                         'courses/' +
                                          courseId +
                                          '/exercises/' +
                                          exerciseId +
@@ -4554,13 +4614,13 @@ codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
 
     },
 
-    exerciseStudents: function (courseId, exerciseId) {
+    exerciseStudents: function (instanceId, courseId, exerciseId) {
 
-        this.students({ courseId: courseId, exerciseId: exerciseId });
+        this.students(instanceId, { courseId: courseId, exerciseId: exerciseId });
 
     },
 
-    students: function (options) {
+    students: function (instanceId, options) {
 
         var self = this;
 
@@ -4585,7 +4645,7 @@ codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
                 });
             });
 
-            var course = codebrowser.model.Course.findOrCreate({ id: options.courseId });
+            var course = codebrowser.model.Course.findOrCreate({ id: options.courseId, instanceId: instanceId });
 
             // Fetch course
             this.fetchModel(course, true, function () {
@@ -4604,7 +4664,7 @@ codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
             fetchSynced();
         }
 
-        var studentCollection = new codebrowser.collection.StudentCollection(null, options);
+        var studentCollection = new codebrowser.collection.StudentCollection(null, { instanceId: instanceId });
 
         this.studentView.collection = studentCollection;
 

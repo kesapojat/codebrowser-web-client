@@ -38,11 +38,11 @@
 
                     {{#if ../studentId}}
 
-                        <td class='link'><a href='./#/students/{{../../studentId}}/courses/{{id}}/exercises'>{{name}}</a></td>
+                        <td class='link'><a href='./#/{{../../instanceId}}/students/{{../../studentId}}/courses/{{id}}/exercises'>{{name}}</a></td>
 
                     {{else}}
 
-                        <td class='link'><a href='./#/courses/{{id}}/exercises'>{{name}}</a></td>
+                        <td class='link'><a href='./#/{{../../instanceId}}/courses/{{id}}/exercises'>{{name}}</a></td>
 
                     {{/if}}
 

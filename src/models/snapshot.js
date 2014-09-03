@@ -13,7 +13,8 @@ codebrowser.model.Snapshot = Backbone.RelationalModel.extend({
         }
 
         return config.api.main.root +
-               'students/' +
+               this.get('instanceId') +
+               '/students/' +
                this.get('studentId') +
                '/courses/' +
                this.get('courseId') +
@@ -41,6 +42,7 @@ codebrowser.model.Snapshot = Backbone.RelationalModel.extend({
 
         // If fetched through a collection, get IDs from the collection
         if (this.collection) {
+            this.set('instanceId', this.collection.instanceId);
             this.set('studentId', this.collection.studentId);
             this.set('courseId', this.collection.courseId);
             this.set('exerciseId', this.collection.exerciseId);

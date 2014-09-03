@@ -1,6 +1,9 @@
 codebrowser.model.Course = Backbone.RelationalModel.extend({
 
-    urlRoot: config.api.main.root + 'courses',
+    urlRoot: function () {
+
+        return config.api.main.root + this.get('instanceId') + '/courses';
+    },
 
     relations: [
 
@@ -15,5 +18,12 @@ codebrowser.model.Course = Backbone.RelationalModel.extend({
 
             }
         }
-    ]
+    ],
+
+    initialize: function (options) {
+
+        if (options) {
+            this.instanceId = options.instanceId;
+        }
+    }
 });

@@ -8,12 +8,13 @@ codebrowser.collection.StudentCollection = Backbone.Collection.extend({
             return config.api.main.root + 'courses/' + this.courseId + '/exercises/' + this.exerciseId + '/students';
         }
 
-        return config.api.main.root + 'students';
+        return config.api.main.root + this.instanceId + '/students';
     },
 
     initialize: function (models, options) {
 
         if (options) {
+            this.instanceId = options.instanceId;
             this.courseId = options.courseId;
             this.exerciseId = options.exerciseId;
         }

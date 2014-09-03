@@ -34,7 +34,7 @@ function program5(depth0,data,depth1) {
   buffer += "\n\n                <tr>\n\n                    <td class='index'>"
     + escapeExpression((helper = helpers.index || (depth0 && depth0.index),options={hash:{},data:data},helper ? helper.call(depth0, (data == null || data === false ? data : data.index), options) : helperMissing.call(depth0, "index", (data == null || data === false ? data : data.index), options)))
     + "</td>\n\n                    ";
-  stack1 = helpers['if'].call(depth0, (depth1 && depth1.studentId), {hash:{},inverse:self.program(8, program8, data),fn:self.programWithDepth(6, program6, data, depth1),data:data});
+  stack1 = helpers['if'].call(depth0, (depth1 && depth1.studentId), {hash:{},inverse:self.programWithDepth(8, program8, data, depth1),fn:self.programWithDepth(6, program6, data, depth1),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n\n                </tr>\n\n            ";
   return buffer;
@@ -42,7 +42,9 @@ function program5(depth0,data,depth1) {
 function program6(depth0,data,depth2) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n\n                        <td class='link'><a href='./#/students/"
+  buffer += "\n\n                        <td class='link'><a href='./#/"
+    + escapeExpression(((stack1 = (depth2 && depth2.instanceId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "/students/"
     + escapeExpression(((stack1 = (depth2 && depth2.studentId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "/courses/";
   if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
@@ -56,10 +58,12 @@ function program6(depth0,data,depth2) {
   return buffer;
   }
 
-function program8(depth0,data) {
+function program8(depth0,data,depth2) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n\n                        <td class='link'><a href='./#/courses/";
+  buffer += "\n\n                        <td class='link'><a href='./#/"
+    + escapeExpression(((stack1 = (depth2 && depth2.instanceId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "/courses/";
   if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -213,7 +217,9 @@ function program7(depth0,data,depth1) {
 function program8(depth0,data,depth2) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n\n                        <td class='link'><a href='./#/students/"
+  buffer += "\n\n                        <td class='link'><a href='./#/"
+    + escapeExpression(((stack1 = (depth2 && depth2.instanceId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "/students/"
     + escapeExpression(((stack1 = (depth2 && depth2.studentId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "/courses/"
     + escapeExpression(((stack1 = (depth2 && depth2.courseId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
@@ -232,7 +238,9 @@ function program8(depth0,data,depth2) {
 function program10(depth0,data,depth2) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n\n                        <td class='link'><a href='./#/courses/"
+  buffer += "\n\n                        <td class='link'><a href='./#/"
+    + escapeExpression(((stack1 = (depth2 && depth2.instanceId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "/courses/"
     + escapeExpression(((stack1 = (depth2 && depth2.courseId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "/exercises/";
   if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
@@ -291,11 +299,11 @@ function program1(depth0,data) {
   var buffer = "", stack1, helper, options;
   buffer += "\n\n                <tr>\n\n                    <td class='index'>"
     + escapeExpression((helper = helpers.index || (depth0 && depth0.index),options={hash:{},data:data},helper ? helper.call(depth0, (data == null || data === false ? data : data.index), options) : helperMissing.call(depth0, "index", (data == null || data === false ? data : data.index), options)))
-    + "</td>\n\n                    <td class='link'><a href='./#/instances/";
+    + "</td>\n\n                    <td class='link'><a href='./#/";
   if (helper = helpers.name) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.name); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "'>";
+    + "/courses'>";
   if (helper = helpers.name) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.name); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -659,7 +667,7 @@ function program5(depth0,data,depth1) {
   buffer += "\n\n                <tr>\n\n                    <td class='index'>"
     + escapeExpression((helper = helpers.index || (depth0 && depth0.index),options={hash:{},data:data},helper ? helper.call(depth0, (data == null || data === false ? data : data.index), options) : helperMissing.call(depth0, "index", (data == null || data === false ? data : data.index), options)))
     + "</td>\n\n                    ";
-  stack1 = helpers['if'].call(depth0, (depth1 && depth1.course), {hash:{},inverse:self.program(8, program8, data),fn:self.programWithDepth(6, program6, data, depth1),data:data});
+  stack1 = helpers['if'].call(depth0, (depth1 && depth1.course), {hash:{},inverse:self.programWithDepth(8, program8, data, depth1),fn:self.programWithDepth(6, program6, data, depth1),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n\n                </tr>\n\n            ";
   return buffer;
@@ -667,7 +675,9 @@ function program5(depth0,data,depth1) {
 function program6(depth0,data,depth2) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n\n                        <td class='link'><a href='./#/courses/"
+  buffer += "\n\n                        <td class='link'><a href='./#/"
+    + escapeExpression(((stack1 = (depth2 && depth2.instanceId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "/courses/"
     + escapeExpression(((stack1 = ((stack1 = (depth2 && depth2.course)),stack1 == null || stack1 === false ? stack1 : stack1.id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "/exercises/"
     + escapeExpression(((stack1 = ((stack1 = (depth2 && depth2.exercise)),stack1 == null || stack1 === false ? stack1 : stack1.id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
@@ -683,10 +693,12 @@ function program6(depth0,data,depth2) {
   return buffer;
   }
 
-function program8(depth0,data) {
+function program8(depth0,data,depth2) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n\n                        <td class='link'><a href='./#/students/";
+  buffer += "\n\n                        <td class='link'><a href='./#/"
+    + escapeExpression(((stack1 = (depth2 && depth2.instanceId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "/students/";
   if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)

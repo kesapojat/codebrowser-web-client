@@ -2,10 +2,10 @@ codebrowser.router.ExerciseRouter = codebrowser.router.BaseRouter.extend({
 
     routes: {
 
-        'courses/:courseId(/)':                               'navigateToCourseExercises',
-        'courses/:courseId/exercises(/)':                     'courseExercises',
-        'students/:studentId/courses/:courseId(/)':           'navigation',
-        'students/:studentId/courses/:courseId/exercises(/)': 'exercises'
+        ':instanceId/courses/:courseId(/)':                               'navigateToCourseExercises',
+        ':instanceId/courses/:courseId/exercises(/)':                     'courseExercises',
+        ':instanceId/students/:studentId/courses/:courseId(/)':           'navigation',
+        ':instanceId/students/:studentId/courses/:courseId/exercises(/)': 'exercises'
 
     },
 
@@ -24,41 +24,46 @@ codebrowser.router.ExerciseRouter = codebrowser.router.BaseRouter.extend({
         codebrowser.controller.ViewController.push(errorView, true);
     },
 
-    navigateToCourseExercises: function (courseId) {
+    navigateToCourseExercises: function (instanceId, courseId) {
 
-        codebrowser.app.exercise.navigate('#/courses/' +
+        codebrowser.app.exercise.navigate('#/' +
+                                          instanceId +
+                                          'courses/' +
                                           courseId +
                                           '/exercises', { replace: true });
 
     },
 
-    navigation: function (studentId, courseId) {
+    navigation: function (instanceId, studentId, courseId) {
 
-        codebrowser.app.exercise.navigate('#/students/' +
+        codebrowser.app.exercise.navigate('#/' +
+                                          instanceId +
+                                          'students/' +
                                           studentId +
                                           '/courses/' +
                                           courseId +
                                           '/exercises', { replace: true });
     },
 
-    courseExercises: function (courseId) {
+    courseExercises: function (instanceId, courseId) {
 
-        this.exercises(null, courseId);
+        this.exercises(instanceId, null, courseId);
     },
 
-    exercises: function (studentId, courseId) {
+    exercises: function (instanceId, studentId, courseId) {
 
         var self = this;
 
         // Wait for fetches to be in sync
         var fetchSynced = _.after(3, function () {
+
             self.exerciseView.render();
             codebrowser.controller.ViewController.push(self.exerciseView);
         });
 
         if (studentId) {
 
-            var student = codebrowser.model.Student.findOrCreate({ id: studentId });
+            var student = codebrowser.model.Student.findOrCreate({ id: studentId, instanceId: instanceId });
 
             // Fetch student
             this.fetchModel(student, true, function () {
@@ -72,9 +77,10 @@ codebrowser.router.ExerciseRouter = codebrowser.router.BaseRouter.extend({
             fetchSynced();
         }
 
-        var course = codebrowser.model.Course.findOrCreate({ id: courseId });
+        var course = codebrowser.model.Course.findOrCreate({ id: courseId, instanceId: instanceId });
 
-        var exerciseCollection = new codebrowser.collection.ExerciseCollection(null, { studentId: studentId,
+        var exerciseCollection = new codebrowser.collection.ExerciseCollection(null, { instanceId: instanceId,
+                                                                                       studentId: studentId,
                                                                                        courseId: courseId });
         // Fetch course
         this.fetchModel(course, true, function () {

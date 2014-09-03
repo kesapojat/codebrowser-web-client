@@ -11,6 +11,7 @@ codebrowser.view.CoursesView = codebrowser.view.ListBaseView.extend({
         var attributes = {
 
             query: this.query,
+            instanceId: this.collection.instanceId,
             studentId: this.collection.studentId,
             courses: this.collection.toJSON()
 

@@ -10,6 +10,7 @@ codebrowser.view.ExercisesView = codebrowser.view.ListBaseView.extend({
         // View attributes
         var attributes = {
 
+            instanceId: this.collection.instanceId,
             studentId: this.collection.studentId,
             courseId: this.collection.courseId,
             course: this.course.toJSON(),

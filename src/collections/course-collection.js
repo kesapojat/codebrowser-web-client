@@ -16,16 +16,17 @@ codebrowser.collection.CourseCollection = Backbone.Collection.extend({
 
         /* Fetch courses related to a student */
         if (this.studentId) {
-            return config.api.main.root + 'students/' + this.studentId + '/courses';
+            return config.api.main.root + this.instanceId + '/students/' + this.studentId + '/courses';
         }
 
         /* Fetch all courses */
-        return config.api.main.root + 'courses';
+        return config.api.main.root + this.instanceId + '/courses';
     },
 
     initialize: function (models, options) {
 
         if (options) {
+            this.instanceId = options.instanceId;
             this.studentId = options.studentId;
         }
     }

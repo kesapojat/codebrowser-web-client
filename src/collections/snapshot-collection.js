@@ -16,12 +16,13 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     url: function () {
 
-        if (!this.studentId || !this.courseId || !this.exerciseId) {
-            throw new Error('Options studentId, courseId and exerciseId are required to fetch snapshots.');
+        if (!this.instanceId || !this.studentId || !this.courseId || !this.exerciseId) {
+            throw new Error('Options instanceId, studentId, courseId and exerciseId are required to fetch snapshots.');
         }
 
         return config.api.main.root +
-               'students/' +
+               this.instanceId +
+               '/students/' +
                this.studentId +
                '/courses/' +
                this.courseId +
@@ -33,6 +34,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
     initialize: function (models, options) {
 
         if (options) {
+            this.instanceId = options.instanceId;
             this.studentId = options.studentId;
             this.courseId = options.courseId;
             this.exerciseId = options.exerciseId;

@@ -2,9 +2,9 @@ codebrowser.router.CourseRouter = codebrowser.router.BaseRouter.extend({
 
     routes: {
 
-        'courses(/)':                     'courses',
-        'students/:studentId(/)':         'navigation',
-        'students/:studentId/courses(/)': 'courses'
+        ':instanceId/courses(/)':                     'courses',
+        ':instanceId/students/:studentId(/)':         'navigation',
+        ':instanceId/students/:studentId/courses(/)': 'courses'
 
     },
 
@@ -23,14 +23,16 @@ codebrowser.router.CourseRouter = codebrowser.router.BaseRouter.extend({
         codebrowser.controller.ViewController.push(errorView, true);
     },
 
-    navigation: function (studentId) {
+    navigation: function (instanceId, studentId) {
 
-        codebrowser.app.course.navigate('#/students/' +
+        codebrowser.app.course.navigate('#/' +
+                                        instanceId +
+                                        'students/' +
                                         studentId +
                                         '/courses', { replace: true });
     },
 
-    courses: function (studentId) {
+    courses: function (instanceId, studentId) {
 
         var self = this;
 
@@ -43,7 +45,7 @@ codebrowser.router.CourseRouter = codebrowser.router.BaseRouter.extend({
 
         if (studentId) {
 
-            var student = codebrowser.model.Student.findOrCreate({ id: studentId });
+            var student = codebrowser.model.Student.findOrCreate({ id: studentId, instanceId: instanceId });
 
             // Fetch student
             this.fetchModel(student, true, function () {
@@ -53,7 +55,7 @@ codebrowser.router.CourseRouter = codebrowser.router.BaseRouter.extend({
             });
         }
 
-        var courseCollection = new codebrowser.collection.CourseCollection(null, { studentId: studentId });
+        var courseCollection = new codebrowser.collection.CourseCollection(null, { instanceId: instanceId, studentId: studentId });
 
         this.courseView.collection = courseCollection;
 

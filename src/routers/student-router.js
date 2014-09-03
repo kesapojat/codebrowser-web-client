@@ -2,9 +2,9 @@ codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
 
     routes: {
 
-        'students(/)':                                                    'students',
-        'courses/:courseId/exercises/:exerciseId(/)':                     'navigation',
-        'courses/:courseId/exercises/:exerciseId/students(/)':            'exerciseStudents'
+        ':instanceId/students(/)':                                                    'students',
+        ':instanceId/courses/:courseId/exercises/:exerciseId(/)':                     'navigation',
+        ':instanceId/courses/:courseId/exercises/:exerciseId/students(/)':            'exerciseStudents'
 
     },
 
@@ -23,9 +23,11 @@ codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
         codebrowser.controller.ViewController.push(errorView, true);
     },
 
-    navigation: function (courseId, exerciseId) {
+    navigation: function (instanceId, courseId, exerciseId) {
 
-        codebrowser.app.student.navigate('#/courses/' +
+        codebrowser.app.student.navigate('#/' +
+                                         instanceId +
+                                         'courses/' +
                                          courseId +
                                          '/exercises/' +
                                          exerciseId +
@@ -33,13 +35,13 @@ codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
 
     },
 
-    exerciseStudents: function (courseId, exerciseId) {
+    exerciseStudents: function (instanceId, courseId, exerciseId) {
 
-        this.students({ courseId: courseId, exerciseId: exerciseId });
+        this.students(instanceId, { courseId: courseId, exerciseId: exerciseId });
 
     },
 
-    students: function (options) {
+    students: function (instanceId, options) {
 
         var self = this;
 
@@ -64,7 +66,7 @@ codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
                 });
             });
 
-            var course = codebrowser.model.Course.findOrCreate({ id: options.courseId });
+            var course = codebrowser.model.Course.findOrCreate({ id: options.courseId, instanceId: instanceId });
 
             // Fetch course
             this.fetchModel(course, true, function () {
@@ -83,7 +85,7 @@ codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
             fetchSynced();
         }
 
-        var studentCollection = new codebrowser.collection.StudentCollection(null, options);
+        var studentCollection = new codebrowser.collection.StudentCollection(null, { instanceId: instanceId });
 
         this.studentView.collection = studentCollection;
 

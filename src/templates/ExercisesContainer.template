@@ -40,11 +40,11 @@
 
                     {{#if ../studentId}}
 
-                        <td class='link'><a href='./#/students/{{../../studentId}}/courses/{{../../courseId}}/exercises/{{id}}/snapshots'>{{name}}</a></td>
+                        <td class='link'><a href='./#/{{../../instanceId}}/students/{{../../studentId}}/courses/{{../../courseId}}/exercises/{{id}}/snapshots'>{{name}}</a></td>
 
                     {{else}}
 
-                        <td class='link'><a href='./#/courses/{{../../courseId}}/exercises/{{id}}/students'>{{name}}</a></td>
+                        <td class='link'><a href='./#/{{../../instanceId}}/courses/{{../../courseId}}/exercises/{{id}}/students'>{{name}}</a></td>
 
                     {{/if}}
 

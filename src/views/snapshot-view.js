@@ -287,7 +287,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
             if (this.courseRoute) {
 
-                codebrowser.app.snapshot.navigate('#/courses/' +
+                codebrowser.app.snapshot.navigate('#/' +
+                                                  this.collection.instanceId +
+                                                  '/courses/' +
                                                   this.collection.courseId +
                                                   '/exercises/' +
                                                   this.collection.exerciseId +
@@ -297,7 +299,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
             } else {
 
-                codebrowser.app.snapshot.navigate('#/students/' +
+                codebrowser.app.snapshot.navigate('#/' +
+                                                  this.collection.instanceId +
+                                                  '/students/' +
                                                   this.collection.studentId +
                                                   '/courses/' +
                                                   this.collection.courseId +
@@ -316,7 +320,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         if (this.courseRoute) {
 
-            codebrowser.app.snapshot.navigate('#/courses/' +
+            codebrowser.app.snapshot.navigate('#/' +
+                                              this.collection.instanceId +
+                                              '/courses/' +
                                               this.collection.courseId +
                                               '/exercises/' +
                                               this.collection.exerciseId +
@@ -330,7 +336,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
                                               this.collection.level, { replace: !options ? options : options.replace });
         } else {
 
-            codebrowser.app.snapshot.navigate('#/students/' +
+            codebrowser.app.snapshot.navigate('#/' +
+                                              this.collection.instanceId +
+                                              '/students/' +
                                               this.collection.studentId +
                                               '/courses/' +
                                               this.collection.courseId +

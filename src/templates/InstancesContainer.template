@@ -31,7 +31,7 @@
 
                     <td class='index'>{{index @index}}</td>
 
-                    <td class='link'><a href='./#/instances/{{name}}'>{{name}}</a></td>
+                    <td class='link'><a href='./#/{{name}}/courses'>{{name}}</a></td>
 
                 </tr>
 
