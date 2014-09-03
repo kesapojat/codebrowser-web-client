@@ -4523,8 +4523,8 @@ codebrowser.router.InstanceRouter = codebrowser.router.BaseRouter.extend({
     instance: function (instanceId) {
 
         this.instanceView.instanceId = instanceId;
-
         this.instanceView.render();
+
         codebrowser.controller.ViewController.push(this.instanceView);
     }
 });
