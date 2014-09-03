@@ -4324,7 +4324,7 @@ codebrowser.router.ExerciseRouter = codebrowser.router.BaseRouter.extend({
 
         codebrowser.app.exercise.navigate('#/' +
                                           instanceId +
-                                          'students/' +
+                                          '/students/' +
                                           studentId +
                                           '/courses/' +
                                           courseId +
@@ -4637,7 +4637,7 @@ codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
 
         codebrowser.app.student.navigate('#/' +
                                          instanceId +
-                                         'courses/' +
+                                         '/courses/' +
                                          courseId +
                                          '/exercises/' +
                                          exerciseId +
