@@ -515,24 +515,19 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         // Start spinner
         this.startSpinner();
 
-        var self = this;
-
         // Calculate differences between snapshots before continuing
-        this.collection.getDifferences(function (differences) {
+        this.differences = this.collection.getDifferences();
 
-            self.differences = differences;
+        this.currentSnapshotIndex = currentSnapshotIndex;
+        this.filename = filename;
 
-            self.currentSnapshotIndex = currentSnapshotIndex;
-            self.filename = filename;
+        // Stop spinner
+        this.stopSpinner();
 
-            // Stop spinner
-            self.stopSpinner();
-
-            // Render if user is not dragging
-            if (!self.dragging) {
-                self.render();
-            }
-        });
+        // Render if user is not dragging
+        if (!this.dragging) {
+            this.render();
+        }
     },
 
     /* Events */

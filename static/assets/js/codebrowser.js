@@ -1638,7 +1638,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
             parameter = this.level ? '?level=' + this.level : '';
 
         // Fetch new ZIP, need to calculate differences again
-        this.differencesDone = false;
+        this.differences = [];
 
         JSZipUtils.getBinaryContent(this.url() + '/files.zip' + parameter, function (error, data) {
 
@@ -1728,12 +1728,11 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         return difference[filename];
     },
 
-    getDifferences: function (callback) {
+    getDifferences: function () {
 
-        if (this.differencesDone) {
+        if (this.differences.length !== 0) {
 
-            callback(this.differences);
-            return;
+            return this.differences;
         }
 
         this.differences = [];
@@ -1758,7 +1757,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
             var files = snapshot.get('files');
 
             // Calculate differences for every file of each snapshot
-            files.each(function (file, i) {
+            files.each(function (file) {
 
                 var filename = file.get('name');
 
@@ -1802,15 +1801,10 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
                 self.differences[index].lines += currentFile.lines();
 
                 self.differences[index][currentFile.get('name')] = difference;
-
-                // Diffed last file of last snapshot, return diffs
-                if (index === self.length - 1 && i === self.at(index).get('files').length - 1) {
-
-                    self.differencesDone = true;
-                    callback(self.differences);
-                }
             });
         });
+
+        return self.differences;
     }
 });
 ;
@@ -3794,24 +3788,19 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         // Start spinner
         this.startSpinner();
 
-        var self = this;
-
         // Calculate differences between snapshots before continuing
-        this.collection.getDifferences(function (differences) {
+        this.differences = this.collection.getDifferences();
 
-            self.differences = differences;
+        this.currentSnapshotIndex = currentSnapshotIndex;
+        this.filename = filename;
 
-            self.currentSnapshotIndex = currentSnapshotIndex;
-            self.filename = filename;
+        // Stop spinner
+        this.stopSpinner();
 
-            // Stop spinner
-            self.stopSpinner();
-
-            // Render if user is not dragging
-            if (!self.dragging) {
-                self.render();
-            }
-        });
+        // Render if user is not dragging
+        if (!this.dragging) {
+            this.render();
+        }
     },
 
     /* Events */
@@ -4285,7 +4274,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
                                                                                        exerciseId: exerciseId });
 
             // Set snapshot level
-            snapshotCollection.level = level || localStorage.getItem(config.storage.cache.snapshot.level);
+            snapshotCollection.level = level || localStorage.getItem(config.storage.cache.snapshot.level) || 'code';
 
             this.studentId = studentId;
             this.exerciseId = exerciseId;
