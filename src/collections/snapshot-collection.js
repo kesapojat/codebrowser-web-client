@@ -228,6 +228,6 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
             });
         });
 
-        return self.differences;
+        return this.differences;
     }
 });

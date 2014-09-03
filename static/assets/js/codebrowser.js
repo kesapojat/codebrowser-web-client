@@ -1984,7 +1984,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
             });
         });
 
-        return self.differences;
+        return this.differences;
     }
 });
 ;
@@ -3999,17 +3999,11 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         // Show view if necessary
         this.$el.show();
 
-        // Start spinner
-        this.startSpinner();
-
         // Calculate differences between snapshots before continuing
         this.differences = this.collection.getDifferences();
 
         this.currentSnapshotIndex = currentSnapshotIndex;
         this.filename = filename;
-
-        // Stop spinner
-        this.stopSpinner();
 
         // Render if user is not dragging
         if (!this.dragging) {
@@ -4020,12 +4014,6 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
     /* Events */
 
     didResize: function () {
-
-        // Relocate spinner if necessary
-        if (this.spinner) {
-            this.stopSpinner();
-            this.startSpinner();
-        }
 
         // Rendering finished
         if (this.snapshotElements.length === this.collection.length) {
@@ -4090,42 +4078,6 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
     },
 
     /* Actions */
-
-    startSpinner: function () {
-
-        if (this.spinner) {
-            return;
-        }
-
-        this.spinner = new Spinner({
-
-            lines:      13,
-            length:     4,
-            width:      4,
-            radius:     10,
-            corners:    1,
-            rotate:     0,
-            direction:  1,
-            color:      'rgba(0, 0, 0, 0.4)',
-            speed:      0.8,
-            trail:      60,
-            shadow:     false,
-            hwaccel:    false,
-            className: 'spinner',
-            zIndex:     2e9,
-            top:        'auto',
-            left:       'auto'
-
-        }).spin(this.$el.get(0));
-    },
-
-    stopSpinner: function () {
-
-        if (this.spinner) {
-            this.spinner.stop();
-            this.spinner = null;
-        }
-    },
 
     startScroll: function (dx) {
 
@@ -4312,7 +4264,7 @@ codebrowser.router.CourseRouter = codebrowser.router.BaseRouter.extend({
 
         if (studentId) {
 
-            var student = codebrowser.model.Student.findOrCreate({ id: studentId, instanceId: instanceId });
+            var student = codebrowser.model.Student.findOrCreate({ instanceId: instanceId, id: studentId });
 
             // Fetch student
             this.fetchModel(student, true, function () {
@@ -4397,7 +4349,7 @@ codebrowser.router.ExerciseRouter = codebrowser.router.BaseRouter.extend({
 
         if (studentId) {
 
-            var student = codebrowser.model.Student.findOrCreate({ id: studentId, instanceId: instanceId });
+            var student = codebrowser.model.Student.findOrCreate({ instanceId: instanceId, id: studentId });
 
             // Fetch student
             this.fetchModel(student, true, function () {
@@ -4411,7 +4363,7 @@ codebrowser.router.ExerciseRouter = codebrowser.router.BaseRouter.extend({
             fetchSynced();
         }
 
-        var course = codebrowser.model.Course.findOrCreate({ id: courseId, instanceId: instanceId });
+        var course = codebrowser.model.Course.findOrCreate({ instanceId: instanceId, id: courseId });
 
         var exerciseCollection = new codebrowser.collection.ExerciseCollection(null, { instanceId: instanceId,
                                                                                        studentId: studentId,
@@ -4435,7 +4387,7 @@ codebrowser.router.InstanceRouter = codebrowser.router.BaseRouter.extend({
 
     routes: {
 
-        'instances(/)': 'instances',
+        'instances(/)': 'instances'
 
     },
 
@@ -4448,26 +4400,17 @@ codebrowser.router.InstanceRouter = codebrowser.router.BaseRouter.extend({
 
     /* Actions */
 
-    notFound: function () {
-
-        var errorView = new codebrowser.view.NotFoundErrorView();
-        codebrowser.controller.ViewController.push(errorView, true);
-    },
-
     instances: function () {
 
         var self = this;
 
-        var instanceCollection = new codebrowser.collection.InstanceCollection();
+        this.instanceView.collection = new codebrowser.collection.InstanceCollection();
 
-        this.instanceView.collection = instanceCollection;
-
-        this.fetchModel(instanceCollection, true, function () {
+        this.fetchModel(this.instanceView.collection, true, function () {
 
             self.instanceView.render();
             codebrowser.controller.ViewController.push(self.instanceView);
         });
-
     }
 });
 ;
@@ -4562,7 +4505,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
         /* Fetch */
 
-        var student = codebrowser.model.Student.findOrCreate({ id: studentId, instanceId: instanceId });
+        var student = codebrowser.model.Student.findOrCreate({ instanceId: instanceId, id: studentId });
 
         // Fetch student
         this.fetchModel(student, true, function () {
@@ -4572,7 +4515,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         });
 
         // Fetch course
-        var course = codebrowser.model.Course.findOrCreate({ id: courseId, instanceId: instanceId });
+        var course = codebrowser.model.Course.findOrCreate({ instanceId: instanceId, id: courseId });
 
         this.fetchModel(course, true, function () {
 
@@ -4733,7 +4676,7 @@ codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
                 });
             });
 
-            var course = codebrowser.model.Course.findOrCreate({ id: options.courseId, instanceId: instanceId });
+            var course = codebrowser.model.Course.findOrCreate({ instanceId: instanceId, id: options.courseId });
 
             // Fetch course
             this.fetchModel(course, true, function () {

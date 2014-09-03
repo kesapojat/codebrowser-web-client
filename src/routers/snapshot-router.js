@@ -88,7 +88,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
         /* Fetch */
 
-        var student = codebrowser.model.Student.findOrCreate({ id: studentId, instanceId: instanceId });
+        var student = codebrowser.model.Student.findOrCreate({ instanceId: instanceId, id: studentId });
 
         // Fetch student
         this.fetchModel(student, true, function () {
@@ -98,7 +98,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         });
 
         // Fetch course
-        var course = codebrowser.model.Course.findOrCreate({ id: courseId, instanceId: instanceId });
+        var course = codebrowser.model.Course.findOrCreate({ instanceId: instanceId, id: courseId });
 
         this.fetchModel(course, true, function () {
 

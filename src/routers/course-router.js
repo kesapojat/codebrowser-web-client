@@ -45,7 +45,7 @@ codebrowser.router.CourseRouter = codebrowser.router.BaseRouter.extend({
 
         if (studentId) {
 
-            var student = codebrowser.model.Student.findOrCreate({ id: studentId, instanceId: instanceId });
+            var student = codebrowser.model.Student.findOrCreate({ instanceId: instanceId, id: studentId });
 
             // Fetch student
             this.fetchModel(student, true, function () {

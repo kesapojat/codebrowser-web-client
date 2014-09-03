@@ -63,7 +63,7 @@ codebrowser.router.ExerciseRouter = codebrowser.router.BaseRouter.extend({
 
         if (studentId) {
 
-            var student = codebrowser.model.Student.findOrCreate({ id: studentId, instanceId: instanceId });
+            var student = codebrowser.model.Student.findOrCreate({ instanceId: instanceId, id: studentId });
 
             // Fetch student
             this.fetchModel(student, true, function () {
@@ -77,7 +77,7 @@ codebrowser.router.ExerciseRouter = codebrowser.router.BaseRouter.extend({
             fetchSynced();
         }
 
-        var course = codebrowser.model.Course.findOrCreate({ id: courseId, instanceId: instanceId });
+        var course = codebrowser.model.Course.findOrCreate({ instanceId: instanceId, id: courseId });
 
         var exerciseCollection = new codebrowser.collection.ExerciseCollection(null, { instanceId: instanceId,
                                                                                        studentId: studentId,

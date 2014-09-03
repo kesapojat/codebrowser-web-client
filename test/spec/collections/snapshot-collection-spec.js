@@ -133,11 +133,11 @@ describe('SnapshotCollection', function () {
 
     it('should return previously calculated differences', function () {
 
-        snapshots.differences = ['differences'];
+        snapshots.differences = [ 'differences' ];
 
         var differences = snapshots.getDifferences();
 
         expect(differences).not.toBeNull();
-        expect(differences).toEqual(['differences']);
+        expect(differences).toEqual([ 'differences' ]);
     });
 });

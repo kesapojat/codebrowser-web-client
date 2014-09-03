@@ -2,7 +2,7 @@ codebrowser.router.InstanceRouter = codebrowser.router.BaseRouter.extend({
 
     routes: {
 
-        'instances(/)': 'instances',
+        'instances(/)': 'instances'
 
     },
 
@@ -15,25 +15,16 @@ codebrowser.router.InstanceRouter = codebrowser.router.BaseRouter.extend({
 
     /* Actions */
 
-    notFound: function () {
-
-        var errorView = new codebrowser.view.NotFoundErrorView();
-        codebrowser.controller.ViewController.push(errorView, true);
-    },
-
     instances: function () {
 
         var self = this;
 
-        var instanceCollection = new codebrowser.collection.InstanceCollection();
+        this.instanceView.collection = new codebrowser.collection.InstanceCollection();
 
-        this.instanceView.collection = instanceCollection;
-
-        this.fetchModel(instanceCollection, true, function () {
+        this.fetchModel(this.instanceView.collection, true, function () {
 
             self.instanceView.render();
             codebrowser.controller.ViewController.push(self.instanceView);
         });
-
     }
 });

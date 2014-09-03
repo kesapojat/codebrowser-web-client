@@ -66,7 +66,7 @@ codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
                 });
             });
 
-            var course = codebrowser.model.Course.findOrCreate({ id: options.courseId, instanceId: instanceId });
+            var course = codebrowser.model.Course.findOrCreate({ instanceId: instanceId, id: options.courseId });
 
             // Fetch course
             this.fetchModel(course, true, function () {
