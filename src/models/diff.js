@@ -39,8 +39,8 @@ codebrowser.model.Diff = function (previousContent, content) {
 
     /* Initialise */
 
-    var from = difflib.stringAsLines(previousContent);
-    var to = difflib.stringAsLines(content);
+    var from = difflib.stringAsLines(previousContent),
+        to = difflib.stringAsLines(content);
 
     // Create diff
     var sequenceMatcher = new difflib.SequenceMatcher(from, to);
@@ -57,9 +57,9 @@ codebrowser.model.Diff = function (previousContent, content) {
 
     for (var i = 0; i < operations.length; i++) {
 
-        var operation = operations[i];
+        var operation = operations[i],
 
-        var difference = {
+            difference = {
 
             type:      operation[0],
             rowStart:  operation[3],
@@ -77,14 +77,13 @@ codebrowser.model.Diff = function (previousContent, content) {
         // Replace
         if (difference.type === 'replace') {
 
-            var originalDifference = _.clone(difference);
-
-            var fromChange = operation[2] - operation[1] - 1;
-            var toChange = operation[4] - operation[3] - 1;
+            var originalDifference = _.clone(difference),
+                fromChange = operation[2] - operation[1] - 1,
+                toChange = operation[4] - operation[3] - 1;
 
             // Delta
-            var lines = difference.rowEnd - difference.rowStart + 1;
-            var changed = operation[2] - operation[1];
+            var lines = difference.rowEnd - difference.rowStart + 1,
+                changed = operation[2] - operation[1];
 
             // Replaced something to nothing
             if (to.slice(operation[3], operation[4]).join('').length === 0) {
@@ -101,9 +100,8 @@ codebrowser.model.Diff = function (previousContent, content) {
 
                     operation[2] -= change;
 
-                    var operationChange = operation[2] - operation[1];
-
-                    var newDelete = this.createOperation('delete',
+                    var operationChange = operation[2] - operation[1],
+                        newDelete = this.createOperation('delete',
                                                          operation[1] + operationChange,
                                                          operation[2] + change,
                                                          (operation[3] + operationChange),
@@ -182,8 +180,8 @@ codebrowser.model.Diff = function (previousContent, content) {
         if (difference.type === 'delete') {
 
             // Deleted lines
-            var deletedAsLines = from.slice(operation[1], operation[2]);
-            var deleted = deletedAsLines.join('\n');
+            var deletedAsLines = from.slice(operation[1], operation[2]),
+                deleted = deletedAsLines.join('\n');
 
             // Add line ending if we don't overwrite
             if (!difference.overwrite) {

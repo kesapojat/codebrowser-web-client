@@ -1062,8 +1062,8 @@ codebrowser.helper.AceMode = {
         // Can determine filename extension
         if (filename.indexOf('.') !== -1 && filename.indexOf('.') !== 0) {
 
-            var split = filename.split('.');
-            var filenameExtension = split[split.length - 1];
+            var split = filename.split('.'),
+                filenameExtension = split[split.length - 1];
 
             // Set mode or fallback to text if no mode is specified for the filename extension
             mode = this.mode[filenameExtension] || mode;
@@ -1088,12 +1088,10 @@ codebrowser.helper.Duration = {
 
     calculate: function (time, previousTime, simplify) {
 
-        var difference = time - previousTime;
-
-        var value;
-        var timeUnit;
-
-        var seconds = Math.round(difference / 1000);
+        var difference = time - previousTime,
+            value,
+            timeUnit,
+            seconds = Math.round(difference / 1000);
 
         if (seconds > 60) {
 
@@ -1288,8 +1286,8 @@ codebrowser.model.Diff = function (previousContent, content) {
 
     /* Initialise */
 
-    var from = difflib.stringAsLines(previousContent);
-    var to = difflib.stringAsLines(content);
+    var from = difflib.stringAsLines(previousContent),
+        to = difflib.stringAsLines(content);
 
     // Create diff
     var sequenceMatcher = new difflib.SequenceMatcher(from, to);
@@ -1306,9 +1304,9 @@ codebrowser.model.Diff = function (previousContent, content) {
 
     for (var i = 0; i < operations.length; i++) {
 
-        var operation = operations[i];
+        var operation = operations[i],
 
-        var difference = {
+            difference = {
 
             type:      operation[0],
             rowStart:  operation[3],
@@ -1326,14 +1324,13 @@ codebrowser.model.Diff = function (previousContent, content) {
         // Replace
         if (difference.type === 'replace') {
 
-            var originalDifference = _.clone(difference);
-
-            var fromChange = operation[2] - operation[1] - 1;
-            var toChange = operation[4] - operation[3] - 1;
+            var originalDifference = _.clone(difference),
+                fromChange = operation[2] - operation[1] - 1,
+                toChange = operation[4] - operation[3] - 1;
 
             // Delta
-            var lines = difference.rowEnd - difference.rowStart + 1;
-            var changed = operation[2] - operation[1];
+            var lines = difference.rowEnd - difference.rowStart + 1,
+                changed = operation[2] - operation[1];
 
             // Replaced something to nothing
             if (to.slice(operation[3], operation[4]).join('').length === 0) {
@@ -1350,9 +1347,8 @@ codebrowser.model.Diff = function (previousContent, content) {
 
                     operation[2] -= change;
 
-                    var operationChange = operation[2] - operation[1];
-
-                    var newDelete = this.createOperation('delete',
+                    var operationChange = operation[2] - operation[1],
+                        newDelete = this.createOperation('delete',
                                                          operation[1] + operationChange,
                                                          operation[2] + change,
                                                          (operation[3] + operationChange),
@@ -1431,8 +1427,8 @@ codebrowser.model.Diff = function (previousContent, content) {
         if (difference.type === 'delete') {
 
             // Deleted lines
-            var deletedAsLines = from.slice(operation[1], operation[2]);
-            var deleted = deletedAsLines.join('\n');
+            var deletedAsLines = from.slice(operation[1], operation[2]),
+                deleted = deletedAsLines.join('\n');
 
             // Add line ending if we don't overwrite
             if (!difference.overwrite) {
@@ -1914,9 +1910,8 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     getMinDuration: function () {
 
-        var self = this;
-
-        var min = Number.MAX_VALUE;
+        var self = this,
+            min = Number.MAX_VALUE;
 
         // Find min duration
         this.each(function (snapshot, index) {
@@ -1938,9 +1933,8 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     getMaxDuration: function () {
 
-        var self = this;
-
-        var max = Number.MIN_VALUE;
+        var self = this,
+            max = Number.MIN_VALUE;
 
         // Find max duration
         this.each(function (snapshot, index) {
@@ -2012,8 +2006,8 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
                     self.differences[index][filename] = null;
                 }
 
-                var currentFile = file;
-                var previousFile = null;
+                var currentFile = file,
+                    previousFile = null;
 
                 // If previous snapshot doesn't exist, current file doesn't have earlier version of it
                 if (!previousSnapshot) {
@@ -2217,9 +2211,9 @@ codebrowser.view.EditorSettingsView = Backbone.View.extend({
 
     render: function () {
 
-        var ignoreEmptyLines = localStorage.getItem(config.storage.setting.editor.ignoreEmptyLines);
-        var fontSize = parseInt(localStorage.getItem(config.storage.setting.editor.fontSize), 10);
-        var theme = localStorage.getItem(config.storage.setting.editor.theme);
+        var ignoreEmptyLines = localStorage.getItem(config.storage.setting.editor.ignoreEmptyLines),
+            fontSize = parseInt(localStorage.getItem(config.storage.setting.editor.fontSize), 10),
+            theme = localStorage.getItem(config.storage.setting.editor.theme);
 
         // Template
         var output = $(this.template());
@@ -2678,9 +2672,8 @@ codebrowser.view.EditorView = Backbone.View.extend({
             // Show differences
             for (var i = 0; i < this.differences.getDifferences().all.length; i++) {
 
-                var difference = this.differences.getDifferences().all[i];
-
-                var marker;
+                var difference = this.differences.getDifferences().all[i],
+                    marker;
 
                 // Delete
                 if (difference.type === 'delete') {
@@ -2977,20 +2970,17 @@ codebrowser.view.SnapshotFilesView = Backbone.View.extend({
 
     renderDifferences: function (output) {
 
-        var differences = this.parentView.collection.getDifferences();
-
-        var index = this.parentView.collection.indexOf(this.model);
-        var difference = differences[index];
-
-        var files = this.model.get('files');
+        var differences = this.parentView.collection.getDifferences(),
+            index = this.parentView.collection.indexOf(this.model),
+            difference = differences[index],
+            files = this.model.get('files');
 
         files.each(function(file) {
 
-            var fileDifference = difference[file.get('name')];
-            var fileElement = $('[data-id="' + file.id + '"]', output);
-
-            var lines = file.lines();
-            var changed = fileDifference.getCount().total();
+            var fileDifference = difference[file.get('name')],
+                fileElement = $('[data-id="' + file.id + '"]', output),
+                lines = file.lines(),
+                changed = fileDifference.getCount().total();
 
             // New file
             if (changed === lines) {
@@ -3132,6 +3122,8 @@ codebrowser.view.SnapshotTagsView = Backbone.View.extend({
 
     create: function (event) {
 
+        var self = this;
+
         event.preventDefault();
 
         var text = $('[data-id="tag"]', this.$el).val().trim();
@@ -3144,8 +3136,6 @@ codebrowser.view.SnapshotTagsView = Backbone.View.extend({
         var tag = new codebrowser.model.Tag(null, { studentId: this.snapshot.get('studentId'),
                                                     courseId: this.snapshot.get('courseId'),
                                                     exerciseId: this.snapshot.get('exerciseId') });
-
-        var self = this;
 
         // Save tag
         tag.save({ text: text }, {
@@ -3165,10 +3155,9 @@ codebrowser.view.SnapshotTagsView = Backbone.View.extend({
 
     'delete': function (event) {
 
-        var id = $(event.target).data('id');
-        var tag = this.collection.get(id);
-
-        var self = this;
+        var self = this,
+            id = $(event.target).data('id'),
+            tag = this.collection.get(id);
 
         // Destroy tag
         tag.destroy({
@@ -3357,8 +3346,8 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         }
 
         // Previous snapshot
-        var index = this.collection.indexOf(snapshot);
-        var previousSnapshot = this.collection.at(index - 1);
+        var index = this.collection.indexOf(snapshot),
+            previousSnapshot = this.collection.at(index - 1);
 
         // First snapshot
         if (!previousSnapshot) {
@@ -3545,16 +3534,16 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
     first: function () {
 
-        var first = this.collection.first();
-        var file = first.get('files').findWhere({ name: this.file.get('name') });
+        var first = this.collection.first(),
+            file = first.get('files').findWhere({ name: this.file.get('name') });
 
         this.navigate(first, file);
     },
 
     previous: function () {
 
-        var index = this.collection.indexOf(this.model);
-        var previous = this.collection.at(index - 1);
+        var index = this.collection.indexOf(this.model),
+            previous = this.collection.at(index - 1);
 
         if (!previous) {
             return;
@@ -3567,8 +3556,8 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
     next: function () {
 
-        var index = this.collection.indexOf(this.model);
-        var next = this.collection.at(index + 1);
+        var index = this.collection.indexOf(this.model),
+            next = this.collection.at(index + 1);
 
         if (!next) {
             return;
@@ -3581,8 +3570,8 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
     last: function () {
 
-        var last = this.collection.last();
-        var file = last.get('files').findWhere({ name: this.file.get('name') });
+        var last = this.collection.last(),
+            file = last.get('files').findWhere({ name: this.file.get('name') });
 
         this.navigate(last, file);
     }
@@ -4467,9 +4456,8 @@ codebrowser.router.ExerciseRouter = codebrowser.router.BaseRouter.extend({
             fetchSynced();
         }
 
-        var course = codebrowser.model.Course.findOrCreate({ instanceId: instanceId, id: courseId });
-
-        var exerciseCollection = new codebrowser.collection.ExerciseCollection(null, { instanceId: instanceId,
+        var course = codebrowser.model.Course.findOrCreate({ instanceId: instanceId, id: courseId }),
+            exerciseCollection = new codebrowser.collection.ExerciseCollection(null, { instanceId: instanceId,
                                                                                        studentId: studentId,
                                                                                        courseId: courseId });
         // Fetch course
@@ -4572,7 +4560,6 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
     notFound: function () {
 
         var errorView = new codebrowser.view.NotFoundErrorView();
-
         codebrowser.controller.ViewController.push(errorView, true);
     },
 

@@ -92,9 +92,8 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     getMinDuration: function () {
 
-        var self = this;
-
-        var min = Number.MAX_VALUE;
+        var self = this,
+            min = Number.MAX_VALUE;
 
         // Find min duration
         this.each(function (snapshot, index) {
@@ -116,9 +115,8 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     getMaxDuration: function () {
 
-        var self = this;
-
-        var max = Number.MIN_VALUE;
+        var self = this,
+            max = Number.MIN_VALUE;
 
         // Find max duration
         this.each(function (snapshot, index) {
@@ -190,8 +188,8 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
                     self.differences[index][filename] = null;
                 }
 
-                var currentFile = file;
-                var previousFile = null;
+                var currentFile = file,
+                    previousFile = null;
 
                 // If previous snapshot doesn't exist, current file doesn't have earlier version of it
                 if (!previousSnapshot) {

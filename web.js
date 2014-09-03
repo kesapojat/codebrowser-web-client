@@ -1,12 +1,12 @@
-var util = require('util');
-var fs = require('fs');
-var static = require('node-static');
-var mustache = require('mustache');
+var util = require('util'),
+    fs = require('fs'),
+    static = require('node-static'),
+    mustache = require('mustache');
 
-var environment = process.env.NODE_ENV;
-var port = process.env.PORT || 8070;
-var serverOptions = {};
-var errorTemplate;
+var environment = process.env.NODE_ENV,
+    port = process.env.PORT || 8070,
+    serverOptions = {},
+    errorTemplate;
 
 // Default to development environment
 if (!environment) {

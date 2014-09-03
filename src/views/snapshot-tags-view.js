@@ -67,6 +67,8 @@ codebrowser.view.SnapshotTagsView = Backbone.View.extend({
 
     create: function (event) {
 
+        var self = this;
+
         event.preventDefault();
 
         var text = $('[data-id="tag"]', this.$el).val().trim();
@@ -79,8 +81,6 @@ codebrowser.view.SnapshotTagsView = Backbone.View.extend({
         var tag = new codebrowser.model.Tag(null, { studentId: this.snapshot.get('studentId'),
                                                     courseId: this.snapshot.get('courseId'),
                                                     exerciseId: this.snapshot.get('exerciseId') });
-
-        var self = this;
 
         // Save tag
         tag.save({ text: text }, {
@@ -100,10 +100,9 @@ codebrowser.view.SnapshotTagsView = Backbone.View.extend({
 
     'delete': function (event) {
 
-        var id = $(event.target).data('id');
-        var tag = this.collection.get(id);
-
-        var self = this;
+        var self = this,
+            id = $(event.target).data('id'),
+            tag = this.collection.get(id);
 
         // Destroy tag
         tag.destroy({

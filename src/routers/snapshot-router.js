@@ -40,7 +40,6 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
     notFound: function () {
 
         var errorView = new codebrowser.view.NotFoundErrorView();
-
         codebrowser.controller.ViewController.push(errorView, true);
     },
 

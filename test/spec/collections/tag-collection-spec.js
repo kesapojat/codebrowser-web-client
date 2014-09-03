@@ -1,7 +1,7 @@
 describe('TagCollection', function () {
 
-    var missingOptionsError = 'Options studentId, courseId and exerciseId are required to fetch tags.';
-    var tags;
+    var missingOptionsError = 'Options studentId, courseId and exerciseId are required to fetch tags.',
+        tags;
 
     beforeEach(function () {
 

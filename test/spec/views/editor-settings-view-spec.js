@@ -1,7 +1,7 @@
 describe('Editor settings view', function () {
 
-    var settingsView;
-    var editorView;
+    var settingsView,
+        editorView;
 
     beforeEach(function () {
 

@@ -16,8 +16,8 @@ describe('ViewController', function () {
 
     it('push should remove previous view', function () {
 
-        var currentView = codebrowser.controller.ViewController.view;
-        var view = new codebrowser.view.RootView();
+        var currentView = codebrowser.controller.ViewController.view,
+            view = new codebrowser.view.RootView();
 
         spyOn(currentView, 'remove');
 

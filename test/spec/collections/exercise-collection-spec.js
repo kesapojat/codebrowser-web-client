@@ -1,7 +1,7 @@
 describe('ExerciseCollection', function () {
 
-    var missingOptionsError = 'Option courseId is required to fetch exercises.';
-    var exercises;
+    var missingOptionsError = 'Option courseId is required to fetch exercises.',
+        exercises;
 
     it('should have correct model', function () {
 

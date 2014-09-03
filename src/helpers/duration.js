@@ -2,12 +2,10 @@ codebrowser.helper.Duration = {
 
     calculate: function (time, previousTime, simplify) {
 
-        var difference = time - previousTime;
-
-        var value;
-        var timeUnit;
-
-        var seconds = Math.round(difference / 1000);
+        var difference = time - previousTime,
+            value,
+            timeUnit,
+            seconds = Math.round(difference / 1000);
 
         if (seconds > 60) {
 

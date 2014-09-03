@@ -412,9 +412,8 @@ codebrowser.view.EditorView = Backbone.View.extend({
             // Show differences
             for (var i = 0; i < this.differences.getDifferences().all.length; i++) {
 
-                var difference = this.differences.getDifferences().all[i];
-
-                var marker;
+                var difference = this.differences.getDifferences().all[i],
+                    marker;
 
                 // Delete
                 if (difference.type === 'delete') {

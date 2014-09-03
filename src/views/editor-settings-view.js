@@ -22,9 +22,9 @@ codebrowser.view.EditorSettingsView = Backbone.View.extend({
 
     render: function () {
 
-        var ignoreEmptyLines = localStorage.getItem(config.storage.setting.editor.ignoreEmptyLines);
-        var fontSize = parseInt(localStorage.getItem(config.storage.setting.editor.fontSize), 10);
-        var theme = localStorage.getItem(config.storage.setting.editor.theme);
+        var ignoreEmptyLines = localStorage.getItem(config.storage.setting.editor.ignoreEmptyLines),
+            fontSize = parseInt(localStorage.getItem(config.storage.setting.editor.fontSize), 10),
+            theme = localStorage.getItem(config.storage.setting.editor.theme);
 
         // Template
         var output = $(this.template());

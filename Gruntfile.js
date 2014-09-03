@@ -50,9 +50,9 @@ module.exports = function (grunt) {
                     processName: function (path) {
 
                         // Use filename as the name of the template (View.template -> View)
-                        var split = path.split('/');
-                        var file = split[split.length - 1];
-                        var filename = file.split('.')[0];
+                        var split = path.split('/'),
+                            file = split[split.length - 1],
+                            filename = file.split('.')[0];
 
                         return filename;
                     }

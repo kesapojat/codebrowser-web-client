@@ -1,7 +1,7 @@
 describe('SnapshotCollection', function () {
 
-    var missingOptionsError = 'Options instanceId, studentId, courseId and exerciseId are required to fetch snapshots.';
-    var snapshots;
+    var missingOptionsError = 'Options instanceId, studentId, courseId and exerciseId are required to fetch snapshots.',
+        snapshots;
 
     beforeEach(function () {
 
@@ -81,12 +81,12 @@ describe('SnapshotCollection', function () {
 
     it('should return correct differences for snapshots', function () {
 
-        var a = codebrowser.model.Snapshot.findOrCreate({ id: 1 });
-        var b = codebrowser.model.Snapshot.findOrCreate({ id: 2 });
+        var a = codebrowser.model.Snapshot.findOrCreate({ id: 1 }),
+            b = codebrowser.model.Snapshot.findOrCreate({ id: 2 });
 
         // Files for snapshot a
-        var aFileA = codebrowser.model.File.findOrCreate({ id: 1, name: 'FileA.java' });
-        var aFileB = codebrowser.model.File.findOrCreate({ id: 2, name: 'FileB.java' });
+        var aFileA = codebrowser.model.File.findOrCreate({ id: 1, name: 'FileA.java' }),
+            aFileB = codebrowser.model.File.findOrCreate({ id: 2, name: 'FileB.java' });
 
         aFileA.content = 'File A';
         aFileB.content = 'File B';
@@ -94,9 +94,9 @@ describe('SnapshotCollection', function () {
         var aFiles = new codebrowser.collection.FileCollection([ aFileA, aFileB ]);
 
         // Files for snapshot b
-        var bFileA = codebrowser.model.File.findOrCreate({ id: 4, name: 'FileA.java' });
-        var bFileB = codebrowser.model.File.findOrCreate({ id: 5, name: 'FileB.java' });
-        var bFileC = codebrowser.model.File.findOrCreate({ id: 6, name: 'FileC.java' });
+        var bFileA = codebrowser.model.File.findOrCreate({ id: 4, name: 'FileA.java' }),
+            bFileB = codebrowser.model.File.findOrCreate({ id: 5, name: 'FileB.java' }),
+            bFileC = codebrowser.model.File.findOrCreate({ id: 6, name: 'FileC.java' });
 
         bFileA.content = 'File AA';
         bFileB.content = 'File B';

@@ -14,20 +14,17 @@ codebrowser.view.SnapshotFilesView = Backbone.View.extend({
 
     renderDifferences: function (output) {
 
-        var differences = this.parentView.collection.getDifferences();
-
-        var index = this.parentView.collection.indexOf(this.model);
-        var difference = differences[index];
-
-        var files = this.model.get('files');
+        var differences = this.parentView.collection.getDifferences(),
+            index = this.parentView.collection.indexOf(this.model),
+            difference = differences[index],
+            files = this.model.get('files');
 
         files.each(function(file) {
 
-            var fileDifference = difference[file.get('name')];
-            var fileElement = $('[data-id="' + file.id + '"]', output);
-
-            var lines = file.lines();
-            var changed = fileDifference.getCount().total();
+            var fileDifference = difference[file.get('name')],
+                fileElement = $('[data-id="' + file.id + '"]', output),
+                lines = file.lines(),
+                changed = fileDifference.getCount().total();
 
             // New file
             if (changed === lines) {

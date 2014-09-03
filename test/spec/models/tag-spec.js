@@ -1,7 +1,7 @@
 describe('Tag', function () {
 
-    var missingAttributesError = 'Attributes studentId, courseId and exerciseId are required to fetch a tag.';
-    var tag;
+    var missingAttributesError = 'Attributes studentId, courseId and exerciseId are required to fetch a tag.',
+        tag;
 
     beforeEach(function () {
 

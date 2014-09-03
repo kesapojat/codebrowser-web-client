@@ -167,8 +167,8 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         }
 
         // Previous snapshot
-        var index = this.collection.indexOf(snapshot);
-        var previousSnapshot = this.collection.at(index - 1);
+        var index = this.collection.indexOf(snapshot),
+            previousSnapshot = this.collection.at(index - 1);
 
         // First snapshot
         if (!previousSnapshot) {
@@ -355,16 +355,16 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
     first: function () {
 
-        var first = this.collection.first();
-        var file = first.get('files').findWhere({ name: this.file.get('name') });
+        var first = this.collection.first(),
+            file = first.get('files').findWhere({ name: this.file.get('name') });
 
         this.navigate(first, file);
     },
 
     previous: function () {
 
-        var index = this.collection.indexOf(this.model);
-        var previous = this.collection.at(index - 1);
+        var index = this.collection.indexOf(this.model),
+            previous = this.collection.at(index - 1);
 
         if (!previous) {
             return;
@@ -377,8 +377,8 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
     next: function () {
 
-        var index = this.collection.indexOf(this.model);
-        var next = this.collection.at(index + 1);
+        var index = this.collection.indexOf(this.model),
+            next = this.collection.at(index + 1);
 
         if (!next) {
             return;
@@ -391,8 +391,8 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
     last: function () {
 
-        var last = this.collection.last();
-        var file = last.get('files').findWhere({ name: this.file.get('name') });
+        var last = this.collection.last(),
+            file = last.get('files').findWhere({ name: this.file.get('name') });
 
         this.navigate(last, file);
     }
