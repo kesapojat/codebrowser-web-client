@@ -4,7 +4,7 @@ describe('CourseCollection', function () {
 
     beforeEach(function () {
 
-        courses = new codebrowser.collection.CourseCollection();
+        courses = new codebrowser.collection.CourseCollection(null, { instanceId: 'instance' });
     });
 
     it('should have correct model', function () {
@@ -14,13 +14,13 @@ describe('CourseCollection', function () {
 
     it('should have correct URL when fetching courses related to a student', function () {
 
-        courses = new codebrowser.collection.CourseCollection(null, { studentId: 1 });
+        courses = new codebrowser.collection.CourseCollection(null, { instanceId: 'instance', studentId: 1 });
 
-        expect(courses.url()).toBe(config.api.main.root + 'students/1/courses');
+        expect(courses.url()).toBe(config.api.main.root + 'instance/students/1/courses');
     });
 
     it('should have correct URL when fetching all courses', function () {
 
-        expect(courses.url()).toBe(config.api.main.root + 'courses');
+        expect(courses.url()).toBe(config.api.main.root + 'instance/courses');
     });
 });

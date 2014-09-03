@@ -12,11 +12,11 @@ describe('Exercise', function () {
 
     it('should have correct URL root', function () {
 
-        expect(exercise.urlRoot()).toBe(config.api.main.root + 'courses/1/exercises');
+        expect(exercise.urlRoot()).toBe(config.api.main.root + 'instance/courses/1/exercises');
     });
 
     it('should have correct URL', function () {
 
-        expect(exercise.url()).toBe(config.api.main.root + 'courses/1/exercises/2');
+        expect(exercise.url()).toBe(config.api.main.root + 'instance/courses/1/exercises/2');
     });
 });

@@ -4,17 +4,17 @@ describe('Course', function () {
 
     beforeEach(function () {
 
-        course = codebrowser.model.Course.findOrCreate({ id: 1 });
+        course = codebrowser.model.Course.findOrCreate({ instanceId: 'instance', id: 1 });
     });
 
     it('should have correct URL root', function () {
 
-        expect(course.urlRoot).toBe(config.api.main.root + 'courses');
+        expect(course.urlRoot()).toBe(config.api.main.root + 'instance/courses');
     });
 
     it('should have correct URL', function () {
 
-        expect(course.url()).toBe(config.api.main.root + 'courses/1');
+        expect(course.url()).toBe(config.api.main.root + 'instance/courses/1');
     });
 
     it('should have exercises', function () {

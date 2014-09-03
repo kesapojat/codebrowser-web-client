@@ -1,11 +1,11 @@
 describe('SnapshotCollection', function () {
 
-    var missingOptionsError = 'Options studentId, courseId and exerciseId are required to fetch snapshots.';
+    var missingOptionsError = 'Options instanceId, studentId, courseId and exerciseId are required to fetch snapshots.';
     var snapshots;
 
     beforeEach(function () {
 
-        snapshots = new codebrowser.collection.SnapshotCollection(null, { studentId: 1, courseId: 2, exerciseId: 3 });
+        snapshots = new codebrowser.collection.SnapshotCollection(null, { instanceId: 'instance', studentId: 1, courseId: 2, exerciseId: 3 });
     });
 
     it('should have correct model', function () {
@@ -36,7 +36,7 @@ describe('SnapshotCollection', function () {
 
     it('should have correct URL', function () {
 
-        expect(snapshots.url()).toBe(config.api.main.root + 'students/1/courses/2/exercises/3/snapshots');
+        expect(snapshots.url()).toBe(config.api.main.root + 'instance/students/1/courses/2/exercises/3/snapshots');
     });
 
     it('should return correct duration between two existing snapshots', function () {

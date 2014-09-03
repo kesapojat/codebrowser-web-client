@@ -19,15 +19,15 @@ describe('ExerciseCollection', function () {
 
     it('should have correct URL when fetching all exercises related to a course', function () {
 
-        exercises = new codebrowser.collection.ExerciseCollection(null, { courseId: 2 });
+        exercises = new codebrowser.collection.ExerciseCollection(null, { instanceId: 'instance', courseId: 2 });
 
-        expect(exercises.url()).toBe(config.api.main.root + 'courses/2/exercises');
+        expect(exercises.url()).toBe(config.api.main.root + 'instance/courses/2/exercises');
     });
 
     it('should have correct URL when fetching all exercises related to a student and course', function () {
 
-        exercises = new codebrowser.collection.ExerciseCollection(null, { studentId: 1, courseId: 2 });
+        exercises = new codebrowser.collection.ExerciseCollection(null, { instanceId: 'instance', studentId: 1, courseId: 2 });
 
-        expect(exercises.url()).toBe(config.api.main.root + 'students/1/courses/2/exercises');
+        expect(exercises.url()).toBe(config.api.main.root + 'instance/students/1/courses/2/exercises');
     });
 });
