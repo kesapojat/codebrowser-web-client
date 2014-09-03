@@ -54,6 +54,8 @@ codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
 
         if (options) {
 
+            options.instanceId = instanceId;
+
             var courseFetched = _.after(1, function () {
 
                 var exercise = codebrowser.model.Exercise.findOrCreate({ id: options.exerciseId });
@@ -79,13 +81,15 @@ codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
 
         } else {
 
+            options = { instanceId: instanceId };
+
             self.studentView.course = null;
             self.studentView.exercise = null;
             fetchSynced();
             fetchSynced();
         }
 
-        var studentCollection = new codebrowser.collection.StudentCollection(null, { instanceId: instanceId });
+        var studentCollection = new codebrowser.collection.StudentCollection(null, options);
 
         this.studentView.collection = studentCollection;
 

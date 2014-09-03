@@ -1995,8 +1995,8 @@ codebrowser.collection.StudentCollection = Backbone.Collection.extend({
 
     url: function () {
 
-        if (this.courseId && this.exerciseId) {
-            return config.api.main.root + 'courses/' + this.courseId + '/exercises/' + this.exerciseId + '/students';
+        if (this.instanceId && this.courseId && this.exerciseId) {
+            return config.api.main.root + this.instanceId + '/courses/' + this.courseId + '/exercises/' + this.exerciseId + '/students';
         }
 
         return config.api.main.root + this.instanceId + '/students';
@@ -4664,6 +4664,8 @@ codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
 
         if (options) {
 
+            options.instanceId = instanceId;
+
             var courseFetched = _.after(1, function () {
 
                 var exercise = codebrowser.model.Exercise.findOrCreate({ id: options.exerciseId });
@@ -4689,13 +4691,15 @@ codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
 
         } else {
 
+            options = { instanceId: instanceId };
+
             self.studentView.course = null;
             self.studentView.exercise = null;
             fetchSynced();
             fetchSynced();
         }
 
-        var studentCollection = new codebrowser.collection.StudentCollection(null, { instanceId: instanceId });
+        var studentCollection = new codebrowser.collection.StudentCollection(null, options);
 
         this.studentView.collection = studentCollection;
 
