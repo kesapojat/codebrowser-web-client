@@ -49,6 +49,8 @@ codebrowser.view.SnapshotFilesView = Backbone.View.extend({
         // View attributes
         var attributes = {
 
+            level: this.model.collection.level,
+            instanceId: this.model.get('instanceId'),
             exercise: this.model.get('exercise').toJSON(),
             courseRoute: this.courseRoute,
             files: this.model.getFiles()

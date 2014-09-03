@@ -573,7 +573,9 @@ function program5(depth0,data,depth3) {
   if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "'><a href='./#/courses/"
+    + "'><a href='./#/"
+    + escapeExpression(((stack1 = (depth3 && depth3.instanceId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "/courses/"
     + escapeExpression(((stack1 = (depth3 && depth3.courseId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "/exercises/"
     + escapeExpression(((stack1 = (depth3 && depth3.exerciseId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
@@ -585,6 +587,8 @@ function program5(depth0,data,depth3) {
   if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
+    + "?level="
+    + escapeExpression(((stack1 = (depth3 && depth3.level)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "'><i class='icon-file icon-gray'></i> "
     + escapeExpression((helper = helpers.filename || (depth0 && depth0.filename),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.name), options) : helperMissing.call(depth0, "filename", (depth0 && depth0.name), options)))
     + "</a></li>\n\n                ";
@@ -598,7 +602,9 @@ function program7(depth0,data,depth3) {
   if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "'><a href='./#/students/"
+    + "'><a href='./#/"
+    + escapeExpression(((stack1 = (depth3 && depth3.instanceId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "/students/"
     + escapeExpression(((stack1 = (depth3 && depth3.studentId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "/courses/"
     + escapeExpression(((stack1 = (depth3 && depth3.courseId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
@@ -610,6 +616,8 @@ function program7(depth0,data,depth3) {
   if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
+    + "?level="
+    + escapeExpression(((stack1 = (depth3 && depth3.level)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "'><i class='icon-file icon-gray'></i> "
     + escapeExpression((helper = helpers.filename || (depth0 && depth0.filename),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.name), options) : helperMissing.call(depth0, "filename", (depth0 && depth0.name), options)))
     + "</a></li>\n\n                ";
@@ -2924,6 +2932,8 @@ codebrowser.view.SnapshotFilesView = Backbone.View.extend({
         // View attributes
         var attributes = {
 
+            level: this.model.collection.level,
+            instanceId: this.model.get('instanceId'),
             exercise: this.model.get('exercise').toJSON(),
             courseRoute: this.courseRoute,
             files: this.model.getFiles()
