@@ -2933,7 +2933,7 @@ codebrowser.view.SnapshotFilesView = Backbone.View.extend({
             instanceId: this.model.get('instanceId'),
             exercise: this.model.get('exercise').toJSON(),
             courseRoute: this.courseRoute,
-            files: this.model.getFiles()
+            files: this.sorted(this.model.getFiles())
 
         }
 
@@ -2962,6 +2962,23 @@ codebrowser.view.SnapshotFilesView = Backbone.View.extend({
         this.courseRoute = courseRoute;
 
         this.render();
+    },
+
+    /* Helper */
+
+    sorted: function (filesObject) {
+
+        var sorter = function (a, b) {
+
+            return a.name > b.name;
+        }
+
+        for (var propt in filesObject) {
+
+            filesObject[propt].sort(sorter);
+        }
+
+        return filesObject;
     }
 });
 ;
