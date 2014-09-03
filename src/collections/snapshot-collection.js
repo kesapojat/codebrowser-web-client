@@ -51,14 +51,14 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     fetchFiles: function (callback) {
 
+        var self = this,
+            parameter = this.level ? '?level=' + this.level : '';
+
         // Files in cache
-        if (codebrowser.cache.files && localStorage.getItem(config.storage.cache.files.url) === this.url()) {
+        if (codebrowser.cache.files && localStorage.getItem(config.storage.cache.files.url) === this.url() + parameter) {
             callback();
             return;
         }
-
-        var self = this,
-            parameter = this.level ? '?level=' + this.level : '';
 
         // Fetch new ZIP, need to calculate differences again
         this.differences = [];
@@ -154,7 +154,6 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
     getDifferences: function () {
 
         if (this.differences.length !== 0) {
-
             return this.differences;
         }
 
