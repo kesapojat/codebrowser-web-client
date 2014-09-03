@@ -5,12 +5,12 @@
         <li><a href='./'>Home</a> <span class='divider'>/</span></li>
 
         {{#if studentId}}
-            <li><a href='./#/students'>Students</a> <span class='divider'>/</span></li>
-            <li><a href='./#/students/{{studentId}}'>{{student.name}}</a> <span class='divider'>/</span></li>
+            <li><a href='./#/{{instanceId}}/students'>Students</a> <span class='divider'>/</span></li>
+            <li><a href='./#/{{instanceId}}/students/{{studentId}}'>{{student.name}}</a> <span class='divider'>/</span></li>
         {{/if}}
 
-        <li><a href='./#/{{#if studentId}}students/{{studentId}}/{{/if}}courses'>Courses</a> <span class='divider'>/</span></li>
-        <li><a href='./#/{{#if studentId}}students/{{studentId}}/{{/if}}courses/{{courseId}}'>{{course.name}}</a> <span class='divider'>/</span></li>
+        <li><a href='./#/{{instanceId}}/{{#if studentId}}students/{{studentId}}/{{/if}}courses'>Courses</a> <span class='divider'>/</span></li>
+        <li><a href='./#/{{instanceId}}/{{#if studentId}}students/{{studentId}}/{{/if}}courses/{{courseId}}'>{{course.name}}</a> <span class='divider'>/</span></li>
         <li class='active'>Exercises</li>
 
     </ul>

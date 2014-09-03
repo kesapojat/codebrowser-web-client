@@ -27,7 +27,7 @@ codebrowser.router.CourseRouter = codebrowser.router.BaseRouter.extend({
 
         codebrowser.app.course.navigate('#/' +
                                         instanceId +
-                                        'students/' +
+                                        '/students/' +
                                         studentId +
                                         '/courses', { replace: true });
     },
