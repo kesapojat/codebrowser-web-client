@@ -332,26 +332,18 @@ function program10(depth0,data,depth2) {
 this["Handlebars"]["templates"]["InstanceContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<section>\n    <ul class='breadcrumb'>\n\n        <li><a href='./'>Home</a> <span class='divider'>/</span></li>\n        <li class='active'>";
-  if (helper = helpers.instanceId) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.instanceId); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</li>\n\n    </ul>\n\n    <h2>\n        Instance — ";
-  if (helper = helpers.instanceId) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.instanceId); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "\n    </h2>\n\n    <ul class='nav nav-tabs nav-stacked selection'>\n        <li><a href='./#/";
-  if (helper = helpers.instanceId) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.instanceId); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "/students'>Students</a></li>\n        <li><a href='./#/";
-  if (helper = helpers.instanceId) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.instanceId); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "/courses'>Courses</a></li>\n    </ul>\n\n</section>\n";
+  buffer += "<section>\n\n    <ul class='breadcrumb'>\n\n        <li><a href='./'>Home</a> <span class='divider'>/</span></li>\n        <li class='active'>"
+    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.instance)),stack1 == null || stack1 === false ? stack1 : stack1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</li>\n\n    </ul>\n\n    <h2>\n        Instance — "
+    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.instance)),stack1 == null || stack1 === false ? stack1 : stack1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\n    </h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n                <th>#</th>\n            </tr>\n        </thead>\n\n        <tbody>\n\n            <tr>\n                <td class='link'><a href='./#/"
+    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.instance)),stack1 == null || stack1 === false ? stack1 : stack1.id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "/students'>Students</a></td>\n            </tr>\n\n            <tr>\n                <td class='link'><a href='./#/"
+    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.instance)),stack1 == null || stack1 === false ? stack1 : stack1.id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "/courses'>Courses</a></td>\n            </tr>\n\n        </tbody>\n\n    </table>\n\n</section>\n";
   return buffer;
   });
 
@@ -1175,9 +1167,7 @@ codebrowser.helper.ListViewFilter = function (options, collection) {
         // Filter collection
         var results = collection.filter(function (item) {
 
-            var name = item.get('name') || item.get('id');
-                name = name.toLowerCase();
-
+            var name = item.get('name').toLowerCase();
             return name.indexOf(query) !== -1;
         });
 
@@ -1547,12 +1537,7 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
 
     getFolder: function () {
 
-        return this.get('name').substring(0, this.get('name').lastIndexOf('/'));
-    },
-
-    getName: function () {
-
-        return _.last(this.get('name').split('/'));
+        return this.get('path').substring(0, this.get('path').lastIndexOf('/'));
     }
 });
 ;
@@ -2841,7 +2826,7 @@ codebrowser.view.InstanceView = codebrowser.view.ListBaseView.extend({
         // View attributes
         var attributes = {
 
-            instanceId: this.instanceId
+            instance: this.instance.toJSON()
 
         }
 
@@ -2979,7 +2964,7 @@ codebrowser.view.SnapshotFilesView = Backbone.View.extend({
             instanceId: this.model.get('instanceId'),
             exercise: this.model.get('exercise').toJSON(),
             courseRoute: this.courseRoute,
-            files: this.sorted(this.model.getFiles())
+            files: this.model.getFiles()
 
         }
 
@@ -3008,23 +2993,6 @@ codebrowser.view.SnapshotFilesView = Backbone.View.extend({
         this.courseRoute = courseRoute;
 
         this.render();
-    },
-
-    /* Helper */
-
-    sorted: function (filesObject) {
-
-        var sorter = function (a, b) {
-
-            return a.name > b.name;
-        }
-
-        for (var propt in filesObject) {
-
-            filesObject[propt].sort(sorter);
-        }
-
-        return filesObject;
     }
 });
 ;
@@ -4476,17 +4444,28 @@ codebrowser.router.InstanceRouter = codebrowser.router.BaseRouter.extend({
     initialize: function () {
 
         this.instanceView = new codebrowser.view.InstanceView();
-
     },
 
     /* Actions */
 
     instance: function (instanceId) {
 
-        this.instanceView.instanceId = instanceId;
-        this.instanceView.render();
+        var self = this,
+            instance = codebrowser.model.Instance.findOrCreate({ id: instanceId });
 
-        codebrowser.controller.ViewController.push(this.instanceView);
+        // Wait for fetch to be in sync
+        var fetchSynced = _.after(1, function () {
+
+            self.instanceView.render();
+            codebrowser.controller.ViewController.push(self.instanceView);
+        });
+
+        // Fetch instance
+        this.fetchModel(instance, true, function () {
+
+            self.instanceView.instance = instance;
+            fetchSynced();
+        });
     }
 });
 ;

@@ -10,7 +10,7 @@ codebrowser.view.InstanceView = codebrowser.view.ListBaseView.extend({
         // View attributes
         var attributes = {
 
-            instanceId: this.instanceId
+            instance: this.instance.toJSON()
 
         }
 
