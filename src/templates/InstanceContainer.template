@@ -3,12 +3,12 @@
     <ul class='breadcrumb'>
 
         <li><a href='./'>Home</a> <span class='divider'>/</span></li>
-        <li class='active'>{{name}}</li>
+        <li class='active'>{{instance.name}}</li>
 
     </ul>
 
     <h2>
-        Instance — {{name}}
+        Instance — {{instance.name}}
     </h2>
 
     <table class='table table-hover'>
@@ -22,11 +22,11 @@
         <tbody>
 
             <tr>
-                <td class='link'><a href='./#/{{instanceId}}/students'>Students</a></td>
+                <td class='link'><a href='./#/{{instance.id}}/students'>Students</a></td>
             </tr>
 
             <tr>
-                <td class='link'><a href='./#/{{instanceId}}/courses'>Courses</a></td>
+                <td class='link'><a href='./#/{{instance.id}}/courses'>Courses</a></td>
             </tr>
 
         </tbody>

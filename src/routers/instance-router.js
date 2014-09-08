@@ -11,16 +11,27 @@ codebrowser.router.InstanceRouter = codebrowser.router.BaseRouter.extend({
     initialize: function () {
 
         this.instanceView = new codebrowser.view.InstanceView();
-
     },
 
     /* Actions */
 
     instance: function (instanceId) {
 
-        this.instanceView.instanceId = instanceId;
-        this.instanceView.render();
+        var self = this,
+            instance = codebrowser.model.Instance.findOrCreate({ id: instanceId });
 
-        codebrowser.controller.ViewController.push(this.instanceView);
+        // Wait for fetch to be in sync
+        var fetchSynced = _.after(1, function () {
+
+            self.instanceView.render();
+            codebrowser.controller.ViewController.push(self.instanceView);
+        });
+
+        // Fetch instance
+        this.fetchModel(instance, true, function () {
+
+            self.instanceView.instance = instance;
+            fetchSynced();
+        });
     }
 });
