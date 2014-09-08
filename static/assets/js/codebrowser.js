@@ -339,7 +339,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.instance)),stack1 == null || stack1 === false ? stack1 : stack1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</li>\n\n    </ul>\n\n    <h2>\n        Instance — "
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.instance)),stack1 == null || stack1 === false ? stack1 : stack1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\n    </h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n                <th>#</th>\n            </tr>\n        </thead>\n\n        <tbody>\n\n            <tr>\n                <td class='link'><a href='./#/"
+    + "\n    </h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n                <th>Navigate</th>\n            </tr>\n        </thead>\n\n        <tbody>\n\n            <tr>\n                <td class='link'><a href='./#/"
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.instance)),stack1 == null || stack1 === false ? stack1 : stack1.id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "/students'>Students</a></td>\n            </tr>\n\n            <tr>\n                <td class='link'><a href='./#/"
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.instance)),stack1 == null || stack1 === false ? stack1 : stack1.id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
