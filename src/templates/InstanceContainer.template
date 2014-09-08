@@ -1,18 +1,36 @@
 <section>
+
     <ul class='breadcrumb'>
 
         <li><a href='./'>Home</a> <span class='divider'>/</span></li>
-        <li class='active'>{{instanceId}}</li>
+        <li class='active'>{{name}}</li>
 
     </ul>
 
     <h2>
-        Instance — {{instanceId}}
+        Instance — {{name}}
     </h2>
 
-    <ul class='nav nav-tabs nav-stacked selection'>
-        <li><a href='./#/{{instanceId}}/students'>Students</a></li>
-        <li><a href='./#/{{instanceId}}/courses'>Courses</a></li>
-    </ul>
+    <table class='table table-hover'>
+
+        <thead>
+            <tr>
+                <th>#</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td class='link'><a href='./#/{{instanceId}}/students'>Students</a></td>
+            </tr>
+
+            <tr>
+                <td class='link'><a href='./#/{{instanceId}}/courses'>Courses</a></td>
+            </tr>
+
+        </tbody>
+
+    </table>
 
 </section>
