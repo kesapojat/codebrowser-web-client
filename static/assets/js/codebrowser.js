@@ -1175,7 +1175,9 @@ codebrowser.helper.ListViewFilter = function (options, collection) {
         // Filter collection
         var results = collection.filter(function (item) {
 
-            var name = item.get('name').toLowerCase();
+            var name = item.get('name') || item.get('id');
+                name = name.toLowerCase();
+
             return name.indexOf(query) !== -1;
         });
 
@@ -1557,7 +1559,7 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
 
 codebrowser.model.Instance = Backbone.RelationalModel.extend({
 
-    urlRoot: config.api.main.root + 'instances'
+    urlRoot: config.api.main.root
 
 });
 ;
@@ -1802,7 +1804,7 @@ codebrowser.collection.InstanceCollection = Backbone.Collection.extend({
 
     url: function () {
 
-        return config.api.main.root + 'instances';
+        return config.api.main.root;
     }
 });
 ;
@@ -3287,6 +3289,11 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         // Diff is enabled, set diff button as active
         if (this.editorView.diff) {
             $('#diff', navigationContainerOutput).addClass('active');
+        }
+
+        // Key-level, set button as active
+        if (this.collection.isKeyLevel()) {
+            $('#level', navigationContainerOutput).addClass('active');
         }
 
         // First snapshot, disable the buttons for first and previous

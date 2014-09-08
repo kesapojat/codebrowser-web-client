@@ -136,6 +136,11 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             $('#diff', navigationContainerOutput).addClass('active');
         }
 
+        // Key-level, set button as active
+        if (this.collection.isKeyLevel()) {
+            $('#level', navigationContainerOutput).addClass('active');
+        }
+
         // First snapshot, disable the buttons for first and previous
         if (index === 0) {
             $('#first', navigationContainerOutput).attr('disabled', true);
