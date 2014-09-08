@@ -1545,19 +1545,14 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
 
     getFolder: function () {
 
-        return this.get('name').substring(0, this.get('name').lastIndexOf('/'));
-    },
-
-    getName: function () {
-
-        return _.last(this.get('name').split('/'));
+        return this.get('path').substring(0, this.get('path').lastIndexOf('/'));
     }
 });
 ;
 
 codebrowser.model.Instance = Backbone.RelationalModel.extend({
 
-    urlRoot: config.api.main.root + 'instances'
+    urlRoot: config.api.main.root
 
 });
 ;
@@ -1802,7 +1797,7 @@ codebrowser.collection.InstanceCollection = Backbone.Collection.extend({
 
     url: function () {
 
-        return config.api.main.root + 'instances';
+        return config.api.main.root;
     }
 });
 ;
@@ -2977,7 +2972,7 @@ codebrowser.view.SnapshotFilesView = Backbone.View.extend({
             instanceId: this.model.get('instanceId'),
             exercise: this.model.get('exercise').toJSON(),
             courseRoute: this.courseRoute,
-            files: this.sorted(this.model.getFiles())
+            files: this.model.getFiles()
 
         }
 
@@ -3006,23 +3001,6 @@ codebrowser.view.SnapshotFilesView = Backbone.View.extend({
         this.courseRoute = courseRoute;
 
         this.render();
-    },
-
-    /* Helper */
-
-    sorted: function (filesObject) {
-
-        var sorter = function (a, b) {
-
-            return a.name > b.name;
-        }
-
-        for (var propt in filesObject) {
-
-            filesObject[propt].sort(sorter);
-        }
-
-        return filesObject;
     }
 });
 ;

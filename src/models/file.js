@@ -58,11 +58,6 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
 
     getFolder: function () {
 
-        return this.get('name').substring(0, this.get('name').lastIndexOf('/'));
-    },
-
-    getName: function () {
-
-        return _.last(this.get('name').split('/'));
+        return this.get('path').substring(0, this.get('path').lastIndexOf('/'));
     }
 });
