@@ -4,6 +4,6 @@ codebrowser.collection.InstanceCollection = Backbone.Collection.extend({
 
     url: function () {
 
-        return config.api.main.root + 'instances';
+        return config.api.main.root;
     }
 });
