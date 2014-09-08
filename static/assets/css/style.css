@@ -273,15 +273,15 @@ ul.selection a:hover {
 
 /* Structure */
 
-#container {
-
-    background-color: #fff;
-
-}
-
 #wrapper {
 
     min-height: 20px;
+
+}
+
+#container {
+
+    background-color: #fff;
 
 }
 
