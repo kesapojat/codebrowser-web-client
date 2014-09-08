@@ -1,15 +1,21 @@
-codebrowser.view.RootView = Backbone.View.extend({
+codebrowser.view.RootView = codebrowser.view.ListBaseView.extend({
 
     id: 'root-container',
     template: Handlebars.templates.RootContainer,
 
     /* Render */
 
-    render: function () {
+    renderTemplate: function () {
+
+        // View attributes
+        var attributes = {
+
+            query: this.query,
+            instances: this.collection.toJSON()
+
+        }
 
         // Template
-        var output = this.template();
-
-        this.$el.html(output);
+        return this.template(attributes);
     }
 });

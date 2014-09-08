@@ -355,43 +355,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return buffer;
   });
 
-this["Handlebars"]["templates"]["InstancesContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
-  var buffer = "", stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function", self=this, blockHelperMissing=helpers.blockHelperMissing;
-
-function program1(depth0,data) {
-  
-  var buffer = "", stack1, helper, options;
-  buffer += "\n\n                <tr>\n\n                    <td class='index'>"
-    + escapeExpression((helper = helpers.index || (depth0 && depth0.index),options={hash:{},data:data},helper ? helper.call(depth0, (data == null || data === false ? data : data.index), options) : helperMissing.call(depth0, "index", (data == null || data === false ? data : data.index), options)))
-    + "</td>\n\n                    <td class='link'><a href='./#/";
-  if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "'>";
-  if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</a></td>\n\n                </tr>\n\n            ";
-  return buffer;
-  }
-
-  buffer += "<section>\n\n    <ul class='breadcrumb'>\n\n        <li><a href='./'>Home</a> <span class='divider'>/</span></li>\n\n        <li class='active'>Instances</li>\n\n    </ul>\n\n    <h2>\n        Instances ("
-    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.instances)),stack1 == null || stack1 === false ? stack1 : stack1.length)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + ")\n\n        ";
-  stack1 = self.invokePartial(partials.search, 'search', depth0, helpers, partials, data);
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n    </h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n                <th>#</th>\n                <th>Name</th>\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
-  options={hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data}
-  if (helper = helpers.instances) { stack1 = helper.call(depth0, options); }
-  else { helper = (depth0 && depth0.instances); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
-  if (!helpers.instances) { stack1 = blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data}); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n        </tbody>\n\n    </table>\n\n</section>\n";
-  return buffer;
-  });
-
 this["Handlebars"]["templates"]["NavigationBarContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -560,11 +523,39 @@ function program3(depth0,data) {
 
 this["Handlebars"]["templates"]["RootContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
+  var buffer = "", stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function", self=this, blockHelperMissing=helpers.blockHelperMissing;
+
+function program1(depth0,data) {
   
+  var buffer = "", stack1, helper, options;
+  buffer += "\n\n                <tr>\n\n                    <td class='index'>"
+    + escapeExpression((helper = helpers.index || (depth0 && depth0.index),options={hash:{},data:data},helper ? helper.call(depth0, (data == null || data === false ? data : data.index), options) : helperMissing.call(depth0, "index", (data == null || data === false ? data : data.index), options)))
+    + "</td>\n\n                    <td class='link'><a href='./#/";
+  if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "'>";
+  if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</a></td>\n\n                </tr>\n\n            ";
+  return buffer;
+  }
 
-
-  return "<section>\n\n    <ul class='breadcrumb'>\n        <li class='active'>Home</li>\n    </ul>\n\n    <ul class='nav nav-tabs nav-stacked selection'>\n        <li><a href='./#/instances'>Instances</a></li>\n    </ul>\n\n</section>\n";
+  buffer += "<section>\n\n    <ul class='breadcrumb'>\n\n        <li class='active'>Home</li>\n\n    </ul>\n\n    <h2>\n        Instances ("
+    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.instances)),stack1 == null || stack1 === false ? stack1 : stack1.length)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + ")\n\n        ";
+  stack1 = self.invokePartial(partials.search, 'search', depth0, helpers, partials, data);
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n    </h2>\n\n    <table class='table table-hover'>\n\n        <thead>\n            <tr>\n                <th>#</th>\n                <th>Name</th>\n            </tr>\n        </thead>\n\n        <tbody>\n\n            ";
+  options={hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data}
+  if (helper = helpers.instances) { stack1 = helper.call(depth0, options); }
+  else { helper = (depth0 && depth0.instances); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
+  if (!helpers.instances) { stack1 = blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data}); }
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n\n        </tbody>\n\n    </table>\n\n</section>\n";
+  return buffer;
   });
 
 this["Handlebars"]["templates"]["SearchContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -2858,10 +2849,21 @@ codebrowser.view.InstanceView = codebrowser.view.ListBaseView.extend({
 });
 ;
 
-codebrowser.view.InstancesView = codebrowser.view.ListBaseView.extend({
+codebrowser.view.NotFoundErrorView = codebrowser.view.ErrorView.extend({
 
-    id: 'instances-container',
-    template: Handlebars.templates.InstancesContainer,
+    model: {
+
+        class: 'alert-warning',
+        message: 'Not Found.'
+
+    }
+});
+;
+
+codebrowser.view.RootView = codebrowser.view.ListBaseView.extend({
+
+    id: 'root-container',
+    template: Handlebars.templates.RootContainer,
 
     /* Render */
 
@@ -2877,34 +2879,6 @@ codebrowser.view.InstancesView = codebrowser.view.ListBaseView.extend({
 
         // Template
         return this.template(attributes);
-    }
-});
-;
-
-codebrowser.view.NotFoundErrorView = codebrowser.view.ErrorView.extend({
-
-    model: {
-
-        class: 'alert-warning',
-        message: 'Not Found.'
-
-    }
-});
-;
-
-codebrowser.view.RootView = Backbone.View.extend({
-
-    id: 'root-container',
-    template: Handlebars.templates.RootContainer,
-
-    /* Render */
-
-    render: function () {
-
-        // Template
-        var output = this.template();
-
-        this.$el.html(output);
     }
 });
 ;
@@ -4276,8 +4250,15 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
 
     root: function () {
 
-        this.rootView.render();
-        codebrowser.controller.ViewController.push(this.rootView);
+        var self = this;
+
+        this.rootView.collection = new codebrowser.collection.InstanceCollection();
+
+        this.fetchModel(this.rootView.collection, true, function () {
+
+            self.rootView.render();
+            codebrowser.controller.ViewController.push(self.rootView);
+        });
     },
 
     notFound: function () {
@@ -4479,7 +4460,6 @@ codebrowser.router.InstanceRouter = codebrowser.router.BaseRouter.extend({
 
     routes: {
 
-        'instances(/)':   'instances',
         ':instanceId(/)': 'instance'
 
     },
@@ -4488,25 +4468,11 @@ codebrowser.router.InstanceRouter = codebrowser.router.BaseRouter.extend({
 
     initialize: function () {
 
-        this.instancesView = new codebrowser.view.InstancesView();
         this.instanceView = new codebrowser.view.InstanceView();
 
     },
 
     /* Actions */
-
-    instances: function () {
-
-        var self = this;
-
-        this.instancesView.collection = new codebrowser.collection.InstanceCollection();
-
-        this.fetchModel(this.instancesView.collection, true, function () {
-
-            self.instancesView.render();
-            codebrowser.controller.ViewController.push(self.instancesView);
-        });
-    },
 
     instance: function (instanceId) {
 

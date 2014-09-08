@@ -19,8 +19,15 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
 
     root: function () {
 
-        this.rootView.render();
-        codebrowser.controller.ViewController.push(this.rootView);
+        var self = this;
+
+        this.rootView.collection = new codebrowser.collection.InstanceCollection();
+
+        this.fetchModel(this.rootView.collection, true, function () {
+
+            self.rootView.render();
+            codebrowser.controller.ViewController.push(self.rootView);
+        });
     },
 
     notFound: function () {

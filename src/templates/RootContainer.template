@@ -1,11 +1,42 @@
 <section>
 
     <ul class='breadcrumb'>
+
         <li class='active'>Home</li>
+
     </ul>
 
-    <ul class='nav nav-tabs nav-stacked selection'>
-        <li><a href='./#/instances'>Instances</a></li>
-    </ul>
+    <h2>
+        Instances ({{instances.length}})
+
+        {{> search}}
+    </h2>
+
+    <table class='table table-hover'>
+
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {{#instances}}
+
+                <tr>
+
+                    <td class='index'>{{index @index}}</td>
+
+                    <td class='link'><a href='./#/{{id}}'>{{id}}</a></td>
+
+                </tr>
+
+            {{/instances}}
+
+        </tbody>
+
+    </table>
 
 </section>
