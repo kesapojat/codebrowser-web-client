@@ -22,7 +22,7 @@
 
     <div class='row header'>
 
-        <h2 class='col-md-8'>
+        <h2 class='col-md-5'>
             {{#if studentId}} {{student.name}} — {{/if}} {{course.name}} — Exercises ({{exercises.length}})
         </h2>
 

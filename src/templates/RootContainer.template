@@ -12,7 +12,7 @@
 
     <div class='row header'>
 
-        <h2 class='col-md-8'>
+        <h2 class='col-md-5'>
             Instances ({{instances.length}})
         </h2>
 
