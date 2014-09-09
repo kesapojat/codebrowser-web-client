@@ -16,7 +16,6 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         'click #diff':          'diff',
         'click #level':         'level',
         'click #play':          'playback',
-        'click #stop':          'stop',
 
         'click #first':         'first',
         'click #previous':      'previous',
