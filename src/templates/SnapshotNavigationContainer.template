@@ -2,11 +2,11 @@
 
     <div class='col-md-6'>
 
-        <button id='toggleBrowser' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>
-        <button id='split' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>
-        <button id='diff' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>
-        <button id='level' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>
-        <button id='play' type='button' class='btn btn-default' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>
+        <button id='toggleBrowser' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>
+        <button id='split' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>
+        <button id='diff' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>
+        <button id='level' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>
+        <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>
 
     </div>
 
@@ -14,10 +14,10 @@
 
         <div class='row'>
 
-            <div class='col-md-4 current-index'>{{current}} / {{total}}</div>
+            <div class='col-md-5 current-index'>{{current}} / {{total}}</div>
 
-            <div class='col-md-8'>
-                <div class='btn-group pull-right'>
+            <div class='col-md-7'>
+                <div class='btn-group btn-group-sm pull-right'>
                     <button type='button' id='first' class='btn btn-default'>First</button>
                     <button type='button' id='previous' class='btn btn-default'>Previous</button>
                     <button type='button' id='next' class='btn btn-default'>Next</button>
