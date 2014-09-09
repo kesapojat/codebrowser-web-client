@@ -15,6 +15,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         'click #split':         'split',
         'click #diff':          'diff',
         'click #level':         'level',
+        'click #play':          'playback',
+        'click #stop':          'stop',
+
         'click #first':         'first',
         'click #previous':      'previous',
         'click #next':          'next',
@@ -29,6 +32,10 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
     /* Browser */
 
     browser: true,
+
+    /* Playback */
+
+    play: false,
 
     /* Initialise */
 
@@ -139,6 +146,16 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         // Key-level, set button as active
         if (this.collection.isKeyLevel()) {
             $('#level', navigationContainerOutput).addClass('active');
+        }
+
+        // Code-level, do not show play-button
+        if (this.collection.isCodeLevel()) {
+            $('#play', navigationContainerOutput).hide();
+        }
+
+        // Playback on, change play-button to stop-button
+        if (this.play) {
+            $('#play i', navigationContainerOutput).toggleClass('icon-stop', 'icon-play');
         }
 
         // First snapshot, disable the buttons for first and previous
@@ -282,6 +299,28 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         this.collection.level = this.collection.isCodeLevel() ? 'key' : 'code';
         this.navigate();
+    },
+
+    playback: function () {
+
+        // Pressed button in playback-mode, stop playing
+        if (this.play) {
+
+            clearInterval(this.playId);
+            this.play = false;
+
+        } else {
+
+            this.play = true;
+            var self = this;
+
+            this.playId = setInterval(function() {
+
+                self.next();
+            }, 1000);
+        }
+
+        this.render();
     },
 
     /* Actions - Navigation */
