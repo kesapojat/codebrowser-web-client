@@ -221,13 +221,11 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         // Navigate automatically to new or modified file in playback-mode
         if (this.play) {
 
-            var current = $('#snapshot-files-container ul li.active a').attr('href');
-            var url = $('#snapshot-files-container ul li.new a').attr('href') ||
+            var current = $('#snapshot-files-container ul li.active a').attr('href'),
+                url = $('#snapshot-files-container ul li.new a').attr('href') ||
                       $('#snapshot-files-container ul li.modified a').attr('href');
 
-
             if (url && current !== url) {
-
                 codebrowser.app.snapshot.navigate(url.substring(2), { replace: true });
                 return;
             }
@@ -332,6 +330,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             this.playId = setInterval(function() {
 
                 self.next();
+
             }, 1000);
         }
 
