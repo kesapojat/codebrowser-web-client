@@ -1,12 +1,14 @@
-<div class='pull-right'>
+<div class='col-md-4'>
 
-    <div class='input-append'>
+    <div class='input-group'>
 
-        <input type='text' class='span2' placeholder='Search' data-id='query-string' value='{{query}}' />
+        <input type='text' class='form-control' placeholder='Search' data-id='query-string' value='{{query}}' />
 
-        <button class='btn' data-action='search' title='Search'>
-            <i class='icon-search'></i>
-        </button>
+        <span class='input-group-btn'>
+            <button class='btn btn-default' type='button' data-action='search' title='Search'>
+                <span class='glyphicon glyphicon-search'></span>
+            </button>
+        </span>
 
     </div>
 

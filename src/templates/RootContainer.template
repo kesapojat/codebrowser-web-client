@@ -1,42 +1,54 @@
 <section>
 
-    <ul class='breadcrumb'>
+    <div class='row'>
 
-        <li class='active'>Home</li>
+        <ol class='breadcrumb'>
 
-    </ul>
+            <li class='active'>Home</li>
 
-    <h2>
-        Instances ({{instances.length}})
+        </ol>
+
+    </div>
+
+    <div class='row header'>
+
+        <h2 class='col-md-8'>
+            Instances ({{instances.length}})
+        </h2>
 
         {{> search}}
-    </h2>
 
-    <table class='table table-hover'>
+    </div>
 
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-            </tr>
-        </thead>
+    <div class='row'>
 
-        <tbody>
+        <table class='table table-hover'>
 
-            {{#instances}}
-
+            <thead>
                 <tr>
-
-                    <td class='index'>{{index @index}}</td>
-
-                    <td class='link'><a href='./#/{{id}}'>{{id}}</a></td>
-
+                    <th>#</th>
+                    <th>Name</th>
                 </tr>
+            </thead>
 
-            {{/instances}}
+            <tbody>
 
-        </tbody>
+                {{#instances}}
 
-    </table>
+                    <tr>
+
+                        <td class='index'>{{index @index}}</td>
+
+                        <td class='link'><a href='./#/{{id}}'>{{id}}</a></td>
+
+                    </tr>
+
+                {{/instances}}
+
+            </tbody>
+
+        </table>
+
+    </div>
 
 </section>

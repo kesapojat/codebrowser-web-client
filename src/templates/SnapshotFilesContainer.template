@@ -1,16 +1,16 @@
 <header>
 
-    <h1><i class='icon-folder-close icon-gray'></i> {{exercise.name}}</h1>
+    <h1><span class='glyphicon glyphicon-folder-close icon-gray'></span> {{exercise.name}}</h1>
 
 </header>
 
-<ul>
+<ul class='list-unstyled'>
 
         {{#each files}}
 
             {{#if @key}}
 
-                <li class='folder'><i class='icon-folder-open icon-gray'></i>{{@key}}</li>
+                <li class='folder'><span class='glyphicon glyphicon-folder-open icon-gray'></span> {{@key}}</li>
 
             {{/if}}
 

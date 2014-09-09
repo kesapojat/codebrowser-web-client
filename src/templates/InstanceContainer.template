@@ -1,36 +1,48 @@
 <section>
 
-    <ul class='breadcrumb'>
+    <div class='row'>
 
-        <li><a href='./'>Home</a> <span class='divider'>/</span></li>
-        <li class='active'>{{instance.name}}</li>
+        <ol class='breadcrumb'>
 
-    </ul>
+            <li><a href='./'>Home</a></li>
+            <li class='active'>{{instance.name}}</li>
 
-    <h2>
-        Instance — {{instance.name}}
-    </h2>
+        </ol>
 
-    <table class='table table-hover'>
+    </div>
 
-        <thead>
-            <tr>
-                <th>Navigate</th>
-            </tr>
-        </thead>
+    <div class='row header'>
 
-        <tbody>
+        <h2>
+            Instance — {{instance.name}}
+        </h2>
 
-            <tr>
-                <td class='link'><a href='./#/{{instance.id}}/students'>Students</a></td>
-            </tr>
+    </div>
 
-            <tr>
-                <td class='link'><a href='./#/{{instance.id}}/courses'>Courses</a></td>
-            </tr>
+    <div class='row'>
 
-        </tbody>
+        <table class='table table-hover'>
 
-    </table>
+            <thead>
+                <tr>
+                    <th>Navigate</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td class='link'><a href='./#/{{instance.id}}/students'>Students</a></td>
+                </tr>
+
+                <tr>
+                    <td class='link'><a href='./#/{{instance.id}}/courses'>Courses</a></td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
 
 </section>

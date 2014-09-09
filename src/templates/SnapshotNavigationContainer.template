@@ -1,31 +1,23 @@
 <div class='row'>
 
-    <div class='span3'>
+    <div class='col-md-6'>
 
-        <button id='toggleBrowser' type='button' class='btn' data-toggle='button'><i class='icon-folder icon-gray'></i></button>
-        <button id='split' type='button' class='btn' data-toggle='button'><i class='icon-split-editor icon-gray'></i></button>
-        <button id='diff' type='button' class='btn' data-toggle='button'><i class='icon-diff icon-gray'></i></button>
-        <button id='level' type='button' class='btn' data-toggle='button'><i class='icon-key-level icon-gray'></i></button>
+        <button id='toggleBrowser' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>
+        <button id='split' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>
+        <button id='diff' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>
+        <button id='level' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>
 
     </div>
 
-    <div class='span4 pull-right'>
+    <div class='col-md-5 col-md-offset-1'>
 
-        <div class='row'>
+        <span class='current'>{{current}} / {{total}}</span>
 
-            <div class='span1 text-center'>{{current}} / {{total}}</div>
-
-            <div class='span3'>
-
-                <div class='btn-group pull-right'>
-                    <button type='button' id='first' class='btn'>First</button>
-                    <button type='button' id='previous' class='btn'>Previous</button>
-                    <button type='button' id='next' class='btn'>Next</button>
-                    <button type='button' id='last' class='btn'>Last</button>
-                </div>
-
-            </div>
-
+        <div class='btn-group pull-right'>
+            <button type='button' id='first' class='btn btn-default'>First</button>
+            <button type='button' id='previous' class='btn btn-default'>Previous</button>
+            <button type='button' id='next' class='btn btn-default'>Next</button>
+            <button type='button' id='last' class='btn btn-default'>Last</button>
         </div>
 
     </div>

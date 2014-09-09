@@ -1,6 +1,6 @@
 <div class='row'>
 
-    <div class='span2'>
+    <div class='col-md-2'>
 
         <time>{{date first.timestamp false}}</time>
 
@@ -8,7 +8,7 @@
 
     <div class='center text-center'>. . .</div>
 
-    <div class='span3 pull-right'>
+    <div class='col-md-3 pull-right'>
 
         <time class='pull-right'>{{date last.timestamp false}} (+ {{duration last.timestamp first.timestamp}})</time>
 

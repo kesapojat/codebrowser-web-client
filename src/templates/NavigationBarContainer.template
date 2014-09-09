@@ -1,32 +1,32 @@
 <section>
 
-    <ul class='breadcrumb'>
+    <ol class='breadcrumb'>
 
-        <li><a href='./'>Home</a> <span class='divider'>/</span></li>
-        <li><a href='./#/{{instanceId}}'>{{instanceId}}</a> <span class='divider'>/</span></li>
+        <li><a href='./'>Home</a></li>
+        <li><a href='./#/{{instanceId}}'>{{instanceId}}</a></li>
 
         {{#if courseRoute}}
 
-            <li><a href='./#/{{instanceId}}/courses'>Courses</a> <span class='divider'>/</span></li>
-            <li><a href='./#/{{instanceId}}/courses/{{courseId}}'>{{course.name}}</a> <span class='divider'>/</span></li>
-            <li><a href='./#/{{instanceId}}/courses/{{courseId}}/exercises'>Exercises</a> <span class='divider'>/</span></li>
-            <li><a href='./#/{{instanceId}}/courses/{{courseId}}/exercises/{{exerciseId}}'>{{exercise.name}}</a> <span class='divider'>/</span></li>
-            <li><a href='./#/{{instanceId}}/courses/{{courseId}}/exercises/{{exerciseId}}/students'>Students</a> <span class='divider'>/</span></li>
-            <li><a href='./#/{{instanceId}}/courses/{{courseId}}/exercises/{{exerciseId}}/students/{{studentId}}'>{{student.name}}</a> <span class='divider'>/</span></li>
+            <li><a href='./#/{{instanceId}}/courses'>Courses</a></li>
+            <li><a href='./#/{{instanceId}}/courses/{{courseId}}'>{{course.name}}</a></li>
+            <li><a href='./#/{{instanceId}}/courses/{{courseId}}/exercises'>Exercises</a></li>
+            <li><a href='./#/{{instanceId}}/courses/{{courseId}}/exercises/{{exerciseId}}'>{{exercise.name}}</a></li>
+            <li><a href='./#/{{instanceId}}/courses/{{courseId}}/exercises/{{exerciseId}}/students'>Students</a></li>
+            <li><a href='./#/{{instanceId}}/courses/{{courseId}}/exercises/{{exerciseId}}/students/{{studentId}}'>{{student.name}}</a></li>
 
         {{else}}
 
-            <li><a href='./#/{{instanceId}}/students'>Students</a> <span class='divider'>/</span></li>
-            <li><a href='./#/{{instanceId}}/students/{{studentId}}'>{{student.name}}</a> <span class='divider'>/</span></li>
-            <li><a href='./#/{{instanceId}}/students/{{studentId}}/courses'>Courses</a> <span class='divider'>/</span></li>
-            <li><a href='./#/{{instanceId}}/students/{{studentId}}/courses/{{courseId}}'>{{course.name}}</a> <span class='divider'>/</span></li>
-            <li><a href='./#/{{instanceId}}/students/{{studentId}}/courses/{{courseId}}/exercises'>Exercises</a> <span class='divider'>/</span></li>
-            <li><a href='./#/{{instanceId}}/students/{{studentId}}/courses/{{courseId}}/exercises/{{exerciseId}}'>{{exercise.name}}</a> <span class='divider'>/</span></li>
+            <li><a href='./#/{{instanceId}}/students'>Students</a></li>
+            <li><a href='./#/{{instanceId}}/students/{{studentId}}'>{{student.name}}</a></li>
+            <li><a href='./#/{{instanceId}}/students/{{studentId}}/courses'>Courses</a></li>
+            <li><a href='./#/{{instanceId}}/students/{{studentId}}/courses/{{courseId}}'>{{course.name}}</a></li>
+            <li><a href='./#/{{instanceId}}/students/{{studentId}}/courses/{{courseId}}/exercises'>Exercises</a></li>
+            <li><a href='./#/{{instanceId}}/students/{{studentId}}/courses/{{courseId}}/exercises/{{exerciseId}}'>{{exercise.name}}</a></li>
 
         {{/if}}
 
         <li class='active'>Snapshots</li>
 
-    </ul>
+    </ol>
 
 </section>

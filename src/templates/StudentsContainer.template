@@ -1,60 +1,74 @@
 <section>
 
-    <ul class='breadcrumb'>
-        <li><a href='./'>Home</a> <span class='divider'>/</span></li>
-        <li><a href='./#/{{instanceId}}'>{{instanceId}}</a> <span class='divider'>/</span></li>
+    <div class='row'>
 
-        {{#if course}}
-            <li><a href='./#/{{instanceId}}/courses'>Courses</a> <span class='divider'>/</span></li>
-            <li><a href='./#/{{instanceId}}/courses/{{course.id}}'>{{course.name}}</a> <span class='divider'>/</span></li>
-            <li><a href='./#/{{instanceId}}/courses/{{course.id}}/exercises'>Exercises</a> <span class='divider'>/</span></li>
-            <li><a href='./#/{{instanceId}}/courses/{{course.id}}/exercises/{{exercise.id}}'>{{exercise.name}}</a> <span class='divider'>/</span></li>
-        {{/if}}
+        <ol class='breadcrumb'>
 
-        <li class='active'>Students</li>
-    </ul>
+            <li><a href='./'>Home</a></li>
+            <li><a href='./#/{{instanceId}}'>{{instanceId}}</a></li>
 
-    <h2>
-        {{#if course}} {{course.name}} — {{exercise.name}} — {{/if}} Students ({{students.length}})
+            {{#if course}}
+                <li><a href='./#/{{instanceId}}/courses'>Courses</a></li>
+                <li><a href='./#/{{instanceId}}/courses/{{course.id}}'>{{course.name}}</a></li>
+                <li><a href='./#/{{instanceId}}/courses/{{course.id}}/exercises'>Exercises</a></li>
+                <li><a href='./#/{{instanceId}}/courses/{{course.id}}/exercises/{{exercise.id}}'>{{exercise.name}}</a></li>
+            {{/if}}
+
+            <li class='active'>Students</li>
+
+        </ol>
+
+    </div>
+
+    <div class='row header'>
+
+        <h2 class='col-md-8'>
+            {{#if course}} {{course.name}} — {{exercise.name}} — {{/if}} Students ({{students.length}})
+        </h2>
 
         {{> search}}
-    </h2>
 
-    <table class='table table-hover'>
+    </div>
 
-        <thead>
-            <tr>
+    <div class='row'>
 
-                <th>#</th>
-                <th>Name</th>
+        <table class='table table-hover'>
 
-            </tr>
-        </thead>
-
-        <tbody>
-
-            {{#students}}
-
+            <thead>
                 <tr>
 
-                    <td class='index'>{{index @index}}</td>
-
-                    {{#if ../course}}
-
-                        <td class='link'><a href='./#/{{../../instanceId}}/courses/{{../../course.id}}/exercises/{{../../exercise.id}}/students/{{id}}/snapshots'>{{name}}</a></td>
-
-                    {{else}}
-
-                        <td class='link'><a href='./#/{{../../instanceId}}/students/{{id}}/courses'>{{name}}</a></td>
-
-                    {{/if}}
+                    <th>#</th>
+                    <th>Name</th>
 
                 </tr>
+            </thead>
 
-            {{/students}}
+            <tbody>
 
-        </tbody>
+                {{#students}}
 
-    </table>
+                    <tr>
+
+                        <td class='index'>{{index @index}}</td>
+
+                        {{#if ../course}}
+
+                            <td class='link'><a href='./#/{{../../instanceId}}/courses/{{../../course.id}}/exercises/{{../../exercise.id}}/students/{{id}}/snapshots'>{{name}}</a></td>
+
+                        {{else}}
+
+                            <td class='link'><a href='./#/{{../../instanceId}}/students/{{id}}/courses'>{{name}}</a></td>
+
+                        {{/if}}
+
+                    </tr>
+
+                {{/students}}
+
+            </tbody>
+
+        </table>
+
+    </div>
 
 </section>
