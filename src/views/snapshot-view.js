@@ -218,6 +218,21 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         // Update browser
         this.snapshotBrowserView.update(this.model, this.file, this.courseRoute);
 
+        // Navigate automatically to new or modified file in playback-mode
+        if (this.play) {
+
+            var current = $('#snapshot-files-container ul li.active a').attr('href');
+            var url = $('#snapshot-files-container ul li.new a').attr('href') ||
+                      $('#snapshot-files-container ul li.modified a').attr('href');
+
+
+            if (url && current !== url) {
+
+                codebrowser.app.snapshot.navigate(url.substring(2), { replace: true });
+                return;
+            }
+        }
+
         this.render();
     },
 
