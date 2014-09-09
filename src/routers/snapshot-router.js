@@ -38,7 +38,9 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
             snapshotCollection;
 
         // Snapshot View
-        this.snapshotView = new codebrowser.view.SnapshotView();
+        if (!codebrowser.controller.ViewController.isActive(this.snapshotView)) {
+            this.snapshotView = new codebrowser.view.SnapshotView();
+        }
 
         if (!this.snapshotView.collection || (this.studentId !== studentId || this.exerciseId !== exerciseId)) {
 
