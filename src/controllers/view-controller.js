@@ -9,6 +9,11 @@ codebrowser.controller.ViewController = {
 
     push: function (view, render) {
 
+        // Already active
+        if (this.isActive(view)) {
+            return;
+        }
+
         // Remove previous view
         if (this.view) {
             this.view.remove();

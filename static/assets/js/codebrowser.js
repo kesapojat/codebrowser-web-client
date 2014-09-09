@@ -347,6 +347,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return buffer;
   });
 
+this["Handlebars"]["templates"]["Loading"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<div class='spinner'>\n    <div class='double-bounce1'></div>\n    <div class='double-bounce2'></div>\n</div>\n";
+  });
+
 this["Handlebars"]["templates"]["NavigationBarContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -2836,6 +2845,20 @@ codebrowser.view.InstanceView = codebrowser.view.ListBaseView.extend({
 });
 ;
 
+codebrowser.view.LoadingView = Backbone.View.extend({
+
+    id: 'loading-container',
+    template: Handlebars.templates.Loading,
+
+    /* Render */
+
+    render: function () {
+
+        this.$el.html(this.template());
+    }
+});
+;
+
 codebrowser.view.NotFoundErrorView = codebrowser.view.ErrorView.extend({
 
     model: {
@@ -4186,6 +4209,11 @@ codebrowser.controller.ViewController = {
 
     push: function (view, render) {
 
+        // Already active
+        if (this.isActive(view)) {
+            return;
+        }
+
         // Remove previous view
         if (this.view) {
             this.view.remove();
@@ -4205,6 +4233,8 @@ codebrowser.controller.ViewController = {
 ;
 
 codebrowser.router.BaseRouter = Backbone.Router.extend({
+
+    loadingView: new codebrowser.view.LoadingView(),
 
     routes: {
 
@@ -4244,6 +4274,12 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
     fetchModel: function (model, useCache, onSuccess, options) {
 
         var self = this;
+
+        model.on('request', function () {
+
+            // Loading
+            codebrowser.controller.ViewController.push(self.loadingView, true);
+        });
 
         model.fetch({
 
@@ -4491,22 +4527,6 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
     course: null,
     exercise: null,
 
-    /* Initialise */
-
-    initialize: function () {
-
-        this.setUp();
-    },
-
-    setUp: function () {
-
-        if (!codebrowser.controller.ViewController.isActive(this.snapshotView)) {
-
-            this.snapshotView = new codebrowser.view.SnapshotView();
-            codebrowser.controller.ViewController.push(this.snapshotView);
-        }
-    },
-
     /* Actions */
 
     notFound: function () {
@@ -4522,11 +4542,11 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
     snapshot: function (instanceId, studentId, courseId, exerciseId, snapshotId, fileId, level, options) {
 
-        var self = this;
+        var self = this,
+            snapshotCollection;
 
-        this.setUp();
-
-        var snapshotCollection;
+        // Snapshot View
+        this.snapshotView = new codebrowser.view.SnapshotView();
 
         if (!this.snapshotView.collection || (this.studentId !== studentId || this.exerciseId !== exerciseId)) {
 
@@ -4596,6 +4616,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
             }
 
             fetchSynced();
+
         }, { level: snapshotCollection.level });
 
         // Fetch all related files
@@ -4657,6 +4678,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         snapshot.set('exercise', this.exercise);
         snapshot.set('course', this.course);
 
+        codebrowser.controller.ViewController.push(this.snapshotView);
         this.snapshotView.update(snapshot, fileId);
     }
 });
