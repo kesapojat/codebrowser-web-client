@@ -681,7 +681,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div class='row'>\n\n    <div class='col-md-6'>\n\n        <button id='toggleBrowser' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>\n        <button id='split' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>\n        <button id='diff' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>\n        <button id='level' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>\n        <button id='play' type='button' class='btn btn-default' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>\n\n    </div>\n\n    <div class='col-md-5 col-md-offset-1'>\n\n        <span class='current'>";
+  buffer += "<div class='row'>\n\n    <div class='col-md-6'>\n\n        <button id='toggleBrowser' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>\n        <button id='split' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>\n        <button id='diff' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>\n        <button id='level' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>\n        <button id='play' type='button' class='btn btn-default' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>\n\n    </div>\n\n    <div class='col-md-5 col-md-offset-1'>\n\n        <div class='row'>\n\n            <div class='col-md-4 current-index'>";
   if (helper = helpers.current) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.current); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -689,7 +689,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (helper = helpers.total) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.total); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</span>\n\n        <div class='btn-group pull-right'>\n            <button type='button' id='first' class='btn btn-default'>First</button>\n            <button type='button' id='previous' class='btn btn-default'>Previous</button>\n            <button type='button' id='next' class='btn btn-default'>Next</button>\n            <button type='button' id='last' class='btn btn-default'>Last</button>\n        </div>\n\n    </div>\n\n</div>\n";
+    + "</div>\n\n            <div class='col-md-8'>\n                <div class='btn-group pull-right'>\n                    <button type='button' id='first' class='btn btn-default'>First</button>\n                    <button type='button' id='previous' class='btn btn-default'>Previous</button>\n                    <button type='button' id='next' class='btn btn-default'>Next</button>\n                    <button type='button' id='last' class='btn btn-default'>Last</button>\n                </div>\n            </div>\n\n        </div>\n\n    </div>\n\n</div>\n";
   return buffer;
   });
 
@@ -1007,7 +1007,7 @@ var codebrowser = {
         // Oops! Catch all global unhandled errors
         window.onerror = function (error) {
 
-            var errorView = new codebrowser.view.ErrorView({ model: { class: 'alert-error', message: 'Oops! ' + error } });
+            var errorView = new codebrowser.view.ErrorView({ model: { class: 'alert-danger', message: 'Oops! ' + error } });
             codebrowser.controller.ViewController.push(errorView, true);
         }
 

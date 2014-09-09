@@ -483,9 +483,9 @@ ul.selection a:hover {
 
 }
 
-#snapshot-navigation-container .current {
+#snapshot-navigation-container .current-index {
 
-    margin-left: 90px;
+    text-align: right;
     line-height: 30px;
 
 }
