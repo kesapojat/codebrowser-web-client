@@ -285,6 +285,74 @@ ul.selection a:hover {
 
 }
 
+/* Loading */
+
+@-webkit-keyframes bounce {
+
+    0%, 100% {
+
+        -webkit-transform: scale(0.0);
+
+    }
+
+    50% {
+
+        -webkit-transform: scale(1.0);
+
+    }
+}
+
+@keyframes bounce {
+
+    0%, 100% {
+
+        transform: scale(0.0);
+
+    }
+
+    50% {
+
+        transform: scale(1.0);
+
+    }
+}
+
+/* Spinner, thanks to https://github.com/tobiasahlin/SpinKit/ */
+
+#loading-container .spinner {
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin-left: -20px;
+    margin-top: -20px;
+
+}
+
+#loading-container .spinner .double-bounce1, #loading-container .spinner .double-bounce2 {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    opacity: 0.6;
+    background-color: #333;
+    -webkit-animation: bounce 2.0s infinite ease-in-out;
+    animation: bounce 2.0s infinite ease-in-out;
+
+}
+
+#loading-container .spinner .double-bounce2 {
+
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+
+}
+
 /* Snapshots timeline */
 
 #snapshots-timeline-container {

@@ -1,5 +1,7 @@
 codebrowser.router.BaseRouter = Backbone.Router.extend({
 
+    loadingView: new codebrowser.view.LoadingView(),
+
     routes: {
 
         '':          'root',
@@ -38,6 +40,12 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
     fetchModel: function (model, useCache, onSuccess, options) {
 
         var self = this;
+
+        model.on('request', function () {
+
+            // Loading
+            codebrowser.controller.ViewController.push(self.loadingView, true);
+        });
 
         model.fetch({
 

@@ -19,22 +19,6 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
     course: null,
     exercise: null,
 
-    /* Initialise */
-
-    initialize: function () {
-
-        this.setUp();
-    },
-
-    setUp: function () {
-
-        if (!codebrowser.controller.ViewController.isActive(this.snapshotView)) {
-
-            this.snapshotView = new codebrowser.view.SnapshotView();
-            codebrowser.controller.ViewController.push(this.snapshotView);
-        }
-    },
-
     /* Actions */
 
     notFound: function () {
@@ -50,11 +34,11 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
     snapshot: function (instanceId, studentId, courseId, exerciseId, snapshotId, fileId, level, options) {
 
-        var self = this;
+        var self = this,
+            snapshotCollection;
 
-        this.setUp();
-
-        var snapshotCollection;
+        // Snapshot View
+        this.snapshotView = new codebrowser.view.SnapshotView();
 
         if (!this.snapshotView.collection || (this.studentId !== studentId || this.exerciseId !== exerciseId)) {
 
@@ -124,6 +108,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
             }
 
             fetchSynced();
+
         }, { level: snapshotCollection.level });
 
         // Fetch all related files
@@ -185,6 +170,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         snapshot.set('exercise', this.exercise);
         snapshot.set('course', this.course);
 
+        codebrowser.controller.ViewController.push(this.snapshotView);
         this.snapshotView.update(snapshot, fileId);
     }
 });
