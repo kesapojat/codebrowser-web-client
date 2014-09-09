@@ -16,7 +16,6 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         'click #diff':          'diff',
         'click #level':         'level',
         'click #play':          'playback',
-        'click #stop':          'stop',
 
         'click #first':         'first',
         'click #previous':      'previous',
@@ -155,7 +154,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         // Playback on, change play-button to stop-button
         if (this.play) {
-            $('#play i', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-play');
+            $('#play span', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-play');
         }
 
         // First snapshot, disable the buttons for first and previous
