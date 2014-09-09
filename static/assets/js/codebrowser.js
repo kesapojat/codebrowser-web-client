@@ -681,7 +681,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div class='row'>\n\n    <div class='col-md-6'>\n\n        <button id='toggleBrowser' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>\n        <button id='split' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>\n        <button id='diff' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>\n        <button id='level' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>\n\n    </div>\n\n    <div class='col-md-5 col-md-offset-1'>\n\n        <span class='current'>";
+  buffer += "<div class='row'>\n\n    <div class='col-md-6'>\n\n        <button id='toggleBrowser' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>\n        <button id='split' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>\n        <button id='diff' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>\n        <button id='level' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>\n        <button id='play' type='button' class='btn btn-default' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>\n\n    </div>\n\n    <div class='col-md-5 col-md-offset-1'>\n\n        <span class='current'>";
   if (helper = helpers.current) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.current); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -3161,6 +3161,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         'click #split':         'split',
         'click #diff':          'diff',
         'click #level':         'level',
+        'click #play':          'playback',
+        'click #stop':          'stop',
+
         'click #first':         'first',
         'click #previous':      'previous',
         'click #next':          'next',
@@ -3175,6 +3178,10 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
     /* Browser */
 
     browser: true,
+
+    /* Playback */
+
+    play: false,
 
     /* Initialise */
 
@@ -3287,6 +3294,16 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             $('#level', navigationContainerOutput).addClass('active');
         }
 
+        // Code-level, do not show play-button
+        if (this.collection.isCodeLevel()) {
+            $('#play', navigationContainerOutput).hide();
+        }
+
+        // Playback on, change play-button to stop-button
+        if (this.play) {
+            $('#play i', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-play');
+        }
+
         // First snapshot, disable the buttons for first and previous
         if (index === 0) {
             $('#first', navigationContainerOutput).attr('disabled', true);
@@ -3346,6 +3363,21 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         // Update browser
         this.snapshotBrowserView.update(this.model, this.file, this.courseRoute);
+
+        // Navigate automatically to new or modified file in playback-mode
+        if (this.play) {
+
+            var current = $('#snapshot-files-container ul li.active a').attr('href');
+            var url = $('#snapshot-files-container ul li.new a').attr('href') ||
+                      $('#snapshot-files-container ul li.modified a').attr('href');
+
+
+            if (url && current !== url) {
+
+                codebrowser.app.snapshot.navigate(url.substring(2), { replace: true });
+                return;
+            }
+        }
 
         this.render();
     },
@@ -3428,6 +3460,28 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         this.collection.level = this.collection.isCodeLevel() ? 'key' : 'code';
         this.navigate();
+    },
+
+    playback: function () {
+
+        // Pressed button in playback-mode, stop playing
+        if (this.play) {
+
+            clearInterval(this.playId);
+            this.play = false;
+
+        } else {
+
+            this.play = true;
+            var self = this;
+
+            this.playId = setInterval(function() {
+
+                self.next();
+            }, 1000);
+        }
+
+        this.render();
     },
 
     /* Actions - Navigation */

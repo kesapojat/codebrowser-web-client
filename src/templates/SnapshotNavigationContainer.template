@@ -6,6 +6,7 @@
         <button id='split' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>
         <button id='diff' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>
         <button id='level' type='button' class='btn btn-default' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>
+        <button id='play' type='button' class='btn btn-default' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>
 
     </div>
 
