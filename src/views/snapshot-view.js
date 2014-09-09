@@ -22,8 +22,6 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
     },
 
-    /* Navigation */
-
     /* Routing */
 
     courseRoute: false,
