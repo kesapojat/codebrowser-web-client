@@ -681,7 +681,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div class='row'>\n\n    <div class='col-md-6'>\n\n        <div class='row'>\n\n            <div class='col-md-4'>\n\n                <button id='toggleBrowser' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>\n                <button id='split' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>\n                <button id='diff' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>\n                <button id='level' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>\n                <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>\n\n            </div>\n\n            <div class='col-md-2'>\n\n                <select class='form-control input-sm pull-left' id='speed'>\n                    <option>0.25</option>\n                    <option>0.5</option>\n                    <option selected>1</option>\n                    <option>2</option>\n                    <option>4</option>\n                    <option>8</option>\n                    <option>16</option>\n                    <option>32</option>\n                </select>\n\n            </div>\n\n        </div>\n\n\n    </div>\n\n    <div class='col-md-5 col-md-offset-1'>\n\n        <div class='row'>\n\n            <div class='col-md-5 current-index'>";
+  buffer += "<div class='row'>\n\n    <div class='col-md-6'>\n\n        <div class='row'>\n\n            <div class='col-md-4'>\n\n                <button id='toggleBrowser' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>\n                <button id='split' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>\n                <button id='diff' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>\n                <button id='level' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>\n                <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>\n\n            </div>\n\n            <div class='col-md-2'>\n\n                <select id='speed' class='form-control input-sm pull-left'>\n                    <option>0.25</option>\n                    <option>0.5</option>\n                    <option selected>1</option>\n                    <option>2</option>\n                    <option>4</option>\n                    <option>8</option>\n                    <option>16</option>\n                    <option>32</option>\n                </select>\n\n            </div>\n\n        </div>\n\n    </div>\n\n    <div class='col-md-4 col-md-offset-2'>\n\n        <div class='pull-right'>\n\n            <div class='current-index'>";
   if (helper = helpers.current) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.current); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -689,7 +689,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (helper = helpers.total) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.total); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</div>\n\n            <div class='col-md-7'>\n                <div class='btn-group btn-group-sm pull-right'>\n                    <button type='button' id='first' class='btn btn-default'>First</button>\n                    <button type='button' id='previous' class='btn btn-default'>Previous</button>\n                    <button type='button' id='next' class='btn btn-default'>Next</button>\n                    <button type='button' id='last' class='btn btn-default'>Last</button>\n                </div>\n            </div>\n\n        </div>\n\n    </div>\n\n</div>\n";
+    + "</div>\n\n            <div class='btn-group btn-group-sm'>\n                <button type='button' id='first' class='btn btn-default'>First</button>\n                <button type='button' id='previous' class='btn btn-default'>Previous</button>\n                <button type='button' id='next' class='btn btn-default'>Next</button>\n                <button type='button' id='last' class='btn btn-default'>Last</button>\n            </div>\n\n        </div>\n\n    </div>\n\n</div>\n";
   return buffer;
   });
 
@@ -4000,6 +4000,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
         // No need to clear after first render
         if (!this.rendered) {
+
             this.snapshotElements = [];
 
             // Clear paper
@@ -4077,8 +4078,6 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
         // No need to render after first time
         if (!this.rendered) {
-
-            // Render timeline
            this.renderTimeline(leftOffset, y, x);
         }
 
@@ -4126,7 +4125,6 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
         // Render if user is not dragging
         if (!this.dragging) {
-
             this.render();
             this.rendered = true;
         }

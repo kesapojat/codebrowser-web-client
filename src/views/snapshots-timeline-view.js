@@ -412,6 +412,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
         // No need to clear after first render
         if (!this.rendered) {
+
             this.snapshotElements = [];
 
             // Clear paper
@@ -489,8 +490,6 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
         // No need to render after first time
         if (!this.rendered) {
-
-            // Render timeline
            this.renderTimeline(leftOffset, y, x);
         }
 
@@ -538,7 +537,6 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
         // Render if user is not dragging
         if (!this.dragging) {
-
             this.render();
             this.rendered = true;
         }

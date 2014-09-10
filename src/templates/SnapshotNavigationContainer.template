@@ -16,7 +16,7 @@
 
             <div class='col-md-2'>
 
-                <select class='form-control input-sm pull-left' id='speed'>
+                <select id='speed' class='form-control input-sm pull-left'>
                     <option>0.25</option>
                     <option>0.5</option>
                     <option selected>1</option>
@@ -31,22 +31,19 @@
 
         </div>
 
-
     </div>
 
-    <div class='col-md-5 col-md-offset-1'>
+    <div class='col-md-4 col-md-offset-2'>
 
-        <div class='row'>
+        <div class='pull-right'>
 
-            <div class='col-md-5 current-index'>{{current}} / {{total}}</div>
+            <div class='current-index'>{{current}} / {{total}}</div>
 
-            <div class='col-md-7'>
-                <div class='btn-group btn-group-sm pull-right'>
-                    <button type='button' id='first' class='btn btn-default'>First</button>
-                    <button type='button' id='previous' class='btn btn-default'>Previous</button>
-                    <button type='button' id='next' class='btn btn-default'>Next</button>
-                    <button type='button' id='last' class='btn btn-default'>Last</button>
-                </div>
+            <div class='btn-group btn-group-sm'>
+                <button type='button' id='first' class='btn btn-default'>First</button>
+                <button type='button' id='previous' class='btn btn-default'>Previous</button>
+                <button type='button' id='next' class='btn btn-default'>Next</button>
+                <button type='button' id='last' class='btn btn-default'>Last</button>
             </div>
 
         </div>
