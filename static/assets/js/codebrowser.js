@@ -681,7 +681,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div class='row'>\n\n    <div class='col-md-6'>\n\n        <button id='toggleBrowser' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>\n        <button id='split' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>\n        <button id='diff' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>\n        <button id='level' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>\n        <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>\n\n    </div>\n\n    <div class='col-md-4 col-md-offset-2'>\n\n        <div class='pull-right'>\n\n            <div class='current-index'>";
+  buffer += "<div class='row'>\n\n    <div class='col-md-6'>\n\n        <div class='row'>\n\n            <div class='col-md-4'>\n\n                <button id='toggleBrowser' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>\n                <button id='split' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>\n                <button id='diff' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>\n                <button id='level' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>\n                <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>\n\n            </div>\n\n            <div class='col-md-2'>\n\n                <select class='form-control input-sm pull-left' id='speed'>\n                    <option>0.25</option>\n                    <option>0.5</option>\n                    <option selected>1</option>\n                    <option>2</option>\n                    <option>4</option>\n                </select>\n\n            </div>\n\n        </div>\n\n\n    </div>\n\n    <div class='col-md-4 col-md-offset-2'>\n\n        <div class='pull-right'>\n\n            <div class='current-index'>";
   if (helper = helpers.current) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.current); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -3268,6 +3268,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         // Template for navigation container
         var navigationContainerOutput = $(this.template.navigationContainer(attributes));
 
+        // Remember previously set playback speed
+        var selectedSpeed = $('#speed').val() || 1;
+
         // Browser is enabled, set toggleBrowser button as active
         if (this.browser) {
             $('#toggleBrowser', navigationContainerOutput).addClass('active');
@@ -3320,6 +3323,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         // Update navigation container
         this.navigationContainer.html(navigationContainerOutput);
+
+        // Set selected speed
+        $('#speed', this.navigationContainer).val(selectedSpeed);
     },
 
     /* Update */
@@ -3374,6 +3380,12 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
                 codebrowser.app.snapshot.navigate(url.substring(2), { replace: true });
                 return;
             }
+        }
+
+        // Resume playback
+        if (this.play && !this.playId) {
+            this.play = false;
+            this.playback();
         }
 
         this.render();
@@ -3469,6 +3481,8 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         } else {
 
+            var multiplier = $('#speed', this.navigationContainerOutput).val();
+
             this.play = true;
             var self = this;
 
@@ -3476,10 +3490,11 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
                 self.next();
 
-            }, 1000);
+            }, 1000 / multiplier);
         }
 
         this.render();
+        return;
     },
 
     /* Actions - Navigation */
@@ -3498,6 +3513,12 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
     },
 
     navigate: function (snapshot, file, options) {
+
+        // Pause playback until navigation is complete
+        if (this.play && this.playId) {
+            clearInterval(this.playId);
+            this.playId = null;
+        }
 
         if (!snapshot) {
 
@@ -3977,14 +3998,17 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
     render: function () {
 
-        this.snapshotElements = [];
+        // No need to clear after first render
+        if (!this.rendered) {
+            this.snapshotElements = [];
+
+            // Clear paper
+            this.paper.clear();
+        }
 
         // Limit minimum to 1 minute and maximum to 5 minutes
         var min = Math.min(60000, this.collection.getMinDuration()),
             max = Math.min(300000, this.collection.getMaxDuration());
-
-        // Clear paper
-        this.paper.clear();
 
         // Center point
         var y = this.paper.height / 2 + 3,
@@ -4025,23 +4049,38 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
             var previousSnapshot = self.collection.at(index - 1);
 
-            // Render duration between snapshots
-            self.renderDuration(previousSnapshot, snapshot, x, y, radius, distance);
+            // No need to render after first time
+            if (!self.rendered) {
 
-            // Render snapshot
-            var snapshotElement = self.renderSnapshot(snapshot, index, x, y, radius);
-            self.snapshotElements.push(snapshotElement);
+                // Render duration between snapshots
+                self.renderDuration(previousSnapshot, snapshot, x, y, radius, distance);
+
+                // Render snapshot
+                var snapshotElement = self.renderSnapshot(snapshot, index, x, y, radius);
+                self.snapshotElements.push(snapshotElement);
+            }
 
             // Current snapshot
             if (index === self.currentSnapshotIndex) {
+
+                // Remove pointer
+                if (self.pointerSet) {
+                    self.pointerSet.items[0].remove();
+                    self.pointerSet.items[1].remove();
+                    self.pointerSet.items[2].remove();
+                }
 
                 // Render pointer on current snapshot
                 self.renderPointer(x, radius);
             }
         });
 
-        // Render timeline
-        this.renderTimeline(leftOffset, y, x);
+        // No need to render after first time
+        if (!this.rendered) {
+
+            // Render timeline
+           this.renderTimeline(leftOffset, y, x);
+        }
 
         // Absolute width
         this.width = leftOffset + x + rightOffset;
@@ -4087,7 +4126,9 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
         // Render if user is not dragging
         if (!this.dragging) {
+
             this.render();
+            this.rendered = true;
         }
     },
 
