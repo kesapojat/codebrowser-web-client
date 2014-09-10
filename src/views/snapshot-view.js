@@ -122,6 +122,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         // Template for navigation container
         var navigationContainerOutput = $(this.template.navigationContainer(attributes));
 
+        // Remember previously set playback speed
+        var selectedSpeed = $('#speed').val() || 1;
+
         // Browser is enabled, set toggleBrowser button as active
         if (this.browser) {
             $('#toggleBrowser', navigationContainerOutput).addClass('active');
@@ -174,6 +177,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         // Update navigation container
         this.navigationContainer.html(navigationContainerOutput);
+
+        // Set selected speed
+        $('#speed', this.navigationContainer).val(selectedSpeed);
     },
 
     /* Update */
@@ -323,6 +329,8 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         } else {
 
+            var multiplier = $('#speed', this.navigationContainerOutput).val();
+
             this.play = true;
             var self = this;
 
@@ -330,7 +338,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
                 self.next();
 
-            }, 1000);
+            }, 1000 / multiplier);
         }
 
         this.render();

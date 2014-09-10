@@ -681,7 +681,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div class='row'>\n\n    <div class='col-md-6'>\n\n        <button id='toggleBrowser' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>\n        <button id='split' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>\n        <button id='diff' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>\n        <button id='level' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>\n        <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>\n\n    </div>\n\n    <div class='col-md-5 col-md-offset-1'>\n\n        <div class='row'>\n\n            <div class='col-md-5 current-index'>";
+  buffer += "<div class='row'>\n\n    <div class='col-md-6'>\n\n        <div class='row'>\n\n            <div class='col-md-4'>\n\n                <button id='toggleBrowser' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>\n                <button id='split' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>\n                <button id='diff' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>\n                <button id='level' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>\n                <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>\n\n            </div>\n\n            <div class='col-md-2'>\n\n                <select class='form-control input-sm pull-left' id='speed'>\n                    <option>0.25</option>\n                    <option>0.5</option>\n                    <option selected>1</option>\n                    <option>2</option>\n                    <option>4</option>\n                </select>\n\n            </div>\n\n        </div>\n\n\n    </div>\n\n    <div class='col-md-5 col-md-offset-1'>\n\n        <div class='row'>\n\n            <div class='col-md-5 current-index'>";
   if (helper = helpers.current) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.current); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -3268,6 +3268,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         // Template for navigation container
         var navigationContainerOutput = $(this.template.navigationContainer(attributes));
 
+        // Remember previously set playback speed
+        var selectedSpeed = $('#speed').val() || 1;
+
         // Browser is enabled, set toggleBrowser button as active
         if (this.browser) {
             $('#toggleBrowser', navigationContainerOutput).addClass('active');
@@ -3320,6 +3323,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         // Update navigation container
         this.navigationContainer.html(navigationContainerOutput);
+
+        // Set selected speed
+        $('#speed', this.navigationContainer).val(selectedSpeed);
     },
 
     /* Update */
@@ -3469,6 +3475,8 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         } else {
 
+            var multiplier = $('#speed', this.navigationContainerOutput).val();
+
             this.play = true;
             var self = this;
 
@@ -3476,7 +3484,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
                 self.next();
 
-            }, 1000);
+            }, 1000 / multiplier);
         }
 
         this.render();
