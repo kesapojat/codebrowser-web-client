@@ -51,7 +51,7 @@
 .icon-gray {
 
     color: black;
-    opacity: 0.6;
+    opacity: 0.5;
 
 }
 
@@ -491,6 +491,12 @@ ul.selection a:hover {
 
 }
 
+#snapshot-navigation-container .icon-gray {
+
+    opacity: 0.6;
+
+}
+
 #snapshot-navigation-container #speed {
 
     display: inline-block;
@@ -512,8 +518,8 @@ ul.selection a:hover {
 
     float: left;
     padding: 0 10px 10px 10px;
-    width: 200px;
-    border-top: 4px solid rgba(0, 0, 0, 0.1);
+    width: 300px;
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
 
 }
 
@@ -542,6 +548,12 @@ ul.selection a:hover {
 
 }
 
+#snapshot-files-container .icon-gray {
+
+    margin-right: 5px;
+
+}
+
 #snapshot-files-container ul {
 
     margin: 0;
@@ -561,7 +573,7 @@ ul.selection a:hover {
 
 #snapshot-files-container ul li.folder {
 
-    font-weight: 400;
+    font-weight: 500;
 
 }
 
