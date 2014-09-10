@@ -546,15 +546,16 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
     didResize: function () {
 
-        // Rendering finished
-        if (this.snapshotElements.length === this.collection.length) {
-
-            // Cx of the current snapshot element
-            var cx = this.snapshotElements[this.currentSnapshotIndex].attr('cx');
-
-            this.render();
-            this.centerOn(cx);
+        // No snapshots
+        if (this.snapshotElements.length === 0) {
+            return;
         }
+
+        // Cx of the current snapshot element
+        var cx = this.snapshotElements[this.currentSnapshotIndex].attr('cx');
+
+        this.render();
+        this.centerOn(cx);
     },
 
     dragStart: function () {

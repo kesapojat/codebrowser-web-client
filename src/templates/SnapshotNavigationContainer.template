@@ -2,31 +2,19 @@
 
     <div class='col-md-6'>
 
-        <div class='row'>
+        <button id='toggleBrowser' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>
+        <button id='split' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>
+        <button id='diff' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>
+        <button id='level' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>
+        <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>
 
-            <div class='col-md-4'>
-
-                <button id='toggleBrowser' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>
-                <button id='split' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>
-                <button id='diff' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>
-                <button id='level' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>
-                <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>
-
-            </div>
-
-            <div class='col-md-2'>
-
-                <select id='speed' class='form-control input-sm pull-left'>
-                    <option>0.25</option>
-                    <option>0.5</option>
-                    <option selected>1</option>
-                    <option>2</option>
-                    <option>4</option>
-                </select>
-
-            </div>
-
-        </div>
+        <select id='speed' class='form-control input-sm'>
+            <option>0.25</option>
+            <option>0.5</option>
+            <option selected>1</option>
+            <option>2</option>
+            <option>4</option>
+        </select>
 
     </div>
 

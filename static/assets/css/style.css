@@ -51,7 +51,7 @@
 .icon-gray {
 
     color: black;
-    opacity: 0.5;
+    opacity: 0.6;
 
 }
 
@@ -488,6 +488,14 @@ ul.selection a:hover {
 #snapshot-navigation-container {
 
     height: 30px;
+
+}
+
+#snapshot-navigation-container #speed {
+
+    display: inline-block;
+    margin-left: 10px;
+    width: 60px;
 
 }
 
