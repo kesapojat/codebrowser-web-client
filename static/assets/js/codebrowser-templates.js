@@ -678,10 +678,18 @@ function program7(depth0,data,depth3) {
 this["Handlebars"]["templates"]["SnapshotNavigationContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
+  var buffer = "", stack1, helper, self=this, functionType="function", escapeExpression=this.escapeExpression;
 
+function program1(depth0,data) {
+  
+  
+  return "\n\n            <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>\n\n            <select id='speed' class='form-control input-sm'>\n                <option>0.25</option>\n                <option>0.5</option>\n                <option selected>1</option>\n                <option>2</option>\n                <option>4</option>\n                <option>8</option>\n                <option>16</option>\n                <option>32</option>\n            </select>\n\n        ";
+  }
 
-  buffer += "<div class='row'>\n\n    <div class='col-md-6'>\n\n        <button id='toggleBrowser' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>\n        <button id='split' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>\n        <button id='diff' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>\n        <button id='level' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>\n        <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>\n\n        <select id='speed' class='form-control input-sm'>\n            <option>0.25</option>\n            <option>0.5</option>\n            <option selected>1</option>\n            <option>2</option>\n            <option>4</option>\n            <option>8</option>\n            <option>16</option>\n            <option>32</option>\n        </select>\n\n    </div>\n\n    <div class='col-md-4 col-md-offset-2'>\n\n        <div class='pull-right'>\n\n            <div class='current-index'>";
+  buffer += "<div class='row'>\n\n    <div class='col-md-6'>\n\n        <button id='toggleBrowser' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>\n        <button id='split' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>\n        <button id='diff' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>\n        <button id='level' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>\n\n        ";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.keyLevel), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n\n    </div>\n\n    <div class='col-md-4 col-md-offset-2'>\n\n        <div class='pull-right'>\n\n            <div class='current-index'>";
   if (helper = helpers.current) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.current); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)

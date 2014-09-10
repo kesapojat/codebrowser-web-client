@@ -108,7 +108,8 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         var attributes = {
 
             current: index + 1,
-            total: this.collection.length
+            total: this.collection.length,
+            keyLevel: this.collection.isKeyLevel()
 
         }
 
@@ -148,11 +149,6 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         // Key-level, set button as active
         if (this.collection.isKeyLevel()) {
             $('#level', navigationContainerOutput).addClass('active');
-        }
-
-        // Code-level, do not show play-button
-        if (this.collection.isCodeLevel()) {
-            $('#play', navigationContainerOutput).hide();
         }
 
         // Playback on, change play-button to stop-button
@@ -322,6 +318,8 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
     level: function () {
 
         this.collection.level = this.collection.isCodeLevel() ? 'key' : 'code';
+        this.snapshotsTimelineView.rendered = false;
+
         this.navigate();
     },
 
