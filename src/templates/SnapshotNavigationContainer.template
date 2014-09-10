@@ -6,18 +6,23 @@
         <button id='split' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>
         <button id='diff' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>
         <button id='level' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>
-        <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>
 
-        <select id='speed' class='form-control input-sm'>
-            <option>0.25</option>
-            <option>0.5</option>
-            <option selected>1</option>
-            <option>2</option>
-            <option>4</option>
-            <option>8</option>
-            <option>16</option>
-            <option>32</option>
-        </select>
+        {{#if keyLevel}}
+
+            <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>
+
+            <select id='speed' class='form-control input-sm'>
+                <option>0.25</option>
+                <option>0.5</option>
+                <option selected>1</option>
+                <option>2</option>
+                <option>4</option>
+                <option>8</option>
+                <option>16</option>
+                <option>32</option>
+            </select>
+
+        {{/if}}
 
     </div>
 
