@@ -150,7 +150,7 @@ a .icon-gray:hover {
 .row.header {
 
     margin-bottom: 20px;
-    border-bottom: 4px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 
 }
 
@@ -180,13 +180,14 @@ ul.selection a:hover {
 
 .table th {
 
-    font-weight: 400;
+    font-weight: 500;
 
 }
 
-.table td.index {
+.table th.index, td.index {
 
     width: 25px;
+    color: rgba(0, 0, 0, 0.4);
 
 }
 
@@ -200,14 +201,14 @@ ul.selection a:hover {
 
     display: block;
     padding: 8px;
-    color: rgba(0, 0, 0, 0.6);
+    color: rgba(0, 0, 0, 0.8);
     text-decoration: none;
 
 }
 
 .table td a:hover {
 
-    color: rgba(0, 0, 0, 0.8);
+    color: rgb(60, 60, 60);
 
 }
 
@@ -245,7 +246,13 @@ ul.selection a:hover {
 
 .breadcrumb a:hover {
 
-    color: rgb(100, 100, 100);
+    color: rgb(60, 60, 60);
+
+}
+
+.breadcrumb .active {
+
+    color: rgb(60, 60, 60);
 
 }
 
@@ -279,6 +286,7 @@ ul.selection a:hover {
     height: 30px;
     background-size: 100%;
     background-image: url('../img/code-browser.png');
+    opacity: 0.2;
 
 }
 

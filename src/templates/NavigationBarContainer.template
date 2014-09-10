@@ -2,7 +2,7 @@
 
     <ol class='breadcrumb'>
 
-        <li><a href='./'>Home</a></li>
+        <li><a href='./'>Instances</a></li>
         <li><a href='./#/{{instanceId}}'>{{instanceId}}</a></li>
 
         {{#if courseRoute}}

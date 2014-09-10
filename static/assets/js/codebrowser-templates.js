@@ -83,7 +83,7 @@ function program8(depth0,data,depth2) {
   return buffer;
   }
 
-  buffer += "<section>\n\n    <div class='row'>\n\n        <ol class='breadcrumb'>\n\n            <li><a href='./'>Home</a></li>\n            <li><a href='./#/";
+  buffer += "<section>\n\n    <div class='row'>\n\n        <ol class='breadcrumb'>\n\n            <li><a href='./'>Instances</a></li>\n            <li><a href='./#/";
   if (helper = helpers.instanceId) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.instanceId); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -94,7 +94,7 @@ function program8(depth0,data,depth2) {
     + "</a></li>\n\n            ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.studentId), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n            <li class='active'>Courses</li>\n\n        </ol>\n\n    </div>\n\n    <div class='row header'>\n\n        <h2 class='col-md-5'>\n            ";
+  buffer += "\n\n            <li class='active'>Courses</li>\n\n        </ol>\n\n    </div>\n\n    <div class='row header'>\n\n        <h2 class='col-md-9'>\n            ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.studentId), {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += " Courses ("
@@ -102,7 +102,7 @@ function program8(depth0,data,depth2) {
     + ")\n        </h2>\n\n        ";
   stack1 = self.invokePartial(partials.search, 'search', depth0, helpers, partials, data);
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n    </div>\n\n    <div class='row'>\n\n        <table class='table table-hover'>\n\n            <thead>\n                <tr>\n                    <th>#</th>\n                    <th>Name</th>\n                </tr>\n            </thead>\n\n            <tbody>\n\n                ";
+  buffer += "\n\n    </div>\n\n    <div class='row'>\n\n        <table class='table table-hover'>\n\n            <thead>\n                <tr>\n                    <th class='index'>#</th>\n                    <th>Name</th>\n                </tr>\n            </thead>\n\n            <tbody>\n\n                ";
   options={hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth0),data:data}
   if (helper = helpers.courses) { stack1 = helper.call(depth0, options); }
   else { helper = (depth0 && depth0.courses); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
@@ -278,7 +278,7 @@ function program10(depth0,data,depth2) {
   return buffer;
   }
 
-  buffer += "<section>\n\n    <div class='row'>\n\n        <ol class='breadcrumb'>\n\n            <li><a href='./'>Home</a></li>\n            <li><a href='./#/";
+  buffer += "<section>\n\n    <div class='row'>\n\n        <ol class='breadcrumb'>\n\n            <li><a href='./'>Instances</a></li>\n            <li><a href='./#/";
   if (helper = helpers.instanceId) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.instanceId); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -309,7 +309,7 @@ function program10(depth0,data,depth2) {
   buffer += escapeExpression(stack1)
     + "'>"
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.course)),stack1 == null || stack1 === false ? stack1 : stack1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</a></li>\n            <li class='active'>Exercises</li>\n\n        </ol>\n\n    </div>\n\n    <div class='row header'>\n\n        <h2 class='col-md-5'>\n            ";
+    + "</a></li>\n            <li class='active'>Exercises</li>\n\n        </ol>\n\n    </div>\n\n    <div class='row header'>\n\n        <h2 class='col-md-9'>\n            ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.studentId), {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += " "
@@ -319,7 +319,7 @@ function program10(depth0,data,depth2) {
     + ")\n        </h2>\n\n        ";
   stack1 = self.invokePartial(partials.search, 'search', depth0, helpers, partials, data);
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n    </div>\n\n    <div class='row'>\n\n        <table class='table table-hover'>\n\n            <thead>\n                <tr>\n                    <th>#</th>\n                    <th>Name</th>\n                </tr>\n            </thead>\n\n            <tbody>\n\n                ";
+  buffer += "\n\n    </div>\n\n    <div class='row'>\n\n        <table class='table table-hover'>\n\n            <thead>\n                <tr>\n                    <th class='index'>#</th>\n                    <th>Name</th>\n                </tr>\n            </thead>\n\n            <tbody>\n\n                ";
   options={hash:{},inverse:self.noop,fn:self.programWithDepth(7, program7, data, depth0),data:data}
   if (helper = helpers.exercises) { stack1 = helper.call(depth0, options); }
   else { helper = (depth0 && depth0.exercises); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
@@ -335,11 +335,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<section>\n\n    <div class='row'>\n\n        <ol class='breadcrumb'>\n\n            <li><a href='./'>Home</a></li>\n            <li class='active'>"
+  buffer += "<section>\n\n    <div class='row'>\n\n        <ol class='breadcrumb'>\n\n            <li><a href='./'>Instances</a></li>\n            <li class='active'>"
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.instance)),stack1 == null || stack1 === false ? stack1 : stack1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</li>\n\n        </ol>\n\n    </div>\n\n    <div class='row header'>\n\n        <h2>\n            Instance — "
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.instance)),stack1 == null || stack1 === false ? stack1 : stack1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\n        </h2>\n\n    </div>\n\n    <div class='row'>\n\n        <table class='table table-hover'>\n\n            <thead>\n                <tr>\n                    <th>Navigate</th>\n                </tr>\n            </thead>\n\n            <tbody>\n\n                <tr>\n                    <td class='link'><a href='./#/"
+    + "\n        </h2>\n\n    </div>\n\n    <div class='row'>\n\n        <table class='table table-hover'>\n\n            <thead>\n                <tr>\n                    <th>Navigate to</th>\n                </tr>\n            </thead>\n\n            <tbody>\n\n                <tr>\n                    <td class='link'><a href='./#/"
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.instance)),stack1 == null || stack1 === false ? stack1 : stack1.id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "/students'>Students</a></td>\n                </tr>\n\n                <tr>\n                    <td class='link'><a href='./#/"
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.instance)),stack1 == null || stack1 === false ? stack1 : stack1.id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
@@ -507,7 +507,7 @@ function program3(depth0,data) {
   return buffer;
   }
 
-  buffer += "<section>\n\n    <ol class='breadcrumb'>\n\n        <li><a href='./'>Home</a></li>\n        <li><a href='./#/";
+  buffer += "<section>\n\n    <ol class='breadcrumb'>\n\n        <li><a href='./'>Instances</a></li>\n        <li><a href='./#/";
   if (helper = helpers.instanceId) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.instanceId); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -544,12 +544,12 @@ function program1(depth0,data) {
   return buffer;
   }
 
-  buffer += "<section>\n\n    <div class='row'>\n\n        <ol class='breadcrumb'>\n\n            <li class='active'>Home</li>\n\n        </ol>\n\n    </div>\n\n    <div class='row header'>\n\n        <h2 class='col-md-5'>\n            Instances ("
+  buffer += "<section>\n\n    <div class='row'>\n\n        <ol class='breadcrumb'>\n\n            <li class='active'>Instances</li>\n\n        </ol>\n\n    </div>\n\n    <div class='row header'>\n\n        <h2 class='col-md-9'>\n            Instances ("
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.instances)),stack1 == null || stack1 === false ? stack1 : stack1.length)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + ")\n        </h2>\n\n        ";
   stack1 = self.invokePartial(partials.search, 'search', depth0, helpers, partials, data);
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n    </div>\n\n    <div class='row'>\n\n        <table class='table table-hover'>\n\n            <thead>\n                <tr>\n                    <th>#</th>\n                    <th>Name</th>\n                </tr>\n            </thead>\n\n            <tbody>\n\n                ";
+  buffer += "\n\n    </div>\n\n    <div class='row'>\n\n        <table class='table table-hover'>\n\n            <thead>\n                <tr>\n                    <th class='index'>#</th>\n                    <th>Name</th>\n                </tr>\n            </thead>\n\n            <tbody>\n\n                ";
   options={hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data}
   if (helper = helpers.instances) { stack1 = helper.call(depth0, options); }
   else { helper = (depth0 && depth0.instances); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
@@ -565,7 +565,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div class='col-md-3 col-md-offset-4'>\n\n    <div class='input-group'>\n\n        <input type='text' class='form-control' placeholder='Search' data-id='query-string' value='";
+  buffer += "<div class='col-md-3'>\n\n    <div class='input-group'>\n\n        <input type='text' class='form-control' placeholder='Search' data-id='query-string' value='";
   if (helper = helpers.query) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.query); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -848,7 +848,7 @@ function program8(depth0,data,depth2) {
   return buffer;
   }
 
-  buffer += "<section>\n\n    <div class='row'>\n\n        <ol class='breadcrumb'>\n\n            <li><a href='./'>Home</a></li>\n            <li><a href='./#/";
+  buffer += "<section>\n\n    <div class='row'>\n\n        <ol class='breadcrumb'>\n\n            <li><a href='./'>Instances</a></li>\n            <li><a href='./#/";
   if (helper = helpers.instanceId) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.instanceId); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -859,7 +859,7 @@ function program8(depth0,data,depth2) {
     + "</a></li>\n\n            ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.course), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n            <li class='active'>Students</li>\n\n        </ol>\n\n    </div>\n\n    <div class='row header'>\n\n        <h2 class='col-md-5'>\n            ";
+  buffer += "\n\n            <li class='active'>Students</li>\n\n        </ol>\n\n    </div>\n\n    <div class='row header'>\n\n        <h2 class='col-md-9'>\n            ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.course), {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += " Students ("
@@ -867,7 +867,7 @@ function program8(depth0,data,depth2) {
     + ")\n        </h2>\n\n        ";
   stack1 = self.invokePartial(partials.search, 'search', depth0, helpers, partials, data);
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n    </div>\n\n    <div class='row'>\n\n        <table class='table table-hover'>\n\n            <thead>\n                <tr>\n\n                    <th>#</th>\n                    <th>Name</th>\n\n                </tr>\n            </thead>\n\n            <tbody>\n\n                ";
+  buffer += "\n\n    </div>\n\n    <div class='row'>\n\n        <table class='table table-hover'>\n\n            <thead>\n                <tr>\n\n                    <th class='index'>#</th>\n                    <th>Name</th>\n\n                </tr>\n            </thead>\n\n            <tbody>\n\n                ";
   options={hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth0),data:data}
   if (helper = helpers.students) { stack1 = helper.call(depth0, options); }
   else { helper = (depth0 && depth0.students); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }

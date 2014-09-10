@@ -361,6 +361,12 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
     navigate: function (snapshot, file, options) {
 
+        // Pause playback until navigation is complete
+        if (this.play && this.playId) {
+            clearInterval(this.playId);
+            this.playId = null;
+        }
+
         if (!snapshot) {
 
             codebrowser.app.snapshot.navigate(this.url(), { replace: !options ? options : options.replace });

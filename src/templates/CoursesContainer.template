@@ -4,7 +4,7 @@
 
         <ol class='breadcrumb'>
 
-            <li><a href='./'>Home</a></li>
+            <li><a href='./'>Instances</a></li>
             <li><a href='./#/{{instanceId}}'>{{instanceId}}</a></li>
 
             {{#if studentId}}
@@ -20,7 +20,7 @@
 
     <div class='row header'>
 
-        <h2 class='col-md-5'>
+        <h2 class='col-md-9'>
             {{#if studentId}} {{student.name}} — {{/if}} Courses ({{courses.length}})
         </h2>
 
@@ -34,7 +34,7 @@
 
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th class='index'>#</th>
                     <th>Name</th>
                 </tr>
             </thead>
