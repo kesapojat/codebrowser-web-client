@@ -4,7 +4,7 @@
 
         <ol class='breadcrumb'>
 
-            <li><a href='./'>Home</a></li>
+            <li><a href='./'>Instances</a></li>
             <li class='active'>{{instance.name}}</li>
 
         </ol>
@@ -25,7 +25,7 @@
 
             <thead>
                 <tr>
-                    <th>Navigate</th>
+                    <th>Navigate to</th>
                 </tr>
             </thead>
 
