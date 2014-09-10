@@ -3998,14 +3998,17 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
     render: function () {
 
-        this.snapshotElements = [];
+        // No need to clear after first render
+        if (!this.rendered) {
+            this.snapshotElements = [];
+
+            // Clear paper
+            this.paper.clear();
+        }
 
         // Limit minimum to 1 minute and maximum to 5 minutes
         var min = Math.min(60000, this.collection.getMinDuration()),
             max = Math.min(300000, this.collection.getMaxDuration());
-
-        // Clear paper
-        this.paper.clear();
 
         // Center point
         var y = this.paper.height / 2 + 3,
@@ -4046,23 +4049,38 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
             var previousSnapshot = self.collection.at(index - 1);
 
-            // Render duration between snapshots
-            self.renderDuration(previousSnapshot, snapshot, x, y, radius, distance);
+            // No need to render after first time
+            if (!self.rendered) {
 
-            // Render snapshot
-            var snapshotElement = self.renderSnapshot(snapshot, index, x, y, radius);
-            self.snapshotElements.push(snapshotElement);
+                // Render duration between snapshots
+                self.renderDuration(previousSnapshot, snapshot, x, y, radius, distance);
+
+                // Render snapshot
+                var snapshotElement = self.renderSnapshot(snapshot, index, x, y, radius);
+                self.snapshotElements.push(snapshotElement);
+            }
 
             // Current snapshot
             if (index === self.currentSnapshotIndex) {
+
+                // Remove pointer
+                if (self.pointerSet) {
+                    self.pointerSet.items[0].remove();
+                    self.pointerSet.items[1].remove();
+                    self.pointerSet.items[2].remove();
+                }
 
                 // Render pointer on current snapshot
                 self.renderPointer(x, radius);
             }
         });
 
-        // Render timeline
-        this.renderTimeline(leftOffset, y, x);
+        // No need to render after first time
+        if (!this.rendered) {
+
+            // Render timeline
+           this.renderTimeline(leftOffset, y, x);
+        }
 
         // Absolute width
         this.width = leftOffset + x + rightOffset;
@@ -4108,7 +4126,9 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
         // Render if user is not dragging
         if (!this.dragging) {
+
             this.render();
+            this.rendered = true;
         }
     },
 
