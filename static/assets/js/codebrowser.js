@@ -3382,6 +3382,12 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             }
         }
 
+        // Resume playback
+        if (this.play && !this.playId) {
+            this.play = false;
+            this.playback();
+        }
+
         this.render();
     },
 
@@ -3488,6 +3494,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         }
 
         this.render();
+        return;
     },
 
     /* Actions - Navigation */
