@@ -377,13 +377,13 @@ ul.selection a:hover {
 #snapshots-timeline-container {
 
     margin: 25px auto 40px;
-    padding: 15px;
-    height: 108px;
-    border: 1px solid #c5d6de;
+    padding: 20px;
+    height: 118px;
+    border: 1px solid #cdc5de;
     border-radius: 4px;
     font-size: 12px;
     line-height: normal;
-    color: #6d8089;
+    color: #555;
 
 }
 
@@ -406,7 +406,7 @@ ul.selection a:hover {
 #snapshots-timeline-container text {
 
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-    fill: #6d8089;
+    fill: #777;
     cursor: default;
     -webkit-user-select: none;
     -moz-user-select: moz-none;
@@ -426,7 +426,7 @@ ul.selection a:hover {
 #snapshots-timeline-container .timeline {
 
     stroke-width: 3px;
-    stroke: #c5d6de;
+    stroke: #cdc5de;
 
 }
 
@@ -438,14 +438,14 @@ ul.selection a:hover {
 
 #snapshots-timeline-container .snapshot-weight {
 
-    fill: #536f7c;
+    fill: #555;
     font-weight: 300 !important;
 
 }
 
 #snapshots-timeline-container .snapshot-index {
 
-    fill: #97b2c0;
+    fill: #777;
     font-size: 11px !important;
 
 }
@@ -458,7 +458,7 @@ ul.selection a:hover {
 
 #snapshots-timeline-container .snapshot {
 
-    stroke: #53666f;
+    stroke: #a8a1b7;
     fill: #fff;
 
 }
@@ -471,15 +471,15 @@ ul.selection a:hover {
 
 #snapshots-timeline-container .pointer {
 
-    stroke: #4e585e;
-    fill: #4e585e;
+    stroke: #cdc5de;
+    fill: #cdc5de;
 
 }
 
 #snapshots-timeline-container .pointer-line {
 
-    stroke-width: 1px;
-    stroke: #c5d6de;
+    stroke-width: 2px;
+    stroke: #cdc5de;
 
 }
 
