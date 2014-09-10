@@ -683,7 +683,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   
-  return "\n\n            <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>\n\n            <select id='speed' class='form-control input-sm'>\n                <option>0.25</option>\n                <option>0.5</option>\n                <option selected>1</option>\n                <option>2</option>\n                <option>4</option>\n                <option>8</option>\n                <option>16</option>\n                <option>32</option>\n            </select>\n\n        ";
+  return "\n\n            <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>\n\n            <select id='speed' class='form-control input-sm'>\n                <option>0.25x</option>\n                <option>0.5x</option>\n                <option selected>1x</option>\n                <option>2x</option>\n                <option>4x</option>\n                <option>8x</option>\n                <option>16x</option>\n                <option>32x</option>\n            </select>\n\n        ";
   }
 
   buffer += "<div class='row'>\n\n    <div class='col-md-6'>\n\n        <button id='toggleBrowser' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>\n        <button id='split' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>\n        <button id='diff' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>\n        <button id='level' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>\n\n        ";
@@ -3278,7 +3278,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         var navigationContainerOutput = $(this.template.navigationContainer(attributes));
 
         // Remember previously set playback speed
-        var selectedSpeed = $('#speed').val() || 1;
+        var selectedSpeed = $('#speed').val() || '1x';
 
         // Browser is enabled, set toggleBrowser button as active
         if (this.browser) {
@@ -3487,7 +3487,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         } else {
 
-            var multiplier = $('#speed', this.navigationContainerOutput).val();
+            var multiplier = parseFloat($('#speed', this.navigationContainerOutput).val());
 
             this.play = true;
             var self = this;

@@ -124,7 +124,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         var navigationContainerOutput = $(this.template.navigationContainer(attributes));
 
         // Remember previously set playback speed
-        var selectedSpeed = $('#speed').val() || 1;
+        var selectedSpeed = $('#speed').val() || '1x';
 
         // Browser is enabled, set toggleBrowser button as active
         if (this.browser) {
@@ -333,7 +333,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         } else {
 
-            var multiplier = $('#speed', this.navigationContainerOutput).val();
+            var multiplier = parseFloat($('#speed', this.navigationContainerOutput).val());
 
             this.play = true;
             var self = this;

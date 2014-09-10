@@ -12,14 +12,14 @@
             <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>
 
             <select id='speed' class='form-control input-sm'>
-                <option>0.25</option>
-                <option>0.5</option>
-                <option selected>1</option>
-                <option>2</option>
-                <option>4</option>
-                <option>8</option>
-                <option>16</option>
-                <option>32</option>
+                <option>0.25x</option>
+                <option>0.5x</option>
+                <option selected>1x</option>
+                <option>2x</option>
+                <option>4x</option>
+                <option>8x</option>
+                <option>16x</option>
+                <option>32x</option>
             </select>
 
         {{/if}}
