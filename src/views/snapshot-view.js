@@ -340,6 +340,14 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
             this.playId = setInterval(function() {
 
+                // Last snapshot, stop playback
+                if (self.collection.last() === self.model) {
+                    clearInterval(self.playId);
+                    self.play = false;
+                    self.render();
+                    return;
+                }
+
                 self.next();
 
             }, 1000 / multiplier);
