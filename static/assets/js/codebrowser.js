@@ -4004,14 +4004,10 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
     render: function () {
 
-        // No need to clear after first render
-        if (!this.rendered) {
+        this.snapshotElements = [];
 
-            this.snapshotElements = [];
-
-            // Clear paper
-            this.paper.clear();
-        }
+        // Clear paper
+        this.paper.clear();
 
         // Limit minimum to 1 minute and maximum to 5 minutes
         var min = Math.min(60000, this.collection.getMinDuration()),
@@ -4070,22 +4066,12 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
             // Current snapshot
             if (index === self.currentSnapshotIndex) {
 
-                // Remove pointer
-                if (self.pointerSet) {
-                    self.pointerSet.items[0].remove();
-                    self.pointerSet.items[1].remove();
-                    self.pointerSet.items[2].remove();
-                }
-
                 // Render pointer on current snapshot
                 self.renderPointer(x, radius);
             }
         });
 
-        // No need to render after first time
-        if (!this.rendered) {
-           this.renderTimeline(leftOffset, y, x);
-        }
+        this.renderTimeline(leftOffset, y, x);
 
         // Absolute width
         this.width = leftOffset + x + rightOffset;
@@ -4110,6 +4096,24 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
     /* Update */
 
+    updatePointer: function () {
+
+        // Remove previous pointer
+        if (this.pointerSet) {
+
+            this.pointerSet.items.forEach(function (item) {
+                item.remove();
+            });
+        }
+
+        // Render new pointer
+        var element = this.snapshotElements[this.currentSnapshotIndex];
+        this.renderPointer(element.attr('cx'), element.attr('r'));
+
+        // Focus
+        this.focus();
+    },
+
     update: function (collection, currentSnapshotIndex, filename, courseRoute) {
 
         this.collection = collection;
@@ -4123,11 +4127,17 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         // Show view if necessary
         this.$el.show();
 
-        // Calculate differences between snapshots before continuing
-        this.differences = this.collection.getDifferences();
-
         this.currentSnapshotIndex = currentSnapshotIndex;
         this.filename = filename;
+
+        // No need to re-render timeline after first time, just update pointer
+        if (this.rendered) {
+            this.updatePointer();
+            return;
+        }
+
+        // Calculate differences between snapshots before continuing
+        this.differences = this.collection.getDifferences();
 
         // Render if user is not dragging
         if (!this.dragging) {
