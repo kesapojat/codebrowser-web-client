@@ -187,7 +187,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             $('#level', navigationContainerOutput).addClass('active');
         }
 
-        // Playback on, change play-button to stop-button
+        // Playback on, change play- or rewind-button to stop-button
         if (this.play) {
 
             if (this.rewind) {
