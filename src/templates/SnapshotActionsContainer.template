@@ -1,0 +1,29 @@
+<div class='row'>
+
+    <div class='col-md-6'>
+
+        <button id='toggleBrowser' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>
+        <button id='split' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>
+        <button id='diff' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>
+        <button id='level' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>
+
+        {{#if keyLevel}}
+
+            <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>
+
+            <select id='speed' class='form-control input-sm'>
+                <option selected>1x</option>
+                <option>2x</option>
+                <option>4x</option>
+                <option>8x</option>
+                <option>16x</option>
+                <option>32x</option>
+            </select>
+
+        {{/if}}
+
+    </div>
+
+    {{> snapshotNavigation}}
+
+</div>

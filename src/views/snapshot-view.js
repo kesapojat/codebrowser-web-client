@@ -5,7 +5,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
     template: {
 
         navigationbarContainer: Handlebars.templates.NavigationBarContainer,
-        navigationContainer:    Handlebars.templates.SnapshotNavigationContainer
+        navigationContainer:    Handlebars.templates.SnapshotActionsContainer
 
     },
 
@@ -126,56 +126,76 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         // Remember previously set playback speed
         var selectedSpeed = $('#speed').val() || '1x';
 
-        // Browser is enabled, set toggleBrowser button as active
-        if (this.browser) {
-            $('#toggleBrowser', navigationContainerOutput).addClass('active');
-        }
-
-        // Split view is enabled, set split button as active
-        if (this.editorView.split) {
-            $('#split', navigationContainerOutput).addClass('active');
-        }
-
-        // Disable split button if editor can not be split
-        if (!this.editorView.canSplit()) {
-            $('#split', navigationContainerOutput).attr('disabled', true);
-        }
-
-        // Diff is enabled, set diff button as active
-        if (this.editorView.diff) {
-            $('#diff', navigationContainerOutput).addClass('active');
-        }
-
-        // Key-level, set button as active
-        if (this.collection.isKeyLevel()) {
-            $('#level', navigationContainerOutput).addClass('active');
-        }
-
-        // Playback on, change play-button to stop-button
-        if (this.play) {
-            $('#play span', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-play');
-        }
-
-        // First snapshot, disable the buttons for first and previous
-        if (index === 0) {
-            $('#first', navigationContainerOutput).attr('disabled', true);
-            $('#previous', navigationContainerOutput).attr('disabled', true);
-        }
-
-        // Last snapshot, disable the buttons for next and last
-        if (index === this.collection.length - 1) {
-            $('#next', navigationContainerOutput).attr('disabled', true);
-            $('#last', navigationContainerOutput).attr('disabled', true);
-        }
+        // Update action & navigation buttons
+        this.updateNavigation(navigationContainerOutput, index);
 
         // Update navigation bar container
         this.navigationbarContainer.html(navigationbarContainerOutput);
 
-        // Update navigation container
-        this.navigationContainer.html(navigationContainerOutput);
-
         // Set selected speed
-        $('#speed', this.navigationContainer).val(selectedSpeed);
+        $('#speed', navigationContainerOutput).val(selectedSpeed);
+
+        this.rendered = true;
+    },
+
+    updateNavigation: function (navigationContainerOutput, index) {
+
+        var actionContainer;
+
+        if (this.rendered) {
+            actionContainer = this.navigationContainer;
+        } else {
+            actionContainer = navigationContainerOutput;
+        }
+
+        // Browser is enabled, set toggleBrowser button as active
+        if (this.browser) {
+            $('#toggleBrowser', actionContainer).addClass('active');
+        }
+
+        // Split view is enabled, set split button as active
+        if (this.editorView.split) {
+            $('#split', actionContainer).addClass('active');
+        }
+
+        // Disable split button if editor can not be split
+        if (!this.editorView.canSplit()) {
+            $('#split', actionContainer).attr('disabled', true);
+        }
+
+        // Diff is enabled, set diff button as active
+        if (this.editorView.diff) {
+            $('#diff', actionContainer).addClass('active');
+        }
+
+        // Key-level, set button as active
+        if (this.collection.isKeyLevel()) {
+            $('#level', actionContainer).addClass('active');
+        }
+
+        // Playback on, change play-button to stop-button
+        if (this.play) {
+            $('#play span', actionContainer).toggleClass('glyphicon-stop', 'glyphicon-play');
+        } else if (!this.play && $('#play span', actionContainer).hasClass('glyphicon-stop')) {
+            $('#play span', actionContainer).removeClass('glyphicon-stop');
+        }
+
+        // If first snapshot, disable the buttons for first and previous
+        $('#first', navigationContainerOutput).attr('disabled', index === 0);
+        $('#previous', navigationContainerOutput).attr('disabled', index === 0);
+
+        // If last snapshot, disable the buttons for next and last
+        $('#next', navigationContainerOutput).attr('disabled', index === this.collection.length - 1);
+        $('#last', navigationContainerOutput).attr('disabled', index === this.collection.length - 1);
+
+        if (!this.rendered) {
+
+            // Update navigation container
+            this.navigationContainer.html(navigationContainerOutput);
+
+        } else {
+            this.$el.find('#snapshot-navigation').replaceWith($('#snapshot-navigation', navigationContainerOutput));
+        }
     },
 
     /* Update */

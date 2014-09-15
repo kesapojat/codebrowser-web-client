@@ -39,6 +39,7 @@ var codebrowser = {
 
         // Register Handlebars partials
         Handlebars.registerPartial('search', Handlebars.templates.SearchContainer);
+        Handlebars.registerPartial('snapshotNavigation', Handlebars.templates.SnapshotNavigationContainer);
 
         // History
         Backbone.history.start();

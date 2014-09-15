@@ -573,6 +573,27 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return buffer;
   });
 
+this["Handlebars"]["templates"]["SnapshotActionsContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
+  var buffer = "", stack1, self=this;
+
+function program1(depth0,data) {
+  
+  
+  return "\n\n            <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>\n\n            <select id='speed' class='form-control input-sm'>\n                <option selected>1x</option>\n                <option>2x</option>\n                <option>4x</option>\n                <option>8x</option>\n                <option>16x</option>\n                <option>32x</option>\n            </select>\n\n        ";
+  }
+
+  buffer += "<div class='row'>\n\n    <div class='col-md-6'>\n\n        <button id='toggleBrowser' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>\n        <button id='split' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>\n        <button id='diff' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>\n        <button id='level' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>\n\n        ";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.keyLevel), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n\n    </div>\n\n    ";
+  stack1 = self.invokePartial(partials.snapshotNavigation, 'snapshotNavigation', depth0, helpers, partials, data);
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n\n</div>\n";
+  return buffer;
+  });
+
 this["Handlebars"]["templates"]["SnapshotFilesContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -678,18 +699,10 @@ function program7(depth0,data,depth3) {
 this["Handlebars"]["templates"]["SnapshotNavigationContainer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, helper, self=this, functionType="function", escapeExpression=this.escapeExpression;
+  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
 
-function program1(depth0,data) {
-  
-  
-  return "\n\n            <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>\n\n            <select id='speed' class='form-control input-sm'>\n                <option selected>1x</option>\n                <option>2x</option>\n                <option>4x</option>\n                <option>8x</option>\n                <option>16x</option>\n                <option>32x</option>\n            </select>\n\n        ";
-  }
 
-  buffer += "<div class='row'>\n\n    <div class='col-md-6'>\n\n        <button id='toggleBrowser' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>\n        <button id='split' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>\n        <button id='diff' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>\n        <button id='level' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>\n\n        ";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.keyLevel), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n    </div>\n\n    <div class='col-md-4 col-md-offset-2'>\n\n        <div class='pull-right'>\n\n            <div class='current-index'>";
+  buffer += "<div class='col-md-4 col-md-offset-2' id='snapshot-navigation'>\n\n    <div class='pull-right'>\n\n        <div class='current-index'>";
   if (helper = helpers.current) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.current); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -697,7 +710,7 @@ function program1(depth0,data) {
   if (helper = helpers.total) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.total); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</div>\n\n            <div class='btn-group btn-group-sm'>\n                <button type='button' id='first' class='btn btn-default'>First</button>\n                <button type='button' id='previous' class='btn btn-default'>Previous</button>\n                <button type='button' id='next' class='btn btn-default'>Next</button>\n                <button type='button' id='last' class='btn btn-default'>Last</button>\n            </div>\n\n        </div>\n\n    </div>\n\n</div>\n";
+    + "</div>\n\n        <div class='btn-group btn-group-sm'>\n            <button type='button' id='first' class='btn btn-default'>First</button>\n            <button type='button' id='previous' class='btn btn-default'>Previous</button>\n            <button type='button' id='next' class='btn btn-default'>Next</button>\n            <button type='button' id='last' class='btn btn-default'>Last</button>\n        </div>\n\n    </div>\n\n</div>\n";
   return buffer;
   });
 
@@ -1029,6 +1042,7 @@ var codebrowser = {
 
         // Register Handlebars partials
         Handlebars.registerPartial('search', Handlebars.templates.SearchContainer);
+        Handlebars.registerPartial('snapshotNavigation', Handlebars.templates.SnapshotNavigationContainer);
 
         // History
         Backbone.history.start();
@@ -3159,7 +3173,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
     template: {
 
         navigationbarContainer: Handlebars.templates.NavigationBarContainer,
-        navigationContainer:    Handlebars.templates.SnapshotNavigationContainer
+        navigationContainer:    Handlebars.templates.SnapshotActionsContainer
 
     },
 
@@ -3280,56 +3294,76 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         // Remember previously set playback speed
         var selectedSpeed = $('#speed').val() || '1x';
 
-        // Browser is enabled, set toggleBrowser button as active
-        if (this.browser) {
-            $('#toggleBrowser', navigationContainerOutput).addClass('active');
-        }
-
-        // Split view is enabled, set split button as active
-        if (this.editorView.split) {
-            $('#split', navigationContainerOutput).addClass('active');
-        }
-
-        // Disable split button if editor can not be split
-        if (!this.editorView.canSplit()) {
-            $('#split', navigationContainerOutput).attr('disabled', true);
-        }
-
-        // Diff is enabled, set diff button as active
-        if (this.editorView.diff) {
-            $('#diff', navigationContainerOutput).addClass('active');
-        }
-
-        // Key-level, set button as active
-        if (this.collection.isKeyLevel()) {
-            $('#level', navigationContainerOutput).addClass('active');
-        }
-
-        // Playback on, change play-button to stop-button
-        if (this.play) {
-            $('#play span', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-play');
-        }
-
-        // First snapshot, disable the buttons for first and previous
-        if (index === 0) {
-            $('#first', navigationContainerOutput).attr('disabled', true);
-            $('#previous', navigationContainerOutput).attr('disabled', true);
-        }
-
-        // Last snapshot, disable the buttons for next and last
-        if (index === this.collection.length - 1) {
-            $('#next', navigationContainerOutput).attr('disabled', true);
-            $('#last', navigationContainerOutput).attr('disabled', true);
-        }
+        // Update action & navigation buttons
+        this.updateNavigation(navigationContainerOutput, index);
 
         // Update navigation bar container
         this.navigationbarContainer.html(navigationbarContainerOutput);
 
-        // Update navigation container
-        this.navigationContainer.html(navigationContainerOutput);
-
         // Set selected speed
-        $('#speed', this.navigationContainer).val(selectedSpeed);
+        $('#speed', navigationContainerOutput).val(selectedSpeed);
+
+        this.rendered = true;
+    },
+
+    updateNavigation: function (navigationContainerOutput, index) {
+
+        var actionContainer;
+
+        if (this.rendered) {
+            actionContainer = this.navigationContainer;
+        } else {
+            actionContainer = navigationContainerOutput;
+        }
+
+        // Browser is enabled, set toggleBrowser button as active
+        if (this.browser) {
+            $('#toggleBrowser', actionContainer).addClass('active');
+        }
+
+        // Split view is enabled, set split button as active
+        if (this.editorView.split) {
+            $('#split', actionContainer).addClass('active');
+        }
+
+        // Disable split button if editor can not be split
+        if (!this.editorView.canSplit()) {
+            $('#split', actionContainer).attr('disabled', true);
+        }
+
+        // Diff is enabled, set diff button as active
+        if (this.editorView.diff) {
+            $('#diff', actionContainer).addClass('active');
+        }
+
+        // Key-level, set button as active
+        if (this.collection.isKeyLevel()) {
+            $('#level', actionContainer).addClass('active');
+        }
+
+        // Playback on, change play-button to stop-button
+        if (this.play) {
+            $('#play span', actionContainer).toggleClass('glyphicon-stop', 'glyphicon-play');
+        } else if (!this.play && $('#play span', actionContainer).hasClass('glyphicon-stop')) {
+            $('#play span', actionContainer).removeClass('glyphicon-stop');
+        }
+
+        // If first snapshot, disable the buttons for first and previous
+        $('#first', navigationContainerOutput).attr('disabled', index === 0);
+        $('#previous', navigationContainerOutput).attr('disabled', index === 0);
+
+        // If last snapshot, disable the buttons for next and last
+        $('#next', navigationContainerOutput).attr('disabled', index === this.collection.length - 1);
+        $('#last', navigationContainerOutput).attr('disabled', index === this.collection.length - 1);
+
+        if (!this.rendered) {
+
+            // Update navigation container
+            this.navigationContainer.html(navigationContainerOutput);
+
+        } else {
+            this.$el.find('#snapshot-navigation').replaceWith($('#snapshot-navigation', navigationContainerOutput));
+        }
     },
 
     /* Update */
