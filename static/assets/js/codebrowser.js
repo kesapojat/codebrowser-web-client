@@ -3465,16 +3465,21 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             this.next();
         }
 
+<<<<<<< HEAD
         // Play backwards or pause playback
         if (event.keyCode === 79) {
             this.playBackwards();
         }
 
         // Play forwards or pause playback
+=======
+        // Play or pause playback (P)
+>>>>>>> b3711f7ffb2e7fd55b6ab540205f5e63f152da3c
         if (event.keyCode === 80) {
             this.playForwards();
         }
 
+<<<<<<< HEAD
         // Faster
         if (event.keyCode === 107 || event.keyCode === 190) {
             this.speedUp();
@@ -3482,6 +3487,15 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         // Slower
         if (event.keyCode === 109 || event.keyCode === 188) {
+=======
+        // Faster (+)
+        if (event.keyCode === 107) {
+            this.speedUp();
+        }
+
+        // Slower (-)
+        if (event.keyCode === 109) {
+>>>>>>> b3711f7ffb2e7fd55b6ab540205f5e63f152da3c
             this.speedDown();
         }
     },
@@ -3593,18 +3607,18 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
     speedUp: function () {
 
-        var current = $('#speed option:selected', this.navigationContainer).val();
-        var next = $('#speed option:selected', this.navigationContainer).next().val();
+        var current = $('#speed option:selected', this.navigationContainer).val(),
+            next = $('#speed option:selected', this.navigationContainer).next().val();
 
         $('#speed', this.navigationContainer).val(next || current);
     },
 
     speedDown: function () {
 
-        var current = $('#speed option:selected', this.navigationContainer).val();
-        var prev = $('#speed option:selected', this.navigationContainer).prev().val();
+        var current = $('#speed option:selected', this.navigationContainer).val(),
+            previous = $('#speed option:selected', this.navigationContainer).prev().val();
 
-        $('#speed', this.navigationContainer).val(prev || current);
+        $('#speed', this.navigationContainer).val(previous || current);
     },
 
     /* Actions - Navigation */
