@@ -3279,7 +3279,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
             current: index + 1,
             total: this.collection.length,
-            playback: this.collection.isKeyLevel() || this.collection === 1
+            playback: this.collection.isKeyLevel() && this.collection.length !== 1
 
         }
 
@@ -3297,7 +3297,10 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         var selectedSpeed = $('#speed').val() || '1x';
 
         // Update action buttons
-        this.updateActions(navigationContainerOutput, index);
+        this.updateActions(navigationContainerOutput);
+
+        // Update playback buttons
+        this.updatePlaybackActions(navigationContainerOutput);
 
         // Update navigation buttons
         this.updateNavigation(navigationContainerOutput, index);
@@ -3354,6 +3357,13 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         if (this.collection.isKeyLevel()) {
             $('#level', navigationContainerOutput).addClass('active');
         }
+    },
+
+    updatePlaybackActions: function (navigationContainerOutput) {
+
+        if (this.rendered) {
+            navigationContainerOutput = this.navigationContainer;
+        }
 
         // Playback on, change play- or rewind-button to stop-button
         if (this.play) {
@@ -3361,11 +3371,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             if (this.rewind) {
 
                 $('#rewind span', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-backward');
-<<<<<<< HEAD
                 $('#play', navigationContainerOutput).attr('disabled', true);
-=======
-                $('#rewind', navigationContainerOutput).addClass('active');
->>>>>>> 9059a7c8b634fc20dd18add509a1bbbaa1e44228
 
             } else {
 
@@ -3377,10 +3383,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
             $('#play span', navigationContainerOutput).removeClass('glyphicon-stop');
             $('#play', navigationContainerOutput).removeClass('active');
-<<<<<<< HEAD
             $('#rewind', navigationContainerOutput).attr('disabled', false);
-=======
->>>>>>> 9059a7c8b634fc20dd18add509a1bbbaa1e44228
 
         } else if (!this.play && $('#rewind span', navigationContainerOutput).hasClass('glyphicon-stop')) {
 

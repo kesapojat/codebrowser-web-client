@@ -129,7 +129,10 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         var selectedSpeed = $('#speed').val() || '1x';
 
         // Update action buttons
-        this.updateActions(navigationContainerOutput, index);
+        this.updateActions(navigationContainerOutput);
+
+        // Update playback buttons
+        this.updatePlaybackActions(navigationContainerOutput);
 
         // Update navigation buttons
         this.updateNavigation(navigationContainerOutput, index);
@@ -185,6 +188,13 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         // Key-level, set button as active
         if (this.collection.isKeyLevel()) {
             $('#level', navigationContainerOutput).addClass('active');
+        }
+    },
+
+    updatePlaybackActions: function (navigationContainerOutput) {
+
+        if (this.rendered) {
+            navigationContainerOutput = this.navigationContainer;
         }
 
         // Playback on, change play- or rewind-button to stop-button
