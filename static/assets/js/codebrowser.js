@@ -3465,37 +3465,23 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             this.next();
         }
 
-<<<<<<< HEAD
-        // Play backwards or pause playback
+        // Play backwards or pause playback (O)
         if (event.keyCode === 79) {
             this.playBackwards();
         }
 
-        // Play forwards or pause playback
-=======
-        // Play or pause playback (P)
->>>>>>> b3711f7ffb2e7fd55b6ab540205f5e63f152da3c
+        // Play forwards or pause playback (P)
         if (event.keyCode === 80) {
             this.playForwards();
         }
 
-<<<<<<< HEAD
-        // Faster
+        // Faster (+ or .)
         if (event.keyCode === 107 || event.keyCode === 190) {
             this.speedUp();
         }
 
-        // Slower
+        // Slower (- or ,)
         if (event.keyCode === 109 || event.keyCode === 188) {
-=======
-        // Faster (+)
-        if (event.keyCode === 107) {
-            this.speedUp();
-        }
-
-        // Slower (-)
-        if (event.keyCode === 109) {
->>>>>>> b3711f7ffb2e7fd55b6ab540205f5e63f152da3c
             this.speedDown();
         }
     },
@@ -3585,8 +3571,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
             this.playId = setInterval(function() {
 
-                // Play backwards, first snapshot, stop playback OR
-                // Play forwards, last snapshot, stop playback
+                // Play backwards, first snapshot, stop playback OR play forwards, last snapshot, stop playback
                 if ((!self.rewind && self.collection.last() === self.model) ||
                     (self.rewind && self.collection.first() === self.model)) {
 
