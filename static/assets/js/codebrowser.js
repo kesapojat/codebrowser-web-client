@@ -3322,7 +3322,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
     /* Update */
 
-   updateActions: function (navigationContainerOutput) {
+    updateActions: function (navigationContainerOutput) {
 
         if (this.rendered) {
             navigationContainerOutput = this.navigationContainer;
@@ -3357,7 +3357,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         if (this.play) {
             $('#play span', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-play');
         } else if (!this.play && $('#play span', navigationContainerOutput).hasClass('glyphicon-stop')) {
+
             $('#play span', navigationContainerOutput).removeClass('glyphicon-stop');
+            $('#play').removeClass('active');
         }
     },
 
