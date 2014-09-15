@@ -190,13 +190,24 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         // Playback on, change play-button to stop-button
         if (this.play) {
 
-            $('#play span', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-play');
-            $('#play', navigationContainerOutput).addClass('active');
+            if (this.rewind) {
+
+                $('#rewind span', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-backward');
+                $('#rewind', navigationContainerOutput).addClass('active');
+            } else {
+
+                $('#play span', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-play');
+                $('#play', navigationContainerOutput).addClass('active');
+            }
 
         } else if (!this.play && $('#play span', navigationContainerOutput).hasClass('glyphicon-stop')) {
 
             $('#play span', navigationContainerOutput).removeClass('glyphicon-stop');
             $('#play', navigationContainerOutput).removeClass('active');
+        } else if (!this.play && $('#rewind span', navigationContainerOutput).hasClass('glyphicon-stop')) {
+
+            $('#rewind span', navigationContainerOutput).removeClass('glyphicon-stop');
+            $('#rewind', navigationContainerOutput).removeClass('active');
         }
     },
 
