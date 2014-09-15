@@ -3300,6 +3300,17 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         // Update navigation buttons
         this.updateNavigation(navigationContainerOutput, index);
 
+        if (!this.rendered) {
+
+            // Update navigation container
+            this.navigationContainer.html(navigationContainerOutput);
+
+        } else {
+
+            // Update navigation container partially
+            this.$el.find('#snapshot-navigation').replaceWith($('#snapshot-navigation', navigationContainerOutput));
+        }
+
         // Update navigation bar container
         this.navigationbarContainer.html(navigationbarContainerOutput);
 
@@ -3359,15 +3370,6 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         // If last snapshot, disable the buttons for next and last
         $('#next', navigationContainerOutput).attr('disabled', index === this.collection.length - 1);
         $('#last', navigationContainerOutput).attr('disabled', index === this.collection.length - 1);
-
-        if (!this.rendered) {
-
-            // Update navigation container
-            this.navigationContainer.html(navigationContainerOutput);
-
-        } else {
-            this.$el.find('#snapshot-navigation').replaceWith($('#snapshot-navigation', navigationContainerOutput));
-        }
     },
 
     update: function (snapshot, fileId) {
