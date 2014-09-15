@@ -190,6 +190,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
             $('#play span', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-play');
             $('#play', navigationContainerOutput).addClass('active');
+
         } else if (!this.play && $('#play span', navigationContainerOutput).hasClass('glyphicon-stop')) {
 
             $('#play span', navigationContainerOutput).removeClass('glyphicon-stop');

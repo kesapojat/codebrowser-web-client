@@ -702,7 +702,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div class='col-md-4 col-md-offset-2' id='snapshot-navigation'>\n\n    <div class='pull-right'>\n\n        <div class='current-index'>";
+  buffer += "<div id='snapshot-navigation' class='col-md-4 col-md-offset-2'>\n\n    <div class='pull-right'>\n\n        <div class='current-index'>";
   if (helper = helpers.current) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.current); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -3358,6 +3358,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
             $('#play span', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-play');
             $('#play', navigationContainerOutput).addClass('active');
+
         } else if (!this.play && $('#play span', navigationContainerOutput).hasClass('glyphicon-stop')) {
 
             $('#play span', navigationContainerOutput).removeClass('glyphicon-stop');
