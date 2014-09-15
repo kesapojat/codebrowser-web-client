@@ -15,7 +15,8 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         'click #split':         'split',
         'click #diff':          'diff',
         'click #level':         'level',
-        'click #play':          'playback',
+        'click #rewind':        'playBackwards',
+        'click #play':          'playForwards',
 
         'click #first':         'first',
         'click #previous':      'previous',
@@ -35,6 +36,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
     /* Playback */
 
     play: false,
+    rewind: false,
 
     /* Initialise */
 
@@ -295,18 +297,23 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             this.next();
         }
 
-        // Play or pause playback
+        // Play backwards or pause playback
+        if (event.keyCode === 79) {
+            this.playBackwards();
+        }
+
+        // Play forwards or pause playback
         if (event.keyCode === 80) {
-            this.playback();
+            this.playForwards();
         }
 
         // Faster
-        if (event.keyCode === 107) {
+        if (event.keyCode === 107 || event.keyCode === 190) {
             this.speedUp();
         }
 
         // Slower
-        if (event.keyCode === 109) {
+        if (event.keyCode === 109 || event.keyCode === 188) {
             this.speedDown();
         }
     },
@@ -367,6 +374,18 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         this.navigate();
     },
 
+    playBackwards: function () {
+
+        this.rewind = true;
+        this.playback();
+    },
+
+    playForwards: function () {
+
+        this.rewind = false;
+        this.playback();
+    },
+
     playback: function () {
 
         // Pressed button in playback-mode, stop playing
@@ -384,15 +403,18 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
             this.playId = setInterval(function() {
 
-                // Last snapshot, stop playback
-                if (self.collection.last() === self.model) {
+                // Play backwards, first snapshot, stop playback OR
+                // Play forwards, last snapshot, stop playback
+                if ((!self.rewind && self.collection.last() === self.model) ||
+                    (self.rewind && self.collection.first() === self.model)) {
+
                     clearInterval(self.playId);
                     self.play = false;
                     self.render();
                     return;
                 }
 
-                self.next();
+                self.rewind ? self.previous() : self.next();
 
             }, 1000 / multiplier);
         }

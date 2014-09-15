@@ -9,6 +9,7 @@
 
         {{#if keyLevel}}
 
+            <button id='rewind' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-backward icon-gray'></span></button>
             <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>
 
             <select id='speed' class='form-control input-sm'>

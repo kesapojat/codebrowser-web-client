@@ -581,7 +581,7 @@ helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partial
 function program1(depth0,data) {
   
   
-  return "\n\n            <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>\n\n            <select id='speed' class='form-control input-sm'>\n                <option selected>1x</option>\n                <option>2x</option>\n                <option>4x</option>\n                <option>8x</option>\n                <option>16x</option>\n                <option>32x</option>\n            </select>\n\n        ";
+  return "\n\n            <button id='rewind' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-backward icon-gray'></span></button>\n            <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>\n\n            <select id='speed' class='form-control input-sm'>\n                <option selected>1x</option>\n                <option>2x</option>\n                <option>4x</option>\n                <option>8x</option>\n                <option>16x</option>\n                <option>32x</option>\n            </select>\n\n        ";
   }
 
   buffer += "<div class='row'>\n\n    <div class='col-md-6'>\n\n        <button id='toggleBrowser' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>\n        <button id='split' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>\n        <button id='diff' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>\n        <button id='level' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>\n\n        ";
@@ -3183,7 +3183,8 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         'click #split':         'split',
         'click #diff':          'diff',
         'click #level':         'level',
-        'click #play':          'playback',
+        'click #rewind':        'playBackwards',
+        'click #play':          'playForwards',
 
         'click #first':         'first',
         'click #previous':      'previous',
@@ -3203,6 +3204,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
     /* Playback */
 
     play: false,
+    rewind: false,
 
     /* Initialise */
 
@@ -3463,18 +3465,23 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             this.next();
         }
 
-        // Play or pause playback
+        // Play backwards or pause playback
+        if (event.keyCode === 79) {
+            this.playBackwards();
+        }
+
+        // Play forwards or pause playback
         if (event.keyCode === 80) {
-            this.playback();
+            this.playForwards();
         }
 
         // Faster
-        if (event.keyCode === 107) {
+        if (event.keyCode === 107 || event.keyCode === 190) {
             this.speedUp();
         }
 
         // Slower
-        if (event.keyCode === 109) {
+        if (event.keyCode === 109 || event.keyCode === 188) {
             this.speedDown();
         }
     },
@@ -3535,6 +3542,18 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         this.navigate();
     },
 
+    playBackwards: function () {
+
+        this.rewind = true;
+        this.playback();
+    },
+
+    playForwards: function () {
+
+        this.rewind = false;
+        this.playback();
+    },
+
     playback: function () {
 
         // Pressed button in playback-mode, stop playing
@@ -3552,15 +3571,18 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
             this.playId = setInterval(function() {
 
-                // Last snapshot, stop playback
-                if (self.collection.last() === self.model) {
+                // Play backwards, first snapshot, stop playback OR
+                // Play forwards, last snapshot, stop playback
+                if ((!self.rewind && self.collection.last() === self.model) ||
+                    (self.rewind && self.collection.first() === self.model)) {
+
                     clearInterval(self.playId);
                     self.play = false;
                     self.render();
                     return;
                 }
 
-                self.next();
+                self.rewind ? self.previous() : self.next();
 
             }, 1000 / multiplier);
         }
