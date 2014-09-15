@@ -3916,6 +3916,18 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
     renderSnapshot: function (snapshot, index, x, y, radius) {
 
+        // Tooltip element
+        var tooltipElement = this.paper.path('M' + x + ' ' + this.paper.height + ', L' + x + ' ' + 0);
+        $(tooltipElement.node).attr('class', 'area');
+
+        $(tooltipElement.node).attr({
+
+            'data-toggle': 'tooltip',
+            'title': moment(new Date(snapshot.get('timestamp'))).format('D.M.YYYY HH.mm'),
+            'data-container': 'body'
+
+        });
+
         // Render index of the snapshot
         this.renderSnapshotIndex(index, x);
 
@@ -3933,15 +3945,6 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         // Snapshot click area
         var snapshotClickArea = this.paper.circle(x, y, radius);
         $(snapshotClickArea.node).attr('class', 'area snapshot');
-
-        // Tooltip
-        $(snapshotClickArea.node).attr({
-
-            'data-toggle': 'tooltip',
-            'title': moment(new Date(snapshot.get('timestamp'))).format('D.M.YYYY HH.mm'),
-            'data-container': 'body'
-
-        });
 
         // Set models for snapshot and snapshot area elements
         var file = snapshot.get('files').findWhere({ name: this.filename });
@@ -3976,7 +3979,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
             // Show tooltip
             if (!self.scroll) {
-                $(snapshotClickArea.node).tooltip('show');
+                $(tooltipElement.node).tooltip('show');
             }
         });
 
@@ -3989,7 +3992,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
             snapshotElement.animate({ transform: 'S 1' }, 150);
 
             // Hide tooltip
-            $(snapshotClickArea.node).tooltip('hide');
+            $(tooltipElement.node).tooltip('hide');
         });
 
         return snapshotElement;
@@ -4144,6 +4147,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         if (this.pointerSet) {
 
             this.pointerSet.items.forEach(function (item) {
+
                 item.remove();
             });
         }
