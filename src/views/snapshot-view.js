@@ -111,7 +111,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
             current: index + 1,
             total: this.collection.length,
-            keyLevel: this.collection.isKeyLevel()
+            playback: this.collection.isKeyLevel() || this.collection === 1
 
         }
 
@@ -193,21 +193,25 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             if (this.rewind) {
 
                 $('#rewind span', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-backward');
-                $('#rewind', navigationContainerOutput).addClass('active');
+                $('#play', navigationContainerOutput).attr('disabled', true);
+
             } else {
 
                 $('#play span', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-play');
-                $('#play', navigationContainerOutput).addClass('active');
+                $('#rewind', navigationContainerOutput).attr('disabled', true);
             }
 
         } else if (!this.play && $('#play span', navigationContainerOutput).hasClass('glyphicon-stop')) {
 
             $('#play span', navigationContainerOutput).removeClass('glyphicon-stop');
             $('#play', navigationContainerOutput).removeClass('active');
+            $('#rewind', navigationContainerOutput).attr('disabled', false);
+
         } else if (!this.play && $('#rewind span', navigationContainerOutput).hasClass('glyphicon-stop')) {
 
             $('#rewind span', navigationContainerOutput).removeClass('glyphicon-stop');
             $('#rewind', navigationContainerOutput).removeClass('active');
+            $('#play', navigationContainerOutput).attr('disabled', false);
         }
     },
 

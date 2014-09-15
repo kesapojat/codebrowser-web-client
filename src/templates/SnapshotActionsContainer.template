@@ -7,7 +7,7 @@
         <button id='diff' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>
         <button id='level' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>
 
-        {{#if keyLevel}}
+        {{#if playback}}
 
             <button id='rewind' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-backward icon-gray'></span></button>
             <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>
