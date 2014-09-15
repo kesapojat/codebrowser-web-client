@@ -541,7 +541,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         this.filename = filename;
 
         // No need to re-render timeline after first time, just update pointer
-        if (this.rendered) {
+        if (!this.dragging && this.rendered) {
             this.updatePointer();
             return;
         }
@@ -583,7 +583,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         this.pointerSetOffsetX = 0;
 
         this.stopScroll();
-        this.render();
+        !this.rendered ? this.render() : this.updatePointer();
     },
 
     dragMove: function (dx, dy, x) {
