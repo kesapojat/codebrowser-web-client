@@ -3361,7 +3361,11 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             if (this.rewind) {
 
                 $('#rewind span', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-backward');
+<<<<<<< HEAD
                 $('#play', navigationContainerOutput).attr('disabled', true);
+=======
+                $('#rewind', navigationContainerOutput).addClass('active');
+>>>>>>> 9059a7c8b634fc20dd18add509a1bbbaa1e44228
 
             } else {
 
@@ -3373,7 +3377,10 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
             $('#play span', navigationContainerOutput).removeClass('glyphicon-stop');
             $('#play', navigationContainerOutput).removeClass('active');
+<<<<<<< HEAD
             $('#rewind', navigationContainerOutput).attr('disabled', false);
+=======
+>>>>>>> 9059a7c8b634fc20dd18add509a1bbbaa1e44228
 
         } else if (!this.play && $('#rewind span', navigationContainerOutput).hasClass('glyphicon-stop')) {
 
