@@ -187,11 +187,13 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         // Playback on, change play-button to stop-button
         if (this.play) {
+
             $('#play span', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-play');
+            $('#play', navigationContainerOutput).addClass('active');
         } else if (!this.play && $('#play span', navigationContainerOutput).hasClass('glyphicon-stop')) {
 
             $('#play span', navigationContainerOutput).removeClass('glyphicon-stop');
-            $('#play').removeClass('active');
+            $('#play', navigationContainerOutput).removeClass('active');
         }
     },
 
@@ -291,6 +293,21 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         if (event.keyCode === 39) {
             this.next();
         }
+
+        // Play or pause playback
+        if (event.keyCode === 80) {
+            this.playback();
+        }
+
+        // Faster
+        if (event.keyCode === 107) {
+            this.speedUp();
+        }
+
+        // Slower
+        if (event.keyCode === 109) {
+            this.speedDown();
+        }
     },
 
     /* Actions */
@@ -381,6 +398,22 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         this.render();
         return;
+    },
+
+    speedUp: function () {
+
+        var current = $('#speed option:selected', this.navigationContainer).val();
+        var next = $('#speed option:selected', this.navigationContainer).next().val();
+
+        $('#speed', this.navigationContainer).val(next || current);
+    },
+
+    speedDown: function () {
+
+        var current = $('#speed option:selected', this.navigationContainer).val();
+        var prev = $('#speed option:selected', this.navigationContainer).prev().val();
+
+        $('#speed', this.navigationContainer).val(prev || current);
     },
 
     /* Actions - Navigation */
