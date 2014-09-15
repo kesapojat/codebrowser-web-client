@@ -3294,7 +3294,10 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         // Remember previously set playback speed
         var selectedSpeed = $('#speed').val() || '1x';
 
-        // Update action & navigation buttons
+        // Update action buttons
+        this.updateActions(navigationContainerOutput, index);
+
+        // Update navigation buttons
         this.updateNavigation(navigationContainerOutput, index);
 
         // Update navigation bar container
@@ -3306,47 +3309,48 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         this.rendered = true;
     },
 
-    updateNavigation: function (navigationContainerOutput, index) {
+    /* Update */
 
-        var actionContainer;
+   updateActions: function (navigationContainerOutput) {
 
         if (this.rendered) {
-            actionContainer = this.navigationContainer;
-        } else {
-            actionContainer = navigationContainerOutput;
+            navigationContainerOutput = this.navigationContainer;
         }
 
         // Browser is enabled, set toggleBrowser button as active
         if (this.browser) {
-            $('#toggleBrowser', actionContainer).addClass('active');
+            $('#toggleBrowser', navigationContainerOutput).addClass('active');
         }
 
         // Split view is enabled, set split button as active
         if (this.editorView.split) {
-            $('#split', actionContainer).addClass('active');
+            $('#split', navigationContainerOutput).addClass('active');
         }
 
         // Disable split button if editor can not be split
         if (!this.editorView.canSplit()) {
-            $('#split', actionContainer).attr('disabled', true);
+            $('#split', navigationContainerOutput).attr('disabled', true);
         }
 
         // Diff is enabled, set diff button as active
         if (this.editorView.diff) {
-            $('#diff', actionContainer).addClass('active');
+            $('#diff', navigationContainerOutput).addClass('active');
         }
 
         // Key-level, set button as active
         if (this.collection.isKeyLevel()) {
-            $('#level', actionContainer).addClass('active');
+            $('#level', navigationContainerOutput).addClass('active');
         }
 
         // Playback on, change play-button to stop-button
         if (this.play) {
-            $('#play span', actionContainer).toggleClass('glyphicon-stop', 'glyphicon-play');
-        } else if (!this.play && $('#play span', actionContainer).hasClass('glyphicon-stop')) {
-            $('#play span', actionContainer).removeClass('glyphicon-stop');
+            $('#play span', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-play');
+        } else if (!this.play && $('#play span', navigationContainerOutput).hasClass('glyphicon-stop')) {
+            $('#play span', navigationContainerOutput).removeClass('glyphicon-stop');
         }
+    },
+
+    updateNavigation: function (navigationContainerOutput, index) {
 
         // If first snapshot, disable the buttons for first and previous
         $('#first', navigationContainerOutput).attr('disabled', index === 0);
@@ -3365,8 +3369,6 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             this.$el.find('#snapshot-navigation').replaceWith($('#snapshot-navigation', navigationContainerOutput));
         }
     },
-
-    /* Update */
 
     update: function (snapshot, fileId) {
 
