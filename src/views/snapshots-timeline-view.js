@@ -508,6 +508,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         if (this.pointerSet) {
 
             this.pointerSet.items.forEach(function (item) {
+
                 item.remove();
             });
         }
