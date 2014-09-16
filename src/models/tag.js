@@ -1,23 +1,24 @@
 /*
- * Fetch a tag by passing a studentId, courseId and exerciseId as options for the model:
+ * Fetch a tag by passing an instanceId, studentId, courseId and exerciseId as options for the model:
  *
- * var tag = codebrowser.model.Tag.findOrCreate({ id: 4 }, { studentId: 1, courseId: 2, exerciseId: 3 });
+ * var tag = codebrowser.model.Tag.findOrCreate({ id: 4 }, { instanceId: 1, studentId: 2, courseId: 3, exerciseId: 4 });
  *
  * Create a new tag the same way:
  *
- * var tag = new codebrowser.model.Tag({ text: 'Tag' }, { studentId: 1, courseId: 2, exerciseId: 3 });
+ * var tag = new codebrowser.model.Tag({ text: 'Tag' }, { instanceId: 1, studentId: 2, courseId: 3, exerciseId: 4 });
  */
 
 codebrowser.model.Tag = Backbone.RelationalModel.extend({
 
     urlRoot: function () {
 
-        if (!this.studentId || !this.courseId || !this.exerciseId) {
-            throw new Error('Attributes studentId, courseId and exerciseId are required to fetch a tag.');
+        if (this.instanceId || !this.studentId || !this.courseId || !this.exerciseId) {
+            throw new Error('Attributes instanceId, studentId, courseId and exerciseId are required to fetch a tag.');
         }
 
         return config.api.main.root +
-               'students/' +
+               this.instanceId +
+               '/students/' +
                this.studentId +
                '/courses/' +
                this.courseId +
@@ -29,6 +30,7 @@ codebrowser.model.Tag = Backbone.RelationalModel.extend({
     initialize: function (attributes, options) {
 
         if (options) {
+            this.instanceId = options.instanceId;
             this.studentId = options.studentId;
             this.courseId = options.courseId;
             this.exerciseId = options.exerciseId;
@@ -36,6 +38,7 @@ codebrowser.model.Tag = Backbone.RelationalModel.extend({
 
         // If fetched through a collection, get IDs from the collection
         if (this.collection) {
+            this.instanceId = this.collection.instanceId;
             this.studentId = this.collection.studentId;
             this.courseId = this.collection.courseId;
             this.exerciseId = this.collection.exerciseId;

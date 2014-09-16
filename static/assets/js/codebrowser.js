@@ -1668,25 +1668,26 @@ codebrowser.model.Student = Backbone.RelationalModel.extend({
 ;
 
 /*
- * Fetch a tag by passing a studentId, courseId and exerciseId as options for the model:
+ * Fetch a tag by passing an instanceId, studentId, courseId and exerciseId as options for the model:
  *
- * var tag = codebrowser.model.Tag.findOrCreate({ id: 4 }, { studentId: 1, courseId: 2, exerciseId: 3 });
+ * var tag = codebrowser.model.Tag.findOrCreate({ id: 4 }, { instanceId: 1, studentId: 2, courseId: 3, exerciseId: 4 });
  *
  * Create a new tag the same way:
  *
- * var tag = new codebrowser.model.Tag({ text: 'Tag' }, { studentId: 1, courseId: 2, exerciseId: 3 });
+ * var tag = new codebrowser.model.Tag({ text: 'Tag' }, { instanceId: 1, studentId: 2, courseId: 3, exerciseId: 4 });
  */
 
 codebrowser.model.Tag = Backbone.RelationalModel.extend({
 
     urlRoot: function () {
 
-        if (!this.studentId || !this.courseId || !this.exerciseId) {
-            throw new Error('Attributes studentId, courseId and exerciseId are required to fetch a tag.');
+        if (this.instanceId || !this.studentId || !this.courseId || !this.exerciseId) {
+            throw new Error('Attributes instanceId, studentId, courseId and exerciseId are required to fetch a tag.');
         }
 
         return config.api.main.root +
-               'students/' +
+               this.instanceId +
+               '/students/' +
                this.studentId +
                '/courses/' +
                this.courseId +
@@ -1698,6 +1699,7 @@ codebrowser.model.Tag = Backbone.RelationalModel.extend({
     initialize: function (attributes, options) {
 
         if (options) {
+            this.instanceId = options.instanceId;
             this.studentId = options.studentId;
             this.courseId = options.courseId;
             this.exerciseId = options.exerciseId;
@@ -1705,6 +1707,7 @@ codebrowser.model.Tag = Backbone.RelationalModel.extend({
 
         // If fetched through a collection, get IDs from the collection
         if (this.collection) {
+            this.instanceId = this.collection.instanceId;
             this.studentId = this.collection.studentId;
             this.courseId = this.collection.courseId;
             this.exerciseId = this.collection.exerciseId;
@@ -2094,12 +2097,13 @@ codebrowser.collection.TagCollection = Backbone.Collection.extend({
 
     url: function () {
 
-        if (!this.studentId || !this.courseId || !this.exerciseId) {
-            throw new Error('Options studentId, courseId and exerciseId are required to fetch tags.');
+        if (!this.instanceId || !this.studentId || !this.courseId || !this.exerciseId) {
+            throw new Error('Options instanceId, studentId, courseId and exerciseId are required to fetch tags.');
         }
 
         return config.api.main.root +
-               'students/' +
+               this.instanceId +
+               '/students/' +
                this.studentId +
                '/courses/' +
                this.courseId +
@@ -2111,6 +2115,7 @@ codebrowser.collection.TagCollection = Backbone.Collection.extend({
     initialize: function (models, options) {
 
         if (options) {
+            this.instanceId = options.instanceId;
             this.studentId = options.studentId;
             this.courseId = options.courseId;
             this.exerciseId = options.exerciseId;
@@ -2918,8 +2923,8 @@ codebrowser.view.SnapshotBrowserView = Backbone.View.extend({
         this.$el.append(this.snapshotFilesView.el);
 
         // Tags
-//        this.snapshotTagsView = new codebrowser.view.SnapshotTagsView();
-//        this.$el.append(this.snapshotTagsView.el);
+        this.snapshotTagsView = new codebrowser.view.SnapshotTagsView();
+        this.$el.append(this.snapshotTagsView.el);
     },
 
     /* Remove */
@@ -2930,7 +2935,7 @@ codebrowser.view.SnapshotBrowserView = Backbone.View.extend({
         this.snapshotFilesView.remove();
 
         // Remove tags view
-//        this.snapshotTagsView.remove();
+        this.snapshotTagsView.remove();
 
         Backbone.View.prototype.remove.call(this);
     },
@@ -2943,7 +2948,7 @@ codebrowser.view.SnapshotBrowserView = Backbone.View.extend({
         this.snapshotFilesView.update(snapshot, file, courseRoute);
 
         // Update tags view
-//        this.snapshotTagsView.update(snapshot);
+        this.snapshotTagsView.update(snapshot);
     }
 });
 ;
@@ -3067,7 +3072,8 @@ codebrowser.view.SnapshotTagsView = Backbone.View.extend({
 
         this.snapshot = snapshot;
 
-        this.collection = new codebrowser.collection.TagCollection(null, { studentId: this.snapshot.get('studentId'),
+        this.collection = new codebrowser.collection.TagCollection(null, { instanceId: this.snapshot.get('instanceId'),
+                                                                           studentId: this.snapshot.get('studentId'),
                                                                            courseId: this.snapshot.get('courseId'),
                                                                            exerciseId: this.snapshot.get('exerciseId') });
 
@@ -3110,7 +3116,8 @@ codebrowser.view.SnapshotTagsView = Backbone.View.extend({
         }
 
         // New tag
-        var tag = new codebrowser.model.Tag(null, { studentId: this.snapshot.get('studentId'),
+        var tag = new codebrowser.model.Tag(null, { instanceId: this.snapshot.get('instanceId'),
+                                                    studentId: this.snapshot.get('studentId'),
                                                     courseId: this.snapshot.get('courseId'),
                                                     exerciseId: this.snapshot.get('exerciseId') });
 

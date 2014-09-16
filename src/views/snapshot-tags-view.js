@@ -35,7 +35,8 @@ codebrowser.view.SnapshotTagsView = Backbone.View.extend({
 
         this.snapshot = snapshot;
 
-        this.collection = new codebrowser.collection.TagCollection(null, { studentId: this.snapshot.get('studentId'),
+        this.collection = new codebrowser.collection.TagCollection(null, { instanceId: this.snapshot.get('instanceId'),
+                                                                           studentId: this.snapshot.get('studentId'),
                                                                            courseId: this.snapshot.get('courseId'),
                                                                            exerciseId: this.snapshot.get('exerciseId') });
 
@@ -78,7 +79,8 @@ codebrowser.view.SnapshotTagsView = Backbone.View.extend({
         }
 
         // New tag
-        var tag = new codebrowser.model.Tag(null, { studentId: this.snapshot.get('studentId'),
+        var tag = new codebrowser.model.Tag(null, { instanceId: this.snapshot.get('instanceId'),
+                                                    studentId: this.snapshot.get('studentId'),
                                                     courseId: this.snapshot.get('courseId'),
                                                     exerciseId: this.snapshot.get('exerciseId') });
 
