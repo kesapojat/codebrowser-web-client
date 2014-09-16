@@ -7,14 +7,6 @@ codebrowser.view.InstanceView = codebrowser.view.ListBaseView.extend({
 
     renderTemplate: function () {
 
-        // View attributes
-        var attributes = {
-
-            instance: this.instance.toJSON()
-
-        }
-
-        // Template
-        return this.template(attributes);
+        return this.template({ instance: this.instance.toJSON() });
     }
 });

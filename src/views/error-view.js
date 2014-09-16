@@ -7,9 +7,6 @@ codebrowser.view.ErrorView = Backbone.View.extend({
 
     render: function () {
 
-        // Template
-        var output = this.template(this.model);
-
-        this.$el.html(output);
+        this.$el.html(this.template(this.model));
     }
 });
