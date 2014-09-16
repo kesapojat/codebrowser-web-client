@@ -3296,8 +3296,8 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         // Remember previously set playback speed
         var selectedSpeed = $('#speed').val() || '1x';
 
-        // Update action buttons
-        this.updateActions(navigationContainerOutput);
+        // Update editor buttons
+        this.updateEditorActions(navigationContainerOutput);
 
         // Update playback buttons
         this.updatePlaybackActions(navigationContainerOutput);
@@ -3327,7 +3327,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
     /* Update */
 
-    updateActions: function (navigationContainerOutput) {
+    updateEditorActions: function (navigationContainerOutput) {
 
         if (this.rendered) {
             navigationContainerOutput = this.navigationContainer;
