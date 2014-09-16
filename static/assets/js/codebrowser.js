@@ -3357,6 +3357,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         if (this.collection.isKeyLevel()) {
             $('#level', navigationContainerOutput).addClass('active');
         }
+
+        // Disable changing snapshot level if playback is on
+        $('#level', navigationContainerOutput).attr('disabled', this.play);
     },
 
     updatePlaybackActions: function (navigationContainerOutput) {
@@ -3563,6 +3566,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         this.collection.level = this.collection.isCodeLevel() ? 'key' : 'code';
         this.snapshotsTimelineView.rendered = false;
+        this.rendered = false;
 
         this.navigate();
     },
