@@ -85,7 +85,7 @@ codebrowser.view.SnapshotTagsView = Backbone.View.extend({
                                                     exerciseId: this.snapshot.get('exerciseId') });
 
         // Save tag
-        tag.save({ text: text }, {
+        tag.save({ name: text }, {
 
             success: function () {
 

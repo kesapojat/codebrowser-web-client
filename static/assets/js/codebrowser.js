@@ -735,8 +735,8 @@ function program2(depth0,data) {
   
   var buffer = "", stack1, helper;
   buffer += "\n\n            <li>";
-  if (helper = helpers.text) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.text); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  if (helper = helpers.name) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.name); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + " <button type='button' data-action='delete' data-id='";
   if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
@@ -1681,7 +1681,7 @@ codebrowser.model.Tag = Backbone.RelationalModel.extend({
 
     urlRoot: function () {
 
-        if (this.instanceId || !this.studentId || !this.courseId || !this.exerciseId) {
+        if (!this.instanceId || !this.studentId || !this.courseId || !this.exerciseId) {
             throw new Error('Attributes instanceId, studentId, courseId and exerciseId are required to fetch a tag.');
         }
 
@@ -3122,7 +3122,7 @@ codebrowser.view.SnapshotTagsView = Backbone.View.extend({
                                                     exerciseId: this.snapshot.get('exerciseId') });
 
         // Save tag
-        tag.save({ text: text }, {
+        tag.save({ name: text }, {
 
             success: function () {
 
