@@ -1180,7 +1180,6 @@ codebrowser.helper.ListViewFilter = function (options, collection) {
     var initialise = function (options) {
 
         if (options) {
-
             _searchInputSelector = options.searchInputSelector || _searchInputSelector;
             _containerSelector = options.containerSelector || _containerSelector;
         }
