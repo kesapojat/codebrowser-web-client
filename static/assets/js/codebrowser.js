@@ -1484,7 +1484,7 @@ codebrowser.model.Diff = function (previousContent, content) {
 ;
 
 /*
- * An exercise is resolved through a course.
+ * An exercise can be resolved through a course.
  */
 
 codebrowser.model.Exercise = Backbone.RelationalModel.extend({
@@ -1581,17 +1581,17 @@ codebrowser.model.Instance = Backbone.RelationalModel.extend({
 ;
 
 /*
- * Fetch a snapshot by passing a studentId, courseId and exerciseId as attributes for the model:
+ * Fetch a snapshot by passing an instanceId, studentId, courseId and exerciseId as attributes for the model:
  *
- * var snapshot = codebrowser.model.Snapshot.findOrCreate({ studentId: 1, courseId: 2, exerciseId: 3, id: 4 });
+ * var snapshot = codebrowser.model.Snapshot.findOrCreate({ instanceId: 1, studentId: 2, courseId: 3, exerciseId: 4, id: 5 });
  */
 
 codebrowser.model.Snapshot = Backbone.RelationalModel.extend({
 
     urlRoot: function () {
 
-        if (!this.get('studentId') || !this.get('courseId') || !this.get('exerciseId')) {
-            throw new Error('Attributes studentId, courseId and exerciseId are required to fetch a snapshot.');
+        if (!this.get('instanceId') || !this.get('studentId') || !this.get('courseId') || !this.get('exerciseId')) {
+            throw new Error('Attributes instanceId, studentId, courseId and exerciseId are required to fetch a snapshot.');
         }
 
         return config.api.main.root +
@@ -1635,6 +1635,7 @@ codebrowser.model.Snapshot = Backbone.RelationalModel.extend({
 
         var files = {};
 
+        // Builds a folder structure for files
         this.get('files').each(function (file) {
 
             var folder = file.getFolder();

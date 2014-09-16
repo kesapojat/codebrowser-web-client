@@ -1,5 +1,5 @@
 /*
- * An exercise is resolved through a course.
+ * An exercise can be resolved through a course.
  */
 
 codebrowser.model.Exercise = Backbone.RelationalModel.extend({
