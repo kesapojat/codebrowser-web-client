@@ -3184,7 +3184,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         'click #first':         'first',
         'click #previous':      'previous',
         'click #next':          'next',
-        'click #last':          'last'
+        'click #last':          'last',
 
     },
 
@@ -3473,6 +3473,10 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
     },
 
     keydown: function (event) {
+
+        if ($(event.target).is('input')) {
+            return;
+        }
 
         // Left
         if (event.keyCode === 37) {
