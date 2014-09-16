@@ -21,7 +21,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         'click #first':         'first',
         'click #previous':      'previous',
         'click #next':          'next',
-        'click #last':          'last',
+        'click #last':          'last'
 
     },
 
