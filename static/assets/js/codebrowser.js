@@ -1681,7 +1681,7 @@ codebrowser.model.Tag = Backbone.RelationalModel.extend({
 
     urlRoot: function () {
 
-        if (this.instanceId || !this.studentId || !this.courseId || !this.exerciseId) {
+        if (!this.instanceId || !this.studentId || !this.courseId || !this.exerciseId) {
             throw new Error('Attributes instanceId, studentId, courseId and exerciseId are required to fetch a tag.');
         }
 
