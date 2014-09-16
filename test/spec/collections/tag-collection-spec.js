@@ -1,11 +1,11 @@
 describe('TagCollection', function () {
 
-    var missingOptionsError = 'Options studentId, courseId and exerciseId are required to fetch tags.',
+    var missingOptionsError = 'Options instanceId, studentId, courseId and exerciseId are required to fetch tags.',
         tags;
 
     beforeEach(function () {
 
-        tags = new codebrowser.collection.TagCollection(null, { studentId: 1, courseId: 2, exerciseId: 3 });
+        tags = new codebrowser.collection.TagCollection(null, { instanceId: 1, studentId: 2, courseId: 3, exerciseId: 4 });
     });
 
     it('should have correct model', function () {
@@ -36,6 +36,6 @@ describe('TagCollection', function () {
 
     it('should have correct URL', function () {
 
-        expect(tags.url()).toBe(config.api.main.root + 'students/1/courses/2/exercises/3/tags');
+        expect(tags.url()).toBe(config.api.main.root + '1/students/2/courses/3/exercises/4/tags');
     });
 });

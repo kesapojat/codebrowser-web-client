@@ -1,16 +1,16 @@
 describe('Tag', function () {
 
-    var missingAttributesError = 'Attributes studentId, courseId and exerciseId are required to fetch a tag.',
+    var missingAttributesError = 'Attributes instanceId, studentId, courseId and exerciseId are required to fetch a tag.',
         tag;
 
     beforeEach(function () {
 
-        tag = codebrowser.model.Tag.findOrCreate({ id: 4 }, { studentId: 1, courseId: 2, exerciseId: 3 });
+        tag = codebrowser.model.Tag.findOrCreate({ id: 4 }, { instanceId: 1, studentId: 2, courseId: 3, exerciseId: 4 });
     });
 
     it('should have correct URL root', function () {
 
-        expect(tag.urlRoot()).toBe(config.api.main.root + 'students/1/courses/2/exercises/3/tags');
+        expect(tag.urlRoot()).toBe(config.api.main.root + '1/students/2/courses/3/exercises/4/tags');
     });
 
     it('fetch should throw error if no studentId is passed', function () {
