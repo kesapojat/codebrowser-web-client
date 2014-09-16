@@ -17,12 +17,6 @@ codebrowser.router.CourseRouter = codebrowser.router.BaseRouter.extend({
 
     /* Actions */
 
-    notFound: function () {
-
-        var errorView = new codebrowser.view.NotFoundErrorView();
-        codebrowser.controller.ViewController.push(errorView, true);
-    },
-
     navigation: function (instanceId, studentId) {
 
         codebrowser.app.course.navigate('#/' +

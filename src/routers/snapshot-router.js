@@ -21,12 +21,6 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
     /* Actions */
 
-    notFound: function () {
-
-        var errorView = new codebrowser.view.NotFoundErrorView();
-        codebrowser.controller.ViewController.push(errorView, true);
-    },
-
     navigation: function (instanceId, courseId, exerciseId, studentId, snapshotId, fileId, level) {
 
         this.snapshot(instanceId, studentId, courseId, exerciseId, snapshotId, fileId, level, { courseRoute: true });
@@ -34,14 +28,14 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
     snapshot: function (instanceId, studentId, courseId, exerciseId, snapshotId, fileId, level, options) {
 
-        var self = this,
-            snapshotCollection;
+        var snapshotCollection;
 
         // Snapshot View
         if (!codebrowser.controller.ViewController.isActive(this.snapshotView)) {
             this.snapshotView = new codebrowser.view.SnapshotView();
         }
 
+        // Collection not cached or has changed
         if (!this.snapshotView.collection || (this.studentId !== studentId || this.exerciseId !== exerciseId)) {
 
             snapshotCollection = new codebrowser.collection.SnapshotCollection(null, { instanceId: instanceId,
@@ -61,9 +55,18 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
             snapshotCollection = this.snapshotView.collection;
         }
 
+        // Route via course
         if (options && options.courseRoute) {
             this.snapshotView.courseRoute = true;
         }
+
+        // Fetch
+        this.fetch(instanceId, studentId, courseId, exerciseId, snapshotId, fileId, snapshotCollection);
+    },
+
+    fetch: function (instanceId, studentId, courseId, exerciseId, snapshotId, fileId, snapshotCollection) {
+
+        var self = this;
 
         // Wait for fetches to be in sync
         var fetchSynced = _.after(5, function () {
@@ -143,17 +146,13 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
         // Invalid snapshot ID
         if (!snapshot) {
-
             this.notFound();
-
             return;
         }
 
         // No file ID specified, navigate to first file
         if (!fileId) {
-
             this.snapshotView.navigate(snapshot, null);
-
             return;
         }
 

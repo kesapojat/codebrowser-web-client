@@ -2,9 +2,9 @@ codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
 
     routes: {
 
-        ':instanceId/students(/)':                                                    'students',
-        ':instanceId/courses/:courseId/exercises/:exerciseId(/)':                     'navigation',
-        ':instanceId/courses/:courseId/exercises/:exerciseId/students(/)':            'exerciseStudents'
+        ':instanceId/students(/)':                                         'students',
+        ':instanceId/courses/:courseId/exercises/:exerciseId(/)':          'navigation',
+        ':instanceId/courses/:courseId/exercises/:exerciseId/students(/)': 'exerciseStudents'
 
     },
 
@@ -16,12 +16,6 @@ codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
     },
 
     /* Actions */
-
-    notFound: function () {
-
-        var errorView = new codebrowser.view.NotFoundErrorView();
-        codebrowser.controller.ViewController.push(errorView, true);
-    },
 
     navigation: function (instanceId, courseId, exerciseId) {
 

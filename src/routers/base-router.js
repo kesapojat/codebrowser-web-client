@@ -14,7 +14,7 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
     initialize: function () {
 
         this.rootView = new codebrowser.view.RootView();
-        this.errorView = new codebrowser.view.ErrorView({ model: { class: 'alert-error', message: 'Oops!' } });
+        this.notFoundView = new codebrowser.view.NotFoundErrorView();
     },
 
     /* Actions */
@@ -34,7 +34,7 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
 
     notFound: function () {
 
-        codebrowser.controller.ViewController.push(this.errorView, true);
+        codebrowser.controller.ViewController.push(this.notFoundView, true);
     },
 
     fetchModel: function (model, useCache, onSuccess, options) {

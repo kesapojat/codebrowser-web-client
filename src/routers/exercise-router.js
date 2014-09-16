@@ -18,12 +18,6 @@ codebrowser.router.ExerciseRouter = codebrowser.router.BaseRouter.extend({
 
     /* Actions */
 
-    notFound: function () {
-
-        var errorView = new codebrowser.view.NotFoundErrorView();
-        codebrowser.controller.ViewController.push(errorView, true);
-    },
-
     navigateToCourseExercises: function (instanceId, courseId) {
 
         codebrowser.app.exercise.navigate('#/' +
