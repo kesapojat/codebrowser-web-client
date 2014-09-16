@@ -1,13 +1,13 @@
 /*
  * Fetch all exercises related to a course:
  *
- * var course = codebrowser.model.Course.findOrCreate({ id: 1 });
+ * var course = codebrowser.model.Course.findOrCreate({ instanceId: 1, id: 2 });
  * var exercises = new codebrowser.collection.ExerciseCollection();
  * exercises.course = course;
  *
- * Fetch exercises related to a student and course by passing a studentId and courseId as options for the collection:
+ * Fetch exercises related to a student and course by passing an instanceId, studentId and courseId as options for the collection:
  *
- * var courses = new codebrowser.collection.ExerciesCollection(null, { studentId: 1, courseId: 2 });
+ * var courses = new codebrowser.collection.ExerciesCollection(null, { instanceId: 1, studentId: 2, courseId: 3 });
  */
 
 codebrowser.collection.ExerciseCollection = Backbone.Collection.extend({
@@ -16,8 +16,8 @@ codebrowser.collection.ExerciseCollection = Backbone.Collection.extend({
 
     url: function () {
 
-        if (!this.courseId) {
-            throw new Error('Option courseId is required to fetch exercises.');
+        if (!this.instanceId || !this.courseId) {
+            throw new Error('Options instanceId and courseId are required to fetch exercises.');
         }
 
         /* Fetch exercises related to a course */

@@ -1,7 +1,7 @@
 /*
- * Fetch snapshots by passing a studentId, courseId and exerciseId as options for the collection:
+ * Fetch snapshots by passing an instanceId, studentId, courseId and exerciseId as options for the collection:
  *
- * var snapshots = new codebrowser.collection.SnapshotCollection(null, { studentId: 1, courseId: 2, exerciseId: 3 });
+ * var snapshots = new codebrowser.collection.SnapshotCollection(null, { instanceId: 1, studentId: 2, courseId: 3, exerciseId: 4 });
  */
 
 codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({

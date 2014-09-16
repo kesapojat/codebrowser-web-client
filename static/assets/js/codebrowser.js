@@ -1719,9 +1719,9 @@ codebrowser.model.Tag = Backbone.RelationalModel.extend({
  *
  * var courses = new codebrowser.collection.CourseCollection();
  *
- * Fetch courses related to a student by passing a studentId as an option for the collection:
+ * Fetch courses related to a student by passing an instanceId and a studentId as an option for the collection:
  *
- * var courses = new codebrowser.collection.CourseCollection(null, { studentId: 1 });
+ * var courses = new codebrowser.collection.CourseCollection(null, { instanceId: 1, studentId: 2 });
  */
 
 codebrowser.collection.CourseCollection = Backbone.Collection.extend({
@@ -1752,13 +1752,13 @@ codebrowser.collection.CourseCollection = Backbone.Collection.extend({
 /*
  * Fetch all exercises related to a course:
  *
- * var course = codebrowser.model.Course.findOrCreate({ id: 1 });
+ * var course = codebrowser.model.Course.findOrCreate({ instanceId: 1, id: 2 });
  * var exercises = new codebrowser.collection.ExerciseCollection();
  * exercises.course = course;
  *
- * Fetch exercises related to a student and course by passing a studentId and courseId as options for the collection:
+ * Fetch exercises related to a student and course by passing an instanceId, studentId and courseId as options for the collection:
  *
- * var courses = new codebrowser.collection.ExerciesCollection(null, { studentId: 1, courseId: 2 });
+ * var courses = new codebrowser.collection.ExerciesCollection(null, { instanceId: 1, studentId: 2, courseId: 3 });
  */
 
 codebrowser.collection.ExerciseCollection = Backbone.Collection.extend({
@@ -1767,8 +1767,8 @@ codebrowser.collection.ExerciseCollection = Backbone.Collection.extend({
 
     url: function () {
 
-        if (!this.courseId) {
-            throw new Error('Option courseId is required to fetch exercises.');
+        if (!this.instanceId || !this.courseId) {
+            throw new Error('Options instanceId and courseId are required to fetch exercises.');
         }
 
         /* Fetch exercises related to a course */
@@ -1827,9 +1827,9 @@ codebrowser.collection.InstanceCollection = Backbone.Collection.extend({
 ;
 
 /*
- * Fetch snapshots by passing a studentId, courseId and exerciseId as options for the collection:
+ * Fetch snapshots by passing an instanceId, studentId, courseId and exerciseId as options for the collection:
  *
- * var snapshots = new codebrowser.collection.SnapshotCollection(null, { studentId: 1, courseId: 2, exerciseId: 3 });
+ * var snapshots = new codebrowser.collection.SnapshotCollection(null, { instanceId: 1, studentId: 2, courseId: 3, exerciseId: 4 });
  */
 
 codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({

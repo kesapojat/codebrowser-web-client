@@ -3,9 +3,9 @@
  *
  * var courses = new codebrowser.collection.CourseCollection();
  *
- * Fetch courses related to a student by passing a studentId as an option for the collection:
+ * Fetch courses related to a student by passing an instanceId and a studentId as an option for the collection:
  *
- * var courses = new codebrowser.collection.CourseCollection(null, { studentId: 1 });
+ * var courses = new codebrowser.collection.CourseCollection(null, { instanceId: 1, studentId: 2 });
  */
 
 codebrowser.collection.CourseCollection = Backbone.Collection.extend({
