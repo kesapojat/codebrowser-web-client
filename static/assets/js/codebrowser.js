@@ -722,7 +722,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1, helper, options;
-  buffer += "\n\n    <ul>\n\n        ";
+  buffer += "\n\n    <ul class='list-unstyled'>\n\n        ";
   options={hash:{},inverse:self.noop,fn:self.program(2, program2, data),data:data}
   if (helper = helpers.tags) { stack1 = helper.call(depth0, options); }
   else { helper = (depth0 && depth0.tags); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
@@ -746,10 +746,10 @@ function program2(depth0,data) {
   return buffer;
   }
 
-  buffer += "<header>\n\n    <h1><i class='icon-tags icon-gray'></i> Tags</h1>\n\n</header>\n\n";
+  buffer += "<header>\n\n    <h1><span class='glyphicon glyphicon-tags icon-gray'></span> Tags</h1>\n\n</header>\n\n";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.tags), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n<div class='input-append'>\n\n    <form>\n\n        <input type='text' data-id='tag' id='appendedInputButton' placeholder='New tag…'>\n        <button type='submit' data-action='create' class='btn'>+</button>\n\n    </form>\n\n</div>\n";
+  buffer += "\n\n<div class='input-group'>\n\n    <form>\n        <input type='text' id='appendedInputButton' class='form-control' data-id='tag' placeholder='New tag…'>\n\n        <span class='input-group-btn'>\n            <button class='btn btn-default' type='submit' data-action='create'>+</button>\n        </span>\n    </form>\n\n</div>\n";
   return buffer;
   });
 

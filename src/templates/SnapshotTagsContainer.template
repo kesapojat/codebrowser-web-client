@@ -1,12 +1,12 @@
 <header>
 
-    <h1><i class='icon-tags icon-gray'></i> Tags</h1>
+    <h1><span class='glyphicon glyphicon-tags icon-gray'></span> Tags</h1>
 
 </header>
 
 {{#if tags}}
 
-    <ul>
+    <ul class='list-unstyled'>
 
         {{#tags}}
 
@@ -18,13 +18,14 @@
 
 {{/if}}
 
-<div class='input-append'>
+<div class='input-group'>
 
     <form>
+        <input type='text' id='appendedInputButton' class='form-control' data-id='tag' placeholder='New tag…'>
 
-        <input type='text' data-id='tag' id='appendedInputButton' placeholder='New tag…'>
-        <button type='submit' data-action='create' class='btn'>+</button>
-
+        <span class='input-group-btn'>
+            <button class='btn btn-default' type='submit' data-action='create'>+</button>
+        </span>
     </form>
 
 </div>
