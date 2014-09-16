@@ -222,14 +222,6 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             $(secondary, navigationContainerOutput).attr('disabled', false);
 
         }
-
-        if (!this.play && $(secondary + ' span', navigationContainerOutput).hasClass('glyphicon-stop')) {
-
-            $(secondary + ' span', navigationContainerOutput).removeClass('glyphicon-stop').addClass(icon);
-            $(secondary, navigationContainerOutput).removeClass('active');
-            $(primary, navigationContainerOutput).attr('disabled', false);
-
-        }
     },
 
     updateNavigation: function (navigationContainerOutput, index) {
@@ -409,11 +401,19 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
     playBackwards: function () {
 
+        if (this.play && !this.rewind) {
+            return;
+        }
+
         this.rewind = true;
         this.playback();
     },
 
     playForwards: function () {
+
+        if (this.play && this.rewind) {
+            return;
+        }
 
         this.rewind = false;
         this.playback();
