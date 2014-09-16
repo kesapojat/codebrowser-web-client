@@ -581,7 +581,7 @@ helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partial
 function program1(depth0,data) {
   
   
-  return "\n\n            <button id='rewind' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-backward icon-gray'></span></button>\n            <button id='play' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='glyphicon glyphicon-play icon-gray'></span></button>\n\n            <select id='speed' class='form-control input-sm'>\n                <option selected>1x</option>\n                <option>2x</option>\n                <option>4x</option>\n                <option>8x</option>\n                <option>16x</option>\n                <option>32x</option>\n            </select>\n\n        ";
+  return "\n\n            <button id='rewind' type='button' class='btn btn-default btn-sm'><span class='glyphicon glyphicon-backward icon-gray'></span></button>\n            <button id='play' type='button' class='btn btn-default btn-sm'><span class='glyphicon glyphicon-play icon-gray'></span></button>\n\n            <select id='speed' class='form-control input-sm'>\n                <option selected>1x</option>\n                <option>2x</option>\n                <option>4x</option>\n                <option>8x</option>\n                <option>16x</option>\n                <option>32x</option>\n            </select>\n\n        ";
   }
 
   buffer += "<div class='row'>\n\n    <div class='col-md-6'>\n\n        <button id='toggleBrowser' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-folder icon-gray'></span></button>\n        <button id='split' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-split-editor icon-gray'></span></button>\n        <button id='diff' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-diff icon-gray'></span></button>\n        <button id='level' type='button' class='btn btn-default btn-sm' data-toggle='button'><span class='icon icon-key-level icon-gray'></span></button>\n\n        ";
@@ -3333,6 +3333,8 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             navigationContainerOutput = this.navigationContainer;
         }
 
+        /* Active */
+
         // Browser is enabled, set toggleBrowser button as active
         if (this.browser) {
             $('#toggleBrowser', navigationContainerOutput).addClass('active');
@@ -3341,11 +3343,6 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         // Split view is enabled, set split button as active
         if (this.editorView.split) {
             $('#split', navigationContainerOutput).addClass('active');
-        }
-
-        // Disable split button if editor can not be split
-        if (!this.editorView.canSplit()) {
-            $('#split', navigationContainerOutput).attr('disabled', true);
         }
 
         // Diff is enabled, set diff button as active
@@ -3357,6 +3354,11 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         if (this.collection.isKeyLevel()) {
             $('#level', navigationContainerOutput).addClass('active');
         }
+
+        /* Disable */
+
+        // Disable split button if editor can not be split
+        $('#split', navigationContainerOutput).attr('disabled', !this.editorView.canSplit());
 
         // Disable changing snapshot level if playback is on
         $('#level', navigationContainerOutput).attr('disabled', this.play);
@@ -3373,24 +3375,26 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
             if (this.rewind) {
 
-                $('#rewind span', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-backward');
+                $('#rewind span', navigationContainerOutput).removeClass('glyphicon-backward').addClass('glyphicon-stop');
                 $('#play', navigationContainerOutput).attr('disabled', true);
+                $('#rewind', navigationContainerOutput).addClass('active');
 
             } else {
 
-                $('#play span', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-play');
+                $('#play span', navigationContainerOutput).removeClass('glyphicon-play').addClass('glyphicon-stop');
                 $('#rewind', navigationContainerOutput).attr('disabled', true);
+                $('#play', navigationContainerOutput).addClass('active');
             }
 
         } else if (!this.play && $('#play span', navigationContainerOutput).hasClass('glyphicon-stop')) {
 
-            $('#play span', navigationContainerOutput).removeClass('glyphicon-stop');
+            $('#play span', navigationContainerOutput).removeClass('glyphicon-stop').addClass('glyphicon-play');
             $('#play', navigationContainerOutput).removeClass('active');
             $('#rewind', navigationContainerOutput).attr('disabled', false);
 
         } else if (!this.play && $('#rewind span', navigationContainerOutput).hasClass('glyphicon-stop')) {
 
-            $('#rewind span', navigationContainerOutput).removeClass('glyphicon-stop');
+            $('#rewind span', navigationContainerOutput).removeClass('glyphicon-stop').addClass('glyphicon-backward');
             $('#rewind', navigationContainerOutput).removeClass('active');
             $('#play', navigationContainerOutput).attr('disabled', false);
         }

@@ -165,6 +165,8 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             navigationContainerOutput = this.navigationContainer;
         }
 
+        /* Active */
+
         // Browser is enabled, set toggleBrowser button as active
         if (this.browser) {
             $('#toggleBrowser', navigationContainerOutput).addClass('active');
@@ -173,11 +175,6 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         // Split view is enabled, set split button as active
         if (this.editorView.split) {
             $('#split', navigationContainerOutput).addClass('active');
-        }
-
-        // Disable split button if editor can not be split
-        if (!this.editorView.canSplit()) {
-            $('#split', navigationContainerOutput).attr('disabled', true);
         }
 
         // Diff is enabled, set diff button as active
@@ -189,6 +186,11 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         if (this.collection.isKeyLevel()) {
             $('#level', navigationContainerOutput).addClass('active');
         }
+
+        /* Disable */
+
+        // Disable split button if editor can not be split
+        $('#split', navigationContainerOutput).attr('disabled', !this.editorView.canSplit());
 
         // Disable changing snapshot level if playback is on
         $('#level', navigationContainerOutput).attr('disabled', this.play);
@@ -205,24 +207,26 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
             if (this.rewind) {
 
-                $('#rewind span', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-backward');
+                $('#rewind span', navigationContainerOutput).removeClass('glyphicon-backward').addClass('glyphicon-stop');
                 $('#play', navigationContainerOutput).attr('disabled', true);
+                $('#rewind', navigationContainerOutput).addClass('active');
 
             } else {
 
-                $('#play span', navigationContainerOutput).toggleClass('glyphicon-stop', 'glyphicon-play');
+                $('#play span', navigationContainerOutput).removeClass('glyphicon-play').addClass('glyphicon-stop');
                 $('#rewind', navigationContainerOutput).attr('disabled', true);
+                $('#play', navigationContainerOutput).addClass('active');
             }
 
         } else if (!this.play && $('#play span', navigationContainerOutput).hasClass('glyphicon-stop')) {
 
-            $('#play span', navigationContainerOutput).removeClass('glyphicon-stop');
+            $('#play span', navigationContainerOutput).removeClass('glyphicon-stop').addClass('glyphicon-play');
             $('#play', navigationContainerOutput).removeClass('active');
             $('#rewind', navigationContainerOutput).attr('disabled', false);
 
         } else if (!this.play && $('#rewind span', navigationContainerOutput).hasClass('glyphicon-stop')) {
 
-            $('#rewind span', navigationContainerOutput).removeClass('glyphicon-stop');
+            $('#rewind span', navigationContainerOutput).removeClass('glyphicon-stop').addClass('glyphicon-backward');
             $('#rewind', navigationContainerOutput).removeClass('active');
             $('#play', navigationContainerOutput).attr('disabled', false);
         }
