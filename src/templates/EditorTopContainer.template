@@ -25,13 +25,13 @@
                   <dd>{{percentageOfChange}} %</dd>
 
                   <dt>Insert</dt>
-                  <dd>{{difference.insert}} {{pluralize difference.insert 'line'}}</dd>
+                  <dd>{{difference.insert}} {{pluralise difference.insert 'line'}}</dd>
 
                   <dt>Replace</dt>
-                  <dd>{{difference.replace}} {{pluralize difference.replace 'line'}}</dd>
+                  <dd>{{difference.replace}} {{pluralise difference.replace 'line'}}</dd>
 
                   <dt>Delete</dt>
-                  <dd>{{difference.delete}} {{pluralize difference.delete 'line'}}</dd>
+                  <dd>{{difference.delete}} {{pluralise difference.delete 'line'}}</dd>
 
                 </dl>
 

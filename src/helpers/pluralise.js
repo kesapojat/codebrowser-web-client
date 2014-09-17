@@ -1,4 +1,4 @@
-Handlebars.registerHelper('pluralize', function (value, string) {
+Handlebars.registerHelper('pluralise', function (value, string) {
 
     if (value === 1) {
         return string;
