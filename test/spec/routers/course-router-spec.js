@@ -1,12 +1,12 @@
 describe('Course router', function () {
 
-    FakeServer.return({
-
-        'instance/students/-9999': 404,
-        'instance/students/-9999/courses': 404
-    });
-
     beforeEach(function () {
+
+        FakeServer.return({
+
+            'instance/students/-9999': 404,
+            'instance/students/-9999/courses': 404
+        });
 
         Backbone.history.stop();
     });
