@@ -7,8 +7,6 @@ describe('File', function () {
         var snapshot = codebrowser.model.Snapshot.findOrCreate({ instanceId: 'instance', studentId: 21, courseId: 11, exerciseId: 31, id: 51 });
         file = codebrowser.model.File.findOrCreate({ id: 61 });
 
-        console.log(JSON.stringify(file));
-
         file.set('snapshot', snapshot);
 
         expect(file.urlRoot()).toBe(config.api.main.root + 'students/21/courses/11/exercises/31/snapshots/51/files');
