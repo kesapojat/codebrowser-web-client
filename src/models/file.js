@@ -16,7 +16,7 @@ codebrowser.model.File = Backbone.RelationalModel.extend({
                '/exercises/' +
                this.get('snapshot').get('exerciseId') +
                '/snapshots/' +
-               this.get('snapshot') +
+               this.get('snapshot').id +
                '/files';
     },
 
