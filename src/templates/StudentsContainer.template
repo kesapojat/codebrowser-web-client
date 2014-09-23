@@ -38,6 +38,7 @@
                 <tr>
 
                     <th class='index'>#</th>
+                    <th>Username</th>
                     <th>Name</th>
 
                 </tr>
@@ -53,11 +54,13 @@
 
                         {{#if ../course}}
 
-                            <td class='link'><a href='./#/{{../../instanceId}}/courses/{{../../course.id}}/exercises/{{../../exercise.id}}/students/{{id}}/snapshots'>{{name}}</a></td>
+                            <td class='link'><a href='./#/{{../../instanceId}}/courses/{{../../course.id}}/exercises/{{../../exercise.id}}/students/{{id}}/snapshots'>{{username}}</a></td>
+                            <td>{{name}}</td>
 
                         {{else}}
 
-                            <td class='link'><a href='./#/{{../../instanceId}}/students/{{id}}/courses'>{{name}}</a></td>
+                            <td class='link'><a href='./#/{{../../instanceId}}/students/{{id}}/courses'>{{username}}</a></td>
+                            <td>{{name}}</td>
 
                         {{/if}}
 

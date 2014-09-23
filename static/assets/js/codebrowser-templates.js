@@ -506,8 +506,10 @@ this["Handlebars"]["templates"]["StudentsContainer"] = Handlebars.template({"1":
     + "/students/"
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
     + "/snapshots'>"
+    + escapeExpression(((helper = (helper = helpers.username || (depth0 != null ? depth0.username : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"username","hash":{},"data":data}) : helper)))
+    + "</a></td>\n                            <td>"
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
-    + "</a></td>\n\n";
+    + "</td>\n\n";
 },"8":function(depth0,helpers,partials,data,depths) {
   var helper, lambda=this.lambda, escapeExpression=this.escapeExpression, functionType="function", helperMissing=helpers.helperMissing;
   return "\n                            <td class='link'><a href='./#/"
@@ -515,8 +517,10 @@ this["Handlebars"]["templates"]["StudentsContainer"] = Handlebars.template({"1":
     + "/students/"
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
     + "/courses'>"
+    + escapeExpression(((helper = (helper = helpers.username || (depth0 != null ? depth0.username : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"username","hash":{},"data":data}) : helper)))
+    + "</a></td>\n                            <td>"
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
-    + "</a></td>\n\n";
+    + "</td>\n\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data,depths) {
   var stack1, helper, options, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, lambda=this.lambda, blockHelperMissing=helpers.blockHelperMissing, buffer = "<section>\n\n    <div class='row'>\n\n        <ol class='breadcrumb'>\n\n            <li><a href='./'>Instances</a></li>\n            <li><a href='./#/"
     + escapeExpression(((helper = (helper = helpers.instanceId || (depth0 != null ? depth0.instanceId : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"instanceId","hash":{},"data":data}) : helper)))
@@ -533,7 +537,7 @@ this["Handlebars"]["templates"]["StudentsContainer"] = Handlebars.template({"1":
     + ")\n        </h2>\n\n";
   stack1 = this.invokePartial(partials.search, '        ', 'search', depth0, undefined, helpers, partials, data);
   if (stack1 != null) { buffer += stack1; }
-  buffer += "\n    </div>\n\n    <div class='row'>\n\n        <table class='table table-hover'>\n\n            <thead>\n                <tr>\n\n                    <th class='index'>#</th>\n                    <th>Name</th>\n\n                </tr>\n            </thead>\n\n            <tbody>\n\n";
+  buffer += "\n    </div>\n\n    <div class='row'>\n\n        <table class='table table-hover'>\n\n            <thead>\n                <tr>\n\n                    <th class='index'>#</th>\n                    <th>Username</th>\n                    <th>Name</th>\n\n                </tr>\n            </thead>\n\n            <tbody>\n\n";
   stack1 = ((helper = (helper = helpers.students || (depth0 != null ? depth0.students : depth0)) != null ? helper : helperMissing),(options={"name":"students","hash":{},"fn":this.program(5, data, depths),"inverse":this.noop,"data":data}),(typeof helper === functionType ? helper.call(depth0, options) : helper));
   if (!helpers.students) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if (stack1 != null) { buffer += stack1; }
