@@ -32,7 +32,11 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
         // Snapshot View
         if (!codebrowser.controller.ViewController.isActive(this.snapshotView)) {
+
             this.snapshotView = new codebrowser.view.SnapshotView();
+
+            // Set view as active
+            codebrowser.controller.ViewController.push(this.snapshotView);
         }
 
         // Collection not cached or has changed
@@ -171,7 +175,6 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         snapshot.set('exercise', this.exercise);
         snapshot.set('course', this.course);
 
-        codebrowser.controller.ViewController.push(this.snapshotView);
         this.snapshotView.update(snapshot, fileId);
     }
 });
