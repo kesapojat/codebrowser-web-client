@@ -112,24 +112,24 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
             // Exercise has no snapshots
             if (snapshotCollection.length === 0) {
-                self.notFound();
+                self.notFound('No snapshots.');
                 return;
             }
+
+            // Fetch all related files
+            snapshotCollection.fetchFiles(function (error) {
+
+                if (error) {
+                    self.notFound();
+                    return;
+                }
+
+                fetchSynced();
+            });
 
             fetchSynced();
 
         }, { level: snapshotCollection.level });
-
-        // Fetch all related files
-        snapshotCollection.fetchFiles(function (error) {
-
-            if (error) {
-                self.notFound();
-                return;
-            }
-
-            fetchSynced();
-        });
     },
 
     synced: function (snapshotId, fileId, snapshotCollection) {

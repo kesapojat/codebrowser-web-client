@@ -32,7 +32,9 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
         });
     },
 
-    notFound: function () {
+    notFound: function (message) {
+
+        this.notFoundView.model.message = message || 'Not found.';
 
         codebrowser.controller.ViewController.push(this.notFoundView, true);
     },

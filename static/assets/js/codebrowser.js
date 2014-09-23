@@ -2521,7 +2521,7 @@ codebrowser.view.NotFoundErrorView = codebrowser.view.ErrorView.extend({
     model: {
 
         class: 'alert-warning',
-        message: 'Not Found.'
+        message: 'Not found.'
 
     }
 });
@@ -4118,7 +4118,9 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
         });
     },
 
-    notFound: function () {
+    notFound: function (message) {
+
+        this.notFoundView.model.message = message || 'Not found.';
 
         codebrowser.controller.ViewController.push(this.notFoundView, true);
     },
@@ -4460,24 +4462,24 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
             // Exercise has no snapshots
             if (snapshotCollection.length === 0) {
-                self.notFound();
+                self.notFound('No snapshots.');
                 return;
             }
+
+            // Fetch all related files
+            snapshotCollection.fetchFiles(function (error) {
+
+                if (error) {
+                    self.notFound();
+                    return;
+                }
+
+                fetchSynced();
+            });
 
             fetchSynced();
 
         }, { level: snapshotCollection.level });
-
-        // Fetch all related files
-        snapshotCollection.fetchFiles(function (error) {
-
-            if (error) {
-                self.notFound();
-                return;
-            }
-
-            fetchSynced();
-        });
     },
 
     synced: function (snapshotId, fileId, snapshotCollection) {
