@@ -9,7 +9,7 @@
 
             {{#if studentId}}
                 <li><a href='./#/{{instanceId}}/students'>Students</a></li>
-                <li><a href='./#/{{instanceId}}/students/{{studentId}}'>{{student.name}}</a></li>
+                <li><a href='./#/{{instanceId}}/students/{{studentId}}'>{{student.username}}</a></li>
             {{/if}}
 
             <li><a href='./#/{{instanceId}}/{{#if studentId}}students/{{studentId}}/{{/if}}courses'>Courses</a></li>
@@ -23,7 +23,7 @@
     <div class='row header'>
 
         <h2 class='col-md-9'>
-            {{#if studentId}} {{student.name}} — {{/if}} {{course.name}} — Exercises ({{exercises.length}})
+            {{#if studentId}} {{student.username}} — {{/if}} {{course.name}} — Exercises ({{exercises.length}})
         </h2>
 
         {{> search}}

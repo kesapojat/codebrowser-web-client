@@ -10,12 +10,12 @@ this["Handlebars"]["templates"]["CoursesContainer"] = Handlebars.template({"1":f
     + "/students/"
     + escapeExpression(((helper = (helper = helpers.studentId || (depth0 != null ? depth0.studentId : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"studentId","hash":{},"data":data}) : helper)))
     + "'>"
-    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.student : depth0)) != null ? stack1.name : stack1), depth0))
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.student : depth0)) != null ? stack1.username : stack1), depth0))
     + "</a></li>\n";
 },"3":function(depth0,helpers,partials,data) {
   var stack1, lambda=this.lambda, escapeExpression=this.escapeExpression;
   return " "
-    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.student : depth0)) != null ? stack1.name : stack1), depth0))
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.student : depth0)) != null ? stack1.username : stack1), depth0))
     + " — ";
 },"5":function(depth0,helpers,partials,data,depths) {
   var stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "\n                    <tr>\n\n                        <td class='index'>"
@@ -120,7 +120,7 @@ this["Handlebars"]["templates"]["ExercisesContainer"] = Handlebars.template({"1"
     + "/students/"
     + escapeExpression(((helper = (helper = helpers.studentId || (depth0 != null ? depth0.studentId : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"studentId","hash":{},"data":data}) : helper)))
     + "'>"
-    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.student : depth0)) != null ? stack1.name : stack1), depth0))
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.student : depth0)) != null ? stack1.username : stack1), depth0))
     + "</a></li>\n";
 },"3":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
@@ -130,7 +130,7 @@ this["Handlebars"]["templates"]["ExercisesContainer"] = Handlebars.template({"1"
 },"5":function(depth0,helpers,partials,data) {
   var stack1, lambda=this.lambda, escapeExpression=this.escapeExpression;
   return " "
-    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.student : depth0)) != null ? stack1.name : stack1), depth0))
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.student : depth0)) != null ? stack1.username : stack1), depth0))
     + " — ";
 },"7":function(depth0,helpers,partials,data,depths) {
   var stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "\n                    <tr>\n\n                        <td class='index'>"
@@ -256,7 +256,7 @@ this["Handlebars"]["templates"]["NavigationBarContainer"] = Handlebars.template(
     + "/students/"
     + escapeExpression(((helper = (helper = helpers.studentId || (depth0 != null ? depth0.studentId : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"studentId","hash":{},"data":data}) : helper)))
     + "'>"
-    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.student : depth0)) != null ? stack1.name : stack1), depth0))
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.student : depth0)) != null ? stack1.username : stack1), depth0))
     + "</a></li>\n\n";
 },"3":function(depth0,helpers,partials,data) {
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, lambda=this.lambda;
@@ -267,7 +267,7 @@ this["Handlebars"]["templates"]["NavigationBarContainer"] = Handlebars.template(
     + "/students/"
     + escapeExpression(((helper = (helper = helpers.studentId || (depth0 != null ? depth0.studentId : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"studentId","hash":{},"data":data}) : helper)))
     + "'>"
-    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.student : depth0)) != null ? stack1.name : stack1), depth0))
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.student : depth0)) != null ? stack1.username : stack1), depth0))
     + "</a></li>\n            <li><a href='./#/"
     + escapeExpression(((helper = (helper = helpers.instanceId || (depth0 != null ? depth0.instanceId : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"instanceId","hash":{},"data":data}) : helper)))
     + "/students/"

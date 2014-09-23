@@ -12,12 +12,12 @@
             <li><a href='./#/{{instanceId}}/courses/{{courseId}}/exercises'>Exercises</a></li>
             <li><a href='./#/{{instanceId}}/courses/{{courseId}}/exercises/{{exerciseId}}'>{{exercise.name}}</a></li>
             <li><a href='./#/{{instanceId}}/courses/{{courseId}}/exercises/{{exerciseId}}/students'>Students</a></li>
-            <li><a href='./#/{{instanceId}}/courses/{{courseId}}/exercises/{{exerciseId}}/students/{{studentId}}'>{{student.name}}</a></li>
+            <li><a href='./#/{{instanceId}}/courses/{{courseId}}/exercises/{{exerciseId}}/students/{{studentId}}'>{{student.username}}</a></li>
 
         {{else}}
 
             <li><a href='./#/{{instanceId}}/students'>Students</a></li>
-            <li><a href='./#/{{instanceId}}/students/{{studentId}}'>{{student.name}}</a></li>
+            <li><a href='./#/{{instanceId}}/students/{{studentId}}'>{{student.username}}</a></li>
             <li><a href='./#/{{instanceId}}/students/{{studentId}}/courses'>Courses</a></li>
             <li><a href='./#/{{instanceId}}/students/{{studentId}}/courses/{{courseId}}'>{{course.name}}</a></li>
             <li><a href='./#/{{instanceId}}/students/{{studentId}}/courses/{{courseId}}/exercises'>Exercises</a></li>
