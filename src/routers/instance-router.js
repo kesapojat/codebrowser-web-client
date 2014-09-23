@@ -10,6 +10,7 @@ codebrowser.router.InstanceRouter = codebrowser.router.BaseRouter.extend({
 
     initialize: function () {
 
+        codebrowser.router.BaseRouter.prototype.initialize();
         this.instanceView = new codebrowser.view.InstanceView();
     },
 

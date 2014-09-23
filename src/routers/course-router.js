@@ -12,6 +12,7 @@ codebrowser.router.CourseRouter = codebrowser.router.BaseRouter.extend({
 
     initialize: function () {
 
+        codebrowser.router.BaseRouter.prototype.initialize();
         this.courseView = new codebrowser.view.CoursesView();
     },
 

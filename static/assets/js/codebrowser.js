@@ -4174,6 +4174,7 @@ codebrowser.router.CourseRouter = codebrowser.router.BaseRouter.extend({
 
     initialize: function () {
 
+        codebrowser.router.BaseRouter.prototype.initialize();
         this.courseView = new codebrowser.view.CoursesView();
     },
 
@@ -4236,6 +4237,7 @@ codebrowser.router.ExerciseRouter = codebrowser.router.BaseRouter.extend({
 
     initialize: function () {
 
+        codebrowser.router.BaseRouter.prototype.initialize();
         this.exerciseView = new codebrowser.view.ExercisesView();
     },
 
@@ -4325,6 +4327,7 @@ codebrowser.router.InstanceRouter = codebrowser.router.BaseRouter.extend({
 
     initialize: function () {
 
+        codebrowser.router.BaseRouter.prototype.initialize();
         this.instanceView = new codebrowser.view.InstanceView();
     },
 
@@ -4548,6 +4551,7 @@ codebrowser.router.StudentRouter = codebrowser.router.BaseRouter.extend({
 
     initialize: function () {
 
+        codebrowser.router.BaseRouter.prototype.initialize();
         this.studentView = new codebrowser.view.StudentsView();
     },
 

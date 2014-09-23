@@ -13,6 +13,7 @@ codebrowser.router.ExerciseRouter = codebrowser.router.BaseRouter.extend({
 
     initialize: function () {
 
+        codebrowser.router.BaseRouter.prototype.initialize();
         this.exerciseView = new codebrowser.view.ExercisesView();
     },
 
