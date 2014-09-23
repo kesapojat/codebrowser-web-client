@@ -10,9 +10,9 @@ casper.test.begin('Students view (all students)', 9, function suite(test) {
         'instance': { id: 'instance', name: 'instance' },
 
         'instance/students': [
-            { id: 21, name: 'Student 1' },
-            { id: 22, name: 'Student 2' },
-            { id: 23, name: 'Student 3' }
+            { id: 21, username: 'Student 1' },
+            { id: 22, username: 'Student 2' },
+            { id: 23, username: 'Student 3' }
         ]
     });
 
@@ -74,9 +74,9 @@ casper.test.begin('Students view (course-exercise students)', 6, function suite(
         'instance': { id: 'instance', name: 'instance' },
 
         'instance/students': [
-            { id: 21, name: 'Student 1' },
-            { id: 22, name: 'Student 2' },
-            { id: 23, name: 'Student 3' }
+            { id: 21, username: 'Student 1' },
+            { id: 22, username: 'Student 2' },
+            { id: 23, username: 'Student 3' }
         ],
 
         'instance/courses': [
@@ -94,8 +94,8 @@ casper.test.begin('Students view (course-exercise students)', 6, function suite(
         'instance/courses/11/exercises/32': { id: 32, name: 'Exercise 2' },
 
         'instance/courses/11/exercises/32/students': [
-            { id: 21, name: 'Student 1' },
-            { id: 22, name: 'Student 2' },
+            { id: 21, username: 'Student 1' },
+            { id: 22, username: 'Student 2' },
         ]
     });
 

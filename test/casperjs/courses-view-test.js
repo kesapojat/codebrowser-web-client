@@ -72,12 +72,12 @@ casper.test.begin('Courses view (student courses)', 7, function suite(test) {
         'instance': { id: 'instance', name: 'instance' },
 
         'instance/students': [
-            { id: 21, name: 'Student 1' },
-            { id: 22, name: 'Student 2' },
-            { id: 23, name: 'Student 3' }
+            { id: 21, username: 'Student 1' },
+            { id: 22, username: 'Student 2' },
+            { id: 23, username: 'Student 3' }
         ],
 
-        'instance/students/22': { id: 22, name: 'Student 2' },
+        'instance/students/22': { id: 22, username: 'Student 2' },
 
         'instance/students/22/courses': [
             { id: 11, name: 'Course 1' },
