@@ -26,6 +26,11 @@ codebrowser.helper.ListViewFilter = function (options, collection) {
         var results = collection.filter(function (item) {
 
             var name = item.get('name').toLowerCase();
+
+            if (name.indexOf(query) === -1) {
+                name = item.get('username').toLowerCase();
+            }
+
             return name.indexOf(query) !== -1;
         });
 
