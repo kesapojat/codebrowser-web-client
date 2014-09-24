@@ -1,7 +1,7 @@
 # codebrowser/web-client
 
-[![Build Status](https://travis-ci.org/rage-research/codebrowser-web-client.svg?branch=master)](https://travis-ci.org/kesapojat/codebrowser-web-client/)
-[![Coverage Status](https://img.shields.io/coveralls/rage-research/codebrowser-web-client.svg)](https://coveralls.io/r/kesapojat/codebrowser-web-client/)
+[![Build Status](https://travis-ci.org/rage-research/codebrowser-web-client.svg?branch=master)](https://travis-ci.org/rage-research/codebrowser-web-client/)
+[![Coverage Status](https://img.shields.io/coveralls/rage-research/codebrowser-web-client.svg)](https://coveralls.io/r/rage-research/codebrowser-web-client/)
 
 Web client for Code Browser (HTML5 + CSS3 + JavaScript + Node.js + Grunt). To develop this project, you will need to have node.js and npm installed on your development environment.
 
