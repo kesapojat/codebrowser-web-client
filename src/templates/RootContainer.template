@@ -37,9 +37,8 @@
 
                     <tr>
 
-                        <td class='index'>{{index @index}}</td>
-
-                        <td class='link'><a href='./#/{{id}}'>{{id}}</a></td>
+                        <td class='col-md-1 index'>{{index @index}}</td>
+                        <td class='col-md-11 link'><a href='./#/{{id}}'>{{id}}</a></td>
 
                     </tr>
 

@@ -45,15 +45,15 @@
 
                     <tr>
 
-                        <td class='index'>{{index @index}}</td>
+                        <td class='col-md-1 index'>{{index @index}}</td>
 
                         {{#if ../studentId}}
 
-                            <td class='link'><a href='./#/{{../../instanceId}}/students/{{../../studentId}}/courses/{{id}}/exercises'>{{name}}</a></td>
+                            <td class='col-md-11 link'><a href='./#/{{../../instanceId}}/students/{{../../studentId}}/courses/{{id}}/exercises'>{{name}}</a></td>
 
                         {{else}}
 
-                            <td class='link'><a href='./#/{{../../instanceId}}/courses/{{id}}/exercises'>{{name}}</a></td>
+                            <td class='col-md-11 link'><a href='./#/{{../../instanceId}}/courses/{{id}}/exercises'>{{name}}</a></td>
 
                         {{/if}}
 
