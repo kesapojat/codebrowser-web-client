@@ -18,7 +18,7 @@ this["Handlebars"]["templates"]["CoursesContainer"] = Handlebars.template({"1":f
     + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.student : depth0)) != null ? stack1.username : stack1), depth0))
     + " — ";
 },"5":function(depth0,helpers,partials,data,depths) {
-  var stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "\n                    <tr>\n\n                        <td class='index'>"
+  var stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "\n                    <tr>\n\n                        <td class='col-md-1 index'>"
     + escapeExpression(((helpers.index || (depth0 && depth0.index) || helperMissing).call(depth0, (data && data.index), {"name":"index","hash":{},"data":data})))
     + "</td>\n\n";
   stack1 = helpers['if'].call(depth0, (depths[1] != null ? depths[1].studentId : depths[1]), {"name":"if","hash":{},"fn":this.program(6, data, depths),"inverse":this.program(8, data, depths),"data":data});
@@ -26,7 +26,7 @@ this["Handlebars"]["templates"]["CoursesContainer"] = Handlebars.template({"1":f
   return buffer + "\n                    </tr>\n\n";
 },"6":function(depth0,helpers,partials,data,depths) {
   var helper, lambda=this.lambda, escapeExpression=this.escapeExpression, functionType="function", helperMissing=helpers.helperMissing;
-  return "\n                            <td class='link'><a href='./#/"
+  return "\n                            <td class='col-md-11 link'><a href='./#/"
     + escapeExpression(lambda((depths[2] != null ? depths[2].instanceId : depths[2]), depth0))
     + "/students/"
     + escapeExpression(lambda((depths[2] != null ? depths[2].studentId : depths[2]), depth0))
@@ -37,7 +37,7 @@ this["Handlebars"]["templates"]["CoursesContainer"] = Handlebars.template({"1":f
     + "</a></td>\n\n";
 },"8":function(depth0,helpers,partials,data,depths) {
   var helper, lambda=this.lambda, escapeExpression=this.escapeExpression, functionType="function", helperMissing=helpers.helperMissing;
-  return "\n                            <td class='link'><a href='./#/"
+  return "\n                            <td class='col-md-11 link'><a href='./#/"
     + escapeExpression(lambda((depths[2] != null ? depths[2].instanceId : depths[2]), depth0))
     + "/courses/"
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
@@ -133,7 +133,7 @@ this["Handlebars"]["templates"]["ExercisesContainer"] = Handlebars.template({"1"
     + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.student : depth0)) != null ? stack1.username : stack1), depth0))
     + " — ";
 },"7":function(depth0,helpers,partials,data,depths) {
-  var stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "\n                    <tr>\n\n                        <td class='index'>"
+  var stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "\n                    <tr>\n\n                        <td class='col-md-1 index'>"
     + escapeExpression(((helpers.index || (depth0 && depth0.index) || helperMissing).call(depth0, (data && data.index), {"name":"index","hash":{},"data":data})))
     + "</td>\n\n";
   stack1 = helpers['if'].call(depth0, (depths[1] != null ? depths[1].studentId : depths[1]), {"name":"if","hash":{},"fn":this.program(8, data, depths),"inverse":this.program(10, data, depths),"data":data});
@@ -141,7 +141,7 @@ this["Handlebars"]["templates"]["ExercisesContainer"] = Handlebars.template({"1"
   return buffer + "\n                    </tr>\n\n";
 },"8":function(depth0,helpers,partials,data,depths) {
   var helper, lambda=this.lambda, escapeExpression=this.escapeExpression, functionType="function", helperMissing=helpers.helperMissing;
-  return "\n                            <td class='link'><a href='./#/"
+  return "\n                            <td class='col-md-11 link'><a href='./#/"
     + escapeExpression(lambda((depths[2] != null ? depths[2].instanceId : depths[2]), depth0))
     + "/students/"
     + escapeExpression(lambda((depths[2] != null ? depths[2].studentId : depths[2]), depth0))
@@ -154,7 +154,7 @@ this["Handlebars"]["templates"]["ExercisesContainer"] = Handlebars.template({"1"
     + "</a></td>\n\n";
 },"10":function(depth0,helpers,partials,data,depths) {
   var helper, lambda=this.lambda, escapeExpression=this.escapeExpression, functionType="function", helperMissing=helpers.helperMissing;
-  return "\n                            <td class='link'><a href='./#/"
+  return "\n                            <td class='col-md-11 link'><a href='./#/"
     + escapeExpression(lambda((depths[2] != null ? depths[2].instanceId : depths[2]), depth0))
     + "/courses/"
     + escapeExpression(lambda((depths[2] != null ? depths[2].courseId : depths[2]), depth0))
@@ -310,9 +310,9 @@ this["Handlebars"]["templates"]["NavigationBarContainer"] = Handlebars.template(
 
 this["Handlebars"]["templates"]["RootContainer"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var helper, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function";
-  return "\n                    <tr>\n\n                        <td class='index'>"
+  return "\n                    <tr>\n\n                        <td class='col-md-1 index'>"
     + escapeExpression(((helpers.index || (depth0 && depth0.index) || helperMissing).call(depth0, (data && data.index), {"name":"index","hash":{},"data":data})))
-    + "</td>\n\n                        <td class='link'><a href='./#/"
+    + "</td>\n                        <td class='col-md-11 link'><a href='./#/"
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
     + "'>"
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
@@ -489,7 +489,7 @@ this["Handlebars"]["templates"]["StudentsContainer"] = Handlebars.template({"1":
     + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.exercise : depth0)) != null ? stack1.name : stack1), depth0))
     + " — ";
 },"5":function(depth0,helpers,partials,data,depths) {
-  var stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "\n                    <tr>\n\n                        <td class='index'>"
+  var stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "\n                    <tr>\n\n                        <td class='col-md-1 index'>"
     + escapeExpression(((helpers.index || (depth0 && depth0.index) || helperMissing).call(depth0, (data && data.index), {"name":"index","hash":{},"data":data})))
     + "</td>\n\n";
   stack1 = helpers['if'].call(depth0, (depths[1] != null ? depths[1].course : depths[1]), {"name":"if","hash":{},"fn":this.program(6, data, depths),"inverse":this.program(8, data, depths),"data":data});
@@ -497,7 +497,7 @@ this["Handlebars"]["templates"]["StudentsContainer"] = Handlebars.template({"1":
   return buffer + "\n                    </tr>\n\n";
 },"6":function(depth0,helpers,partials,data,depths) {
   var stack1, helper, lambda=this.lambda, escapeExpression=this.escapeExpression, functionType="function", helperMissing=helpers.helperMissing;
-  return "\n                            <td class='link'><a href='./#/"
+  return "\n                            <td class='col-md-2 link'><a href='./#/"
     + escapeExpression(lambda((depths[2] != null ? depths[2].instanceId : depths[2]), depth0))
     + "/courses/"
     + escapeExpression(lambda(((stack1 = (depths[2] != null ? depths[2].course : depths[2])) != null ? stack1.id : stack1), depth0))
@@ -507,18 +507,18 @@ this["Handlebars"]["templates"]["StudentsContainer"] = Handlebars.template({"1":
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
     + "/snapshots'>"
     + escapeExpression(((helper = (helper = helpers.username || (depth0 != null ? depth0.username : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"username","hash":{},"data":data}) : helper)))
-    + "</a></td>\n                            <td>"
+    + "</a></td>\n                            <td class='col-md-9'>"
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
     + "</td>\n\n";
 },"8":function(depth0,helpers,partials,data,depths) {
   var helper, lambda=this.lambda, escapeExpression=this.escapeExpression, functionType="function", helperMissing=helpers.helperMissing;
-  return "\n                            <td class='link'><a href='./#/"
+  return "\n                            <td class='col-md-2 link'><a href='./#/"
     + escapeExpression(lambda((depths[2] != null ? depths[2].instanceId : depths[2]), depth0))
     + "/students/"
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
     + "/courses'>"
     + escapeExpression(((helper = (helper = helpers.username || (depth0 != null ? depth0.username : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"username","hash":{},"data":data}) : helper)))
-    + "</a></td>\n                            <td>"
+    + "</a></td>\n                            <td class='col-md-9'>"
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
     + "</td>\n\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data,depths) {
