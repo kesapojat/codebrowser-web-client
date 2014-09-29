@@ -424,7 +424,7 @@ this["Handlebars"]["templates"]["SnapshotFilesContainer"] = Handlebars.template(
 
 this["Handlebars"]["templates"]["SnapshotNavigationContainer"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
-  return "<div id='snapshot-navigation' class='col-md-4 col-md-offset-2'>\n\n    <div class='pull-right'>\n\n        <div class='current-index'>"
+  return "<div id='snapshot-navigation' class='col-md-5 col-md-offset-1'>\n\n    <div class='pull-right'>\n\n        <div class='current-index'>"
     + escapeExpression(((helper = (helper = helpers.current || (depth0 != null ? depth0.current : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"current","hash":{},"data":data}) : helper)))
     + " / "
     + escapeExpression(((helper = (helper = helpers.total || (depth0 != null ? depth0.total : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"total","hash":{},"data":data}) : helper)))
