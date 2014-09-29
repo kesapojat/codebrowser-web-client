@@ -1561,6 +1561,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
                 callback();
                 return;
             }
+
         } else {
 
             // Calculate differences again if different url
