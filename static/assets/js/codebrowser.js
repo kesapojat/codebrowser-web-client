@@ -1642,15 +1642,19 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     getDifference: function (index) {
 
-        var previous = this.at(index - 1);
-        var current = this.at(index);
+        var previous = this.at(index - 1),
+            current = this.at(index);
 
-        this.fileDifferences(previous, index, current.get('files'));
+        this.fileDifferences(previous, current, index);
 
         return this.differences[index];
     },
 
     getDifferences: function () {
+
+        if (this.isKeyLevel()) {
+            return;
+        }
 
         if (this.differences.length !== 0) {
             return this.differences;
@@ -1664,28 +1668,27 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
             var previousSnapshot = self.at(index - 1);
 
-            // Divide diffs by snapshot indexes
-            if (!self.differences[index]) {
-
-                self.differences[index] = {
-
-                    total: 0,
-                    lines: 0
-
-                }
-            }
-
-            var files = snapshot.get('files');
-
-            self.fileDifferences(previousSnapshot, index, files);
+            self.fileDifferences(previousSnapshot, snapshot, index);
         });
 
         return this.differences;
     },
 
-    fileDifferences: function (previousSnapshot, index, files) {
+    fileDifferences: function (previousSnapshot, snapshot, index) {
 
         var self = this;
+
+        // Divide diffs by snapshot indexes
+        if (!this.differences[index]) {
+
+            this.differences[index] = {
+                total: 0,
+                lines: 0
+
+            }
+        }
+
+        var files = snapshot.get('files');
 
         // Calculate differences for every file of each snapshot
         files.each(function (file) {
