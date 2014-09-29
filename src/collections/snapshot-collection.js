@@ -8,7 +8,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     model: codebrowser.model.Snapshot,
     level: 'code',
-    count: 100,
+    count: 10,
 
     /* Differences */
 
@@ -59,8 +59,13 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         id = snapshot.get('id');
 
         // Indexes
-        var current = this.indexOf(snapshot);
-        var from = localStorage.getItem(config.storage.cache.snapshot.from);
+        var current = this.indexOf(snapshot),
+            from = this.indexOf(this.get(localStorage.getItem(config.storage.cache.snapshot.from)));
+
+        if (current - from < 0) {
+            snapshot = this.at(current - 10) || this.at(0);
+            id = snapshot.get('id');
+        }
 
         var self = this,
             url = localStorage.getItem(config.storage.cache.files.url),
@@ -71,7 +76,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         // Files in cache
         if (codebrowser.cache.files && url === this.url() + levelParameter) {
 
-            if (Math.abs(current - from) < this.count) {
+            if (current - from < this.count && current - from > 0) {
                 callback();
                 return;
             }
@@ -94,7 +99,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
             // Cache URL, snapshot level, 'from' snapshot
             localStorage.setItem(config.storage.cache.files.url, self.url() + levelParameter);
             localStorage.setItem(config.storage.cache.snapshot.level, self.level);
-            localStorage.setItem(config.storage.cache.snapshot.from, current);
+            localStorage.setItem(config.storage.cache.snapshot.from, id);
 
             // Save ZIP
             codebrowser.cache.files = zip;
