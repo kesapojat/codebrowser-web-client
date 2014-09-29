@@ -8,6 +8,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     model: codebrowser.model.Snapshot,
     level: 'code',
+    count: 5,
 
     /* Differences */
 
@@ -51,21 +52,36 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         return this.level === 'key';
     },
 
-    fetchFiles: function (callback) {
+    fetchFiles: function (callback, id) {
+
+        // Snapshot
+        var snapshot = this.get(id) || this.at(0);
+        id = snapshot.get('id');
+
+        // Indexes
+        var current = this.indexOf(snapshot);
+        var from = localStorage.getItem(config.storage.cache.snapshot.from);
 
         var self = this,
-            parameter = this.level ? '?level=' + this.level : '';
+            url = localStorage.getItem(config.storage.cache.files.url),
+            parameters = (this.level ? '?level=' + this.level : '') + '&from=' + id + '&count=' + this.count;
+
+        var levelParameter = parameters.substring(0, parameters.indexOf('&from'));
 
         // Files in cache
-        if (codebrowser.cache.files && localStorage.getItem(config.storage.cache.files.url) === this.url() + parameter) {
-            callback();
-            return;
+        if (codebrowser.cache.files && url === this.url() + levelParameter) {
+
+            if (Math.abs(current - from) < this.count) {
+                callback();
+                return;
+            }
+        } else {
+
+            // Calculate differences again if different url
+            this.differences = [];
         }
 
-        // Fetch new ZIP, need to calculate differences again
-        this.differences = [];
-
-        JSZipUtils.getBinaryContent(this.url() + '/files.zip' + parameter, function (error, data) {
+        JSZipUtils.getBinaryContent(this.url() + '/files.zip' + parameters, function (error, data) {
 
             if (error) {
                 callback(error);
@@ -74,9 +90,10 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
             var zip = new JSZip(data);
 
-            // Cache URL and snapshot level
-            localStorage.setItem(config.storage.cache.files.url, self.url() + parameter);
+            // Cache URL, snapshot level, 'from' snapshot
+            localStorage.setItem(config.storage.cache.files.url, self.url() + levelParameter);
             localStorage.setItem(config.storage.cache.snapshot.level, self.level);
+            localStorage.setItem(config.storage.cache.snapshot.from, current);
 
             // Save ZIP
             codebrowser.cache.files = zip;

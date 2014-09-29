@@ -125,7 +125,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
                 }
 
                 fetchSynced();
-            });
+            }, snapshotId);
 
             fetchSynced();
 

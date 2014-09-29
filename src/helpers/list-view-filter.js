@@ -27,7 +27,7 @@ codebrowser.helper.ListViewFilter = function (options, collection) {
 
             var name = item.get('name').toLowerCase();
 
-            if (name.indexOf(query) === -1) {
+            if (name.indexOf(query) === -1 && item.get('username') !== undefined) {
                 name = item.get('username').toLowerCase();
             }
 
