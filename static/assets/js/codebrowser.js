@@ -1,6 +1,10 @@
 this["Handlebars"] = this["Handlebars"] || {};
 this["Handlebars"]["templates"] = this["Handlebars"]["templates"] || {};
 
+this["Handlebars"]["templates"]["Authentication"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  return "<div id='authentication-modal' class='modal' tabindex='-1' role='dialog' aria-labelledby='authentication-label' aria-hidden='true' data-backdrop='false' data-keyboard='false'>\n\n    <div class='modal-dialog'>\n\n        <div class='modal-content'>\n\n            <div class='modal-header'>\n                <h4 class='modal-title' id='authentication-label'>Sign In</h4>\n            </div>\n\n            <div class='modal-body'>\n\n                <form class='form-horizontal' role='form'>\n\n                    <div class='form-group'>\n\n                        <label for='authentication-username' class='col-sm-2 control-label'>Username</label>\n\n                        <div class='col-sm-10'>\n                          <input type='text' class='form-control' id='authentication-username' data-id='username' placeholder='Username'>\n                        </div>\n\n                    </div>\n\n                    <div class='form-group'>\n\n                        <label for='authentication-password' class='col-sm-2 control-label'>Password</label>\n\n                        <div class='col-sm-10'>\n                          <input type='password' class='form-control' id='authentication-password' data-id='password' placeholder='Password'>\n                        </div>\n\n                    </div>\n\n                </form>\n\n            </div>\n\n            <div class='modal-footer'>\n                <button type='button' class='btn btn-primary' data-action='sign-in'>Sign In</button>\n            </div>\n\n        </div>\n\n    </div>\n\n</div>\n";
+  },"useData":true});
+
 this["Handlebars"]["templates"]["CoursesContainer"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, lambda=this.lambda;
   return "                <li><a href='./#/"
@@ -1557,6 +1561,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
                 callback();
                 return;
             }
+
         } else {
 
             // Calculate differences again if different url
@@ -1839,6 +1844,35 @@ codebrowser.view.ListBaseView = Backbone.View.extend({
         this.query = result.query;
 
         this.update();
+    }
+});
+;
+
+codebrowser.view.AuthenticationView = Backbone.View.extend({
+
+    id: 'authentication-container',
+    template: Handlebars.templates.Authentication,
+
+    events: {
+
+        'click [data-action="sign-in"]': 'signIn'
+
+    },
+
+    /* Render */
+
+    render: function () {
+
+        this.$el.html(this.template());
+        this.$el.children('#authentication-modal').modal();
+    },
+
+    /* Actions */
+
+    signIn: function () {
+
+        console.log('Username: ' + $('[data-id="username"]', this.$el).val());
+        console.log('Password: ' + $('[data-id="password"]', this.$el).val());
     }
 });
 ;
