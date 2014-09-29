@@ -8,7 +8,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     model: codebrowser.model.Snapshot,
     level: 'code',
-    count: 10,
+    count: 100,
 
     /* Differences */
 
