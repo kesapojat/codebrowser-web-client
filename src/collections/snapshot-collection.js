@@ -8,7 +8,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     model: codebrowser.model.Snapshot,
     level: 'code',
-    count: 5,
+    count: 10,
 
     /* Differences */
 
@@ -153,19 +153,14 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         return max;
     },
 
-    getDifference: function (index, filename) {
+    getDifference: function (index) {
 
-        var difference = this.differences[index];
+        var previous = this.at(index - 1);
+        var current = this.at(index);
 
-        if (!difference) {
-            return null;
-        }
+        this.fileDifferences(previous, index, current.get('files'));
 
-        if (!difference[filename]) {
-            return null;
-        }
-
-        return difference[filename];
+        return this.differences[index];
     },
 
     getDifferences: function () {
@@ -195,54 +190,61 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
             var files = snapshot.get('files');
 
-            // Calculate differences for every file of each snapshot
-            files.each(function (file) {
-
-                var filename = file.get('name');
-
-                // Create namespace for every file name
-                if (!self.differences[index].filename) {
-                    self.differences[index][filename] = null;
-                }
-
-                var currentFile = file,
-                    previousFile = null;
-
-                // If previous snapshot doesn't exist, current file doesn't have earlier version of it
-                if (!previousSnapshot) {
-
-                    // Set previous file to current file
-                    previousFile = currentFile;
-
-                } else {
-
-                    // Get previous version of the current file from the previous snapshot
-                    previousFile = previousSnapshot.get('files').findWhere({ name: filename });
-                }
-
-                // Couldn't find file from previous snapshot, set previous file to current file
-                if (!previousFile) {
-                    previousFile = currentFile;
-                }
-
-                var previousContent = previousFile.getContent();
-
-                // New file
-                if (previousFile === currentFile) {
-                    previousContent = '';
-                }
-
-                // Create difference
-                var difference = new codebrowser.model.Diff(previousContent, currentFile.getContent());
-
-                // Count how many lines were in snapshot's files overall and how many lines of them changed
-                self.differences[index].total += difference.getCount().total();
-                self.differences[index].lines += currentFile.lines();
-
-                self.differences[index][currentFile.get('name')] = difference;
-            });
+            self.fileDifferences(previousSnapshot, index, files);
         });
 
         return this.differences;
+    },
+
+    fileDifferences: function (previousSnapshot, index, files) {
+
+        var self = this;
+
+        // Calculate differences for every file of each snapshot
+        files.each(function (file) {
+
+            var filename = file.get('name');
+
+            // Create namespace for every file name
+            if (!self.differences[index].filename) {
+                self.differences[index][filename] = null;
+            }
+
+            var currentFile = file,
+                previousFile = null;
+
+            // If previous snapshot doesn't exist, current file doesn't have earlier version of it
+            if (!previousSnapshot) {
+
+                // Set previous file to current file
+                previousFile = currentFile;
+
+            } else {
+
+                // Get previous version of the current file from the previous snapshot
+                previousFile = previousSnapshot.get('files').findWhere({ name: filename });
+            }
+
+            // Couldn't find file from previous snapshot, set previous file to current file
+            if (!previousFile) {
+                previousFile = currentFile;
+            }
+
+            var previousContent = previousFile.getContent();
+
+            // New file
+            if (previousFile === currentFile) {
+                previousContent = '';
+            }
+
+            // Create difference
+            var difference = new codebrowser.model.Diff(previousContent, currentFile.getContent());
+
+            // Count how many lines were in snapshot's files overall and how many lines of them changed
+            self.differences[index].total += difference.getCount().total();
+            self.differences[index].lines += currentFile.lines();
+
+            self.differences[index][currentFile.get('name')] = difference;
+        });
     }
 });

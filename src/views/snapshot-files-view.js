@@ -14,9 +14,8 @@ codebrowser.view.SnapshotFilesView = Backbone.View.extend({
 
     renderDifferences: function (output) {
 
-        var differences = this.parentView.collection.getDifferences(),
-            index = this.parentView.collection.indexOf(this.model),
-            difference = differences[index],
+        var index = this.parentView.collection.indexOf(this.model),
+            difference = this.parentView.collection.getDifference(index),
             files = this.model.get('files');
 
         files.each(function(file) {
