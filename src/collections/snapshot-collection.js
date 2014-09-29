@@ -74,7 +74,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
             var zip = new JSZip(data);
 
-            // Cache URL
+            // Cache URL and snapshot level
             localStorage.setItem(config.storage.cache.files.url, self.url() + parameter);
             localStorage.setItem(config.storage.cache.snapshot.level, self.level);
 

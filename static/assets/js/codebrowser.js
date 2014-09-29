@@ -1555,7 +1555,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
             var zip = new JSZip(data);
 
-            // Cache URL
+            // Cache URL and snapshot level
             localStorage.setItem(config.storage.cache.files.url, self.url() + parameter);
             localStorage.setItem(config.storage.cache.snapshot.level, self.level);
 
@@ -4496,19 +4496,8 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
     synced: function (snapshotId, fileId, snapshotCollection) {
 
-        var snapshot;
-
-        // No snapshot ID specified, navigate to first snapshot
-        if (!snapshotId) {
-
-            snapshot = snapshotCollection.at(0);
-            this.snapshotView.navigate(snapshot, null, { replace: true });
-
-            return;
-        }
-
-        // Snapshot
-        snapshot = snapshotCollection.get(snapshotId) || snapshotCollection.at(0);
+        // If snapshot ID is not specified, get first snapshot from collection
+        var snapshot = snapshotCollection.get(snapshotId) || snapshotCollection.at(0);
 
         // Invalid snapshot ID
         if (!snapshot) {
