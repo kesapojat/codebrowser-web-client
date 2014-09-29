@@ -803,8 +803,8 @@ ul.selection a:hover {
 
 #editor .ace-dark .insert {
 
-    box-shadow: 0 0 0 1px rgb(191, 250, 170) inset;
-    background-color: rgb(215, 252, 202);
+    box-shadow: 0 0 0 1px rgba(154, 247, 122, 0.4) inset;
+    background-color: rgba(154, 247, 122, 0.4);
 
 }
 
@@ -818,8 +818,8 @@ ul.selection a:hover {
 
 #editor .ace-dark .replace {
 
-    box-shadow: 0 0 0 1px rgb(188, 223, 249) inset;
-    background-color: rgb(213, 235, 251);
+    box-shadow: 0 0 0 1px rgba(150, 206, 245, 0.4) inset;
+    background-color: rgba(150, 206, 245, 0.4);
 
 }
 
@@ -833,8 +833,8 @@ ul.selection a:hover {
 
 #editor .ace-dark .delete {
 
-    box-shadow: 0 0 0 1px rgb(252, 175, 175) inset;
-    background-color: rgb(253, 205, 205);
+    box-shadow: 0 0 0 1px rgba(250, 130, 130, 0.4) inset;
+    background-color: rgba(250, 130, 130, 0.4);
 
 }
 
@@ -861,7 +861,7 @@ ul.selection a:hover {
 
 #editor .ace-dark .decoration.gutter-insert {
 
-    background-color: rgb(215, 252, 202);
+    background-color: rgba(154, 247, 122, 0.4);
 
 }
 
@@ -885,7 +885,7 @@ ul.selection a:hover {
 
 #editor .ace-dark .decoration.gutter-replace {
 
-    background-color: rgb(213, 235, 251);
+    background-color: rgba(150, 206, 245, 0.4);
 
 }
 
@@ -909,7 +909,7 @@ ul.selection a:hover {
 
 #editor .ace-dark .decoration.gutter-delete {
 
-    background-color: rgb(253, 205, 205);
+    background-color: rgba(250, 130, 130, 0.4);
 
 }
 
