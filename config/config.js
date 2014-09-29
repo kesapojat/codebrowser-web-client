@@ -18,7 +18,8 @@ var config = {
 
             snapshot: {
 
-                level: 'codebrowser.cache.snapshots.level'
+                level: 'codebrowser.cache.snapshots.level',
+                from:  'codebrowser.cache.snapshots.from'
 
             }
         },
