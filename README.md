@@ -66,6 +66,10 @@ view logics clean as possible.
 └── web.js                      # Node.js server
 ```
 
+## Required REST-API
+
+See the [back-end](https://github.com/rage-research/codebrowser-back-end/) REST-API documentation for the required client API.
+
 ## Credits
 
 This project has been developed at the University of Helsinki’s [Department of Computer Science](http://cs.helsinki.fi/en/) by:
