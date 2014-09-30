@@ -1,4 +1,5 @@
-# codebrowser/web-client
+codebrowser/web-client
+======================
 
 [![Build Status](https://travis-ci.org/rage-research/codebrowser-web-client.svg?branch=master)](https://travis-ci.org/rage-research/codebrowser-web-client/)
 [![Coverage Status](https://img.shields.io/coveralls/rage-research/codebrowser-web-client.svg)](https://coveralls.io/r/rage-research/codebrowser-web-client/)
