@@ -68,15 +68,7 @@ describe('SnapshotCollection', function () {
 
     it('should return null if no difference is found for a snapshot', function () {
 
-        expect(snapshots.getDifference(0, 'Test.java')).toBeNull();
-    });
-
-    it('should return correct difference for a snapshot', function () {
-
-        snapshots.differences = [];
-        snapshots.differences.push({ 'Test.java': {} });
-
-        expect(snapshots.getDifference(0, 'Test.java')).not.toBeNull();
+        expect(snapshots.getDifference(0)).toBeNull();
     });
 
     it('should return correct differences for snapshots', function () {
@@ -120,15 +112,13 @@ describe('SnapshotCollection', function () {
         expect(differences[0].total).toBe(2);
         expect(differences[0].lines).toBe(2);
 
-        expect(snapshots.getDifference(0, 'FileA.java')).not.toBeNull();
-        expect(snapshots.getDifference(0, 'FileC.java')).toBeNull();
+        expect(snapshots.getDifference(0)).not.toBeNull();
 
         // Differences for snapshot b
         expect(differences[1].total).toBe(2);
         expect(differences[1].lines).toBe(3);
 
-        expect(snapshots.getDifference(1, 'FileA.java')).not.toBeNull();
-        expect(snapshots.getDifference(1, 'FileC.java')).not.toBeNull();
+        expect(snapshots.getDifference(1)).not.toBeNull();
     });
 
     it('should return previously calculated differences', function () {

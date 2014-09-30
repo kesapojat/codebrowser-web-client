@@ -169,6 +169,10 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         var previous = this.at(index - 1),
             current = this.at(index);
 
+        if (!previous && !current) {
+            return null;
+        }
+
         this.fileDifferences(previous, current, index);
 
         return this.differences[index];
