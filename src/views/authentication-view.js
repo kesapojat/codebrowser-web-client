@@ -5,7 +5,7 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
 
     events: {
 
-        'click [data-action="sign-in"]': 'signIn'
+        'click [data-action="authenticate"]': 'authenticate'
 
     },
 
@@ -19,7 +19,7 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
 
     /* Actions */
 
-    signIn: function () {
+    authenticate: function () {
 
         console.log('Username: ' + $('[data-id="username"]', this.$el).val());
         console.log('Password: ' + $('[data-id="password"]', this.$el).val());
