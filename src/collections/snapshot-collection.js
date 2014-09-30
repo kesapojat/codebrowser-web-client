@@ -8,7 +8,8 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     model: codebrowser.model.Snapshot,
     level: 'code',
-    count: 10,
+    count: 100,
+    offset: 1,
 
     /* Differences */
 
@@ -56,14 +57,18 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
         // Snapshot
         var snapshot = this.get(id) || this.at(0);
-        id = snapshot.get('id');
+
+        snapshot = this.at(this.indexOf(snapshot) - this.offset) || this.at(0);
 
         // Indexes
         var current = this.indexOf(snapshot),
             from = this.indexOf(this.get(localStorage.getItem(config.storage.cache.snapshot.from)));
 
+        // Id
+        id = snapshot.get('id');
+
         if (current - from < 0) {
-            snapshot = this.at(current - 10) || this.at(0);
+            snapshot = this.at(current - this.count - this.offset) || this.at(0);
             id = snapshot.get('id');
         }
 
@@ -76,7 +81,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         // Files in cache
         if (codebrowser.cache.files && url === this.url() + levelParameter) {
 
-            if (current - from < this.count && current - from > 0) {
+            if (current - from < this.count - this.offset && current - from >= 0) {
                 callback();
                 return;
             }
