@@ -39,6 +39,22 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
         codebrowser.controller.ViewController.push(this.notFoundView, true);
     },
 
+    authentication: function () {
+
+        var username = localStorage.getItem(config.storage.authentication.username);
+        var password = localStorage.getItem(config.storage.authentication.password);
+
+        if (!username || !password) {
+            return;
+        }
+
+        return {
+
+            username: username,
+            password: password
+        }
+    },
+
     fetchModel: function (model, useCache, onSuccess, options) {
 
         var self = this;
@@ -48,6 +64,8 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
             // Loading
             codebrowser.controller.ViewController.push(self.loadingView, true);
         });
+
+        model.credentials = this.authentication();
 
         model.fetch({
 
@@ -61,7 +79,16 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
                 onSuccess(model, response, options);
             },
 
-            error: function () {
+            error: function (model, response) {
+
+                console.log(response);
+
+                if (response.status === 401) {
+                    var path = response.responseJSON.path;
+
+                    codebrowser.controller.AuthenticationController.authenticate(path);
+                    return;
+                }
 
                 self.notFound();
             }

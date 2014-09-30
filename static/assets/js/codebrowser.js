@@ -558,6 +558,13 @@ var config = {
 
     storage: {
 
+        authentication: {
+
+            username: 'codebrowser.authentication.username',
+            password: 'codebrowser.authentication.password'
+
+        },
+
         cache: {
 
             files: {
@@ -1656,7 +1663,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
             current = this.at(index);
 
         if (!previous && !current) {
-            return;
+            return null;
         }
 
         this.fileDifferences(previous, current, index);
@@ -1888,8 +1895,13 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
 
     authenticate: function () {
 
-        console.log('Username: ' + $('[data-id="username"]', this.$el).val());
-        console.log('Password: ' + $('[data-id="password"]', this.$el).val());
+        var username = $('[data-id="username"]', this.$el).val();
+        var password = $('[data-id="password"]', this.$el).val();
+
+        localStorage.setItem(config.storage.authentication.username, username);
+        localStorage.setItem(config.storage.authentication.password, password);
+
+        codebrowser.app.base.root();
     }
 });
 ;
@@ -4129,6 +4141,22 @@ codebrowser.view.StudentsView = codebrowser.view.ListBaseView.extend({
 });
 ;
 
+codebrowser.controller.AuthenticationController = {
+
+    authenticationView: new codebrowser.view.AuthenticationView(),
+    view: null,
+
+    authenticate: function (path) {
+
+        this.authenticationView.path = path;
+
+        codebrowser.controller.ViewController.push(this.authenticationView, true);
+
+    }
+
+};
+;
+
 codebrowser.controller.ViewController = {
 
     view: null,
@@ -4204,6 +4232,22 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
         codebrowser.controller.ViewController.push(this.notFoundView, true);
     },
 
+    authentication: function () {
+
+        var username = localStorage.getItem(config.storage.authentication.username);
+        var password = localStorage.getItem(config.storage.authentication.password);
+
+        if (!username || !password) {
+            return;
+        }
+
+        return {
+
+            username: username,
+            password: password
+        }
+    },
+
     fetchModel: function (model, useCache, onSuccess, options) {
 
         var self = this;
@@ -4213,6 +4257,8 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
             // Loading
             codebrowser.controller.ViewController.push(self.loadingView, true);
         });
+
+        model.credentials = this.authentication();
 
         model.fetch({
 
@@ -4226,7 +4272,16 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
                 onSuccess(model, response, options);
             },
 
-            error: function () {
+            error: function (model, response) {
+
+                console.log(response);
+
+                if (response.status === 401) {
+                    var path = response.responseJSON.path;
+
+                    codebrowser.controller.AuthenticationController.authenticate(path);
+                    return;
+                }
 
                 self.notFound();
             }
