@@ -21,7 +21,12 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
 
     authenticate: function () {
 
-        console.log('Username: ' + $('[data-id="username"]', this.$el).val());
-        console.log('Password: ' + $('[data-id="password"]', this.$el).val());
+        var username = $('[data-id="username"]', this.$el).val();
+        var password = $('[data-id="password"]', this.$el).val();
+
+        localStorage.setItem(config.storage.authentication.username, username);
+        localStorage.setItem(config.storage.authentication.password, password);
+
+        codebrowser.app.base.root();
     }
 });

@@ -8,6 +8,13 @@ var config = {
 
     storage: {
 
+        authentication: {
+
+            username: 'codebrowser.authentication.username',
+            password: 'codebrowser.authentication.password'
+
+        },
+
         cache: {
 
             files: {
