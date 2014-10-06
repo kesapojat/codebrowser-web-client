@@ -23,7 +23,7 @@ codebrowser.controller.ViewController = {
 
         // Should render view
         if (render) {
-            this.view.render();
+           this.view.render();
         }
 
         // Set to container

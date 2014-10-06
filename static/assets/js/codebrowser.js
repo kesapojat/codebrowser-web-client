@@ -561,7 +561,8 @@ var config = {
         authentication: {
 
             username: 'codebrowser.authentication.username',
-            password: 'codebrowser.authentication.password'
+            password: 'codebrowser.authentication.password',
+            token: 'codebrowser.authentication.token'
 
         },
 
@@ -1898,10 +1899,7 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
         var username = $('[data-id="username"]', this.$el).val(),
             password = $('[data-id="password"]', this.$el).val();
 
-        localStorage.setItem(config.storage.authentication.username, username);
-        localStorage.setItem(config.storage.authentication.password, password);
-
-        codebrowser.app.base.root();
+        codebrowser.app.base.root({ username: username, password: password });
     }
 });
 ;
@@ -4148,6 +4146,15 @@ codebrowser.controller.AuthenticationController = {
     authenticate: function () {
 
         codebrowser.controller.ViewController.push(this.authenticationView, true);
+    },
+
+    save: function (xhr) {
+
+        if (!xhr) {
+            return;
+        }
+
+        localStorage.setItem(config.storage.authentication.token, xhr.getResponseHeader('X-Authentication-Token'));
     }
 }
 ;
@@ -4177,7 +4184,7 @@ codebrowser.controller.ViewController = {
 
         // Should render view
         if (render) {
-            this.view.render();
+           this.view.render();
         }
 
         // Set to container
@@ -4207,7 +4214,7 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
 
     /* Actions */
 
-    root: function () {
+    root: function (options) {
 
         var self = this;
 
@@ -4217,7 +4224,7 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
 
             self.rootView.render();
             codebrowser.controller.ViewController.push(self.rootView);
-        });
+        }, options);
     },
 
     notFound: function (message) {
@@ -4225,6 +4232,23 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
         this.notFoundView.model.message = message || 'Not found.';
 
         codebrowser.controller.ViewController.push(this.notFoundView, true);
+    },
+
+    authentication: function (options) {
+
+        var username = options ? options.username : '';
+        var token = localStorage.getItem(config.storage.authentication.token) || (options ? options.password : null);
+
+        if (!token) {
+            return;
+        }
+
+        return {
+
+            username: username,
+            password: token
+
+        }
     },
 
     fetchModel: function (model, useCache, onSuccess, options) {
@@ -4237,19 +4261,29 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
             codebrowser.controller.ViewController.push(self.loadingView, true);
         });
 
+        model.credentials = this.authentication(options);
+
         model.fetch({
 
             traditional: true,
-            data: options ? options : '',
+            data: (options && !options.username) ? options : '',
             cache: useCache,
             expires: useCache ? config.cache.expires : 0,
 
             success: function (model, response, options) {
 
+                codebrowser.controller.AuthenticationController.save(options.xhr);
+
                 onSuccess(model, response, options);
             },
 
-            error: function () {
+            error: function (model, response) {
+
+                if (response.status === 401) {
+
+                    codebrowser.controller.AuthenticationController.authenticate();
+                    return;
+                }
 
                 self.notFound();
             }

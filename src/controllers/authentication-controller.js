@@ -5,5 +5,14 @@ codebrowser.controller.AuthenticationController = {
     authenticate: function () {
 
         codebrowser.controller.ViewController.push(this.authenticationView, true);
+    },
+
+    save: function (xhr) {
+
+        if (!xhr) {
+            return;
+        }
+
+        localStorage.setItem(config.storage.authentication.token, xhr.getResponseHeader('X-Authentication-Token'));
     }
 }
