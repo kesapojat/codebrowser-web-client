@@ -39,6 +39,11 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
         codebrowser.controller.ViewController.push(this.notFoundView, true);
     },
 
+    notAuthenticated: function () {
+
+        throw new codebrowser.model.AuthorisationError();
+    },
+
     authentication: function (options) {
 
         var username = options ? options.username : '';
@@ -77,7 +82,7 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
 
             success: function (model, response, options) {
 
-                codebrowser.controller.AuthenticationController.save(options.xhr);
+                codebrowser.controller.AuthenticationController.saveToken(options.xhr);
 
                 onSuccess(model, response, options);
             },
@@ -85,9 +90,7 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
             error: function (model, response) {
 
                 if (response.status === 401) {
-
-                    codebrowser.controller.AuthenticationController.authenticate();
-                    return;
+                    self.notAuthenticated();
                 }
 
                 self.notFound();

@@ -25,6 +25,11 @@ var codebrowser = {
         // Oops! Catch all global unhandled errors
         window.onerror = function (error) {
 
+            if (error.indexOf('AuthorisationError') !== -1) {
+                codebrowser.controller.AuthenticationController.authenticate();
+                return;
+            }
+
             var errorView = new codebrowser.view.ErrorView({ model: { class: 'alert-danger', message: 'Oops! ' + error } });
             codebrowser.controller.ViewController.push(errorView, true);
         }

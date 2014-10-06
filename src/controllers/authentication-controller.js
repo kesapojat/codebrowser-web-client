@@ -7,7 +7,7 @@ codebrowser.controller.AuthenticationController = {
         codebrowser.controller.ViewController.push(this.authenticationView, true);
     },
 
-    save: function (xhr) {
+    saveToken: function (xhr) {
 
         if (!xhr) {
             return;

@@ -560,9 +560,7 @@ var config = {
 
         authentication: {
 
-            username: 'codebrowser.authentication.username',
-            password: 'codebrowser.authentication.password',
-            token: 'codebrowser.authentication.token'
+            token:    'codebrowser.authentication.token'
 
         },
 
@@ -686,6 +684,11 @@ var codebrowser = {
 
         // Oops! Catch all global unhandled errors
         window.onerror = function (error) {
+
+            if (error.indexOf('AuthorisationError') !== -1) {
+                codebrowser.controller.AuthenticationController.authenticate();
+                return;
+            }
 
             var errorView = new codebrowser.view.ErrorView({ model: { class: 'alert-danger', message: 'Oops! ' + error } });
             codebrowser.controller.ViewController.push(errorView, true);
@@ -890,6 +893,17 @@ Handlebars.registerHelper('pluralise', function (value, string) {
     return string + 's';
 });
 ;
+
+codebrowser.model.AuthorisationError = function () {
+
+    this.name = 'AuthorisationError';
+    this.message = 'Not authenticated.';
+    this.stack = (new Error()).stack;
+
+}
+
+codebrowser.model.AuthorisationError.prototype = Object.create(Error.prototype);
+codebrowser.model.AuthorisationError.prototype.name = 'AuthorisationError';;
 
 codebrowser.model.Course = Backbone.RelationalModel.extend({
 
@@ -4148,7 +4162,7 @@ codebrowser.controller.AuthenticationController = {
         codebrowser.controller.ViewController.push(this.authenticationView, true);
     },
 
-    save: function (xhr) {
+    saveToken: function (xhr) {
 
         if (!xhr) {
             return;
@@ -4184,7 +4198,7 @@ codebrowser.controller.ViewController = {
 
         // Should render view
         if (render) {
-           this.view.render();
+            this.view.render();
         }
 
         // Set to container
@@ -4234,6 +4248,11 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
         codebrowser.controller.ViewController.push(this.notFoundView, true);
     },
 
+    notAuthenticated: function () {
+
+        throw new codebrowser.model.AuthorisationError();
+    },
+
     authentication: function (options) {
 
         var username = options ? options.username : '';
@@ -4272,7 +4291,7 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
 
             success: function (model, response, options) {
 
-                codebrowser.controller.AuthenticationController.save(options.xhr);
+                codebrowser.controller.AuthenticationController.saveToken(options.xhr);
 
                 onSuccess(model, response, options);
             },
@@ -4280,9 +4299,7 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
             error: function (model, response) {
 
                 if (response.status === 401) {
-
-                    codebrowser.controller.AuthenticationController.authenticate();
-                    return;
+                    self.notAuthenticated();
                 }
 
                 self.notFound();
