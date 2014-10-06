@@ -560,6 +560,7 @@ var config = {
 
         authentication: {
 
+            path:     'codebrowser.authentication.path',
             token:    'codebrowser.authentication.token'
 
         },
@@ -903,7 +904,8 @@ codebrowser.model.AuthorisationError = function () {
 }
 
 codebrowser.model.AuthorisationError.prototype = Object.create(Error.prototype);
-codebrowser.model.AuthorisationError.prototype.name = 'AuthorisationError';;
+codebrowser.model.AuthorisationError.prototype.name = 'AuthorisationError';
+;
 
 codebrowser.model.Course = Backbone.RelationalModel.extend({
 
@@ -4155,6 +4157,7 @@ codebrowser.view.StudentsView = codebrowser.view.ListBaseView.extend({
 
 codebrowser.controller.AuthenticationController = {
 
+    authenticated: false,
     authenticationView: new codebrowser.view.AuthenticationView(),
 
     authenticate: function () {
@@ -4169,6 +4172,16 @@ codebrowser.controller.AuthenticationController = {
         }
 
         localStorage.setItem(config.storage.authentication.token, xhr.getResponseHeader('X-Authentication-Token'));
+    },
+
+    finish: function () {
+
+        var path = localStorage.getItem(config.storage.authentication.path);
+
+        Backbone.history.navigate('#' + path, { trigger: true });
+
+        this.authenticated = true;
+        localStorage.removeItem(config.storage.authentication.path);
     }
 }
 ;
@@ -4248,7 +4261,10 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
         codebrowser.controller.ViewController.push(this.notFoundView, true);
     },
 
-    notAuthenticated: function () {
+    notAuthenticated: function (path) {
+
+        // Remember path
+        localStorage.setItem(config.storage.authentication.path, path);
 
         throw new codebrowser.model.AuthorisationError();
     },
@@ -4291,7 +4307,11 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
 
             success: function (model, response, options) {
 
-                codebrowser.controller.AuthenticationController.saveToken(options.xhr);
+                if (!codebrowser.controller.AuthenticationController.authenticated) {
+                    codebrowser.controller.AuthenticationController.saveToken(options.xhr);
+                    codebrowser.controller.AuthenticationController.finish();
+                    return;
+                }
 
                 onSuccess(model, response, options);
             },
@@ -4299,7 +4319,7 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
             error: function (model, response) {
 
                 if (response.status === 401) {
-                    self.notAuthenticated();
+                    self.notAuthenticated(response.responseJSON.path);
                 }
 
                 self.notFound();

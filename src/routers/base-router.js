@@ -39,7 +39,10 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
         codebrowser.controller.ViewController.push(this.notFoundView, true);
     },
 
-    notAuthenticated: function () {
+    notAuthenticated: function (path) {
+
+        // Remember path
+        localStorage.setItem(config.storage.authentication.path, path);
 
         throw new codebrowser.model.AuthorisationError();
     },
@@ -82,7 +85,11 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
 
             success: function (model, response, options) {
 
-                codebrowser.controller.AuthenticationController.saveToken(options.xhr);
+                if (!codebrowser.controller.AuthenticationController.authenticated) {
+                    codebrowser.controller.AuthenticationController.saveToken(options.xhr);
+                    codebrowser.controller.AuthenticationController.finish();
+                    return;
+                }
 
                 onSuccess(model, response, options);
             },
@@ -90,7 +97,7 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
             error: function (model, response) {
 
                 if (response.status === 401) {
-                    self.notAuthenticated();
+                    self.notAuthenticated(response.responseJSON.path);
                 }
 
                 self.notFound();
