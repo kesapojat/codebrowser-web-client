@@ -76,7 +76,7 @@ See the [back-end](https://github.com/rage/codebrowser-back-end/) REST-API docum
 This project has been developed at the University of Helsinki’s [Department of Computer Science](http://cs.helsinki.fi/en/) by:
 
 * Kenny Heinonen ([kennyhei](https://github.com/kennyhei/))
-* Kasper Hirvikoski ([kasperhirvikoski](https://github.com/kasperhirvikoski/))
+* Kasper Hirvikoski ([kasper](https://github.com/kasper/))
 
 ## License
 
