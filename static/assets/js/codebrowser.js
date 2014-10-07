@@ -4192,21 +4192,13 @@ codebrowser.controller.AuthenticationController = {
                 self.token = xhr.getResponseHeader('X-Authentication-Token');
                 self.authenticated = true;
 
-                var path = localStorage.getItem(config.storage.authentication.path);
-
-                if (!path) {
-                    return;
-                }
-
-                localStorage.removeItem(config.storage.authentication.path);
-
                 // Refresh page
                 Backbone.history.loadUrl();
             },
 
-            error: function (data) {
+            error: function () {
 
-                codebrowser.app.base.notAuthenticated(data.responseJSON.path);
+                codebrowser.app.base.notAuthenticated(true);
                 return;
             }
         });
@@ -4299,18 +4291,11 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
         codebrowser.controller.ViewController.push(this.notFoundView, true);
     },
 
-    notAuthenticated: function (path) {
-
-        var storagePath = localStorage.getItem(config.storage.authentication.path);
-
-        // Remember path
-        if (!storagePath) {
-            localStorage.setItem(config.storage.authentication.path, path);
-        }
+    notAuthenticated: function (retry) {
 
         var authorisationError = new codebrowser.model.AuthorisationError();
 
-        if (storagePath) {
+        if (retry) {
             authorisationError.message = 'Incorrect username or password.';
         }
 
@@ -4348,7 +4333,7 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
             error: function (model, response) {
 
                 if (response.status === 401) {
-                    self.notAuthenticated(response.responseJSON.path);
+                    self.notAuthenticated();
                     return;
                 }
 

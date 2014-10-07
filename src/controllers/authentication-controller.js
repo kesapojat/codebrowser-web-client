@@ -34,21 +34,13 @@ codebrowser.controller.AuthenticationController = {
                 self.token = xhr.getResponseHeader('X-Authentication-Token');
                 self.authenticated = true;
 
-                var path = localStorage.getItem(config.storage.authentication.path);
-
-                if (!path) {
-                    return;
-                }
-
-                localStorage.removeItem(config.storage.authentication.path);
-
                 // Refresh page
                 Backbone.history.loadUrl();
             },
 
-            error: function (data) {
+            error: function () {
 
-                codebrowser.app.base.notAuthenticated(data.responseJSON.path);
+                codebrowser.app.base.notAuthenticated(true);
                 return;
             }
         });
