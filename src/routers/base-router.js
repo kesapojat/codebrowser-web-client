@@ -54,7 +54,11 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
             authorisationError.message = 'Incorrect username or password.';
         }
 
-        throw authorisationError;
+        try {
+            throw authorisationError;
+        } catch (error) {
+            codebrowser.controller.AuthenticationController.authenticate(error.message);
+        }
     },
 
     fetchModel: function (model, useCache, onSuccess, options) {
@@ -85,6 +89,7 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
 
                 if (response.status === 401) {
                     self.notAuthenticated(response.responseJSON.path);
+                    return;
                 }
 
                 self.notFound();

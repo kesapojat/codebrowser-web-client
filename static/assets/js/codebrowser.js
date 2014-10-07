@@ -687,14 +687,9 @@ var codebrowser = {
     initialize: function () {
 
         // Oops! Catch all global unhandled errors
-        window.onerror = function (message, url, line, column, error) {
+        window.onerror = function (error) {
 
-            if (error.name === 'AuthorisationError') {
-                codebrowser.controller.AuthenticationController.authenticate(error.message);
-                return;
-            }
-
-            var errorView = new codebrowser.view.ErrorView({ model: { class: 'alert-danger', message: 'Oops! ' + message } });
+            var errorView = new codebrowser.view.ErrorView({ model: { class: 'alert-danger', message: 'Oops! ' + error } });
             codebrowser.controller.ViewController.push(errorView, true);
         }
 
@@ -4319,7 +4314,11 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
             authorisationError.message = 'Incorrect username or password.';
         }
 
-        throw authorisationError;
+        try {
+            throw authorisationError;
+        } catch (error) {
+            codebrowser.controller.AuthenticationController.authenticate(error.message);
+        }
     },
 
     fetchModel: function (model, useCache, onSuccess, options) {
@@ -4350,6 +4349,7 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
 
                 if (response.status === 401) {
                     self.notAuthenticated(response.responseJSON.path);
+                    return;
                 }
 
                 self.notFound();
