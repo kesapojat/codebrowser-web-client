@@ -41,12 +41,20 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
 
     notAuthenticated: function (path) {
 
+        var storagePath = localStorage.getItem(config.storage.authentication.path);
+
         // Remember path
-        if (!localStorage.getItem(config.storage.authentication.path)) {
+        if (!storagePath) {
             localStorage.setItem(config.storage.authentication.path, path);
         }
 
-        throw new codebrowser.model.AuthorisationError();
+        var authorisationError = new codebrowser.model.AuthorisationError();
+
+        if (storagePath) {
+            authorisationError.message = 'Incorrect username or password.';
+        }
+
+        throw authorisationError;
     },
 
     fetchModel: function (model, useCache, onSuccess, options) {
