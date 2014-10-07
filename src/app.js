@@ -23,14 +23,14 @@ var codebrowser = {
     initialize: function () {
 
         // Oops! Catch all global unhandled errors
-        window.onerror = function (error) {
+        window.onerror = function (message, url, line, col, error) {
 
-            if (error.indexOf('AuthorisationError') !== -1) {
+            if (error.name === 'AuthorisationError') {
                 codebrowser.controller.AuthenticationController.authenticate();
                 return;
             }
 
-            var errorView = new codebrowser.view.ErrorView({ model: { class: 'alert-danger', message: 'Oops! ' + error } });
+            var errorView = new codebrowser.view.ErrorView({ model: { class: 'alert-danger', message: 'Oops! ' + message } });
             codebrowser.controller.ViewController.push(errorView, true);
         }
 
