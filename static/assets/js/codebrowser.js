@@ -1922,7 +1922,7 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
         var username = $('[data-id="username"]', this.$el).val(),
             password = $('[data-id="password"]', this.$el).val();
 
-        codebrowser.app.base.root({ username: username, password: password });
+        codebrowser.controller.AuthenticationController.process(username, password);
     }
 });
 ;
@@ -4166,6 +4166,7 @@ codebrowser.controller.AuthenticationController = {
 
     authenticated: false,
     authenticationView: new codebrowser.view.AuthenticationView(),
+    token: null,
 
     authenticate: function (message) {
 
@@ -4174,39 +4175,35 @@ codebrowser.controller.AuthenticationController = {
         codebrowser.controller.ViewController.push(this.authenticationView, true);
     },
 
-    saveToken: function (xhr) {
+    login: function (username, password) {
 
-        if (!xhr) {
-            return;
-        }
+        var self = this;
 
-        localStorage.setItem(config.storage.authentication.token, xhr.getResponseHeader('X-Authentication-Token'));
+        $.ajax({
+
+            url: config.api.main.root,
+            async: false,
+            beforeSend: function (xhr) {
+
+                xhr.setRequestHeader('Authorization', 'Basic ' + btoa(username + ':' + password));
+            },
+
+            success: function (data, status, xhr) {
+
+                // Save token
+                self.token = xhr.getResponseHeader('X-Authentication-Token');
+                self.authenticated = true;
+            }
+        });
     },
 
-    credentials: function (options) {
-
-        var username = options ? options.username : '';
-        var token = localStorage.getItem(config.storage.authentication.token) || (options ? options.password : null);
-
-        if (!token) {
-            return;
-        }
-
-        return {
-
-            username: username,
-            password: token
-
-        }
-    },
-
-    process: function (options) {
+    process: function (username, password) {
 
         if (this.authenticated) {
             return;
         }
 
-        this.saveToken(options.xhr);
+        this.login(username, password);
 
         var path = localStorage.getItem(config.storage.authentication.path);
 
@@ -4214,10 +4211,15 @@ codebrowser.controller.AuthenticationController = {
             return;
         }
 
-        Backbone.history.navigate('#' + path, { trigger: true });
-
-        this.authenticated = true;
         localStorage.removeItem(config.storage.authentication.path);
+
+        // Refresh page
+        Backbone.history.loadUrl();
+    },
+
+    credentials: function () {
+
+        return { password: this.token };
     }
 }
 ;
@@ -4277,7 +4279,7 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
 
     /* Actions */
 
-    root: function (options) {
+    root: function () {
 
         var self = this;
 
@@ -4287,7 +4289,7 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
 
             self.rootView.render();
             codebrowser.controller.ViewController.push(self.rootView);
-        }, options);
+        });
     },
 
     notFound: function (message) {
@@ -4325,18 +4327,16 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
             codebrowser.controller.ViewController.push(self.loadingView, true);
         });
 
-        model.credentials = codebrowser.controller.AuthenticationController.credentials(options);
+        model.credentials = codebrowser.controller.AuthenticationController.credentials();
 
         model.fetch({
 
             traditional: true,
-            data: (options && !options.username) ? options : '',
+            data: options ? options : '',
             cache: useCache,
             expires: useCache ? config.cache.expires : 0,
 
             success: function (model, response, options) {
-
-                codebrowser.controller.AuthenticationController.process(options);
 
                 onSuccess(model, response, options);
             },

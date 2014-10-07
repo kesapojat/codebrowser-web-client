@@ -19,7 +19,7 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
 
     /* Actions */
 
-    root: function (options) {
+    root: function () {
 
         var self = this;
 
@@ -29,7 +29,7 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
 
             self.rootView.render();
             codebrowser.controller.ViewController.push(self.rootView);
-        }, options);
+        });
     },
 
     notFound: function (message) {
@@ -67,18 +67,16 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
             codebrowser.controller.ViewController.push(self.loadingView, true);
         });
 
-        model.credentials = codebrowser.controller.AuthenticationController.credentials(options);
+        model.credentials = codebrowser.controller.AuthenticationController.credentials();
 
         model.fetch({
 
             traditional: true,
-            data: (options && !options.username) ? options : '',
+            data: options ? options : '',
             cache: useCache,
             expires: useCache ? config.cache.expires : 0,
 
             success: function (model, response, options) {
-
-                codebrowser.controller.AuthenticationController.process(options);
 
                 onSuccess(model, response, options);
             },
