@@ -1,12 +1,15 @@
 codebrowser.controller.AuthenticationController = {
 
-    authenticated: false,
     authenticationView: new codebrowser.view.AuthenticationView(),
+    authenticated: false,
     token: null,
 
-    authenticate: function (message) {
+    credentials: function () {
 
-        this.authenticationView.message = message;
+        return { password: this.token };
+    },
+
+    authenticate: function () {
 
         codebrowser.controller.ViewController.push(this.authenticationView, true);
     },
@@ -23,39 +26,27 @@ codebrowser.controller.AuthenticationController = {
 
             url: config.api.main.root,
             async: false,
-            beforeSend: function (xhr) {
 
-                xhr.setRequestHeader('Authorization', 'Basic ' + btoa(username + ':' + password));
+            beforeSend: function (request) {
+
+                request.setRequestHeader('Authorization', 'Basic ' + btoa(username + ':' + password));
             },
 
-            success: function (data, status, xhr) {
+            success: function (data, status, request) {
 
                 // Save token
-                self.token = xhr.getResponseHeader('X-Authentication-Token');
+                self.token = request.getResponseHeader('X-Authentication-Token');
                 self.authenticated = true;
 
-                var path = localStorage.getItem(config.storage.authentication.path);
-
-                if (!path) {
-                    return;
-                }
-
-                localStorage.removeItem(config.storage.authentication.path);
-
-                // Refresh page
+                // Refresh
                 Backbone.history.loadUrl();
             },
 
-            error: function (data) {
+            error: function () {
 
-                codebrowser.app.base.notAuthenticated(data.responseJSON.path);
+                self.authenticationView.error('Wrong username or password.');
                 return;
             }
         });
-    },
-
-    credentials: function () {
-
-        return { password: this.token };
     }
 }

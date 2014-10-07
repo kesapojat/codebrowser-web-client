@@ -43,5 +43,10 @@ var codebrowser = {
 
         // History
         Backbone.history.start();
+    },
+
+    authenticate: function () {
+
+        codebrowser.controller.AuthenticationController.authenticate();
     }
 }

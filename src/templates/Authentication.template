@@ -10,6 +10,10 @@
 
             <div class='modal-body'>
 
+                {{#if message}}
+                    <div class='alert alert-danger' role='alert'><b>Oops!</b> {{message}}</div>
+                {{/if}}
+
                 <form class='form-horizontal' role='form'>
 
                     <div class='form-group'>
@@ -37,19 +41,7 @@
             </div>
 
             <div class='modal-footer'>
-
-                <div class='row'>
-
-                    <div class='col-sm-8'>
-                        <p class='text-left text-danger'>{{message}}</p>
-                    </div>
-
-                    <div class='col-sm-4'>
-                        <button type='button' class='btn btn-primary' data-action='authenticate'>Sign In</button>
-                    </div>
-
-                </div>
-
+                <button type='button' class='btn btn-primary' data-action='authenticate'>Sign In</button>
             </div>
 
         </div>

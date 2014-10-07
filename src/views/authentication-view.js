@@ -2,7 +2,6 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
 
     id: 'authentication-container',
     template: Handlebars.templates.Authentication,
-    message: null,
 
     events: {
 
@@ -12,9 +11,9 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
 
     /* Render */
 
-    render: function () {
+    render: function (message) {
 
-        this.$el.html(this.template({ message: this.message }));
+        this.$el.html(this.template({ message: message }));
         this.$el.children('#authentication-modal').modal();
 
         // Bind events also on re-render
@@ -22,6 +21,11 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
     },
 
     /* Actions */
+
+    error: function (message) {
+
+        this.render(message);
+    },
 
     authenticate: function () {
 
