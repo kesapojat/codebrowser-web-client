@@ -28,6 +28,6 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
         var username = $('[data-id="username"]', this.$el).val(),
             password = $('[data-id="password"]', this.$el).val();
 
-        codebrowser.controller.AuthenticationController.process(username, password);
+        codebrowser.controller.AuthenticationController.login(username, password);
     }
 });

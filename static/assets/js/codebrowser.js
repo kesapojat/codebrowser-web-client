@@ -1921,7 +1921,7 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
         var username = $('[data-id="username"]', this.$el).val(),
             password = $('[data-id="password"]', this.$el).val();
 
-        codebrowser.controller.AuthenticationController.process(username, password);
+        codebrowser.controller.AuthenticationController.login(username, password);
     }
 });
 ;
@@ -4176,6 +4176,10 @@ codebrowser.controller.AuthenticationController = {
 
     login: function (username, password) {
 
+        if (this.authenticated) {
+            return;
+        }
+
         var self = this;
 
         $.ajax({
@@ -4192,28 +4196,25 @@ codebrowser.controller.AuthenticationController = {
                 // Save token
                 self.token = xhr.getResponseHeader('X-Authentication-Token');
                 self.authenticated = true;
+
+                var path = localStorage.getItem(config.storage.authentication.path);
+
+                if (!path) {
+                    return;
+                }
+
+                localStorage.removeItem(config.storage.authentication.path);
+
+                // Refresh page
+                Backbone.history.loadUrl();
+            },
+
+            error: function (data) {
+
+                codebrowser.app.base.notAuthenticated(data.responseJSON.path);
+                return;
             }
         });
-    },
-
-    process: function (username, password) {
-
-        if (this.authenticated) {
-            return;
-        }
-
-        this.login(username, password);
-
-        var path = localStorage.getItem(config.storage.authentication.path);
-
-        if (!path) {
-            return;
-        }
-
-        localStorage.removeItem(config.storage.authentication.path);
-
-        // Refresh page
-        Backbone.history.loadUrl();
     },
 
     credentials: function () {
@@ -4236,6 +4237,11 @@ codebrowser.controller.ViewController = {
 
         // Already active
         if (this.isActive(view)) {
+
+            if (render) {
+                this.view.render();
+            }
+
             return;
         }
 

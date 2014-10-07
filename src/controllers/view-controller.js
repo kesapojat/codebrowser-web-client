@@ -11,6 +11,11 @@ codebrowser.controller.ViewController = {
 
         // Already active
         if (this.isActive(view)) {
+
+            if (render) {
+                this.view.render();
+            }
+
             return;
         }
 
