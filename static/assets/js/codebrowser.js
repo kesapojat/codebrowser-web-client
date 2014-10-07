@@ -1620,42 +1620,37 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
             success: function (data, status, xhr) {
 
-                var file, error;
+                var zipData, error;
 
                 try {
-                    file = JSZipUtils._getBinaryFromXHR(xhr);
+                    zipData = JSZipUtils._getBinaryFromXHR(xhr);
                 } catch (e) {
                     error = new Error(e);
                 }
 
-                self.getBinaryContent(file, error, callback, levelParameter, id);
+                if (error) {
+                    callback(error);
+                    return;
+                }
+
+                var zip = new JSZip(zipData);
+
+                // Cache URL, snapshot level, 'from' snapshot
+                localStorage.setItem(config.storage.cache.files.url, self.url() + levelParameter);
+                localStorage.setItem(config.storage.cache.snapshot.level, self.level);
+                localStorage.setItem(config.storage.cache.snapshot.from, id);
+
+                // Save ZIP
+                codebrowser.cache.files = zip;
+
+                callback();
             },
 
             error: function (data) {
 
-                console.log(data);
+                callback(data);
             }
         });
-    },
-
-    getBinaryContent: function (zipData, error, callback, levelParameter, id) {
-
-        if (error) {
-            callback(error);
-            return;
-        }
-
-        var zip = new JSZip(zipData);
-
-        // Cache URL, snapshot level, 'from' snapshot
-        localStorage.setItem(config.storage.cache.files.url, this.url() + levelParameter);
-        localStorage.setItem(config.storage.cache.snapshot.level, this.level);
-        localStorage.setItem(config.storage.cache.snapshot.from, id);
-
-        // Save ZIP
-        codebrowser.cache.files = zip;
-
-        callback();
     },
 
     getDuration: function (fromIndex, toIndex) {
@@ -4360,8 +4355,6 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
             // Loading
             codebrowser.controller.ViewController.push(self.loadingView, true);
         });
-
-//        model.credentials = codebrowser.controller.AuthenticationController.credentials();
 
         model.fetch({
 
