@@ -23,7 +23,7 @@ var codebrowser = {
     initialize: function () {
 
         // Oops! Catch all global unhandled errors
-        window.onerror = function (message, url, line, col, error) {
+        window.onerror = function (message, url, line, column, error) {
 
             if (error.name === 'AuthorisationError') {
                 codebrowser.controller.AuthenticationController.authenticate();

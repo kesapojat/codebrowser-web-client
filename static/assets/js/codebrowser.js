@@ -684,7 +684,7 @@ var codebrowser = {
     initialize: function () {
 
         // Oops! Catch all global unhandled errors
-        window.onerror = function (message, url, line, col, error) {
+        window.onerror = function (message, url, line, column, error) {
 
             if (error.name === 'AuthorisationError') {
                 codebrowser.controller.AuthenticationController.authenticate();
@@ -900,7 +900,6 @@ codebrowser.model.AuthorisationError = function () {
     this.name = 'AuthorisationError';
     this.message = 'Not authenticated.';
     this.stack = (new Error()).stack;
-
 }
 
 codebrowser.model.AuthorisationError.prototype = Object.create(Error.prototype);
@@ -4179,8 +4178,8 @@ codebrowser.controller.AuthenticationController = {
 
     credentials: function (options) {
 
-        var username = options ? options.username : '';
-        var token = localStorage.getItem(config.storage.authentication.token) || (options ? options.password : null);
+        var username = options ? options.username : '',
+            token = localStorage.getItem(config.storage.authentication.token) || (options ? options.password : null);
 
         if (!token) {
             return;
@@ -4191,7 +4190,7 @@ codebrowser.controller.AuthenticationController = {
             username: username,
             password: token
 
-        }
+        };
     },
 
     process: function (options) {
@@ -4281,6 +4280,7 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
 
             self.rootView.render();
             codebrowser.controller.ViewController.push(self.rootView);
+
         }, options);
     },
 

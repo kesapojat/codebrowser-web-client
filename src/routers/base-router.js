@@ -29,6 +29,7 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
 
             self.rootView.render();
             codebrowser.controller.ViewController.push(self.rootView);
+
         }, options);
     },
 

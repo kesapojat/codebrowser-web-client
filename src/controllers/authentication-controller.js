@@ -19,8 +19,8 @@ codebrowser.controller.AuthenticationController = {
 
     credentials: function (options) {
 
-        var username = options ? options.username : '';
-        var token = localStorage.getItem(config.storage.authentication.token) || (options ? options.password : null);
+        var username = options ? options.username : '',
+            token = localStorage.getItem(config.storage.authentication.token) || (options ? options.password : null);
 
         if (!token) {
             return;
@@ -31,7 +31,7 @@ codebrowser.controller.AuthenticationController = {
             username: username,
             password: token
 
-        }
+        };
     },
 
     process: function (options) {
