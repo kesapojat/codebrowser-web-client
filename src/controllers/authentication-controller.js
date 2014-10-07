@@ -2,11 +2,10 @@ codebrowser.controller.AuthenticationController = {
 
     authenticationView: new codebrowser.view.AuthenticationView(),
     authenticated: false,
-    token: null,
 
     credentials: function () {
 
-        return { password: this.token };
+        return { password: localStorage.getItem(config.storage.authentication.token) };
     },
 
     authenticate: function () {
@@ -35,7 +34,7 @@ codebrowser.controller.AuthenticationController = {
             success: function (data, status, request) {
 
                 // Save token
-                self.token = request.getResponseHeader('X-Authentication-Token');
+                localStorage.setItem(config.storage.authentication.token, request.getResponseHeader('X-Authentication-Token'));
                 self.authenticated = true;
 
                 // Refresh
