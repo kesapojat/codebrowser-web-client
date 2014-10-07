@@ -42,7 +42,9 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
     notAuthenticated: function (path) {
 
         // Remember path
-        localStorage.setItem(config.storage.authentication.path, path);
+        if (!localStorage.getItem(config.storage.authentication.path)) {
+            localStorage.setItem(config.storage.authentication.path, path);
+        }
 
         throw new codebrowser.model.AuthorisationError();
     },
