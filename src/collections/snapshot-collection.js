@@ -53,7 +53,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         return this.level === 'key';
     },
 
-    fetchFiles: function (callback, id) {
+    fetchZip: function (callback, id) {
 
         // Snapshot
         var snapshot = this.get(id) || this.at(0);
@@ -72,8 +72,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
             id = snapshot.get('id');
         }
 
-        var self = this,
-            url = localStorage.getItem(config.storage.cache.files.url),
+        var url = localStorage.getItem(config.storage.cache.files.url),
             parameters = (this.level ? '?level=' + this.level : '') + '&from=' + id + '&count=' + this.count;
 
         var levelParameter = parameters.substring(0, parameters.indexOf('&from'));
@@ -92,25 +91,66 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
             this.differences = [];
         }
 
-        JSZipUtils.getBinaryContent(this.url() + '/files.zip' + parameters, function (error, data) {
+        this.fetchFiles(parameters, levelParameter, id, callback);
+    },
 
-            if (error) {
-                callback(error);
-                return;
+    fetchFiles: function (parameters, levelParameter, id, callback) {
+
+        var self = this;
+
+        $.ajax({
+
+            url: this.url() + '/files.zip' + parameters,
+            async: false,
+
+            beforeSend: function (xhr) {
+
+                if ('responseType' in xhr) {
+                    xhr.responseType = 'arraybuffer';
+                }
+
+                xhr.overrideMimeType('text/plain; charset=x-user-defined');
+                codebrowser.controller.AuthenticationController.setCredentials(xhr);
+            },
+
+            success: function (data, status, xhr) {
+
+                var file, error;
+
+                try {
+                    file = JSZipUtils._getBinaryFromXHR(xhr);
+                } catch (e) {
+                    error = new Error(e);
+                }
+
+                self.getBinaryContent(file, error, callback, levelParameter, id);
+            },
+
+            error: function (data) {
+
+                console.log(data);
             }
-
-            var zip = new JSZip(data);
-
-            // Cache URL, snapshot level, 'from' snapshot
-            localStorage.setItem(config.storage.cache.files.url, self.url() + levelParameter);
-            localStorage.setItem(config.storage.cache.snapshot.level, self.level);
-            localStorage.setItem(config.storage.cache.snapshot.from, id);
-
-            // Save ZIP
-            codebrowser.cache.files = zip;
-
-            callback();
         });
+    },
+
+    getBinaryContent: function (zipData, error, callback, levelParameter, id) {
+
+        if (error) {
+            callback(error);
+            return;
+        }
+
+        var zip = new JSZip(zipData);
+
+        // Cache URL, snapshot level, 'from' snapshot
+        localStorage.setItem(config.storage.cache.files.url, this.url() + levelParameter);
+        localStorage.setItem(config.storage.cache.snapshot.level, this.level);
+        localStorage.setItem(config.storage.cache.snapshot.from, id);
+
+        // Save ZIP
+        codebrowser.cache.files = zip;
+
+        callback();
     },
 
     getDuration: function (fromIndex, toIndex) {

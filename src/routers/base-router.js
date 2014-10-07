@@ -49,9 +49,12 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
             codebrowser.controller.ViewController.push(self.loadingView, true);
         });
 
-        model.credentials = codebrowser.controller.AuthenticationController.credentials();
-
         model.fetch({
+
+            beforeSend: function (xhr) {
+
+                codebrowser.controller.AuthenticationController.setCredentials(xhr);
+            },
 
             traditional: true,
             data: options ? options : '',

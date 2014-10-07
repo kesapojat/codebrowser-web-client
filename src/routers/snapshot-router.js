@@ -117,7 +117,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
             }
 
             // Fetch all related files
-            snapshotCollection.fetchFiles(function (error) {
+            snapshotCollection.fetchZip(function (error) {
 
                 if (error) {
                     self.notFound();

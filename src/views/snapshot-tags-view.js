@@ -49,6 +49,11 @@ codebrowser.view.SnapshotTagsView = Backbone.View.extend({
         // Fetch tags
         this.collection.fetch({
 
+            beforeSend: function (xhr) {
+
+                codebrowser.controller.AuthenticationController.setCredentials(xhr);
+            },
+
             cache: true,
             expires: 120,
 
