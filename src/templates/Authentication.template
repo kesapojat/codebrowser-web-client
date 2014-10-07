@@ -37,17 +37,19 @@
             </div>
 
             <div class='modal-footer'>
-                <div class="row">
 
-                    <div class="col-sm-8">
-                        <p class="text-left text-danger">{{message}}</p>
+                <div class='row'>
+
+                    <div class='col-sm-8'>
+                        <p class='text-left text-danger'>{{message}}</p>
                     </div>
 
-                    <div class="col-sm-4">
+                    <div class='col-sm-4'>
                         <button type='button' class='btn btn-primary' data-action='authenticate'>Sign In</button>
                     </div>
 
                 </div>
+
             </div>
 
         </div>
