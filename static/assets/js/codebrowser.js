@@ -1906,6 +1906,9 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
 
         this.$el.html(this.template());
         this.$el.children('#authentication-modal').modal();
+
+        // Bind events also on re-render
+        this.delegateEvents();
     },
 
     /* Actions */
@@ -4191,7 +4194,13 @@ codebrowser.controller.AuthenticationController = {
         }
     },
 
-    finish: function () {
+    process: function (options) {
+
+        if (this.authenticated) {
+            return;
+        }
+
+        this.saveToken(options.xhr);
 
         var path = localStorage.getItem(config.storage.authentication.path);
 
@@ -4203,8 +4212,7 @@ codebrowser.controller.AuthenticationController = {
 
         this.authenticated = true;
         localStorage.removeItem(config.storage.authentication.path);
-    },
-
+    }
 }
 ;
 

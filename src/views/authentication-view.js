@@ -15,6 +15,9 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
 
         this.$el.html(this.template());
         this.$el.children('#authentication-modal').modal();
+
+        // Bind events also on re-render
+        this.delegateEvents();
     },
 
     /* Actions */
