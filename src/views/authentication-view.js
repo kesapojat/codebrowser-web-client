@@ -5,7 +5,8 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
 
     events: {
 
-        'click [data-action="authenticate"]': 'authenticate'
+        'click [data-action="authenticate"]': 'authenticate',
+        'keydown':                            'keydown'
 
     },
 
@@ -18,6 +19,16 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
 
         // Bind events also on re-render
         this.delegateEvents();
+    },
+
+    /* Events */
+
+    keydown: function (event) {
+
+        // Enter
+        if (event.keyCode === 13) {
+            this.authenticate();
+        }
     },
 
     /* Actions */
