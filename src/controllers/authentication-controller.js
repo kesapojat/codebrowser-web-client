@@ -3,7 +3,9 @@ codebrowser.controller.AuthenticationController = {
     authenticated: false,
     authenticationView: new codebrowser.view.AuthenticationView(),
 
-    authenticate: function () {
+    authenticate: function (message) {
+
+        this.authenticationView.message = message;
 
         codebrowser.controller.ViewController.push(this.authenticationView, true);
     },

@@ -2,8 +2,11 @@ this["Handlebars"] = this["Handlebars"] || {};
 this["Handlebars"]["templates"] = this["Handlebars"]["templates"] || {};
 
 this["Handlebars"]["templates"]["Authentication"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  return "<div id='authentication-modal' class='modal' tabindex='-1' role='dialog' aria-labelledby='authentication-label' aria-hidden='true' data-backdrop='false' data-keyboard='false'>\n\n    <div class='modal-dialog'>\n\n        <div class='modal-content'>\n\n            <div class='modal-header'>\n                <h4 class='modal-title' id='authentication-label'>Sign In</h4>\n            </div>\n\n            <div class='modal-body'>\n\n                <form class='form-horizontal' role='form'>\n\n                    <div class='form-group'>\n\n                        <label for='authentication-username' class='col-sm-2 control-label'>Username</label>\n\n                        <div class='col-sm-10'>\n                          <input type='text' class='form-control' id='authentication-username' data-id='username' placeholder='Username'>\n                        </div>\n\n                    </div>\n\n                    <div class='form-group'>\n\n                        <label for='authentication-password' class='col-sm-2 control-label'>Password</label>\n\n                        <div class='col-sm-10'>\n                          <input type='password' class='form-control' id='authentication-password' data-id='password' placeholder='Password'>\n                        </div>\n\n                    </div>\n\n                </form>\n\n            </div>\n\n            <div class='modal-footer'>\n                <button type='button' class='btn btn-primary' data-action='authenticate'>Sign In</button>\n            </div>\n\n        </div>\n\n    </div>\n\n</div>\n";
-  },"useData":true});
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "<div id='authentication-modal' class='modal' tabindex='-1' role='dialog' aria-labelledby='authentication-label' aria-hidden='true' data-backdrop='false' data-keyboard='false'>\n\n    <div class='modal-dialog'>\n\n        <div class='modal-content'>\n\n            <div class='modal-header'>\n                <h4 class='modal-title' id='authentication-label'>Sign In</h4>\n            </div>\n\n            <div class='modal-body'>\n\n                <form class='form-horizontal' role='form'>\n\n                    <div class='form-group'>\n\n                        <label for='authentication-username' class='col-sm-2 control-label'>Username</label>\n\n                        <div class='col-sm-10'>\n                          <input type='text' class='form-control' id='authentication-username' data-id='username' placeholder='Username'>\n                        </div>\n\n                    </div>\n\n                    <div class='form-group'>\n\n                        <label for='authentication-password' class='col-sm-2 control-label'>Password</label>\n\n                        <div class='col-sm-10'>\n                          <input type='password' class='form-control' id='authentication-password' data-id='password' placeholder='Password'>\n                        </div>\n\n                    </div>\n\n                </form>\n\n            </div>\n\n            <div class='modal-footer'>\n\n                <div class='row'>\n\n                    <div class='col-sm-8'>\n                        <p class='text-left text-danger'>"
+    + escapeExpression(((helper = (helper = helpers.message || (depth0 != null ? depth0.message : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"message","hash":{},"data":data}) : helper)))
+    + "</p>\n                    </div>\n\n                    <div class='col-sm-4'>\n                        <button type='button' class='btn btn-primary' data-action='authenticate'>Sign In</button>\n                    </div>\n\n                </div>\n\n            </div>\n\n        </div>\n\n    </div>\n\n</div>\n";
+},"useData":true});
 
 this["Handlebars"]["templates"]["CoursesContainer"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, lambda=this.lambda;
@@ -687,7 +690,7 @@ var codebrowser = {
         window.onerror = function (message, url, line, column, error) {
 
             if (error.name === 'AuthorisationError') {
-                codebrowser.controller.AuthenticationController.authenticate();
+                codebrowser.controller.AuthenticationController.authenticate(error.message);
                 return;
             }
 
@@ -898,7 +901,7 @@ Handlebars.registerHelper('pluralise', function (value, string) {
 codebrowser.model.AuthorisationError = function () {
 
     this.name = 'AuthorisationError';
-    this.message = 'Not authenticated.';
+    this.message = null;
     this.stack = (new Error()).stack;
 }
 
@@ -1892,6 +1895,7 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
 
     id: 'authentication-container',
     template: Handlebars.templates.Authentication,
+    message: null,
 
     events: {
 
@@ -1903,7 +1907,7 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
 
     render: function () {
 
-        this.$el.html(this.template());
+        this.$el.html(this.template({ message: this.message }));
         this.$el.children('#authentication-modal').modal();
 
         // Bind events also on re-render
@@ -4162,7 +4166,9 @@ codebrowser.controller.AuthenticationController = {
     authenticated: false,
     authenticationView: new codebrowser.view.AuthenticationView(),
 
-    authenticate: function () {
+    authenticate: function (message) {
+
+        this.authenticationView.message = message;
 
         codebrowser.controller.ViewController.push(this.authenticationView, true);
     },
@@ -4293,12 +4299,20 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
 
     notAuthenticated: function (path) {
 
+        var storagePath = localStorage.getItem(config.storage.authentication.path);
+
         // Remember path
-        if (!localStorage.getItem(config.storage.authentication.path)) {
+        if (!storagePath) {
             localStorage.setItem(config.storage.authentication.path, path);
         }
 
-        throw new codebrowser.model.AuthorisationError();
+        var authorisationError = new codebrowser.model.AuthorisationError();
+
+        if (storagePath) {
+            authorisationError.message = 'Incorrect username or password.';
+        }
+
+        throw authorisationError;
     },
 
     fetchModel: function (model, useCache, onSuccess, options) {

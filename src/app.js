@@ -26,7 +26,7 @@ var codebrowser = {
         window.onerror = function (message, url, line, column, error) {
 
             if (error.name === 'AuthorisationError') {
-                codebrowser.controller.AuthenticationController.authenticate();
+                codebrowser.controller.AuthenticationController.authenticate(error.message);
                 return;
             }
 
