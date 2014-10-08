@@ -53,6 +53,51 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         return this.level === 'key';
     },
 
+    fetchFiles: function (parameters, levelParameter, id, callback) {
+
+        var self = this;
+
+        $.ajax({
+
+            url: this.url() + '/files.zip' + parameters,
+            async: false,
+
+            beforeSend: function (request) {
+
+                codebrowser.controller.AuthenticationController.setCredentials(request);
+            },
+
+            success: function (data, status, request) {
+
+                var zipData;
+
+                try {
+                    zipData = JSZipUtils._getBinaryFromXHR(request);
+                } catch (error) {
+                    callback(error);
+                    return;
+                }
+
+                var zip = new JSZip(zipData);
+
+                // Cache URL, snapshot level, 'from' snapshot
+                localStorage.setItem(config.storage.cache.files.url, self.url() + levelParameter);
+                localStorage.setItem(config.storage.cache.snapshot.level, self.level);
+                localStorage.setItem(config.storage.cache.snapshot.from, id);
+
+                // Save ZIP
+                codebrowser.cache.files = zip;
+
+                callback();
+            },
+
+            error: function (data) {
+
+                callback(data);
+            }
+        });
+    },
+
     fetchZip: function (callback, id) {
 
         // Snapshot
@@ -92,60 +137,6 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         }
 
         this.fetchFiles(parameters, levelParameter, id, callback);
-    },
-
-    fetchFiles: function (parameters, levelParameter, id, callback) {
-
-        var self = this;
-
-        $.ajax({
-
-            url: this.url() + '/files.zip' + parameters,
-            async: false,
-
-            beforeSend: function (xhr) {
-
-                if ('responseType' in xhr) {
-                    xhr.responseType = 'arraybuffer';
-                }
-
-                xhr.overrideMimeType('text/plain; charset=x-user-defined');
-                codebrowser.controller.AuthenticationController.setCredentials(xhr);
-            },
-
-            success: function (data, status, xhr) {
-
-                var zipData, error;
-
-                try {
-                    zipData = JSZipUtils._getBinaryFromXHR(xhr);
-                } catch (e) {
-                    error = new Error(e);
-                }
-
-                if (error) {
-                    callback(error);
-                    return;
-                }
-
-                var zip = new JSZip(zipData);
-
-                // Cache URL, snapshot level, 'from' snapshot
-                localStorage.setItem(config.storage.cache.files.url, self.url() + levelParameter);
-                localStorage.setItem(config.storage.cache.snapshot.level, self.level);
-                localStorage.setItem(config.storage.cache.snapshot.from, id);
-
-                // Save ZIP
-                codebrowser.cache.files = zip;
-
-                callback();
-            },
-
-            error: function (data) {
-
-                callback(data);
-            }
-        });
     },
 
     getDuration: function (fromIndex, toIndex) {

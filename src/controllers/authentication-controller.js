@@ -3,13 +3,13 @@ codebrowser.controller.AuthenticationController = {
     authenticationView: new codebrowser.view.AuthenticationView(),
     authenticated: false,
 
-    setCredentials: function (xhr) {
+    setCredentials: function (request) {
 
         if (!localStorage.getItem(config.storage.authentication.token)) {
             return;
         }
 
-        xhr.setRequestHeader('Authorization', 'Basic ' + btoa(':' + localStorage.getItem(config.storage.authentication.token)));
+        request.setRequestHeader('Authorization', 'Basic ' + btoa(':' + localStorage.getItem(config.storage.authentication.token)));
     },
 
     authenticate: function () {
