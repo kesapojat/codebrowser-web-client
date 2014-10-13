@@ -237,6 +237,10 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
     update: function (snapshot, fileId) {
 
+        if (this.collection.shouldPreload(snapshot)) {
+            this.collection.preload(snapshot);
+        }
+
         this.model = snapshot;
 
         // Restore browser state if necessary

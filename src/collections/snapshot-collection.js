@@ -64,7 +64,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         });
     },
 
-    shouldPreload: function (id) {
+    shouldPreload: function (model) {
 
         if (!codebrowser.cache.files) {
             return false;
@@ -72,13 +72,12 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
         var files = this.zipFiles();
 
-        return files[files.length - this.preloadBefore].indexOf(id) !== -1;
+        return files[files.length - this.preloadBefore].indexOf(model.get('id')) !== -1;
     },
 
-    preload: function (id) {
+    preload: function (model) {
 
-        var snapshot = this.get(id);
-        snapshot = this.at(this.indexOf(snapshot) + this.preloadBefore);
+        var snapshot = this.at(this.indexOf(model) + this.preloadBefore);
 
         if (!snapshot) {
             return;
@@ -159,10 +158,6 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
     },
 
     fetchZip: function (callback, id, options) {
-
-        if (this.shouldPreload(id)) {
-            this.preload(id);
-        }
 
         // Check if we need to change zip to a preloaded one
         if (this.nextBatch) {
