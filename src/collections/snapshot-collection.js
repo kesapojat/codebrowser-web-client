@@ -8,8 +8,9 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     model: codebrowser.model.Snapshot,
     level: 'code',
-    count: 100,
+    count: 10,
     offset: 1,
+    preloadBefore: 5,
 
     /* Differences */
 
@@ -53,14 +54,44 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         return this.level === 'key';
     },
 
-    fetchFiles: function (parameters, levelParameter, id, callback) {
+    zipFiles: function () {
+
+        var files = Object.keys(codebrowser.cache.files.files);
+
+        // Filter folders
+        return _.reject(files, function (file) {
+            return file[file.length - 1] === '/';
+        });
+    },
+
+    shouldPreload: function (model) {
+
+        var files = this.zipFiles();
+
+        return files[files.length - this.preloadBefore].indexOf(model.get('id')) !== -1;
+    },
+
+    preload: function (model) {
+
+        var snapshot = this.at(this.indexOf(model) + this.preloadBefore);
+
+        if (!snapshot) {
+            return;
+        }
+
+        this.fetchZip(null, snapshot.get('id'), { async: true, cache: false });
+    },
+
+    fetchFiles: function (parameters, levelParameter, id, callback, options) {
+
+        console.log(options);
 
         var self = this;
 
         $.ajax({
 
             url: this.url() + '/files.zip' + parameters,
-            async: false,
+            async: options ? options.async : false,
 
             beforeSend: function (request) {
 
@@ -88,12 +119,20 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
                 var zip = new JSZip(zipData);
 
+                // Do not cache anything, just save zip
+                if (options && options.cache === false) {
+                    self.nextZip = zip;
+                    self.nextId = id;
+                    self.nextLevelParameter = levelParameter;
+                    return;
+                }
+
                 // Cache URL, snapshot level, 'from' snapshot
                 localStorage.setItem(config.storage.cache.files.url, self.url() + levelParameter);
                 localStorage.setItem(config.storage.cache.snapshot.level, self.level);
                 localStorage.setItem(config.storage.cache.snapshot.from, id);
 
-                // Save ZIP
+                // Cache ZIP
                 codebrowser.cache.files = zip;
 
                 callback();
@@ -106,7 +145,30 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         });
     },
 
-    fetchZip: function (callback, id) {
+    fetchZip: function (callback, id, options) {
+
+        if (this.nextZip) {
+
+            console.log(this.nextZip);
+
+            var files = this.zipFiles();
+
+            if (files[files.length - 1].indexOf(id) !== -1) {
+
+                console.log('hep!');
+
+                // Time to cache next batch
+                codebrowser.cache.files = this.nextZip;
+                this.nextZip = null;
+
+                localStorage.setItem(config.storage.cache.files.url, this.url() + this.nextLevelParameter);
+                localStorage.setItem(config.storage.cache.snapshot.level, this.level);
+                localStorage.setItem(config.storage.cache.snapshot.from, this.nextId);
+
+                callback();
+                return;
+            }
+        }
 
         // Snapshot
         var snapshot = this.get(id) || this.at(0);
@@ -134,8 +196,11 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         if (codebrowser.cache.files && url === this.url() + levelParameter) {
 
             if (current - from < this.count - this.offset && current - from >= 0) {
-                callback();
-                return;
+
+                if (!options) {
+                    callback();
+                    return;
+                }
             }
 
         } else {
@@ -144,7 +209,11 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
             this.differences = [];
         }
 
-        this.fetchFiles(parameters, levelParameter, id, callback);
+        console.log(url);
+        console.log(this.url() + levelParameter);
+        console.log('jepa: ' + id);
+
+        this.fetchFiles(parameters, levelParameter, id, callback, options);
     },
 
     getDuration: function (fromIndex, toIndex) {
