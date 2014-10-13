@@ -8,7 +8,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     model: codebrowser.model.Snapshot,
     level: 'code',
-    count: 10,
+    count: 15,
     offset: 1,
     preloadBefore: 5,
 
@@ -82,9 +82,18 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         this.fetchZip(null, snapshot.get('id'), { async: true, cache: false });
     },
 
-    fetchFiles: function (parameters, levelParameter, id, callback, options) {
+    cache: function (data) {
 
-        console.log(options);
+        // Cache URL, snapshot level, 'from' snapshot
+        localStorage.setItem(config.storage.cache.files.url, this.url() + data.levelParameter);
+        localStorage.setItem(config.storage.cache.snapshot.level, this.level);
+        localStorage.setItem(config.storage.cache.snapshot.from, data.id);
+
+        // Cache ZIP
+        codebrowser.cache.files = data.zip;
+    },
+
+    fetchFiles: function (parameters, levelParameter, id, callback, options) {
 
         var self = this;
 
@@ -121,19 +130,18 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
                 // Do not cache anything, just save zip
                 if (options && options.cache === false) {
-                    self.nextZip = zip;
-                    self.nextId = id;
-                    self.nextLevelParameter = levelParameter;
+
+                    self.nextBatch = {
+                        zip: zip,
+                        id: id,
+                        levelParameter: levelParameter
+                    }
+
                     return;
                 }
 
-                // Cache URL, snapshot level, 'from' snapshot
-                localStorage.setItem(config.storage.cache.files.url, self.url() + levelParameter);
-                localStorage.setItem(config.storage.cache.snapshot.level, self.level);
-                localStorage.setItem(config.storage.cache.snapshot.from, id);
-
-                // Cache ZIP
-                codebrowser.cache.files = zip;
+                // Cache data
+                self.cache({ zip: zip, id: id, levelParameter: levelParameter });
 
                 callback();
             },
@@ -147,23 +155,15 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     fetchZip: function (callback, id, options) {
 
-        if (this.nextZip) {
-
-            console.log(this.nextZip);
+        // Check if we need to change zip to a preloaded one
+        if (this.nextBatch) {
 
             var files = this.zipFiles();
 
             if (files[files.length - 1].indexOf(id) !== -1) {
 
-                console.log('hep!');
-
-                // Time to cache next batch
-                codebrowser.cache.files = this.nextZip;
-                this.nextZip = null;
-
-                localStorage.setItem(config.storage.cache.files.url, this.url() + this.nextLevelParameter);
-                localStorage.setItem(config.storage.cache.snapshot.level, this.level);
-                localStorage.setItem(config.storage.cache.snapshot.from, this.nextId);
+                this.cache(this.nextBatch);
+                this.nextBatch = null;
 
                 callback();
                 return;
@@ -208,10 +208,6 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
             // Calculate differences again if different url
             this.differences = [];
         }
-
-        console.log(url);
-        console.log(this.url() + levelParameter);
-        console.log('jepa: ' + id);
 
         this.fetchFiles(parameters, levelParameter, id, callback, options);
     },
