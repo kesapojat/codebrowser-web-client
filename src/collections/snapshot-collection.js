@@ -191,6 +191,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         // Id
         id = snapshot.get('id');
 
+        // Navigating backwards
         if (current - from < 0 || current === this.length - 1 - this.offset) {
             snapshot = this.at(current - this.count + this.offset + 1) || this.at(0);
             id = snapshot.get('id');
