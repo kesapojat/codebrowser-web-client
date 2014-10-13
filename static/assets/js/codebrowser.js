@@ -1569,6 +1569,14 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
             beforeSend: function (request) {
 
+                if ('responseType' in request) {
+                    request.responseType = 'arraybuffer';
+                }
+
+                if (request.overrideMimeType) {
+                    request.overrideMimeType('text/plain; charset=x-user-defined');
+                }
+
                 codebrowser.controller.AuthenticationController.setCredentials(request);
             },
 
