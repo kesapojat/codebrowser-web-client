@@ -68,7 +68,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     shouldPreload: function (model) {
 
-        if (!codebrowser.cache.files) {
+        if (!codebrowser.cache.files || this.isCodeLevel()) {
             return false;
         }
 
