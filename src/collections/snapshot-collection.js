@@ -74,6 +74,10 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
         var files = this.zipFiles();
 
+        if (!files[files.length - this.preloadBefore]) {
+            return false;
+        }
+
         return files[files.length - this.preloadBefore].indexOf(model.get('id')) !== -1;
     },
 
