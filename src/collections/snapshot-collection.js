@@ -58,9 +58,9 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
         var files = Object.keys(codebrowser.cache.files.files);
 
-        // Filter folders
+        // Filter files
         return _.reject(files, function (file) {
-            return file[file.length - 1] === '/';
+            return file[file.length - 1] !== '/';
         });
     },
 
