@@ -1514,7 +1514,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
     model: codebrowser.model.Snapshot,
     level: 'code',
     count: 100,
-    offset: 1,
+    offset: 5,
     preloadBefore: 5,
 
     /* Differences */
@@ -1677,7 +1677,6 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
             if (files[this.offset].indexOf(id) !== -1) {
 
-                this.cache(this.nextBatch);
                 this.nextBatch = null;
 
                 callback();
@@ -1711,7 +1710,8 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         // Files in cache
         if (codebrowser.cache.files && url === this.url() + levelParameter) {
 
-            if (current - from < this.count - this.offset && current - from >= 0) {
+            if (current < from && current >= from - this.offset ||
+                (current - from < this.count - this.offset && current - from >= 0)) {
 
                 if (!options) {
                     callback();
