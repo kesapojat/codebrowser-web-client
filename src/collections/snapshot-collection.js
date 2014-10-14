@@ -8,7 +8,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     model: codebrowser.model.Snapshot,
     level: 'code',
-    count: 15,
+    count: 100,
     offset: 1,
     preloadBefore: 5,
 
@@ -68,7 +68,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     shouldPreload: function (model) {
 
-        if (!codebrowser.cache.files || this.isCodeLevel()) {
+        if (!codebrowser.cache.files || this.isCodeLevel() || this.nextBatch) {
             return false;
         }
 
