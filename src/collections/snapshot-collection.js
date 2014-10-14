@@ -54,9 +54,11 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         return this.level === 'key';
     },
 
-    zipFiles: function () {
+    zipFiles: function (zip) {
 
-        var files = Object.keys(codebrowser.cache.files.files);
+        var files;
+
+        zip ? files = Object.keys(zip.files) : files = Object.keys(codebrowser.cache.files.files);
 
         // Filter files
         return _.reject(files, function (file) {
@@ -162,9 +164,9 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         // Check if we need to change zip to a preloaded one
         if (this.nextBatch) {
 
-            var files = this.zipFiles();
+            var files = this.zipFiles(this.nextBatch.zip);
 
-            if (files[files.length - 1].indexOf(id) !== -1) {
+            if (files[this.offset].indexOf(id) !== -1) {
 
                 this.cache(this.nextBatch);
                 this.nextBatch = null;
