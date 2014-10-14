@@ -1677,6 +1677,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
             if (files[this.offset].indexOf(id) !== -1) {
 
+                this.cache(this.nextBatch);
                 this.nextBatch = null;
 
                 callback();
