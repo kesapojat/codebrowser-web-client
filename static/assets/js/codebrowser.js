@@ -1574,8 +1574,8 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     model: codebrowser.model.Snapshot,
     level: 'code',
-    count: 100,
-    offset: 5,
+    count: 75,
+    offset: 25,
     preloadBefore: 5,
 
     /* Differences */
@@ -1628,6 +1628,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
         // Filter files
         return _.reject(files, function (file) {
+
             return file[file.length - 1] !== '/';
         });
     },
@@ -1708,9 +1709,11 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
                 if (options && options.cache === false) {
 
                     self.nextBatch = {
+
                         zip: zip,
                         id: id,
                         levelParameter: levelParameter
+
                     }
 
                     return;
