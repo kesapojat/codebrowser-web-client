@@ -8,8 +8,8 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     model: codebrowser.model.Snapshot,
     level: 'code',
-    count: 100,
-    offset: 5,
+    count: 75,
+    offset: 25,
     preloadBefore: 5,
 
     /* Differences */
