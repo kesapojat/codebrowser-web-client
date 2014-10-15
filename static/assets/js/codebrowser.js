@@ -3251,6 +3251,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             current: index + 1,
             total: this.collection.length,
             playback: this.collection.isKeyLevel() && this.collection.length !== 1
+
         }
 
         // Template for navigation bar container
@@ -4785,8 +4786,8 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
     setupViewCollections: function (instanceId, studentId, courseId, exerciseId, level) {
 
-        var snapshotCollection;
-        var eventCollection;
+        var snapshotCollection,
+            eventCollection;
 
         // Collection not cached or has changed
         if (!this.snapshotView.collection || (this.studentId !== studentId || this.exerciseId !== exerciseId)) {
@@ -4820,9 +4821,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
                                                                                  exerciseId: exerciseId });
 
             this.snapshotView.eventCollection = eventCollection;
-
         } else {
-
             eventCollection = this.snapshotView.eventCollection;
         }
 
