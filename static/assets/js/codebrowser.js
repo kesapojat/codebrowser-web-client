@@ -1174,7 +1174,8 @@ codebrowser.model.Event = Backbone.RelationalModel.extend({
             this.exerciseId = options.exerciseId;
         }
     }
-});;
+});
+;
 
 /*
  * An exercise can be resolved through a course.
