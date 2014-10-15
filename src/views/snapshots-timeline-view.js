@@ -284,10 +284,14 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         var tooltipElement = this.paper.path('M' + x + ' ' + this.paper.height + ', L' + x + ' ' + 0);
         $(tooltipElement.node).attr('class', 'area');
 
+        // Display timestamp and event type
+        var title = moment(new Date(snapshot.get('timestamp'))).format('D.M.YYYY HH.mm');
+        title += '\n' + this.parentView.eventCollection.get(snapshot.get('id')).get('eventType');
+
         $(tooltipElement.node).attr({
 
             'data-toggle': 'tooltip',
-            'title': moment(new Date(snapshot.get('timestamp'))).format('D.M.YYYY HH.mm'),
+            'title': title,
             'data-container': 'body'
 
         });
