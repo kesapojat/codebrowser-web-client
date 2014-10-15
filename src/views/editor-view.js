@@ -200,7 +200,8 @@ codebrowser.view.EditorView = Backbone.View.extend({
             split: this.split,
             previous: this.previousModel.toJSON(),
             difference: this.differences.getCount(),
-            percentageOfChange: Math.round((this.differences.getCount().total() / this.model.lines()) * 100)
+            percentageOfChange: Math.round((this.differences.getCount().total() / this.model.lines()) * 100),
+            event: this.event
 
         }
 
@@ -272,10 +273,11 @@ codebrowser.view.EditorView = Backbone.View.extend({
         editor.getSession().setMode(mode);
     },
 
-    update: function (previousFile, file) {
+    update: function (previousFile, file, event) {
 
         this.model = file;
         this.previousModel = previousFile;
+        this.event = event;
 
         // Syntax mode
         var mode = codebrowser.helper.AceMode.getModeForFilename(this.model.get('name'));

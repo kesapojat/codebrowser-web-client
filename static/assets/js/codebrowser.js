@@ -84,11 +84,21 @@ this["Handlebars"]["templates"]["EditorSettingsContainer"] = Handlebars.template
   },"useData":true});
 
 this["Handlebars"]["templates"]["EditorTopContainer"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+  var helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "                <span class='label label-"
+    + escapeExpression(((helpers.eventLabel || (depth0 && depth0.eventLabel) || helperMissing).call(depth0, (depth0 != null ? depth0.event : depth0), {"name":"eventLabel","hash":{},"data":data})))
+    + "'>"
+    + escapeExpression(((helpers.eventName || (depth0 && depth0.eventName) || helperMissing).call(depth0, (depth0 != null ? depth0.event : depth0), {"name":"eventName","hash":{},"data":data})))
+    + "</span>\n";
+},"3":function(depth0,helpers,partials,data) {
   return "\n        <section class='split'>\n\n            <div class='previous'><span>Previous</span></div>\n            <div class='current'><span>Current</span></div>\n\n        </section>\n\n";
   },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var stack1, helper, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function", lambda=this.lambda, buffer = "<header>\n\n    <section>\n\n        <h1>"
+  var stack1, helper, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function", lambda=this.lambda, buffer = "<header>\n\n    <section>\n\n        <h1>\n            "
     + escapeExpression(((helpers.filename || (depth0 && depth0.filename) || helperMissing).call(depth0, (depth0 != null ? depth0.name : depth0), {"name":"filename","hash":{},"data":data})))
-    + "</h1>\n\n        <span class='pull-right'>\n\n            + "
+    + "\n\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.event : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  buffer += "        </h1>\n\n        <span class='pull-right'>\n\n            + "
     + escapeExpression(((helpers.duration || (depth0 && depth0.duration) || helperMissing).call(depth0, ((stack1 = (depth0 != null ? depth0.snapshot : depth0)) != null ? stack1.timestamp : stack1), ((stack1 = ((stack1 = (depth0 != null ? depth0.previous : depth0)) != null ? stack1.snapshot : stack1)) != null ? stack1.timestamp : stack1), {"name":"duration","hash":{},"data":data})))
     + "\n\n            <a id='editor-inspector' href='#' data-toggle='popover' data-placement='bottom'\n\n               data-original-title='\n\n                    <time>"
     + escapeExpression(((helpers.date || (depth0 && depth0.date) || helperMissing).call(depth0, ((stack1 = ((stack1 = (depth0 != null ? depth0.previous : depth0)) != null ? stack1.snapshot : stack1)) != null ? stack1.timestamp : stack1), {"name":"date","hash":{},"data":data})))
@@ -109,7 +119,7 @@ this["Handlebars"]["templates"]["EditorTopContainer"] = Handlebars.template({"1"
     + " "
     + escapeExpression(((helpers.pluralise || (depth0 && depth0.pluralise) || helperMissing).call(depth0, ((stack1 = (depth0 != null ? depth0.difference : depth0)) != null ? stack1['delete'] : stack1), "line", {"name":"pluralise","hash":{},"data":data})))
     + "</dd>\n\n                </dl>\n\n            '><span class='glyphicon glyphicon-info-sign icon-gray'></span></a>\n\n        </span>\n\n    </section>\n\n";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.split : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.split : depth0), {"name":"if","hash":{},"fn":this.program(3, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer + "\n</header>\n";
 },"useData":true});
@@ -825,6 +835,28 @@ codebrowser.helper.Duration = {
 Handlebars.registerHelper('duration', function (time, previousTime) {
 
     return codebrowser.helper.Duration.calculate(time, previousTime);
+});
+;
+
+Handlebars.registerHelper('eventName', function (event) {
+
+    var eventName = event.split('_')[1];
+
+    return eventName.charAt(0).toUpperCase() + eventName.slice(1);
+});
+
+Handlebars.registerHelper('eventLabel', function (event) {
+
+    var labelType = {
+
+        'text_insert': 'success',
+        'text_remove': 'danger',
+        'text_paste': 'primary',
+        'code_snapshot': 'default'
+
+    }
+
+    return labelType[event];
 });
 ;
 
@@ -2411,7 +2443,8 @@ codebrowser.view.EditorView = Backbone.View.extend({
             split: this.split,
             previous: this.previousModel.toJSON(),
             difference: this.differences.getCount(),
-            percentageOfChange: Math.round((this.differences.getCount().total() / this.model.lines()) * 100)
+            percentageOfChange: Math.round((this.differences.getCount().total() / this.model.lines()) * 100),
+            event: this.event
 
         }
 
@@ -2483,10 +2516,11 @@ codebrowser.view.EditorView = Backbone.View.extend({
         editor.getSession().setMode(mode);
     },
 
-    update: function (previousFile, file) {
+    update: function (previousFile, file, event) {
 
         this.model = file;
         this.previousModel = previousFile;
+        this.event = event;
 
         // Syntax mode
         var mode = codebrowser.helper.AceMode.getModeForFilename(this.model.get('name'));
@@ -3217,7 +3251,6 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             current: index + 1,
             total: this.collection.length,
             playback: this.collection.isKeyLevel() && this.collection.length !== 1
-
         }
 
         // Template for navigation bar container
@@ -3378,7 +3411,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         this.snapshotsTimelineView.update(this.collection, index, filename, this.courseRoute);
 
         // Update editor
-        this.editorView.update(previousFile || this.file, this.file);
+        this.editorView.update(previousFile || this.file, this.file, this.eventCollection.get(this.model.get('id')).get('eventType'));
 
         // Update browser
         this.snapshotBrowserView.update(this.model, this.file, this.courseRoute);
@@ -4748,26 +4781,12 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
     course: null,
     exercise: null,
 
-    /* Actions */
+    /* Setup */
 
-    navigation: function (instanceId, courseId, exerciseId, studentId, snapshotId, fileId, level) {
-
-        this.snapshot(instanceId, studentId, courseId, exerciseId, snapshotId, fileId, level, { courseRoute: true });
-    },
-
-    snapshot: function (instanceId, studentId, courseId, exerciseId, snapshotId, fileId, level, options) {
+    setupViewCollections: function (instanceId, studentId, courseId, exerciseId, level) {
 
         var snapshotCollection;
         var eventCollection;
-
-        // Snapshot View
-        if (!codebrowser.controller.ViewController.isActive(this.snapshotView)) {
-
-            this.snapshotView = new codebrowser.view.SnapshotView();
-
-            // Set view as active
-            codebrowser.controller.ViewController.push(this.snapshotView);
-        }
 
         // Collection not cached or has changed
         if (!this.snapshotView.collection || (this.studentId !== studentId || this.exerciseId !== exerciseId)) {
@@ -4801,7 +4820,35 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
                                                                                  exerciseId: exerciseId });
 
             this.snapshotView.eventCollection = eventCollection;
+
+        } else {
+
+            eventCollection = this.snapshotView.eventCollection;
         }
+
+        return { snapshots: snapshotCollection, events: eventCollection }
+    },
+
+    /* Actions */
+
+    navigation: function (instanceId, courseId, exerciseId, studentId, snapshotId, fileId, level) {
+
+        this.snapshot(instanceId, studentId, courseId, exerciseId, snapshotId, fileId, level, { courseRoute: true });
+    },
+
+    snapshot: function (instanceId, studentId, courseId, exerciseId, snapshotId, fileId, level, options) {
+
+        // Snapshot View
+        if (!codebrowser.controller.ViewController.isActive(this.snapshotView)) {
+
+            this.snapshotView = new codebrowser.view.SnapshotView();
+
+            // Set view as active
+            codebrowser.controller.ViewController.push(this.snapshotView);
+        }
+
+        // Setup collections (snapshots & events) for snapshot view
+        var collection = this.setupViewCollections(instanceId, studentId, courseId, exerciseId, level);
 
         // Route via course
         if (options && options.courseRoute) {
@@ -4809,7 +4856,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         }
 
         // Fetch
-        this.fetch(instanceId, studentId, courseId, exerciseId, snapshotId, fileId, snapshotCollection, eventCollection);
+        this.fetch(instanceId, studentId, courseId, exerciseId, snapshotId, fileId, collection.snapshots, collection.events);
     },
 
     fetch: function (instanceId, studentId, courseId, exerciseId, snapshotId, fileId, snapshotCollection, eventCollection) {

@@ -2,7 +2,13 @@
 
     <section>
 
-        <h1>{{filename name}}</h1>
+        <h1>
+            {{filename name}}
+
+            {{#if event}}
+                <span class='label label-{{eventLabel event}}'>{{eventName event}}</span>
+            {{/if}}
+        </h1>
 
         <span class='pull-right'>
 

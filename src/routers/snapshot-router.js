@@ -19,26 +19,12 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
     course: null,
     exercise: null,
 
-    /* Actions */
+    /* Setup */
 
-    navigation: function (instanceId, courseId, exerciseId, studentId, snapshotId, fileId, level) {
-
-        this.snapshot(instanceId, studentId, courseId, exerciseId, snapshotId, fileId, level, { courseRoute: true });
-    },
-
-    snapshot: function (instanceId, studentId, courseId, exerciseId, snapshotId, fileId, level, options) {
+    setupViewCollections: function (instanceId, studentId, courseId, exerciseId, level) {
 
         var snapshotCollection;
         var eventCollection;
-
-        // Snapshot View
-        if (!codebrowser.controller.ViewController.isActive(this.snapshotView)) {
-
-            this.snapshotView = new codebrowser.view.SnapshotView();
-
-            // Set view as active
-            codebrowser.controller.ViewController.push(this.snapshotView);
-        }
 
         // Collection not cached or has changed
         if (!this.snapshotView.collection || (this.studentId !== studentId || this.exerciseId !== exerciseId)) {
@@ -72,7 +58,35 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
                                                                                  exerciseId: exerciseId });
 
             this.snapshotView.eventCollection = eventCollection;
+
+        } else {
+
+            eventCollection = this.snapshotView.eventCollection;
         }
+
+        return { snapshots: snapshotCollection, events: eventCollection }
+    },
+
+    /* Actions */
+
+    navigation: function (instanceId, courseId, exerciseId, studentId, snapshotId, fileId, level) {
+
+        this.snapshot(instanceId, studentId, courseId, exerciseId, snapshotId, fileId, level, { courseRoute: true });
+    },
+
+    snapshot: function (instanceId, studentId, courseId, exerciseId, snapshotId, fileId, level, options) {
+
+        // Snapshot View
+        if (!codebrowser.controller.ViewController.isActive(this.snapshotView)) {
+
+            this.snapshotView = new codebrowser.view.SnapshotView();
+
+            // Set view as active
+            codebrowser.controller.ViewController.push(this.snapshotView);
+        }
+
+        // Setup collections (snapshots & events) for snapshot view
+        var collection = this.setupViewCollections(instanceId, studentId, courseId, exerciseId, level);
 
         // Route via course
         if (options && options.courseRoute) {
@@ -80,7 +94,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         }
 
         // Fetch
-        this.fetch(instanceId, studentId, courseId, exerciseId, snapshotId, fileId, snapshotCollection, eventCollection);
+        this.fetch(instanceId, studentId, courseId, exerciseId, snapshotId, fileId, collection.snapshots, collection.events);
     },
 
     fetch: function (instanceId, studentId, courseId, exerciseId, snapshotId, fileId, snapshotCollection, eventCollection) {

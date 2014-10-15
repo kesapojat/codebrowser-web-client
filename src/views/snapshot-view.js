@@ -112,7 +112,6 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             current: index + 1,
             total: this.collection.length,
             playback: this.collection.isKeyLevel() && this.collection.length !== 1
-
         }
 
         // Template for navigation bar container
@@ -273,7 +272,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         this.snapshotsTimelineView.update(this.collection, index, filename, this.courseRoute);
 
         // Update editor
-        this.editorView.update(previousFile || this.file, this.file);
+        this.editorView.update(previousFile || this.file, this.file, this.eventCollection.get(this.model.get('id')).get('eventType'));
 
         // Update browser
         this.snapshotBrowserView.update(this.model, this.file, this.courseRoute);
