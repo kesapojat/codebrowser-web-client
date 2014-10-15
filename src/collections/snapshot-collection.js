@@ -62,6 +62,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
         // Filter files
         return _.reject(files, function (file) {
+
             return file[file.length - 1] !== '/';
         });
     },
@@ -142,9 +143,11 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
                 if (options && options.cache === false) {
 
                     self.nextBatch = {
+
                         zip: zip,
                         id: id,
                         levelParameter: levelParameter
+
                     }
 
                     return;
