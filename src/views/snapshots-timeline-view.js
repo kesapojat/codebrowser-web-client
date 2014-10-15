@@ -285,8 +285,10 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         $(tooltipElement.node).attr('class', 'area');
 
         // Display timestamp and event type
-        var title = moment(new Date(snapshot.get('timestamp'))).format('D.M.YYYY HH.mm');
-        title += '\n' + this.parentView.eventCollection.get(snapshot.get('id')).get('eventType');
+        var title = moment(new Date(snapshot.get('timestamp'))).format('D.M.YYYY HH.mm'),
+            event = this.parentView.eventCollection.get(snapshot.get('id')).get('eventType');
+
+        title += ' — ' + Handlebars.helpers.eventName(event);
 
         $(tooltipElement.node).attr({
 

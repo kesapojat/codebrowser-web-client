@@ -1,6 +1,6 @@
 describe('Editor view', function () {
 
-    var editorView = new codebrowser.view.EditorView();
+    var editorView = new codebrowser.view.EditorView({ parentView: 'parent' });
 
     it('should have correct id', function () {
 
