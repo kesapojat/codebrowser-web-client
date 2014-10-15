@@ -743,6 +743,16 @@ ul.selection a:hover {
 
 }
 
+#editor-top-container header span.label {
+
+    margin: 0 5px;
+    padding-bottom: .2em;
+    font-size: inherit;
+    font-weight: inherit;
+    text-shadow: none;
+
+}
+
 #editor-top-container header section {
 
     margin: 0;

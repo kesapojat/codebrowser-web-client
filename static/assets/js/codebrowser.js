@@ -93,10 +93,10 @@ this["Handlebars"]["templates"]["EditorTopContainer"] = Handlebars.template({"1"
   },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helper, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function", lambda=this.lambda, buffer = "<header>\n\n    <section>\n\n        <h1>\n            "
     + escapeExpression(((helpers.filename || (depth0 && depth0.filename) || helperMissing).call(depth0, (depth0 != null ? depth0.name : depth0), {"name":"filename","hash":{},"data":data})))
-    + "\n\n";
+    + "\n        </h1>\n\n        <span class='pull-right'>\n\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.event : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  buffer += "        </h1>\n\n        <span class='pull-right'>\n\n            + "
+  buffer += "\n            + "
     + escapeExpression(((helpers.duration || (depth0 && depth0.duration) || helperMissing).call(depth0, ((stack1 = (depth0 != null ? depth0.snapshot : depth0)) != null ? stack1.timestamp : stack1), ((stack1 = ((stack1 = (depth0 != null ? depth0.previous : depth0)) != null ? stack1.snapshot : stack1)) != null ? stack1.timestamp : stack1), {"name":"duration","hash":{},"data":data})))
     + "\n\n            <a id='editor-inspector' href='#' data-toggle='popover' data-placement='bottom'\n\n               data-original-title='\n\n                    <time>"
     + escapeExpression(((helpers.date || (depth0 && depth0.date) || helperMissing).call(depth0, ((stack1 = ((stack1 = (depth0 != null ? depth0.previous : depth0)) != null ? stack1.snapshot : stack1)) != null ? stack1.timestamp : stack1), {"name":"date","hash":{},"data":data})))
