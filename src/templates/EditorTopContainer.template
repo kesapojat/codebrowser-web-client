@@ -6,7 +6,7 @@
             {{filename name}}
 
             {{#if event}}
-                <span class='label label-{{eventLabel event}}'>{{eventName event}}</span>
+                <span class='label label-default'>{{eventName event}}</span>
             {{/if}}
         </h1>
 
