@@ -69,7 +69,9 @@ codebrowser.view.EditorView = Backbone.View.extend({
 
     /* Initialise */
 
-    initialize: function () {
+    initialize: function (options) {
+
+        this.parentView = options.parentView;
 
         // Hide view until needed
         this.$el.hide();
@@ -201,7 +203,7 @@ codebrowser.view.EditorView = Backbone.View.extend({
             previous: this.previousModel.toJSON(),
             difference: this.differences.getCount(),
             percentageOfChange: Math.round((this.differences.getCount().total() / this.model.lines()) * 100),
-            event: this.event
+            event: this.parentView.event
 
         }
 
@@ -273,11 +275,10 @@ codebrowser.view.EditorView = Backbone.View.extend({
         editor.getSession().setMode(mode);
     },
 
-    update: function (previousFile, file, event) {
+    update: function (previousFile, file) {
 
         this.model = file;
         this.previousModel = previousFile;
-        this.event = event;
 
         // Syntax mode
         var mode = codebrowser.helper.AceMode.getModeForFilename(this.model.get('name'));

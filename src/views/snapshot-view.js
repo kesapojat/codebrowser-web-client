@@ -65,7 +65,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         contentContainer.append(this.snapshotBrowserView.el);
 
         // Editor
-        this.editorView = new codebrowser.view.EditorView();
+        this.editorView = new codebrowser.view.EditorView({ parentView: this });
         contentContainer.append(this.editorView.el);
 
         this.$el.append(contentContainer);
@@ -243,6 +243,9 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
         this.model = snapshot;
 
+        // Event
+        this.event = this.eventCollection.get(this.model.get('id')).get('eventType');
+
         // Restore browser state if necessary
         if (this.browser) {
             this.toggleBrowser(null, localStorage.getItem(config.storage.view.SnapshotView.browser) === 'true');
@@ -273,7 +276,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         this.snapshotsTimelineView.update(this.collection, index, filename, this.courseRoute);
 
         // Update editor
-        this.editorView.update(previousFile || this.file, this.file, this.eventCollection.get(this.model.get('id')).get('eventType'));
+        this.editorView.update(previousFile || this.file, this.file);
 
         // Update browser
         this.snapshotBrowserView.update(this.model, this.file, this.courseRoute);
