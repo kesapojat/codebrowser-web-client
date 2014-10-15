@@ -178,7 +178,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
         // No file ID specified, navigate to first file
         if (!fileId) {
-            this.snapshotView.navigate(snapshot, null);
+            this.snapshotView.navigate(snapshot, null, { replace: true });
             return;
         }
 
@@ -188,7 +188,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
             if (!snapshot.get('files').at(0)) {
                 this.notFound();
             } else {
-                this.snapshotView.navigate(snapshot, null);
+                this.snapshotView.navigate(snapshot, null, { replace: true });
             }
 
             return;
