@@ -186,7 +186,9 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         // Snapshot
         var snapshot = this.get(id) || this.at(0);
 
-        snapshot = this.at(this.indexOf(snapshot) - this.offset) || this.at(0);
+        var index = this.indexOf(snapshot) - this.offset;
+
+        snapshot = this.at(index) || this.at(0);
 
         // Indexes
         var current = this.indexOf(snapshot),
@@ -209,7 +211,8 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         // Files in cache
         if (codebrowser.cache.files && url === this.url() + levelParameter) {
 
-            if (current < from && current > from - this.offset ||
+            if ((Math.abs(index - from) !== this.offset) &&
+                (current < from && current > from - this.offset) ||
                 (current - from < this.count - this.offset && current - from >= 0)) {
 
                 if (!options) {

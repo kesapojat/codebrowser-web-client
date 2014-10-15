@@ -85,9 +85,7 @@ this["Handlebars"]["templates"]["EditorSettingsContainer"] = Handlebars.template
 
 this["Handlebars"]["templates"]["EditorTopContainer"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
-  return "                <span class='label label-"
-    + escapeExpression(((helpers.eventLabel || (depth0 && depth0.eventLabel) || helperMissing).call(depth0, (depth0 != null ? depth0.event : depth0), {"name":"eventLabel","hash":{},"data":data})))
-    + "'>"
+  return "                <span class='label label-default'>"
     + escapeExpression(((helpers.eventName || (depth0 && depth0.eventName) || helperMissing).call(depth0, (depth0 != null ? depth0.event : depth0), {"name":"eventName","hash":{},"data":data})))
     + "</span>\n";
 },"3":function(depth0,helpers,partials,data) {
@@ -843,20 +841,6 @@ Handlebars.registerHelper('eventName', function (event) {
     var eventName = event.split('_')[1];
 
     return eventName.charAt(0).toUpperCase() + eventName.slice(1);
-});
-
-Handlebars.registerHelper('eventLabel', function (event) {
-
-    var labelType = {
-
-        'text_insert': 'success',
-        'text_remove': 'danger',
-        'text_paste': 'primary',
-        'code_snapshot': 'default'
-
-    }
-
-    return labelType[event];
 });
 ;
 
@@ -1785,7 +1769,9 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         // Snapshot
         var snapshot = this.get(id) || this.at(0);
 
-        snapshot = this.at(this.indexOf(snapshot) - this.offset) || this.at(0);
+        var index = this.indexOf(snapshot) - this.offset;
+
+        snapshot = this.at(index) || this.at(0);
 
         // Indexes
         var current = this.indexOf(snapshot),
@@ -1808,7 +1794,8 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         // Files in cache
         if (codebrowser.cache.files && url === this.url() + levelParameter) {
 
-            if (current < from && current > from - this.offset ||
+            if ((Math.abs(index - from) !== this.offset) &&
+                (current < from && current > from - this.offset) ||
                 (current - from < this.count - this.offset && current - from >= 0)) {
 
                 if (!options) {
