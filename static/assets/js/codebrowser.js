@@ -1157,6 +1157,25 @@ codebrowser.model.Diff = function (previousContent, content) {
 }
 ;
 
+codebrowser.model.Event = Backbone.RelationalModel.extend({
+
+    urlRoot: function () {
+
+        if (!this.get('exercise')) {
+            return codebrowser.model.Exercise.findOrCreate({ id: this.exerciseId }).url() +  '/events';
+        }
+
+        return this.get('exercise').url() + '/events';
+    },
+
+    initialize: function (options) {
+
+        if (options) {
+            this.exerciseId = options.exerciseId;
+        }
+    }
+});;
+
 /*
  * An exercise can be resolved through a course.
  */
@@ -1421,6 +1440,48 @@ codebrowser.collection.CourseCollection = Backbone.Collection.extend({
         if (options) {
             this.instanceId = options.instanceId;
             this.studentId = options.studentId;
+        }
+    }
+});
+;
+
+/*
+ * Fetch all events related to an exercise.
+ *
+ * Fetch events related to an exercise and student by passing an instanceId, studentId, courseId and exerciseId as options for the collection:
+ *
+ * var events = new codebrowser.collection.EventsCollection(null, { instanceId: 1, studentId: 2, courseId: 3, exerciseId: 4 });
+ */
+
+codebrowser.collection.EventCollection = Backbone.Collection.extend({
+
+    model: codebrowser.model.Event,
+
+    url: function () {
+
+        if (!this.instanceId || !this.courseId || !this.studentId || !this.exerciseId) {
+            throw new Error('Options instanceId, studentId, courseId and exerciseId are required to fetch events.');
+        }
+
+        /* Fetch events related to a student and course */
+        return config.api.main.root +
+               this.instanceId +
+               '/students/' +
+               this.studentId +
+               '/courses/' +
+               this.courseId +
+               '/exercises/' +
+               this.exerciseId +
+               '/events';
+    },
+
+    initialize: function (models, options) {
+
+        if (options) {
+            this.instanceId = options.instanceId;
+            this.studentId = options.studentId;
+            this.courseId = options.courseId;
+            this.exerciseId = options.exerciseId;
         }
     }
 });
@@ -4693,6 +4754,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
     snapshot: function (instanceId, studentId, courseId, exerciseId, snapshotId, fileId, level, options) {
 
         var snapshotCollection;
+        var eventCollection;
 
         // Snapshot View
         if (!codebrowser.controller.ViewController.isActive(this.snapshotView)) {
@@ -4718,9 +4780,23 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
             this.exerciseId = exerciseId;
             this.snapshotView.collection = snapshotCollection;
 
+            // We need to also update event collection
+            this.snapshotView.eventCollection = null;
+
         } else {
 
             snapshotCollection = this.snapshotView.collection;
+        }
+
+        // Collection not cached or has changed
+        if (!this.snapshotView.eventCollection) {
+
+            eventCollection = new codebrowser.collection.EventCollection(null, { instanceId: instanceId,
+                                                                                 studentId: studentId,
+                                                                                 courseId: courseId,
+                                                                                 exerciseId: exerciseId });
+
+            this.snapshotView.eventCollection = eventCollection;
         }
 
         // Route via course
@@ -4729,15 +4805,15 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         }
 
         // Fetch
-        this.fetch(instanceId, studentId, courseId, exerciseId, snapshotId, fileId, snapshotCollection);
+        this.fetch(instanceId, studentId, courseId, exerciseId, snapshotId, fileId, snapshotCollection, eventCollection);
     },
 
-    fetch: function (instanceId, studentId, courseId, exerciseId, snapshotId, fileId, snapshotCollection) {
+    fetch: function (instanceId, studentId, courseId, exerciseId, snapshotId, fileId, snapshotCollection, eventCollection) {
 
         var self = this;
 
         // Wait for fetches to be in sync
-        var fetchSynced = _.after(5, function () {
+        var fetchSynced = _.after(6, function () {
 
             self.synced(snapshotId, fileId, snapshotCollection);
         });
@@ -4768,6 +4844,12 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         this.fetchModel(exercise, true, function () {
 
             self.exercise = exercise;
+            fetchSynced();
+        });
+
+        // Fetch event collection
+        this.fetchModel(eventCollection, true, function () {
+
             fetchSynced();
         });
 

@@ -29,6 +29,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
     snapshot: function (instanceId, studentId, courseId, exerciseId, snapshotId, fileId, level, options) {
 
         var snapshotCollection;
+        var eventCollection;
 
         // Snapshot View
         if (!codebrowser.controller.ViewController.isActive(this.snapshotView)) {
@@ -54,9 +55,23 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
             this.exerciseId = exerciseId;
             this.snapshotView.collection = snapshotCollection;
 
+            // We need to also update event collection
+            this.snapshotView.eventCollection = null;
+
         } else {
 
             snapshotCollection = this.snapshotView.collection;
+        }
+
+        // Collection not cached or has changed
+        if (!this.snapshotView.eventCollection) {
+
+            eventCollection = new codebrowser.collection.EventCollection(null, { instanceId: instanceId,
+                                                                                 studentId: studentId,
+                                                                                 courseId: courseId,
+                                                                                 exerciseId: exerciseId });
+
+            this.snapshotView.eventCollection = eventCollection;
         }
 
         // Route via course
@@ -65,15 +80,15 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         }
 
         // Fetch
-        this.fetch(instanceId, studentId, courseId, exerciseId, snapshotId, fileId, snapshotCollection);
+        this.fetch(instanceId, studentId, courseId, exerciseId, snapshotId, fileId, snapshotCollection, eventCollection);
     },
 
-    fetch: function (instanceId, studentId, courseId, exerciseId, snapshotId, fileId, snapshotCollection) {
+    fetch: function (instanceId, studentId, courseId, exerciseId, snapshotId, fileId, snapshotCollection, eventCollection) {
 
         var self = this;
 
         // Wait for fetches to be in sync
-        var fetchSynced = _.after(5, function () {
+        var fetchSynced = _.after(6, function () {
 
             self.synced(snapshotId, fileId, snapshotCollection);
         });
@@ -104,6 +119,12 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         this.fetchModel(exercise, true, function () {
 
             self.exercise = exercise;
+            fetchSynced();
+        });
+
+        // Fetch event collection
+        this.fetchModel(eventCollection, true, function () {
+
             fetchSynced();
         });
 
