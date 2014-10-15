@@ -23,8 +23,8 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
     setupViewCollections: function (instanceId, studentId, courseId, exerciseId, level) {
 
-        var snapshotCollection;
-        var eventCollection;
+        var snapshotCollection,
+            eventCollection;
 
         // Collection not cached or has changed
         if (!this.snapshotView.collection || (this.studentId !== studentId || this.exerciseId !== exerciseId)) {
@@ -58,9 +58,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
                                                                                  exerciseId: exerciseId });
 
             this.snapshotView.eventCollection = eventCollection;
-
         } else {
-
             eventCollection = this.snapshotView.eventCollection;
         }
 

@@ -112,6 +112,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             current: index + 1,
             total: this.collection.length,
             playback: this.collection.isKeyLevel() && this.collection.length !== 1
+
         }
 
         // Template for navigation bar container
