@@ -4,13 +4,13 @@
 
         <h1>
             {{filename name}}
-
-            {{#if event}}
-                <span class='label label-{{eventLabel event}}'>{{eventName event}}</span>
-            {{/if}}
         </h1>
 
         <span class='pull-right'>
+
+            {{#if event}}
+                <span class='label label-default'>{{eventName event}}</span>
+            {{/if}}
 
             + {{duration snapshot.timestamp previous.snapshot.timestamp}}
 
