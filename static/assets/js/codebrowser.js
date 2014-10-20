@@ -240,7 +240,7 @@ this["Handlebars"]["templates"]["Loading"] = Handlebars.template({"compiler":[6,
   },"useData":true});
 
 this["Handlebars"]["templates"]["LogoutContainer"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  return "<nav class='navbar' role='navigation'>\n    <button class='btn btn-sm btn-default pull-right' id='logout' type='button'>\n        Logout\n    </button>\n</nav>";
+  return "<nav class='navbar' role='navigation'>\n    <button class='btn btn-sm btn-default pull-right' id='logout' type='button'>\n        Logout\n    </button>\n</nav>\n";
   },"useData":true});
 
 this["Handlebars"]["templates"]["NavigationBarContainer"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
@@ -3452,13 +3452,22 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         // Navigate automatically to new or modified file in playback-mode
         if (this.play) {
 
-            var current = $('#snapshot-files-container ul li.active a').attr('href'),
-                url = $('#snapshot-files-container ul li.new a').attr('href') ||
-                      $('#snapshot-files-container ul li.modified a').attr('href');
+            // Diff disabled, do dumb diff
+            if (!this.editorView.diff) {
 
-            if (url && current !== url) {
-                codebrowser.app.snapshot.navigate(url.substring(2), { replace: true });
-                return;
+                var file = this.changed(previousSnapshot.get('files'), this.model.get('files'));
+                this.navigate(this.model, file, { replace: true });
+
+            } else {
+
+                var current = $('#snapshot-files-container ul li.active a').attr('href'),
+                        url = $('#snapshot-files-container ul li.new a').attr('href') ||
+                        $('#snapshot-files-container ul li.modified a').attr('href');
+
+                if (url && current !== url) {
+                    codebrowser.app.snapshot.navigate(url.substring(2), { replace: true });
+                    return;
+                }
             }
         }
 
@@ -3649,6 +3658,37 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
             previous = $('#speed option:selected', this.navigationContainer).prev().val();
 
         $('#speed', this.navigationContainer).val(previous || current);
+    },
+
+    changed: function (previous, current) {
+
+        var found = false;
+
+        for (var i = 0; i < current.length; ++i) {
+
+            var file = current.at(i);
+
+            for (var j = 0; j < previous.length; ++j) {
+
+                var previousFile = previous.at(j);
+
+                if (file.get('name') === previousFile.get('name')) {
+
+                    found = true;
+
+                    if (file.getContent().length !== previousFile.getContent().length) {
+
+                        return file;
+                    }
+                }
+            }
+
+            if (!found) {
+                return file;
+            } else {
+                found = false;
+            }
+        }
     },
 
     /* Actions - Navigation */

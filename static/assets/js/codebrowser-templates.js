@@ -240,7 +240,7 @@ this["Handlebars"]["templates"]["Loading"] = Handlebars.template({"compiler":[6,
   },"useData":true});
 
 this["Handlebars"]["templates"]["LogoutContainer"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  return "<nav class='navbar' role='navigation'>\n    <button class='btn btn-sm btn-default pull-right' id='logout' type='button'>\n        Logout\n    </button>\n</nav>";
+  return "<nav class='navbar' role='navigation'>\n    <button class='btn btn-sm btn-default pull-right' id='logout' type='button'>\n        Logout\n    </button>\n</nav>\n";
   },"useData":true});
 
 this["Handlebars"]["templates"]["NavigationBarContainer"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
