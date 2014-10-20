@@ -3676,13 +3676,14 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
 
                     found = true;
 
+                    // File has changed
                     if (file.getContent().length !== previousFile.getContent().length) {
-
                         return file;
                     }
                 }
             }
 
+            // New file
             if (!found) {
                 return file;
             } else {
