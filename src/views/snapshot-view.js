@@ -441,6 +441,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         } else {
 
             var multiplier = parseFloat($('#speed', this.navigationContainerOutput).val());
+            this.collection.setPreloadBefore(multiplier);
 
             this.play = true;
             var self = this;

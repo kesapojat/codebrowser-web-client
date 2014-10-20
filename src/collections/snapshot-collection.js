@@ -82,6 +82,11 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         return files[files.length - this.preloadBefore].indexOf(model.get('id')) !== -1;
     },
 
+    setPreloadBefore: function (multiplier) {
+
+        multiplier >= 8 ? this.preloadBefore = 10 : this.preloadBefore = 5;
+    },
+
     preload: function (model) {
 
         var snapshot = this.at(this.indexOf(model) + this.preloadBefore);

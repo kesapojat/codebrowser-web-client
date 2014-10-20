@@ -1665,6 +1665,11 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         return files[files.length - this.preloadBefore].indexOf(model.get('id')) !== -1;
     },
 
+    setPreloadBefore: function (multiplier) {
+
+        multiplier >= 8 ? this.preloadBefore = 10 : this.preloadBefore = 5;
+    },
+
     preload: function (model) {
 
         var snapshot = this.at(this.indexOf(model) + this.preloadBefore);
@@ -3568,6 +3573,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         } else {
 
             var multiplier = parseFloat($('#speed', this.navigationContainerOutput).val());
+            this.collection.setPreloadBefore(multiplier);
 
             this.play = true;
             var self = this;
