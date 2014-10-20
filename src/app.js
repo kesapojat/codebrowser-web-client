@@ -38,6 +38,7 @@ var codebrowser = {
         codebrowser.app.snapshot = new codebrowser.router.SnapshotRouter();
 
         // Register Handlebars partials
+        Handlebars.registerPartial('logout', Handlebars.templates.LogoutContainer);
         Handlebars.registerPartial('search', Handlebars.templates.SearchContainer);
         Handlebars.registerPartial('snapshotNavigation', Handlebars.templates.SnapshotNavigationContainer);
 

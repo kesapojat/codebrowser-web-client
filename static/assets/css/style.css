@@ -298,6 +298,13 @@ ul.selection a:hover {
 
 }
 
+#logout-container {
+
+    height: 30px;
+    margin-top: 20px;
+
+}
+
 /* Structure */
 
 #wrapper {

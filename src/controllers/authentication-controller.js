@@ -41,6 +41,9 @@ codebrowser.controller.AuthenticationController = {
                 localStorage.setItem(config.storage.authentication.token, request.getResponseHeader('X-Authentication-Token'));
                 self.authenticated = true;
 
+                // Initialise logout
+                $('#logout-container').html((new codebrowser.view.LogoutView()).render().el);
+
                 // Refresh
                 Backbone.history.loadUrl();
             },
@@ -51,5 +54,17 @@ codebrowser.controller.AuthenticationController = {
                 return;
             }
         });
+    },
+
+    logout: function () {
+
+        localStorage.removeItem(config.storage.authentication.token);
+        this.authenticated = false;
+
+        // Remove logout
+        $('#logout-container').empty();
+
+        codebrowser.authenticate();
+        return;
     }
 }
