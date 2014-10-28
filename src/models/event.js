@@ -14,5 +14,9 @@ codebrowser.model.Event = Backbone.RelationalModel.extend({
         if (options) {
             this.exerciseId = options.exerciseId;
         }
+
+        // Name
+        var eventName = this.get('eventType').split('_')[1];
+        this.set('name', eventName.charAt(0).toUpperCase() + eventName.slice(1));
     }
 });

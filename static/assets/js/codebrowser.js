@@ -84,9 +84,9 @@ this["Handlebars"]["templates"]["EditorSettingsContainer"] = Handlebars.template
   },"useData":true});
 
 this["Handlebars"]["templates"]["EditorTopContainer"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
-  var helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  var stack1, lambda=this.lambda, escapeExpression=this.escapeExpression;
   return "                <span class='label label-default'>"
-    + escapeExpression(((helpers.eventName || (depth0 && depth0.eventName) || helperMissing).call(depth0, (depth0 != null ? depth0.event : depth0), {"name":"eventName","hash":{},"data":data})))
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.event : depth0)) != null ? stack1.name : stack1), depth0))
     + "</span>\n";
 },"3":function(depth0,helpers,partials,data) {
   return "\n        <section class='split'>\n\n            <div class='previous'><span>Previous</span></div>\n            <div class='current'><span>Current</span></div>\n\n        </section>\n\n";
@@ -841,14 +841,6 @@ Handlebars.registerHelper('duration', function (time, previousTime) {
 });
 ;
 
-Handlebars.registerHelper('eventName', function (event) {
-
-    var eventName = event.split('_')[1];
-
-    return eventName.charAt(0).toUpperCase() + eventName.slice(1);
-});
-;
-
 Handlebars.registerHelper('filename', function (name) {
 
     return _.last(name.split('/'));
@@ -1194,6 +1186,10 @@ codebrowser.model.Event = Backbone.RelationalModel.extend({
         if (options) {
             this.exerciseId = options.exerciseId;
         }
+
+        // Name
+        var eventName = this.get('eventType').split('_')[1];
+        this.set('name', eventName.charAt(0).toUpperCase() + eventName.slice(1));
     }
 });
 ;
@@ -2443,7 +2439,7 @@ codebrowser.view.EditorView = Backbone.View.extend({
             previous: this.previousModel.toJSON(),
             difference: this.differences.getCount(),
             percentageOfChange: Math.round((this.differences.getCount().total() / this.model.lines()) * 100),
-            event: this.parentView.event
+            event: this.parentView.event.toJSON()
 
         }
 
@@ -3422,7 +3418,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         this.model = snapshot;
 
         // Event
-        this.event = this.eventCollection.get(this.model.get('id')).get('eventType');
+        this.event = this.eventCollection.get(this.model.get('id'));
 
         // Restore browser state if necessary
         if (this.browser) {
@@ -4078,15 +4074,13 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         $(tooltipElement.node).attr('class', 'area');
 
         // Display timestamp and event type
-        var title = moment(new Date(snapshot.get('timestamp'))).format('D.M.YYYY HH.mm'),
-            event = this.parentView.eventCollection.get(snapshot.get('id')).get('eventType');
-
-        title += ' — ' + Handlebars.helpers.eventName(event);
+        var timestamp = moment(new Date(snapshot.get('timestamp'))).format('D.M.YYYY HH.mm'),
+            eventName = this.parentView.eventCollection.get(snapshot.get('id')).get('name');
 
         $(tooltipElement.node).attr({
 
             'data-toggle': 'tooltip',
-            'title': title,
+            'title': timestamp + ' — ' + eventName,
             'data-container': 'body'
 
         });

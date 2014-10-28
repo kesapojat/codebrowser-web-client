@@ -84,9 +84,9 @@ this["Handlebars"]["templates"]["EditorSettingsContainer"] = Handlebars.template
   },"useData":true});
 
 this["Handlebars"]["templates"]["EditorTopContainer"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
-  var helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  var stack1, lambda=this.lambda, escapeExpression=this.escapeExpression;
   return "                <span class='label label-default'>"
-    + escapeExpression(((helpers.eventName || (depth0 && depth0.eventName) || helperMissing).call(depth0, (depth0 != null ? depth0.event : depth0), {"name":"eventName","hash":{},"data":data})))
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.event : depth0)) != null ? stack1.name : stack1), depth0))
     + "</span>\n";
 },"3":function(depth0,helpers,partials,data) {
   return "\n        <section class='split'>\n\n            <div class='previous'><span>Previous</span></div>\n            <div class='current'><span>Current</span></div>\n\n        </section>\n\n";

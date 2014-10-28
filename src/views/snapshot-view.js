@@ -244,7 +244,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         this.model = snapshot;
 
         // Event
-        this.event = this.eventCollection.get(this.model.get('id')).get('eventType');
+        this.event = this.eventCollection.get(this.model.get('id'));
 
         // Restore browser state if necessary
         if (this.browser) {

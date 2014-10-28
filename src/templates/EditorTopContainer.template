@@ -9,7 +9,7 @@
         <span class='pull-right'>
 
             {{#if event}}
-                <span class='label label-default'>{{eventName event}}</span>
+                <span class='label label-default'>{{event.name}}</span>
             {{/if}}
 
             + {{duration snapshot.timestamp previous.snapshot.timestamp}}
