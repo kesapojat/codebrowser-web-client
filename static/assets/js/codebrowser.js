@@ -239,10 +239,6 @@ this["Handlebars"]["templates"]["Loading"] = Handlebars.template({"compiler":[6,
   return "<div class='spinner'>\n    <div class='double-bounce1'></div>\n    <div class='double-bounce2'></div>\n</div>\n";
   },"useData":true});
 
-this["Handlebars"]["templates"]["LogoutContainer"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  return "<nav class='navbar' role='navigation'>\n    <button class='btn btn-sm btn-default pull-right' id='logout' type='button'>\n        Logout\n    </button>\n</nav>\n";
-  },"useData":true});
-
 this["Handlebars"]["templates"]["NavigationBarContainer"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, lambda=this.lambda;
   return "\n            <li><a href='./#/"
@@ -580,7 +576,8 @@ var config = {
 
         authentication: {
 
-            token:    'codebrowser.authentication.token'
+            token:    'codebrowser.authentication.token',
+            username: 'codebrowser.authentication.username'
 
         },
 
@@ -709,6 +706,9 @@ var codebrowser = {
             codebrowser.controller.ViewController.push(errorView, true);
         }
 
+        // Initialise controllers
+        codebrowser.controller.AuthenticationController.refresh();
+
         // Initialise routers
         codebrowser.app.base = new codebrowser.router.BaseRouter();
         codebrowser.app.instance = new codebrowser.router.InstanceRouter();
@@ -718,7 +718,6 @@ var codebrowser = {
         codebrowser.app.snapshot = new codebrowser.router.SnapshotRouter();
 
         // Register Handlebars partials
-        Handlebars.registerPartial('logout', Handlebars.templates.LogoutContainer);
         Handlebars.registerPartial('search', Handlebars.templates.SearchContainer);
         Handlebars.registerPartial('snapshotNavigation', Handlebars.templates.SnapshotNavigationContainer);
 
@@ -2101,6 +2100,8 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
 
     render: function (message) {
 
+        $('#logout-container').hide();
+
         this.$el.html(this.template({ message: message }));
         this.$el.children('#authentication-modal').modal();
 
@@ -2130,7 +2131,10 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
         var username = $('[data-id="username"]', this.$el).val(),
             password = $('[data-id="password"]', this.$el).val();
 
-        codebrowser.controller.AuthenticationController.login(username, password);
+        codebrowser.controller.AuthenticationController.login(username, password, function () {
+
+            $('#logout-container').show();
+        });
     }
 });
 ;
@@ -2837,37 +2841,6 @@ codebrowser.view.LoadingView = Backbone.View.extend({
 
         this.$el.html(this.template());
     }
-});
-;
-
-codebrowser.view.LogoutView = Backbone.View.extend({
-
-    template: Handlebars.templates.LogoutContainer,
-
-    events: {
-
-        'click #logout': 'logout'
-
-    },
-
-    /* Render */
-
-    render: function () {
-
-        // Template
-        var output = this.template();
-
-        this.$el.html(output);
-        return this;
-    },
-
-    /* Events */
-
-    logout: function () {
-
-        codebrowser.controller.AuthenticationController.logout();
-    }
-
 });
 ;
 
@@ -4481,7 +4454,16 @@ codebrowser.controller.AuthenticationController = {
         codebrowser.controller.ViewController.push(this.authenticationView, true);
     },
 
-    login: function (username, password) {
+    refresh: function () {
+
+        // Render username
+        $('[data-id="username"]').html(localStorage.getItem(config.storage.authentication.username));
+
+        // Bind events
+        $('[data-action="logout"]').click($.proxy(codebrowser.controller.AuthenticationController.logout, this));
+    },
+
+    login: function (username, password, callback) {
 
         if (this.authenticated) {
             return;
@@ -4501,15 +4483,18 @@ codebrowser.controller.AuthenticationController = {
 
             success: function (data, status, request) {
 
+                // Save username
+                localStorage.setItem(config.storage.authentication.username, username);
+
                 // Save token
                 localStorage.setItem(config.storage.authentication.token, request.getResponseHeader('X-Authentication-Token'));
                 self.authenticated = true;
 
-                // Initialise logout
-                $('#logout-container').html((new codebrowser.view.LogoutView()).render().el);
-
                 // Refresh
+                self.refresh();
                 Backbone.history.loadUrl();
+
+                callback();
             },
 
             error: function () {
@@ -4522,14 +4507,16 @@ codebrowser.controller.AuthenticationController = {
 
     logout: function () {
 
+        // Invalidate
+        localStorage.removeItem(config.storage.authentication.username);
         localStorage.removeItem(config.storage.authentication.token);
         this.authenticated = false;
 
-        // Remove logout
-        $('#logout-container').empty();
+        // Remove Backbone cache
+        localStorage.removeItem(Backbone.fetchCache.getLocalStorageKey());
 
+        this.refresh();
         codebrowser.authenticate();
-        return;
     }
 }
 ;

@@ -14,6 +14,8 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
 
     render: function (message) {
 
+        $('#logout-container').hide();
+
         this.$el.html(this.template({ message: message }));
         this.$el.children('#authentication-modal').modal();
 
@@ -43,6 +45,9 @@ codebrowser.view.AuthenticationView = Backbone.View.extend({
         var username = $('[data-id="username"]', this.$el).val(),
             password = $('[data-id="password"]', this.$el).val();
 
-        codebrowser.controller.AuthenticationController.login(username, password);
+        codebrowser.controller.AuthenticationController.login(username, password, function () {
+
+            $('#logout-container').show();
+        });
     }
 });

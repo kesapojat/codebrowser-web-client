@@ -10,7 +10,8 @@ var config = {
 
         authentication: {
 
-            token:    'codebrowser.authentication.token'
+            token:    'codebrowser.authentication.token',
+            username: 'codebrowser.authentication.username'
 
         },
 

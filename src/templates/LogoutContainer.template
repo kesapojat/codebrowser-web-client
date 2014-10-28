@@ -1,5 +1,0 @@
-<nav class='navbar' role='navigation'>
-    <button class='btn btn-sm btn-default pull-right' id='logout' type='button'>
-        Logout
-    </button>
-</nav>

@@ -30,23 +30,33 @@
 
         <div class='container'>
 
-            <header class='row'>
+            <div class='row'>
 
-                <div class='col-md-11'>
+                <div class='col-md-10'>
 
-                    <div id='brand'>
+                    <header id='brand'>
                         <h1>Code Browser</h1>
+                    </header>
+
+                </div>
+
+                <div id='logout-container' class='col-md-2'>
+
+                    <div class='btn-group pull-right'>
+
+                        <button type='button' class='btn btn-default btn-sm dropdown-toggle' data-toggle='dropdown'>
+                            <span data-id='username'></span> <span class='caret'></span>
+                        </button>
+
+                        <ul class='dropdown-menu' role='menu'>
+                            <li><a href='./#/' data-action='logout'>Sign Out</a></li>
+                        </ul>
+
                     </div>
 
                 </div>
 
-                <div class='col-md-1 pull-right'>
-
-                    <div id='logout-container'></div>
-
-                </div>
-
-            </header>
+            </div>
 
             <div id='wrapper'>
 

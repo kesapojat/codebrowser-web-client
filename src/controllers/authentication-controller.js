@@ -17,7 +17,16 @@ codebrowser.controller.AuthenticationController = {
         codebrowser.controller.ViewController.push(this.authenticationView, true);
     },
 
-    login: function (username, password) {
+    refresh: function () {
+
+        // Render username
+        $('[data-id="username"]').html(localStorage.getItem(config.storage.authentication.username));
+
+        // Bind events
+        $('[data-action="logout"]').click($.proxy(codebrowser.controller.AuthenticationController.logout, this));
+    },
+
+    login: function (username, password, callback) {
 
         if (this.authenticated) {
             return;
@@ -37,15 +46,18 @@ codebrowser.controller.AuthenticationController = {
 
             success: function (data, status, request) {
 
+                // Save username
+                localStorage.setItem(config.storage.authentication.username, username);
+
                 // Save token
                 localStorage.setItem(config.storage.authentication.token, request.getResponseHeader('X-Authentication-Token'));
                 self.authenticated = true;
 
-                // Initialise logout
-                $('#logout-container').html((new codebrowser.view.LogoutView()).render().el);
-
                 // Refresh
+                self.refresh();
                 Backbone.history.loadUrl();
+
+                callback();
             },
 
             error: function () {
@@ -58,13 +70,15 @@ codebrowser.controller.AuthenticationController = {
 
     logout: function () {
 
+        // Invalidate
+        localStorage.removeItem(config.storage.authentication.username);
         localStorage.removeItem(config.storage.authentication.token);
         this.authenticated = false;
 
-        // Remove logout
-        $('#logout-container').empty();
+        // Remove Backbone cache
+        localStorage.removeItem(Backbone.fetchCache.getLocalStorageKey());
 
+        this.refresh();
         codebrowser.authenticate();
-        return;
     }
 }

@@ -29,6 +29,9 @@ var codebrowser = {
             codebrowser.controller.ViewController.push(errorView, true);
         }
 
+        // Initialise controllers
+        codebrowser.controller.AuthenticationController.refresh();
+
         // Initialise routers
         codebrowser.app.base = new codebrowser.router.BaseRouter();
         codebrowser.app.instance = new codebrowser.router.InstanceRouter();
@@ -38,7 +41,6 @@ var codebrowser = {
         codebrowser.app.snapshot = new codebrowser.router.SnapshotRouter();
 
         // Register Handlebars partials
-        Handlebars.registerPartial('logout', Handlebars.templates.LogoutContainer);
         Handlebars.registerPartial('search', Handlebars.templates.SearchContainer);
         Handlebars.registerPartial('snapshotNavigation', Handlebars.templates.SnapshotNavigationContainer);
 
