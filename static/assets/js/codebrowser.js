@@ -3098,6 +3098,11 @@ codebrowser.view.SnapshotTagsView = Backbone.View.extend({
         // Save tag
         tag.save({ name: text }, {
 
+            beforeSend: function (request) {
+
+                codebrowser.controller.AuthenticationController.setCredentials(request);
+            },
+
             success: function () {
 
                 // Add to collection
@@ -3119,6 +3124,11 @@ codebrowser.view.SnapshotTagsView = Backbone.View.extend({
 
         // Destroy tag
         tag.destroy({
+
+            beforeSend: function (request) {
+
+                codebrowser.controller.AuthenticationController.setCredentials(request);
+            },
 
             success: function () {
 
