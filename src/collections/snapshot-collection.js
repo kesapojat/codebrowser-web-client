@@ -84,7 +84,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
 
     setPreloadBefore: function (multiplier) {
 
-        multiplier >= 8 ? this.preloadBefore = 10 : this.preloadBefore = 5;
+        this.preloadBefore = (multiplier >= 8 ? 10 : 5);
     },
 
     preload: function (model) {
