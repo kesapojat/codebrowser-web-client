@@ -3443,9 +3443,6 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
                 differences = this.collection.getDifference(index),
                 changedFile;
 
-            //console.log('Files: ' + files);
-            //console.log('Differences: ' + differences);
-
             files.forEach(function (file) {
 
                 var changesCount = differences[file.get('name')].getCount().total();
