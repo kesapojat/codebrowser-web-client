@@ -82,7 +82,8 @@ var config = {
 
     view: {
 
-        container: '#container'
+        container: '#container',
+        userMenuContainer: '#user-menu-container'
 
     },
 

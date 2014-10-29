@@ -5,7 +5,7 @@ codebrowser.helper.ListViewFilter = function (options, collection) {
         _searchInputSelector = 'input[data-id="query-string"]',
         _filteredCollection = _.extend(new Backbone.Collection(), collection);
 
-    var initialise = function (options) {
+    var initialize = function (options) {
 
         if (options) {
             _searchInputSelector = options.searchInputSelector || _searchInputSelector;
@@ -45,6 +45,6 @@ codebrowser.helper.ListViewFilter = function (options, collection) {
         }
     }
 
-    initialise(options);
+    initialize(options);
     return _module;
 }

@@ -562,7 +562,14 @@ this["Handlebars"]["templates"]["StudentsContainer"] = Handlebars.template({"1":
   if (!helpers.students) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if (stack1 != null) { buffer += stack1; }
   return buffer + "\n            </tbody>\n\n        </table>\n\n    </div>\n\n</section>\n";
-},"usePartial":true,"useData":true,"useDepths":true});;
+},"usePartial":true,"useData":true,"useDepths":true});
+
+this["Handlebars"]["templates"]["UserMenuContainer"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "<div class='btn-group pull-right'>\n\n    <button type='button' class='btn btn-default btn-sm dropdown-toggle' data-toggle='dropdown'>\n        <span class='glyphicon glyphicon-user'></span> "
+    + escapeExpression(((helper = (helper = helpers.username || (depth0 != null ? depth0.username : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"username","hash":{},"data":data}) : helper)))
+    + " <span class='caret'></span>\n    </button>\n\n    <ul class='dropdown-menu' role='menu'>\n        <li><a href='./#/' data-action='logout'>Sign Out</a></li>\n    </ul>\n\n</div>\n";
+},"useData":true});;
 
 /* exported config */
 
@@ -648,7 +655,8 @@ var config = {
 
     view: {
 
-        container: '#container'
+        container: '#container',
+        userMenuContainer: '#user-menu-container'
 
     },
 
@@ -706,8 +714,8 @@ var codebrowser = {
             codebrowser.controller.ViewController.push(errorView, true);
         }
 
-        // Initialise controllers
-        codebrowser.controller.AuthenticationController.refresh();
+        // View controller
+        codebrowser.controller.ViewController.initialize();
 
         // Initialise routers
         codebrowser.app.base = new codebrowser.router.BaseRouter();
@@ -859,7 +867,7 @@ codebrowser.helper.ListViewFilter = function (options, collection) {
         _searchInputSelector = 'input[data-id="query-string"]',
         _filteredCollection = _.extend(new Backbone.Collection(), collection);
 
-    var initialise = function (options) {
+    var initialize = function (options) {
 
         if (options) {
             _searchInputSelector = options.searchInputSelector || _searchInputSelector;
@@ -899,7 +907,7 @@ codebrowser.helper.ListViewFilter = function (options, collection) {
         }
     }
 
-    initialise(options);
+    initialize(options);
     return _module;
 }
 ;
@@ -4445,10 +4453,54 @@ codebrowser.view.StudentsView = codebrowser.view.ListBaseView.extend({
 });
 ;
 
+codebrowser.view.UserMenuView = Backbone.View.extend({
+
+    template: Handlebars.templates.UserMenuContainer,
+
+    events: {
+
+        'click [data-action="logout"]': 'logout'
+
+    },
+
+    /* Render */
+
+    render: function () {
+
+        var attributes = {
+
+            username: localStorage.getItem(config.storage.authentication.username)
+
+        }
+
+        // Template
+        var output = $(this.template(attributes));
+
+        this.$el.html(output);
+    },
+
+    /* Update */
+
+    update: function () {
+
+        this.render();
+    },
+
+    /* Actions */
+
+    logout: function () {
+
+        codebrowser.controller.AuthenticationController.logout();
+    }
+});
+;
+
 codebrowser.controller.AuthenticationController = {
 
     authenticationView: new codebrowser.view.AuthenticationView(),
     authenticated: false,
+
+    /* Credentials */
 
     setCredentials: function (request) {
 
@@ -4459,18 +4511,11 @@ codebrowser.controller.AuthenticationController = {
         request.setRequestHeader('Authorization', 'Basic ' + btoa(':' + localStorage.getItem(config.storage.authentication.token)));
     },
 
+    /* Actions */
+
     authenticate: function () {
 
         codebrowser.controller.ViewController.push(this.authenticationView, true);
-    },
-
-    refresh: function () {
-
-        // Render username
-        $('[data-id="username"]').html(localStorage.getItem(config.storage.authentication.username));
-
-        // Bind events
-        $('[data-action="logout"]').click($.proxy(codebrowser.controller.AuthenticationController.logout, this));
     },
 
     login: function (username, password, callback) {
@@ -4500,8 +4545,10 @@ codebrowser.controller.AuthenticationController = {
                 localStorage.setItem(config.storage.authentication.token, request.getResponseHeader('X-Authentication-Token'));
                 self.authenticated = true;
 
-                // Refresh
-                self.refresh();
+                // Update view controller
+                codebrowser.controller.ViewController.update();
+
+                // Reload
                 Backbone.history.loadUrl();
 
                 callback();
@@ -4525,7 +4572,9 @@ codebrowser.controller.AuthenticationController = {
         // Remove Backbone cache
         localStorage.removeItem(Backbone.fetchCache.getLocalStorageKey());
 
-        this.refresh();
+        // Update view controller
+        codebrowser.controller.ViewController.update();
+
         codebrowser.authenticate();
     }
 }
@@ -4534,10 +4583,26 @@ codebrowser.controller.AuthenticationController = {
 codebrowser.controller.ViewController = {
 
     view: null,
+    userMenuView: new codebrowser.view.UserMenuView(),
+
+    initialize: function () {
+
+        // User menu
+        this.userMenuView.render();
+
+        $('#user-menu-container').html(this.userMenuView.el);
+    },
 
     isActive: function (view) {
 
         return this.view === view;
+    },
+
+    /* Actions */
+
+    update: function () {
+
+        this.userMenuView.update();
     },
 
     push: function (view, render) {

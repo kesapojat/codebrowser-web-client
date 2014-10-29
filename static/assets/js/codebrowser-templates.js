@@ -563,3 +563,10 @@ this["Handlebars"]["templates"]["StudentsContainer"] = Handlebars.template({"1":
   if (stack1 != null) { buffer += stack1; }
   return buffer + "\n            </tbody>\n\n        </table>\n\n    </div>\n\n</section>\n";
 },"usePartial":true,"useData":true,"useDepths":true});
+
+this["Handlebars"]["templates"]["UserMenuContainer"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "<div class='btn-group pull-right'>\n\n    <button type='button' class='btn btn-default btn-sm dropdown-toggle' data-toggle='dropdown'>\n        <span class='glyphicon glyphicon-user'></span> "
+    + escapeExpression(((helper = (helper = helpers.username || (depth0 != null ? depth0.username : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"username","hash":{},"data":data}) : helper)))
+    + " <span class='caret'></span>\n    </button>\n\n    <ul class='dropdown-menu' role='menu'>\n        <li><a href='./#/' data-action='logout'>Sign Out</a></li>\n    </ul>\n\n</div>\n";
+},"useData":true});

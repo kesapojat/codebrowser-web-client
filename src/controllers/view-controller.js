@@ -1,10 +1,26 @@
 codebrowser.controller.ViewController = {
 
     view: null,
+    userMenuView: new codebrowser.view.UserMenuView(),
+
+    initialize: function () {
+
+        // User menu
+        this.userMenuView.render();
+
+        $('#user-menu-container').html(this.userMenuView.el);
+    },
 
     isActive: function (view) {
 
         return this.view === view;
+    },
+
+    /* Actions */
+
+    update: function () {
+
+        this.userMenuView.update();
     },
 
     push: function (view, render) {

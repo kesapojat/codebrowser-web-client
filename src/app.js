@@ -29,8 +29,8 @@ var codebrowser = {
             codebrowser.controller.ViewController.push(errorView, true);
         }
 
-        // Initialise controllers
-        codebrowser.controller.AuthenticationController.refresh();
+        // View controller
+        codebrowser.controller.ViewController.initialize();
 
         // Initialise routers
         codebrowser.app.base = new codebrowser.router.BaseRouter();

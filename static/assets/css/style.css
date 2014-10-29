@@ -300,15 +300,15 @@ ul.selection a:hover {
 
 /* Structure */
 
-#logout-container {
-
-    margin-top: 20px;
-
-}
-
 #wrapper {
 
     min-height: 20px;
+
+}
+
+#user-menu-container {
+
+    margin-top: 20px;
 
 }
 

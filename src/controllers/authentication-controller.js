@@ -3,6 +3,8 @@ codebrowser.controller.AuthenticationController = {
     authenticationView: new codebrowser.view.AuthenticationView(),
     authenticated: false,
 
+    /* Credentials */
+
     setCredentials: function (request) {
 
         if (!localStorage.getItem(config.storage.authentication.token)) {
@@ -12,18 +14,11 @@ codebrowser.controller.AuthenticationController = {
         request.setRequestHeader('Authorization', 'Basic ' + btoa(':' + localStorage.getItem(config.storage.authentication.token)));
     },
 
+    /* Actions */
+
     authenticate: function () {
 
         codebrowser.controller.ViewController.push(this.authenticationView, true);
-    },
-
-    refresh: function () {
-
-        // Render username
-        $('[data-id="username"]').html(localStorage.getItem(config.storage.authentication.username));
-
-        // Bind events
-        $('[data-action="logout"]').click($.proxy(codebrowser.controller.AuthenticationController.logout, this));
     },
 
     login: function (username, password, callback) {
@@ -53,8 +48,10 @@ codebrowser.controller.AuthenticationController = {
                 localStorage.setItem(config.storage.authentication.token, request.getResponseHeader('X-Authentication-Token'));
                 self.authenticated = true;
 
-                // Refresh
-                self.refresh();
+                // Update view controller
+                codebrowser.controller.ViewController.update();
+
+                // Reload
                 Backbone.history.loadUrl();
 
                 callback();
@@ -78,7 +75,9 @@ codebrowser.controller.AuthenticationController = {
         // Remove Backbone cache
         localStorage.removeItem(Backbone.fetchCache.getLocalStorageKey());
 
-        this.refresh();
+        // Update view controller
+        codebrowser.controller.ViewController.update();
+
         codebrowser.authenticate();
     }
 }
