@@ -18,6 +18,7 @@ codebrowser.controller.AuthenticationController = {
 
     authenticate: function () {
 
+        codebrowser.controller.ViewController.update();
         codebrowser.controller.ViewController.push(this.authenticationView, true);
     },
 
