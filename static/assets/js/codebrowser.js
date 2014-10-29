@@ -4476,11 +4476,27 @@ codebrowser.controller.AuthenticationController = {
         request.setRequestHeader('Authorization', 'Basic ' + btoa(':' + localStorage.getItem(config.storage.authentication.token)));
     },
 
+    clearCredentials: function () {
+
+        // Invalidate
+        localStorage.removeItem(config.storage.authentication.username);
+        localStorage.removeItem(config.storage.authentication.token);
+        this.authenticated = false;
+
+        // Remove Backbone cache
+        localStorage.removeItem(Backbone.fetchCache.getLocalStorageKey());
+
+        // Update view controller
+        codebrowser.controller.ViewController.update();
+    },
+
     /* Actions */
 
     authenticate: function () {
 
-        codebrowser.controller.ViewController.update();
+        // Clear previous state
+        this.clearCredentials();
+
         codebrowser.controller.ViewController.push(this.authenticationView, true);
     },
 
@@ -4530,17 +4546,7 @@ codebrowser.controller.AuthenticationController = {
 
     logout: function () {
 
-        // Invalidate
-        localStorage.removeItem(config.storage.authentication.username);
-        localStorage.removeItem(config.storage.authentication.token);
-        this.authenticated = false;
-
-        // Remove Backbone cache
-        localStorage.removeItem(Backbone.fetchCache.getLocalStorageKey());
-
-        // Update view controller
-        codebrowser.controller.ViewController.update();
-
+        this.clearCredentials();
         codebrowser.authenticate();
     }
 }
