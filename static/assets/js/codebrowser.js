@@ -3439,23 +3439,25 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         // Navigate automatically to new or modified file in playback-mode
         if (this.play) {
 
-            // Diff disabled, do dumb diff
-            if (!this.editorView.diff) {
+            var files = this.model.get('files'),
+                differences = this.collection.getDifference(index),
+                changedFile;
 
-                var file = this.changed(previousSnapshot.get('files'), this.model.get('files'));
-                this.navigate(this.model, file, { replace: true });
+            //console.log('Files: ' + files);
+            //console.log('Differences: ' + differences);
 
-            } else {
+            files.forEach(function (file) {
 
-                var current = $('#snapshot-files-container ul li.active a').attr('href'),
-                        url = $('#snapshot-files-container ul li.new a').attr('href') ||
-                        $('#snapshot-files-container ul li.modified a').attr('href');
+                var changesCount = differences[file.get('name')].getCount().total();
 
-                if (url && current !== url) {
-                    codebrowser.app.snapshot.navigate(url.substring(2), { replace: true });
+                // Modified file
+                if (!changedFile && changesCount > 0) {
+                    changedFile = file;
                     return;
                 }
-            }
+            });
+
+            this.navigate(this.model, changedFile, { replace: true });
         }
 
         // Resume playback
@@ -3647,38 +3649,6 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         $('#speed', this.navigationContainer).val(previous || current);
     },
 
-    changed: function (previous, current) {
-
-        var found = false;
-
-        for (var i = 0; i < current.length; ++i) {
-
-            var file = current.at(i);
-
-            for (var j = 0; j < previous.length; ++j) {
-
-                var previousFile = previous.at(j);
-
-                if (file.get('name') === previousFile.get('name')) {
-
-                    found = true;
-
-                    // File has changed
-                    if (file.getContent().length !== previousFile.getContent().length) {
-                        return file;
-                    }
-                }
-            }
-
-            // New file
-            if (!found) {
-                return file;
-            } else {
-                found = false;
-            }
-        }
-    },
-
     /* Actions - Navigation */
 
     url: function () {
@@ -3703,9 +3673,7 @@ codebrowser.view.SnapshotView = Backbone.View.extend({
         }
 
         if (!snapshot) {
-
             codebrowser.app.snapshot.navigate(this.url(), { replace: !options ? options : options.replace });
-
             return;
         }
 
