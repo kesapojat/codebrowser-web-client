@@ -535,6 +535,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
         // No need to show timeline
         if (this.collection.length === 1) {
+            this.$el.hide();
             return;
         }
 
