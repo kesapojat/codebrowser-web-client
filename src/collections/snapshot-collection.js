@@ -332,6 +332,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         if (!this.differences[index]) {
 
             this.differences[index] = {
+
                 total: 0,
                 lines: 0
 

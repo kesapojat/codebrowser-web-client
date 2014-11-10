@@ -1923,6 +1923,7 @@ codebrowser.collection.SnapshotCollection = Backbone.Collection.extend({
         if (!this.differences[index]) {
 
             this.differences[index] = {
+
                 total: 0,
                 lines: 0
 
@@ -4165,13 +4166,23 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         var y = this.paper.height / 2 + 3,
             leftOffset = 0,
             rightOffset = 0,
-            x = 0,
-            self = this;
+            x = 0;
 
-        this.collection.each(function (snapshot, index) {
+        // Range around current snapshot
+        var range = 11,
+            startingSnapshot = this.collection.at(this.currentSnapshotIndex - range) || this.collection.at(0),
+            i = this.collection.indexOf(startingSnapshot);
 
-            var distanceWeight = self.distanceWeight(index, min, max),
-                snapshotWeight = self.snapshotWeight(index);
+        for (var index = i; index < i + range * 2 + 1; index++) {
+
+            var snapshot = this.collection.at(index);
+
+            if (!snapshot) {
+                break;
+            }
+
+            var distanceWeight = this.distanceWeight(index, min, max),
+                snapshotWeight = this.snapshotWeight(index);
 
             // Weight by duration between snapshots
             var distance = 45 * distanceWeight;
@@ -4192,32 +4203,28 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
                 x += distance;
             }
 
-            if (index === self.collection.length - 1) {
+            if (index === this.collection.length - 1) {
 
                 // Right offset
                 rightOffset = radius;
             }
 
-            var previousSnapshot = self.collection.at(index - 1);
+            var previousSnapshot = this.collection.at(index - 1);
 
-            // No need to render after first time
-            if (!self.rendered) {
+            // Render duration between snapshots
+            this.renderDuration(previousSnapshot, snapshot, x, y, radius, distance);
 
-                // Render duration between snapshots
-                self.renderDuration(previousSnapshot, snapshot, x, y, radius, distance);
-
-                // Render snapshot
-                var snapshotElement = self.renderSnapshot(snapshot, index, x, y, radius);
-                self.snapshotElements.push(snapshotElement);
-            }
+            // Render snapshot
+            var snapshotElement = this.renderSnapshot(snapshot, index, x, y, radius);
+            this.snapshotElements[index] = snapshotElement;
 
             // Current snapshot
-            if (index === self.currentSnapshotIndex) {
+            if (index === this.currentSnapshotIndex) {
 
                 // Render pointer on current snapshot
-                self.renderPointer(x, radius);
+                this.renderPointer(x, radius);
             }
-        });
+        }
 
         this.renderTimeline(leftOffset, y, x);
 
@@ -4257,6 +4264,13 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
         // Render new pointer
         var element = this.snapshotElements[this.currentSnapshotIndex];
+
+        // Element out of bounds, render new timeline segment
+        if (!element || !this.snapshotElements[this.currentSnapshotIndex - 1]) {
+            this.render();
+            return;
+        }
+
         this.renderPointer(element.attr('cx'), element.attr('r'));
 
         // Focus
