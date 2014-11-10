@@ -4168,9 +4168,10 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         // Range around current snapshot
         var range = 12,
             startingSnapshot = this.collection.at(this.currentSnapshotIndex - range) || this.collection.at(0),
-            i = this.collection.indexOf(startingSnapshot);
+            start = this.collection.indexOf(startingSnapshot),
+            end   = start + range * 2 + 1;
 
-        for (var index = i; index < i + range * 2 + 1; index++) {
+        for (var index = start; index < end; index++) {
 
             var snapshot = this.collection.at(index);
 
