@@ -3885,14 +3885,11 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
     focus: function () {
 
-        // Cx of the current snapshot element
-        var cx = this.snapshotElements[this.currentSnapshotIndex].attr('cx');
-
         // Make previous snapshot element visible
         if (this.currentSnapshotIndex !== 0) {
 
             if (!this.isVisible(this.snapshotElements[this.currentSnapshotIndex - 1].attr('cx'))) {
-                this.centerOn(cx);
+                this.render();
             }
         }
 
@@ -3900,7 +3897,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         if (this.currentSnapshotIndex !== this.snapshotElements.length - 1) {
 
             if (!this.isVisible(this.snapshotElements[this.currentSnapshotIndex + 1].attr('cx'))) {
-                this.centerOn(cx);
+                this.render();
             }
         }
     },
@@ -4169,7 +4166,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
             x = 0;
 
         // Range around current snapshot
-        var range = 11,
+        var range = 12,
             startingSnapshot = this.collection.at(this.currentSnapshotIndex - range) || this.collection.at(0),
             i = this.collection.indexOf(startingSnapshot);
 
@@ -4230,9 +4227,6 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
         // Absolute width
         this.width = leftOffset + x + rightOffset;
-
-        // Focus
-        this.focus();
 
         // View attributes
         var attributes = {
