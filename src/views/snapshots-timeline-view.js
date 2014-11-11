@@ -490,6 +490,9 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
         this.renderTimeline(leftOffset, y, x);
 
+        // Center on current snapshot
+        this.centerOn(this.snapshotElements[this.currentSnapshotIndex].attr('cx'));
+
         // Absolute width
         this.width = leftOffset + x + rightOffset;
 
