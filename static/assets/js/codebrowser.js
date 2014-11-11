@@ -4556,6 +4556,15 @@ codebrowser.controller.AuthenticationController = {
 
     logout: function () {
 
+        // Notify back end
+        $.ajax({
+
+            url: config.api.main.root,
+            beforeSend: function (request) {
+                request.setRequestHeader('X-Authentication-Token', 'invalidate');
+            }
+        });
+
         this.clearCredentials();
         codebrowser.authenticate();
     }
