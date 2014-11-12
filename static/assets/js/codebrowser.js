@@ -4230,7 +4230,9 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         this.width = leftOffset + x + rightOffset;
 
         // Center on current snapshot
-        this.centerOn(this.snapshotElements[this.currentSnapshotIndex].attr('cx'));
+        if (this.snapshotElements.length === (end - start)) {
+           this.centerOn(this.snapshotElements[this.currentSnapshotIndex].attr('cx'));
+        }
 
         // View attributes
         var attributes = {
@@ -4297,7 +4299,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
         // Render if user is not dragging, update pointer after first render
         if (!this.dragging) {
-            this.snapshotElements.length === 0 ? this.render() : this.updatePointer()
+            this.snapshotElements.length === 0 ? this.render() : this.updatePointer();
         }
     },
 
