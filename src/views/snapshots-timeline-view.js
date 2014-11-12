@@ -124,6 +124,10 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
     centerOn: function (x) {
 
+        if (this.snapshotElements.length !== this.range * 2 + 1) {
+            return;
+        }
+
         var viewWidth = $(this.paper.canvas).width(),
             center = x - (viewWidth / 2);
 
@@ -430,10 +434,10 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
             x = 0;
 
         // Range around current snapshot
-        var range = 12,
-            startingSnapshot = this.collection.at(this.currentSnapshotIndex - range) || this.collection.at(0),
+        this.range = 12;
+        var startingSnapshot = this.collection.at(this.currentSnapshotIndex - this.range) || this.collection.at(0),
             start = this.collection.indexOf(startingSnapshot),
-            end   = start + range * 2 + 1;
+            end   = start + this.range * 2 + 1;
 
         for (var index = start; index < end; index++) {
 
@@ -490,11 +494,11 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
         this.renderTimeline(leftOffset, y, x);
 
-        // Center on current snapshot
-        this.centerOn(this.snapshotElements[this.currentSnapshotIndex].attr('cx'));
-
         // Absolute width
         this.width = leftOffset + x + rightOffset;
+
+        // Center on current snapshot
+        this.centerOn(this.snapshotElements[this.currentSnapshotIndex].attr('cx'));
 
         // View attributes
         var attributes = {
@@ -556,19 +560,12 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         this.currentSnapshotIndex = currentSnapshotIndex;
         this.filename = filename;
 
-        // No need to re-render timeline after first time, just update pointer
-        if (!this.dragging && this.rendered) {
-            this.updatePointer();
-            return;
-        }
-
         // Calculate differences between snapshots before continuing
         this.differences = this.collection.getDifferences();
 
-        // Render if user is not dragging
+        // Render if user is not dragging, update pointer after first render
         if (!this.dragging) {
-            this.render();
-            this.rendered = true;
+            this.snapshotElements.length === 0 ? this.render() : this.updatePointer();
         }
     },
 
@@ -584,7 +581,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         // Cx of the current snapshot element
         var cx = this.snapshotElements[this.currentSnapshotIndex].attr('cx');
 
-        !this.rendered ? this.render() : this.updatePointer();
+        this.updatePointer();
         this.centerOn(cx);
     },
 
