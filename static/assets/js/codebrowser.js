@@ -4292,19 +4292,12 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         this.currentSnapshotIndex = currentSnapshotIndex;
         this.filename = filename;
 
-        // No need to re-render timeline after first time, just update pointer
-        if (!this.dragging && this.rendered) {
-            this.updatePointer();
-            return;
-        }
-
         // Calculate differences between snapshots before continuing
         this.differences = this.collection.getDifferences();
 
-        // Render if user is not dragging
+        // Render if user is not dragging, update pointer after first render
         if (!this.dragging) {
-            this.render();
-            this.rendered = true;
+            this.snapshotElements.length === 0 ? this.render() : this.updatePointer()
         }
     },
 
@@ -4320,7 +4313,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         // Cx of the current snapshot element
         var cx = this.snapshotElements[this.currentSnapshotIndex].attr('cx');
 
-        !this.rendered ? this.render() : this.updatePointer();
+        this.updatePointer();
         this.centerOn(cx);
     },
 
