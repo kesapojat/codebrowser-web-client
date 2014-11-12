@@ -601,6 +601,12 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
     dragMove: function (dx, dy, x) {
 
+        if ((this.currentSnapshotIndex === this.collection.length - 1 && dx > 0) ||
+            (this.currentSnapshotIndex === 0 && dx < 0)) {
+
+            return;
+        }
+
         // Move pointer set
         this.pointerSet.transform('T ' + (this.pointerSetOffsetX + dx) + ', 0');
 
