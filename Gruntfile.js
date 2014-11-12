@@ -249,6 +249,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test', [ 'jshint', 'jasmine' ]);
     grunt.registerTask('integration-test', [ 'concat:tests', 'connect', 'casperjs' ]);
-    grunt.registerTask('build', [ 'jshint','handlebars', 'concat', 'uglify' ]);
+    grunt.registerTask('build', [ 'jshint', 'handlebars', 'concat', 'uglify' ]);
     grunt.registerTask('default', [ 'clean', 'build', 'test', 'integration-test' ]);
 }
