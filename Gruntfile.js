@@ -13,12 +13,7 @@ module.exports = function (grunt) {
                      'static/assets/js/codebrowser-templates-min.js',
                      'static/assets/js/codebrowser-templates.js',
                      'static/assets/js/codebrowser.js',
-                     'tmp/' ],
-
-            deploy: [ 'static/development/',
-                      'static/assets/js/codebrowser-templates-min.js',
-                      'static/assets/js/codebrowser-templates.js',
-                      'static/assets/js/codebrowser.js' ]
+                     'tmp/' ]
         },
 
         watch: {
@@ -254,7 +249,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test', [ 'jshint', 'jasmine' ]);
     grunt.registerTask('integration-test', [ 'concat:tests', 'connect', 'casperjs' ]);
-    grunt.registerTask('build', [ 'jshint', 'handlebars', 'concat', 'uglify' ]);
-    grunt.registerTask('deploy', [ 'build', 'clean:deploy' ]);
-    grunt.registerTask('default', [ 'clean:build', 'build', 'test', 'integration-test' ]);
+    grunt.registerTask('build', [ 'jshint','handlebars', 'concat', 'uglify' ]);
+    grunt.registerTask('default', [ 'clean', 'build', 'test', 'integration-test' ]);
 }
