@@ -124,6 +124,10 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
     centerOn: function (x) {
 
+        if (this.snapshotElements.length !== this.range * 2 + 1) {
+            return;
+        }
+
         var viewWidth = $(this.paper.canvas).width(),
             center = x - (viewWidth / 2);
 
@@ -430,10 +434,10 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
             x = 0;
 
         // Range around current snapshot
-        var range = 12,
-            startingSnapshot = this.collection.at(this.currentSnapshotIndex - range) || this.collection.at(0),
+        this.range = 12;
+        var startingSnapshot = this.collection.at(this.currentSnapshotIndex - this.range) || this.collection.at(0),
             start = this.collection.indexOf(startingSnapshot),
-            end   = start + range * 2 + 1;
+            end   = start + this.range * 2 + 1;
 
         for (var index = start; index < end; index++) {
 
@@ -494,9 +498,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         this.width = leftOffset + x + rightOffset;
 
         // Center on current snapshot
-        if (this.snapshotElements.length === (end - start)) {
-           this.centerOn(this.snapshotElements[this.currentSnapshotIndex].attr('cx'));
-        }
+        this.centerOn(this.snapshotElements[this.currentSnapshotIndex].attr('cx'));
 
         // View attributes
         var attributes = {
