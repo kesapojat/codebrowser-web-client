@@ -78,9 +78,6 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         if (!codebrowser.controller.ViewController.isActive(this.snapshotView)) {
 
             this.snapshotView = new codebrowser.view.SnapshotView();
-
-            // Set view as active
-            codebrowser.controller.ViewController.push(this.snapshotView);
         }
 
         // Setup collections (snapshots & events) for snapshot view
@@ -102,6 +99,8 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         // Wait for fetches to be in sync
         var fetchSynced = _.after(6, function () {
 
+            // Done fetching, set snapshot view as active
+            codebrowser.controller.ViewController.push(self.snapshotView);
             self.synced(snapshotId, fileId, snapshotCollection);
         });
 
