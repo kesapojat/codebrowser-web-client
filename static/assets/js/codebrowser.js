@@ -4230,8 +4230,11 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         // Center on current snapshot
         this.centerOn(this.snapshotElements[this.currentSnapshotIndex].attr('cx'));
 
+        var first = this.snapshotElements[start];
+        var originX = Math.min(first.attrs.cx, this.paper._viewBox[0]);
+
         // Render timeline
-        this.renderTimeline(this.paper._viewBox[0] + leftOffset, y, x);
+        this.renderTimeline(originX + leftOffset, y, x);
 
         // View attributes
         var attributes = {
