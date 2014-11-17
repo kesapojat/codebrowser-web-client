@@ -593,7 +593,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         this.pointerSetOffsetX = 0;
 
         this.stopScroll();
-        this.updatePointer();
+        this.render();
     },
 
     dragMove: function (dx, dy, x) {
