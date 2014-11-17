@@ -75,7 +75,8 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
     snapshot: function (instanceId, studentId, courseId, exerciseId, snapshotId, fileId, level, options) {
 
         // Snapshot View
-        if (!codebrowser.controller.ViewController.isActive(this.snapshotView)) {
+        if (!codebrowser.controller.ViewController.isActive(this.snapshotView) ||
+            (this.snapshotView && level !== undefined && level !== this.snapshotView.collection.level)) {
 
             this.snapshotView = new codebrowser.view.SnapshotView();
         }
