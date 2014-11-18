@@ -154,6 +154,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         // Make previous snapshot element visible
         if (!this.isVisible(this.snapshotElements[this.currentSnapshotIndex + index].attr('cx'))) {
             this.render();
+            return;
         }
 
         index = this.currentSnapshotIndex === this.snapshotElements.length - 1 ? 0 : 1;
@@ -161,6 +162,7 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         // Make next snapshot element visible
         if (!this.isVisible(this.snapshotElements[this.currentSnapshotIndex + index].attr('cx'))) {
             this.render();
+            return;
         }
     },
 
