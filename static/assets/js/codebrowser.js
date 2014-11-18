@@ -4230,12 +4230,14 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         // Center on current snapshot
         this.centerOn(this.snapshotElements[this.currentSnapshotIndex].attr('cx'));
 
-        var first = this.snapshotElements[start];
-        var originX = Math.min(first.attrs.cx, this.paper._viewBox[0]);
+        var first = this.snapshotElements[start],
+            originX = Math.min(first.attrs.cx, this.paper._viewBox[0]);
 
-        // Offset is the same as x-coordinate of first snapshot
-        if (leftOffset === first.attrs.cx) {
+        // Offset is the same as X-coordinate of first snapshot
+        if (originX === first.attrs.cx && leftOffset === first.attrs.cx) {
             leftOffset = 0;
+        } else if (start !== 0 && originX > 0) {
+            leftOffset = -originX;
         }
 
         // Render timeline
@@ -4989,7 +4991,6 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
         // Snapshot View
         if (!codebrowser.controller.ViewController.isActive(this.snapshotView)) {
-
             this.snapshotView = new codebrowser.view.SnapshotView();
         }
 
