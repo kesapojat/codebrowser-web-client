@@ -500,6 +500,8 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         // Offset is the same as x-coordinate of first snapshot
         if (originX === first.attrs.cx && leftOffset === first.attrs.cx) {
             leftOffset = 0;
+        } else if (start !== 0 && originX > 0) {
+            leftOffset = -originX;
         }
 
         // Render timeline
