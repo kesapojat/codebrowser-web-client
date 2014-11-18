@@ -149,20 +149,18 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
 
     focus: function () {
 
-        // Make previous snapshot element visible
-        if (this.currentSnapshotIndex !== 0) {
+        var index = this.currentSnapshotIndex === 0 ? 0 : -1;
 
-            if (!this.isVisible(this.snapshotElements[this.currentSnapshotIndex - 1].attr('cx'))) {
-                this.render();
-            }
+        // Make previous snapshot element visible
+        if (!this.isVisible(this.snapshotElements[this.currentSnapshotIndex + index].attr('cx'))) {
+            this.render();
         }
 
-        // Make next snapshot element visible
-        if (this.currentSnapshotIndex !== this.snapshotElements.length - 1) {
+        index = this.currentSnapshotIndex === this.snapshotElements.length - 1 ? 0 : 1;
 
-            if (!this.isVisible(this.snapshotElements[this.currentSnapshotIndex + 1].attr('cx'))) {
-                this.render();
-            }
+        // Make next snapshot element visible
+        if (!this.isVisible(this.snapshotElements[this.currentSnapshotIndex + index].attr('cx'))) {
+            this.render();
         }
     },
 
