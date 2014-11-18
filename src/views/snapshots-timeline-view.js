@@ -138,7 +138,11 @@ codebrowser.view.SnapshotsTimelineView = Backbone.View.extend({
         // Don't go over absolute width
         if (center > (this.width - viewWidth)) {
 
-            this.setViewBox(this.width - viewWidth);
+            if (this.width - viewWidth < 0) {
+                this.setViewBox(0);
+            } else {
+                this.setViewBox(this.width - viewWidth);
+            }
 
             return;
         }
