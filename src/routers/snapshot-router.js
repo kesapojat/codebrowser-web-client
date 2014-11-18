@@ -75,8 +75,7 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
     snapshot: function (instanceId, studentId, courseId, exerciseId, snapshotId, fileId, level, options) {
 
         // Snapshot View
-        if (!codebrowser.controller.ViewController.isActive(this.snapshotView) ||
-            (this.snapshotView && level !== undefined && level !== this.snapshotView.collection.level)) {
+        if (!codebrowser.controller.ViewController.isActive(this.snapshotView)) {
 
             this.snapshotView = new codebrowser.view.SnapshotView();
         }
@@ -100,8 +99,6 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         // Wait for fetches to be in sync
         var fetchSynced = _.after(6, function () {
 
-            // Done fetching, set snapshot view as active
-            codebrowser.controller.ViewController.push(self.snapshotView);
             self.synced(snapshotId, fileId, snapshotCollection);
         });
 
@@ -197,6 +194,8 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
         snapshot.set('exercise', this.exercise);
         snapshot.set('course', this.course);
 
+        // Set snapshot view as active
+        codebrowser.controller.ViewController.push(this.snapshotView);
         this.snapshotView.update(snapshot, fileId);
     }
 });
