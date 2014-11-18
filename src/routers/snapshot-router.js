@@ -76,7 +76,6 @@ codebrowser.router.SnapshotRouter = codebrowser.router.BaseRouter.extend({
 
         // Snapshot View
         if (!codebrowser.controller.ViewController.isActive(this.snapshotView)) {
-
             this.snapshotView = new codebrowser.view.SnapshotView();
         }
 
