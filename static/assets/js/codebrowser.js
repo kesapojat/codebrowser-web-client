@@ -4591,7 +4591,7 @@ codebrowser.controller.AuthenticationController = {
 
     logout: function (notify) {
 
-        if (notify !== false) {
+        if (notify) {
 
             // Notify back end
             $.ajax({
