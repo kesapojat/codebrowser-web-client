@@ -4516,6 +4516,27 @@ codebrowser.controller.AuthenticationController = {
 
     /* Actions */
 
+    verifyToken: function () {
+
+        var self = this;
+
+        $.ajax({
+
+            url: config.api.main.root,
+            async: true,
+
+            beforeSend: function (request) {
+
+                self.setCredentials(request);
+            },
+
+            error: function () {
+
+                self.logout(false);
+            }
+        });
+    },
+
     authenticate: function () {
 
         // Clear previous state
@@ -4568,16 +4589,19 @@ codebrowser.controller.AuthenticationController = {
         });
     },
 
-    logout: function () {
+    logout: function (notify) {
 
-        // Notify back end
-        $.ajax({
+        if (notify !== false) {
 
-            url: config.api.main.root,
-            beforeSend: function (request) {
-                request.setRequestHeader('X-Authentication-Token', 'invalidate');
-            }
-        });
+            // Notify back end
+            $.ajax({
+
+                url: config.api.main.root,
+                beforeSend: function (request) {
+                    request.setRequestHeader('X-Authentication-Token', 'invalidate');
+                }
+            });
+        }
 
         this.clearCredentials();
         codebrowser.authenticate();
@@ -4702,6 +4726,12 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
             data: options ? options : '',
             cache: useCache,
             expires: useCache ? config.cache.expires : 0,
+
+            // Called when model is fulfilled from the cache
+            prefillSuccess: function () {
+
+                codebrowser.controller.AuthenticationController.verifyToken();
+            },
 
             success: function (model, response, options) {
 

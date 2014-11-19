@@ -61,6 +61,12 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
             cache: useCache,
             expires: useCache ? config.cache.expires : 0,
 
+            // Called when model is fulfilled from the cache
+            prefillSuccess: function () {
+
+                codebrowser.controller.AuthenticationController.verifyToken();
+            },
+
             success: function (model, response, options) {
 
                 onSuccess(model, response, options);
