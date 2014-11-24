@@ -584,7 +584,9 @@ var config = {
         authentication: {
 
             token:    'codebrowser.authentication.token',
-            username: 'codebrowser.authentication.username'
+            username: 'codebrowser.authentication.username',
+            verified: 'codebrowser.authentication.verified',
+            check:    300000
 
         },
 
@@ -4518,6 +4520,14 @@ codebrowser.controller.AuthenticationController = {
 
     verifyToken: function () {
 
+        var time = localStorage.getItem(config.storage.authentication.verified),
+            check = config.storage.authentication.check;
+
+        // Check every 5 minutes
+        if (Date.now() - time < check) {
+            return;
+        }
+
         var self = this;
 
         $.ajax({
@@ -4528,6 +4538,12 @@ codebrowser.controller.AuthenticationController = {
             beforeSend: function (request) {
 
                 self.setCredentials(request);
+            },
+
+            success: function () {
+
+                // Save time when verified
+                localStorage.setItem(config.storage.authentication.verified, Date.now());
             },
 
             error: function () {
@@ -4571,6 +4587,9 @@ codebrowser.controller.AuthenticationController = {
                 // Save token
                 localStorage.setItem(config.storage.authentication.token, request.getResponseHeader('X-Authentication-Token'));
                 self.authenticated = true;
+
+                // Save time when verified
+                localStorage.setItem(config.storage.authentication.verified, Date.now());
 
                 // Update view controller
                 codebrowser.controller.ViewController.update();
@@ -4727,13 +4746,9 @@ codebrowser.router.BaseRouter = Backbone.Router.extend({
             cache: useCache,
             expires: useCache ? config.cache.expires : 0,
 
-            // Called when model is fulfilled from the cache
-            prefillSuccess: function () {
+            success: function (model, response, options) {
 
                 codebrowser.controller.AuthenticationController.verifyToken();
-            },
-
-            success: function (model, response, options) {
 
                 onSuccess(model, response, options);
             },

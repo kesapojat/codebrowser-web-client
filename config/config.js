@@ -11,7 +11,9 @@ var config = {
         authentication: {
 
             token:    'codebrowser.authentication.token',
-            username: 'codebrowser.authentication.username'
+            username: 'codebrowser.authentication.username',
+            verified: 'codebrowser.authentication.verified',
+            check:    300000
 
         },
 

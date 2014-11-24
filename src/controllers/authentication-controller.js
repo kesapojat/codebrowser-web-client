@@ -32,6 +32,14 @@ codebrowser.controller.AuthenticationController = {
 
     verifyToken: function () {
 
+        var time = localStorage.getItem(config.storage.authentication.verified),
+            check = config.storage.authentication.check;
+
+        // Check every 5 minutes
+        if (Date.now() - time < check) {
+            return;
+        }
+
         var self = this;
 
         $.ajax({
@@ -42,6 +50,12 @@ codebrowser.controller.AuthenticationController = {
             beforeSend: function (request) {
 
                 self.setCredentials(request);
+            },
+
+            success: function () {
+
+                // Save time when verified
+                localStorage.setItem(config.storage.authentication.verified, Date.now());
             },
 
             error: function () {
@@ -85,6 +99,9 @@ codebrowser.controller.AuthenticationController = {
                 // Save token
                 localStorage.setItem(config.storage.authentication.token, request.getResponseHeader('X-Authentication-Token'));
                 self.authenticated = true;
+
+                // Save time when verified
+                localStorage.setItem(config.storage.authentication.verified, Date.now());
 
                 // Update view controller
                 codebrowser.controller.ViewController.update();
